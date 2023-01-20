@@ -4,9 +4,9 @@ import Button from '../Button/Button';
 import logo from '../../asset/images/logo.svg';
 import "./loginForm.css";
 
-let emailClassName = 'focus-input';
-let passClassName = 'focus-input';
-let buttonDisabled = 'disabled-btn'
+let emailValid = false;
+let passValid = false;
+let buttonDisabled = false;
 
 export default function LoginForm() {
 
@@ -14,14 +14,8 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
 
   const inputValidation = (pattern: any) => {
-    pattern.test(password) ? passClassName = 'focus-input valid' : passClassName = 'focus-input invalid';
-    if (pattern.test(email)) {
-       emailClassName = 'focus-input valid';
-       buttonDisabled = '';
-    } else {
-      emailClassName = 'focus-input invalid';
-      buttonDisabled = 'disabled-btn'
-    }
+    pattern.test(email) ? emailValid = buttonDisabled = true : emailValid = buttonDisabled = false;
+    pattern.test(password) ? passValid = buttonDisabled = true : passValid = buttonDisabled = false;
   }
 
   const handleInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +42,7 @@ export default function LoginForm() {
           <Input
             name='email'
             type='email'
-            className={emailClassName}
+            isValid={emailValid}
             placeholder='Adminemail'
             value={email}
             dataplaceholder="&#128129;"
@@ -56,12 +50,12 @@ export default function LoginForm() {
           <Input
             name='password'
             type='password'
-            className={passClassName}
+            isValid={passValid}
             placeholder='*****************'
             value={password}
             dataplaceholder="&#128272;"
             onChange={handleInputChanged} />
-          <Button className={buttonDisabled} value='Log In' onClick={() => onSubmit(email, password)} />
+          <Button isDisabled={buttonDisabled} value='Log In' onClick={() => onSubmit(email, password)} />
         </div>
       </div>
     </div>

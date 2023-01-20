@@ -2,14 +2,15 @@ import React from 'react';
 import "./button.css";
 
 interface IProps {
-  className: string,
+  isDisabled: boolean,
   value: string,
   onClick: () => void
 }
 
 export default function Button(props: IProps) {
-  const { value, onClick } = props;
-  const className = 'button disabled-btn'
+  const { isDisabled, value, onClick } = props;
+  const className = isDisabled ? 'button' : 'button disabled-btn';
+
   return (
     <button className={className} onClick={(e) => {
       e.preventDefault();
