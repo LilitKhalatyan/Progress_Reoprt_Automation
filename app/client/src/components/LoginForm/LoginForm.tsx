@@ -4,28 +4,24 @@ import Button from '../Button/Button';
 import logo from '../../asset/images/logo.svg';
 import "./loginForm.css";
 
-let emailValid = false;
-let passValid = false;
-let buttonDisabled = false;
+const fieldsRegexp: any = {
+  email: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
+  password: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+};
 
-export default function LoginForm() {
+const LoginForm: React.FC = () => {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [values, setValues] = useState({ email: '', password: '' });
+  const [isFieldsValid, setIsFieldsValid] = useState({ email: false, password: false });
 
-  const inputValidation = (pattern: any) => {
-    pattern.test(email) ? emailValid = buttonDisabled = true : emailValid = buttonDisabled = false;
-    pattern.test(password) ? passValid = buttonDisabled = true : passValid = buttonDisabled = false;
-  }
+  const inputValidation = (target: HTMLInputElement) => {
+    const isValid = fieldsRegexp[target.name].test(target.value) ;
+    setIsFieldsValid(prevState => ({ ...prevState, [target.name]: isValid }));
+  };
 
   const handleInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'email') {
-      setEmail(e.target.value);
-      inputValidation(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/);
-    } else {
-      setPassword(e.target.value);
-      inputValidation(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/);
-    }
+    setValues(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+    inputValidation(e.target);
   }
 
   const onSubmit = (email: string, password: string) => {
@@ -42,22 +38,24 @@ export default function LoginForm() {
           <Input
             name='email'
             type='email'
-            isValid={emailValid}
+            isValid={isFieldsValid.email}
             placeholder='Adminemail'
-            value={email}
+            value={values.email}
             dataplaceholder="&#128129;"
             onChange={handleInputChanged} />
           <Input
             name='password'
             type='password'
-            isValid={passValid}
+            isValid={isFieldsValid.password}
             placeholder='*****************'
-            value={password}
+            value={values.password}
             dataplaceholder="&#128272;"
             onChange={handleInputChanged} />
-          <Button isDisabled={buttonDisabled} value='Log In' onClick={() => onSubmit(email, password)} />
+          <Button isDisabled={false} value='Log In' onClick={() => onSubmit(values.email, values.password)} />
         </div>
       </div>
     </div>
   )
 }
+
+export default  LoginForm;
