@@ -7,7 +7,7 @@ const sequelize = require("sequelize");
 const db = require("./Models");
 
 const app = express();
-const PORT = 5505;
+const PORT = process.env.PORT || 5506;
 
 app.use(express.json());
 
@@ -34,5 +34,7 @@ const staffRouter = require("./Routes/staffRouter");
 
 app.use("/staff", staffRouter);
 // app.use("/students", studentRouter);
+app.all('*', (req, res) => res.status(404).json({ error: `URL ${req.url} not found` }))
+
 
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));
