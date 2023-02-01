@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const roles = sequelize.define(
-        "roles",
+    const Session = sequelize.define(
+        "session",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -23,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
         },
         { timestamps: false },
     );
-    return roles;
+    return Session;
 };
