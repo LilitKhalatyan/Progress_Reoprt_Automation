@@ -21,7 +21,7 @@ const signup = async (req, res) => {
             numbers: true,
             symbols: true,
             strict: true,
-            exclude: '"'
+            exclude: '"',
         });
         console.log(password);
         const userStaff = {
@@ -75,7 +75,7 @@ const login = async (req, res) => {
             return res.status(404).send({ message: "Authentication failed" });
         }
         const passwordIsValid = await bcrypt.compare(password, staff.password);
-        
+
         if (!passwordIsValid) {
             return res.status(404).send({
                 message: "Authentication failed",
@@ -96,11 +96,11 @@ const login = async (req, res) => {
             authorities.push("ROLE_" + element.name.toUpperCase());
         });
 
-        res.cookie("refresh", refreshToken, {
+        res.cookie("refresh_token", refreshToken, {
             maxAge: 15 * 24 * 60 * 60 * 1000,
             httpOnly: true,
         });
-        res.cookie("jwt", token, { httpOnly: true });
+        res.cookie("access_token", token, { httpOnly: true });
         res.status(201).send({
             id: staff.id,
             name: staff.name,
@@ -125,22 +125,13 @@ const createToken = async (user) => {
 
     let refreshToken = await RefreshToken.create({
         token: _token,
-        userId: user.id,
+        staffId: user.id,
         expiryDate: expiredAt.getTime(),
     });
     return refreshToken.token;
 };
 
-const refresh = async (req, res) => {
-    console.log(req.body, "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
-};
-
-const verifyExpiration = (token) => {
-    return token.expiryDate.getTime() < new Date().getTime();
-};
-
 module.exports = {
-    verifyExpiration,
     signup,
     login,
 };

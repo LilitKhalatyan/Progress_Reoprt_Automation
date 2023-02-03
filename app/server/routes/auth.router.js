@@ -1,6 +1,7 @@
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 const { signup, login } = require("../controllers/auth.controller");
 const { checkDuplicateNameOrEmail } = require("../middlewares/verifySignUp.js");
+const { verifyToken } = require("../middlewares/verifyToken");
 
 module.exports = (app) => {
     app.use((req, res, next) => {
@@ -39,6 +40,7 @@ module.exports = (app) => {
     );
     app.post(
         "/auth/signup",
+        verifyToken,
         [
             check("name")
                 .isLength({ min: 3 })

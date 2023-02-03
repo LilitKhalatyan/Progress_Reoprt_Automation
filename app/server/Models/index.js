@@ -50,5 +50,6 @@ db.staff.belongsToMany(db.group, {
     foreignKey: "staffId",
     otherKey: "groupId",
 });
+db.refreshtoken.belongsTo(db.staff);
 
 module.exports = db;
