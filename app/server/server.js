@@ -1,40 +1,83 @@
-const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
-const dotenv = require("dotenv").config();
+const bcrypt = require("bcrypt");
+const express = require("express");
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const sequelize = require("sequelize");
-const db = require("./Models");
 
-const app = express();
 const PORT = process.env.PORT || 5506;
 
-app.use(express.json());
-
 const corsOptions = {
-  origin: `http://localhost:3000`,
-  credentials: true,
+    origin: `http://localhost:3000`,
+    credentials: true,
 };
-app.use(cors(corsOptions));
 
+const app = express();
+app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
 
+//models
+const db = require("./models");
+const Role = db.role;
+const Staff = db.staff;
+const Group = db.group;
+
+// force: true will drop the table if it already exists
 db.sequelize
-  .sync({ force: false })
-  .then((data) => {
-    console.log("db has been re-sync");
-  })
-  .catch((err) => {
-    console.log("Error whyle syncing table & model");
-  });
+    .sync({ force: true })
+    .then(() => {
+        console.log("db has been re-sync");
+        initial();
+    })
+    .catch((err) => {
+      console.log(err);
+        console.log("Error whyle syncing table & model");
+    });
 
-const staffRouter = require("./Routes/staffRouter");
-// const studentRouter = require("./Routes/studentRouter");
+//routes
+require("./routes/auth.router")(app);
+require("./routes/student.router")(app);
 
-app.use("/staff", staffRouter);
-// app.use("/students", studentRouter);
-app.all('*', (req, res) => res.status(404).json({ error: `URL ${req.url} not found` }))
-
+app.all("*", (req, res) =>
+    res.status(404).send({ error: `URL ${req.url} not found` }),
+);
 
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));
+
+async function initial() {
+    try {
+        const password = "Aa!1aaaa";
+        const name = "superadmin";
+        const surname = "superadmin";
+        const email = "superadmin@gmail.com";
+        const data = {
+            name,
+            surname,
+            email,
+            password: await bcrypt.hash(password, 10),
+            status: "ACTIVE",
+        };
+        const user = await Staff.create(data);
+        await Role.create({
+            id: 1,
+            name: "user",
+        });
+        await Role.create({
+            id: 2,
+            name: "admin",
+        });
+        await Group.create({
+            id: 1,
+            name: "Front-End Pathway",
+        });
+        await Group.create({
+            id: 2,
+            name: "Back-End Pathway",
+        });
+        const setRoles = await user.setRoles([2]);
+        if (setRoles) console.log(setRoles, "registered succesfuly....");
+    } catch (err) {
+        console.log(err.message, "error");
+    }
+}
