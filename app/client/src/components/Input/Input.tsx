@@ -2,12 +2,12 @@ import React from 'react';
 import "./input.css";
 
 interface IProps extends React.HTMLAttributes<HTMLInputElement> {
-  name: string,
-  type: string,
-  value: string,
-  placeholder: string,
-  dataplaceholder: string,
-  isValid: boolean,
+  name: string;
+  type: string;
+  value: string;
+  placeholder: string;
+  dataplaceholder: string;
+  isValid: boolean;
 }
 
 const Input: React.FC<IProps> = (props: IProps) => {

@@ -1,0 +1,23 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 5;
+
+  display: flex;
+  justify-content: center;
+}
+.header__container {
+  width: 80%;
+  height: 84px;
+  display: flex;
+  align-items: center;
+}
+.header__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,15 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import '../style/style.css'
+import "../style/style.scss";
 
 function MainLayout() {
-    return (
-        <div className="wrapper">
-            <div className="main__container">
-                <Outlet/>
-            </div>
-        </div>
-    );
+  return (
+    <div className="wrapper">
+      <Outlet />
+    </div>
+  );
 }
 
 export default MainLayout;

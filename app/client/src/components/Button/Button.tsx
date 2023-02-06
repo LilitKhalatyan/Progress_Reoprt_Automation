@@ -1,20 +1,20 @@
 import React from 'react';
-import "./button.css";
 
 interface IProps {
-  isDisabled: boolean,
-  value: string,
-  onClick: () => void
+  isBtnDisabled: boolean;
+  value: string;
+  onClick?: () => void;
 }
 
-export default function Button(props: IProps) {
-  const { isDisabled, value, onClick } = props;
-  const className = isDisabled ? 'button' : 'button disabled-btn';
+ const Button: React.FC<IProps> = (props) => {
+  const { isBtnDisabled, value, onClick } = props;
+  const className = isBtnDisabled ? 'button disabled-btn' : 'button';
 
   return (
     <button className={className} onClick={(e) => {
       e.preventDefault();
-      onClick();
-    }}>{value}</button>
+    }} disabled={isBtnDisabled}>{value}</button>
   )
 }
+
+export default Button;
