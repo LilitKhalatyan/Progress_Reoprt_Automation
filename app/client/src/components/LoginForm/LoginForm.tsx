@@ -1,61 +1,107 @@
-import React, { useState } from 'react';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
-import logo from '../../asset/images/logo.svg';
-import "./loginForm.css";
+import React, { useState } from "react";
+import logo from "../../asset/images/logo.svg";
+import "./loginForm.scss";
 
-const fieldsRegexp: any = {
-  email: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
-  password: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const LoginForm: React.FC = () => {
+import { useForm } from "react-hook-form";
 
-  const [values, setValues] = useState({ email: '', password: '' });
-  const [isFieldsValid, setIsFieldsValid] = useState({ email: false, password: false });
+ const LoginForm: React.FC = (): JSX.Element => {
+  const [isPassVisibile, setPassVisibile] = useState({
+    icon: faEyeSlash,
+    type: "password",
+  });
 
-  const inputValidation = (target: HTMLInputElement) => {
-    const isValid = fieldsRegexp[target.name].test(target.value) ;
-    setIsFieldsValid(prevState => ({ ...prevState, [target.name]: isValid }));
+  const togglePassVisibility = () => {
+    setPassVisibile((prevState) => {
+      if (prevState.icon === faEyeSlash) {
+        return { icon: faEye, type: "text" };
+      }
+      return { icon: faEyeSlash, type: "password" };
+    });
   };
 
-  const handleInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
-    inputValidation(e.target);
-  }
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<{ email: string; password: string }>();
 
-  const onSubmit = (email: string, password: string) => {
-    //function for post data object{email, password} and navigate to main page
-  }
+  const successCase = (data: any) => {
+    console.log(
+      JSON.stringify({
+        email: data.email,
+        password: data.password,
+      })
+    );
+  };
+  const failCase = (error: any) => {
+    console.log(error, "Error");
+  };
 
   return (
-    <div className='login-form'>
-      <div className='login-form__content'>
-        <div className='login-form__logo'>
+    <div className="login-form__container">
+      <div className="login-form__content">
+        <div className="login-form__logo">
           <img src={logo} alt="Sourceminde logo" />
         </div>
-        <div className='login-form__fildes'>
-          <Input
-            name='email'
-            type='email'
-            isValid={isFieldsValid.email}
-            placeholder='Adminemail'
-            value={values.email}
-            dataplaceholder="&#128129;"
-            onChange={handleInputChanged} />
-          <Input
-            name='password'
-            type='password'
-            isValid={isFieldsValid.password}
-            placeholder='*****************'
-            value={values.password}
-            dataplaceholder="&#128272;"
-            onChange={handleInputChanged} />
-          <Button isDisabled={false} value='Log In' onClick={() => onSubmit(values.email, values.password)} />
-        </div>
+        <form
+          className="login-form__fildes"
+          onSubmit={handleSubmit(successCase, failCase)}
+        >
+          <div className="wrap-input">
+            <input
+              type="email"
+              className="login-input"
+              placeholder="Email"
+              {...register("email", {
+                required: true,
+                pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
+              })}
+            />
+            {errors.email ? (
+              <>
+                {(errors.email.type === "required" ||
+                  errors.email.type === "pattern") && (
+                  <span className="focus-input focus-input-email invalid"></span>
+                )}
+              </>
+            ) : (
+              <span className="focus-input focus-input-email valid"></span>
+            )}
+          </div>
+          <div className="wrap-input">
+            <input
+              type={isPassVisibile.type}
+              className="login-input"
+              placeholder="Password"
+              {...register("password", {
+                required: true,
+                pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+              })}
+            />
+            {errors.password ? (
+              <>
+                {(errors.password.type === "required" ||
+                  errors.password.type === "pattern") && (
+                  <span className="focus-input focus-input-password invalid"></span>
+                )}
+              </>
+            ) : (
+              <span className="focus-input focus-input-password valid"></span>
+            )}
+          </div>
+          <button className="fa-eye-btn" onClick={togglePassVisibility}>
+            <FontAwesomeIcon icon={isPassVisibile.icon} size="lg" />
+          </button>
+          <button type="submit" className="login-btn">
+            Log In
+          </button>
+        </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default  LoginForm;
+export default LoginForm;

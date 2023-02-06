@@ -1,4 +1,4 @@
-@import "../../style/variables.css";
+/* @import "../../style/variables.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 .input__grp {
@@ -122,3 +122,9 @@ input:-ms-input-placeholder {
 .invalid::before {
   background: rgb(255, 0, 55);
 }
+input.input:-webkit-autofill,
+input.input:-webkit-autofill:hover,
+input.input:-webkit-autofill:focus,
+input.input:-webkit-autofill:active {
+  transition: background-color 5000000s ease-in-out 0s;
+} */

@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit&display=swap");
+@import "./variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../asset/images/pages/bg.png") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50% 0;
+    z-index: -10;
+  }
+}
+[class*="__container"] {
+  max-width: 100vw;
+  height: 100vh;
+}
+.page__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .page__content {
+    position: relative;
+    font-family: "Kanit";
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 8px $sm-blue;
+    // background-color: $white;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0 20px 20px 0;
+
+    &::before {
+      position: absolute;
+      content: url("../asset/images/pages/pin.png");
+      top: -19px;
+      right: 18px;
+      z-index: 1;
+    }
+    &::after {
+      position: absolute;
+      content: url("../asset/images/pages/pin.png");
+      transform: rotate(270deg);
+      top: -19px;
+      left: 18px;
+      z-index: 1;
+    }
+  }
+}
+
+.x {
+  width: 100%;
+  height: 100%;
+  border-left: 30px solid white;
+  border-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0MS44NnB4IiBoZWlnaHQ9IjUyLjMyNnB4IiB2aWV3Qm94PSIwIDAgNDEuODYgNTIuMzI2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MS44NiA1Mi4zMjYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDB2MjUuMTYzaDcuMDk3YzAuNTAxLTQuOTg5LDQuNzEyLTguODg0LDkuODMzLTguODg0YzUuNDU4LDAsOS44ODQsNC40MjUsOS44ODQsOS44ODRzLTQuNDI1LDkuODg0LTkuODg0LDkuODg0Yy01LjEyMSwwLTkuMzMyLTMuODk1LTkuODMzLTguODg0SDB2MjUuMTYzaDQxLjg2VjBIMHoiLz48L3N2Zz4=)
+    1% 100% repeat;
+  border-image-width: 0px 0px 0px 30px;
+
+  .y {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 0 20px 20px 0;
+    font: 24px "Shadows Into Light", cursive;
+    background: #fff linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 0) 0
+      20px / 100% 41px;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      content: "";
+      height: 100%;
+      width: 1px;
+      border-left: double #e08183;
+    }
+  }
+}
