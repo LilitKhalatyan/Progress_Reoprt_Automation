@@ -1,7 +1,6 @@
-export type Student = {
+export type TStudent = {
   id: number;
   name: string;
-  // surname: string;
-  username: string;
+  surname: string;
   email: string;
 };
