@@ -1,104 +1,93 @@
 const db = require("../models");
 const Student = db.students;
 
-const addOne = async (req, res) => {
-    let info = {
-        title: req.body.title,
-        details: req.body.details,
-        studentId: req.studentId,
-    };
-    // check if authorized
-    const student = await Student.create(info);
-    res.status(200).send("C R E A T E D");
+const createStudent = async (req, res) => {
+    try {
+        const { name, surname, email, courseId } = req.body;
+        const studentInfo = {
+            name,
+            surname,
+            email,
+            courseId,
+        };
+        const student = await Student.create(studentInfo);
+        return res.status(200).send("Student created successfully");
+    } catch (error) {
+        res.status(500);
+    }
 };
 
-const getAll = async (req, res) => {
-    let studentId = req.studentId;
-
-    let students = await Student.findAll({
-        //conditions
-        // check if authorized
-    });
-    res.status(200).send(students);
+const getAllStudentsByCourse = async (req, res) => {
+    try {
+        if (req.params.id) {
+            const id = req.params.id;
+            const students = await Student.findAll({
+                where: {
+                    courseId: id,
+                },
+            });
+            return res.status(200).send(students);
+        }
+        const students = await Student.findAll();
+        return res.status(200).send(students);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
-const getOne = async (req, res) => {
-    let studentId = req.studentId;
-    let id = req.params.id;
-    let student = await Student.findOne({
-        where: {
-            studentId: studentId,
-            //conditions
-            // check if authorized
-        },
-        raw: true,
-    });
-    console.log(student, "Get one");
-    res.status(200).send(student);
-};
-
-const updateOne = async (req, res) => {
-    let studentId = req.studentId;
-    let id = req.params.id;
-    let student = await Student.update(
-        {
-            title: req.body.title,
-            details: req.body.details,
-            done: req.body.done,
-        },
-        {
+const getSudentById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const student = await Student.findOne({
             where: {
-                studentId: studentId,
-                //conditions
-                // check if authorized
+                id: id,
             },
-            // raw: true,
-        },
-    );
-    res.status(200).send("Updated");
-    // res.json("okay");
+        });
+        res.status(200).send(student);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
-const updateStatusById = async (req, res) => {
-    console.log("sdfsdf");
-    let studentId = req.studentId;
-    let id = req.params.id;
-    let student = await Student.update(
-        {
-            done: false,
-        },
-        {
+const updateSudent = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, surname, email, courseId } = req.body;
+        const studentInfo = {
+            name,
+            surname,
+            email,
+            courseId,
+        };
+        const student = await Student.update({
             where: {
-                studentId: studentId,
-                //conditions
-                // check if authorized
+                id: id,
             },
-            // raw: true,
-        },
-    );
-    res.status(200).send("Updated");
-    // res.json("okay");
+        });
+        res.status(200).send("Student Updated successfully");
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
-const deleteOne = async (req, res) => {
-    let studentId = req.studentId;
-    let id = req.params.id;
-    await Student.destroy({
-        where: {
-            studentId: studentId,
-            //conditions
-            // check if authorized
-        },
-    });
-    console.log(" D E L E T E D ");
-    res.status(200).send("Deleted");
+const deleteStudent = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await Student.destroy({
+            where: {
+                id: id,
+            },
+        });
+        res.status(200).send("Student Deleted successfully");
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
 module.exports = {
-    addOne,
-    getAll,
-    getOne,
-    updateOne,
-    deleteOne,
-    updateStatusById,
+    updateSudent,
+    createStudent,
+    getSudentById,
+    deleteStudent,
+    getAllStudentsByCourse,
 };
