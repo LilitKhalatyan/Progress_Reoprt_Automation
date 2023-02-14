@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
+const { verifyToken } = require("../middlewares/verifyToken");
 const { signup, login } = require("../controllers/auth.controller");
 const { checkDuplicateNameOrEmail } = require("../middlewares/verifySignUp.js");
-const { verifyToken } = require("../middlewares/verifyToken");
 
 module.exports = (app) => {
     app.use((req, res, next) => {
@@ -56,22 +56,6 @@ module.exports = (app) => {
                 .isEmail()
                 .withMessage("invalid email address")
                 .normalizeEmail(),
-
-            // check("password")
-            //     .isLength({ min: 8, max: 15 })
-            //     .withMessage(
-            //         "your password should have min and max length between 8-15",
-            //     )
-            //     .matches(/\d/)
-            //     .withMessage("your password should have at least one number")
-            //     .matches(/[!@#$%^&*(),.?":{}|<>]/)
-            //     .withMessage(
-            //         "your password should have at least one sepcial character",
-            //     )
-            //     .matches(/[A-Z]/)
-            //     .withMessage(
-            //         "your password should have at least one uppercase character",
-            //     ),
         ],
         checkDuplicateNameOrEmail,
         signup,
