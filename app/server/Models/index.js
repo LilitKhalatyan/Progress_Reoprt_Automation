@@ -19,37 +19,42 @@ db.sequelize = sequelize;
 
 db.role = require("./roles.model")(sequelize, DataTypes);
 db.staff = require("./staff.model")(sequelize, DataTypes);
-db.group = require("./group.model")(sequelize, DataTypes);
 db.course = require("./course.model")(sequelize, DataTypes);
-db.session = require("./session.model")(sequelize, DataTypes);
 db.subject = require("./subject.model")(sequelize, DataTypes);
 db.students = require("./student.model")(sequelize, DataTypes);
-db.speciality = require("./speciality.model")(sequelize, DataTypes);
 db.refreshtoken = require("./refreshtoken.model")(sequelize, DataTypes);
+db.trainerReport = require("./trainerReport.model")(sequelize, DataTypes);
 
 db.role.belongsToMany(db.staff, {
     through: "user_roles",
-    foreignKey: "roleId",
-    otherKey: "staffId",
 });
-
 db.staff.belongsToMany(db.role, {
     through: "user_roles",
-    foreignKey: "staffId",
-    otherKey: "roleId",
-    as: "roles",
+});
+db.course.belongsToMany(db.staff, {
+    through: "course_model",
+});
+db.staff.belongsToMany(db.course, {
+    through: "course_model",
 });
 
-db.group.belongsToMany(db.staff, {
-    through: "groups_model",
-    foreignKey: "groupId",
-    otherKey: "staffId",
-});
-db.staff.belongsToMany(db.group, {
-    through: "groups_model",
-    foreignKey: "staffId",
-    otherKey: "groupId",
-});
+db.course.hasMany(db.subject);
+db.subject.belongsTo(db.course);
+
+db.course.hasMany(db.students);
+db.students.belongsTo(db.course);
+
 db.refreshtoken.belongsTo(db.staff);
+
+db.students.hasMany(db.trainerReport);
+db.trainerReport.belongsTo(db.students);
+
+db.staff.hasMany(db.subject);
+db.subject.belongsTo(db.staff);
+
+db.staff.hasMany(db.trainerReport);
+db.trainerReport.belongsTo(db.staff);
+
+db.subject.hasMany(db.trainerReport);
 
 module.exports = db;
