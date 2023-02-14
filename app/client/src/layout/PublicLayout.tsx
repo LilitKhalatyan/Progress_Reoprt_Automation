@@ -11,7 +11,7 @@ function PublicLayout() {
         </>
       );
     }
-    return <Navigate to={"/"} />;
+    return <Navigate to="/" />;
 }
 
 export default PublicLayout;

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import logo from "../../asset/images/logo.svg";
-import "./loginForm.scss";
-
+import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../asset/images/logo.svg";
 
-import { useForm } from "react-hook-form";
+import "./loginForm.scss";
 
- const LoginForm: React.FC = (): JSX.Element => {
+const LoginForm: React.FC = (): JSX.Element => {
   const [isPassVisibile, setPassVisibile] = useState({
     icon: faEyeSlash,
     type: "password",
@@ -102,6 +101,6 @@ import { useForm } from "react-hook-form";
       </div>
     </div>
   );
-}
+};
 
 export default LoginForm;

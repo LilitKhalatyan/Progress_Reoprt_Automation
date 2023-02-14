@@ -6,6 +6,7 @@ import LeftMenu from "../components/LeftMenu/LeftMenu";
 import "../style/style.scss";
 
 const AdminLayout: React.FC = (): JSX.Element => {
+
   if (localStorage.getItem("token")) {
     return (
       <>
@@ -14,18 +15,14 @@ const AdminLayout: React.FC = (): JSX.Element => {
           <div className="page__container">
             <div className="page__content">
               <LeftMenu />
-              <div className="x">
-                <div className="y">
-                  <Outlet />
-                </div>
-              </div>
+              <Outlet />
             </div>
           </div>
         </div>
       </>
     );
   }
-  return <Navigate to={"/"} />;
-}
+  return <Navigate to="/login" />;
+};
 
 export default AdminLayout;

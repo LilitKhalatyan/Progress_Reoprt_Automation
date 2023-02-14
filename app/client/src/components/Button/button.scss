@@ -1,0 +1,16 @@
+@import '../../style/variables';
+
+.btn {
+    width: 30%;
+    padding: 12px 8px;
+    border: 1px solid black;
+    border-radius: 6px;
+    transition: all 0.2s ease-out;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: $sm-blue;
+    &:hover {
+      box-shadow: 1px 4px 12px $sm-blue;
+    }
+  }

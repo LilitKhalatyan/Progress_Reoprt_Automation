@@ -1,8 +1,35 @@
-import React from 'react';
-import './trainers.scss'
+import React, { useState } from "react";
+import UsersList from "../../components/UsersList/UsersList";
 
-export default function Trainers() {
+import "./trainers.scss";
+
+const trainers = [
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+];
+
+const Trainers: React.FC = (): JSX.Element => {
+  const [displayAdd, setDisplayAdd] = useState(false);
+
   return (
-    <div>Trainers</div>
-  )
-}
+    <>
+      <UsersList
+        data={trainers}
+        display={displayAdd}
+        setDisplay={setDisplayAdd}
+      />
+    </>
+  );
+};
+
+export default Trainers;

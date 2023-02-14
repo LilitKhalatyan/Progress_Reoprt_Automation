@@ -4,7 +4,8 @@ import "./leftMenu.scss";
 
 const icons = [
   "trainers-icon",
-  "courses-icon",
+  "groups-icon",
+  "students-icon",
   "subjects-icon",
   "settings-icon",
 ];
