@@ -1,5 +1,0 @@
-const verifyIt = (req, res, next) => {};
-
-module.exports = {
-  verifyIt,
-};

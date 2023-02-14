@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./models");
 const Role = db.role;
 const Staff = db.staff;
-const Group = db.group;
 
 // force: true will drop the table if it already exists
 db.sequelize
@@ -31,13 +30,18 @@ db.sequelize
         initial();
     })
     .catch((err) => {
-      console.log(err);
+        console.log(err);
         console.log("Error whyle syncing table & model");
     });
 
 //routes
-require("./routes/auth.router")(app);
-require("./routes/student.router")(app);
+require("./routes/auth.routes")(app);
+require("./routes/course.routes")(app);
+require("./routes/subject.routes")(app);
+require("./routes/student.routes")(app);
+require("./routes/trainers.routes")(app);
+require("./routes/finalReport.routes")(app);
+require("./routes/trainerReport.routes")(app);
 
 app.all("*", (req, res) =>
     res.status(404).send({ error: `URL ${req.url} not found` }),
@@ -66,14 +70,6 @@ async function initial() {
         await Role.create({
             id: 2,
             name: "admin",
-        });
-        await Group.create({
-            id: 1,
-            name: "Front-End Pathway",
-        });
-        await Group.create({
-            id: 2,
-            name: "Back-End Pathway",
         });
         const setRoles = await user.setRoles([2]);
         if (setRoles) console.log(setRoles, "registered succesfuly....");
