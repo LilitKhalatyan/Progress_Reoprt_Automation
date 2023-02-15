@@ -1,9 +1,7 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
-import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 import "react-datepicker/src/stylesheets/datepicker.scss";
 
@@ -70,7 +68,7 @@ const AddGroupsForm: React.FC = () => {
               onChange={(date: Date) => field.onChange(date)}
               selectsStart
               startDate={new Date()}
-              endDate={new Date()}
+              // endDate={new Date()}
               placeholderText="Select Start Date"
               id="start-date"
             />
@@ -89,7 +87,7 @@ const AddGroupsForm: React.FC = () => {
               onChange={(date: Date) => field.onChange(date)}
               selectsEnd
               startDate={new Date()}
-              endDate={new Date()}
+              // endDate={new Date()}
               placeholderText="Select End Date"
               id="end-date"
             />

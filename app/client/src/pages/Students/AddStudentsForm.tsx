@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
 
 interface IProps {
-  data: any;
+  data: {
+    id: number;
+    name: string;
+  }[];
 }
 
-const AddStudentsForm: React.FC<any> = (props) => {
+const AddStudentsForm: React.FC<IProps> = (props) => {
   const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
         name: data.name,
-        startDate: data.startDate,
-        endDate: data.endDate,
+        surname: data.surname,
+        email: data.email,
+        select: data.select,
       })
     );
   };
@@ -69,7 +73,7 @@ const AddStudentsForm: React.FC<any> = (props) => {
             className="input__field"
             placeholder=" "
             id="surname"
-            {...register("name", {
+            {...register("surname", {
               required: true,
               pattern: /[a-zA-Z]/,
             })}
@@ -118,11 +122,12 @@ const AddStudentsForm: React.FC<any> = (props) => {
           {...register("select", {
             required: true,
           })}
+          value="value"
         >
           <option key={uuid()} value="" disabled selected hidden>
             Select group name
           </option>
-          {props.data.map((option: any) => {
+          {props.data.map((option) => {
             return (
               <option key={uuid()} value={option.name}>
                 {option.name}

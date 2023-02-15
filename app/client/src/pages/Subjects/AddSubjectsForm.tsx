@@ -4,10 +4,19 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
 
 interface IProps {
-  data: any;
+  data: {
+    id: number;
+    name: string;
+  }[];
+  dataTrainers: {
+    id: number;
+    name: string;
+    surname: string;
+    email: string;
+  }[];
 }
 
-const AddSubjectsForm: React.FC<any> = (props) => {
+const AddSubjectsForm: React.FC<IProps> = (props) => {
   const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
@@ -71,7 +80,7 @@ const AddSubjectsForm: React.FC<any> = (props) => {
           <option key={uuid()} value="" disabled selected hidden>
             Select group name
           </option>
-          {props.data.map((option: any) => {
+          {props.data.map((option) => {
             return (
               <option key={uuid()} value={option.name}>
                 {option.name}
@@ -97,7 +106,7 @@ const AddSubjectsForm: React.FC<any> = (props) => {
           <option key={uuid()} value="" disabled selected hidden>
             Select Trainer
           </option>
-          {props.data.map((option: any) => {
+          {props.dataTrainers.map((option) => {
             return (
               <option key={uuid()} value={option.name}>
                 {option.name}

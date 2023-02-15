@@ -1,25 +1,23 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
 import Multiselect from "multiselect-react-dropdown";
 import Button from "../../components/Button/Button";
 
-const trainers = [
-  { name: "John", id: 1 },
-  { name: "Tom", id: 2 },
-];
-
 interface IProps {
-  data: any;
+  data: {
+    id: number;
+    name: string;
+  }[];
 }
 
-const AddTrainersForm: React.FC<any> = (props) => {
+const AddTrainersForm: React.FC<IProps> = (props) => {
   const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
         name: data.name,
-        startDate: data.startDate,
-        endDate: data.endDate,
+        surname: data.surname,
+        email: data.email,
+        select: data.select
       })
     );
   };
@@ -75,7 +73,7 @@ const AddTrainersForm: React.FC<any> = (props) => {
             className="input__field"
             placeholder=" "
             id="surname"
-            {...register("name", {
+            {...register("surname", {
               required: true,
               pattern: /[a-zA-Z]/,
             })}
@@ -119,27 +117,10 @@ const AddTrainersForm: React.FC<any> = (props) => {
         ) : null}
       </div>
       <div className="input__grp">
-        {/* <select
-          id="select"
-          {...register("select", {
-            required: true,
-          })}
-        >
-          <option key={uuid()} value="" disabled selected hidden>
-            Select group name
-          </option>
-          {props.data.map((option: any) => {
-            return (
-              <option key={uuid()} value={option.name}>
-                {option.name}
-              </option>
-            );
-          })}
-        </select> */}
         <Multiselect
           className="multi-select"
           options={props.data} // Options to display in the dropdown
-          // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+          selectedValues={"this.state.selectedValue"} // Preselected value to persist in dropdown
           // onSelect={this.onSelect} // Function will trigger on select event
           // onRemove={this.onRemove} // Function will trigger on remove event
           displayValue="name" // Property name to display in the dropdown options

@@ -13,6 +13,16 @@ const group = [
   { id: 3, name: "AI / ML" },
 ];
 
+
+const trainers = [
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" }
+];
+
 interface IProps {
   title: string;
   show: boolean;
@@ -56,7 +66,7 @@ const AddItem: React.FC<IProps> = (props) => {
       case "Trainers":
         return <AddTrainersForm data={group} />;
       case "Subjects":
-        return <AddSubjectsForm data={group} />;
+        return <AddSubjectsForm data={group} dataTrainers={trainers}/>;
       case "Groups":
         return <AddGroupsForm />;
     }
