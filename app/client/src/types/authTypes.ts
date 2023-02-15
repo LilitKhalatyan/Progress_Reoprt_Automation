@@ -3,3 +3,8 @@ export interface authState {
     email: string;
     password: string;
 }
+
+export interface AuthData {
+    type: string;
+    payload: authState;
+}

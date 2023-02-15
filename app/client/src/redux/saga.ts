@@ -7,7 +7,7 @@ import {
     getAllStudentsFailed,
 } from "./student/studentSlice";
 import { getAllStudents } from "../services/studentService";
-import { authState } from "../types/authTypes";
+import { AuthData } from "../types/authTypes";
 import { signIn, IUser, logout } from "../services/authService";
 import {
     loginAction,
@@ -27,18 +27,13 @@ function* getStudentsData() {
     }
 }
 
-export interface IData {
-    type: string;
-    payload: authState;
-}
-
 function* logoutUser() {
     yield localStorage.removeItem("user");
     yield call(logout);
     yield put(logoutSuccesed());
 }
 
-function* auth(data: IData) {
+function* auth(data: AuthData) {
     try {
         const user: IUser = yield call(signIn, data.payload);
         yield localStorage.setItem("user", JSON.stringify(user));
