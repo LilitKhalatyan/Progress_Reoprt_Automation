@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ErrorMessage } from "@hookform/error-message";
+
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../asset/images/logo.svg";
 
@@ -59,28 +61,28 @@ const LoginForm: React.FC = () => {
                 </div>
                 <form
                     className="login-form__fildes"
-                    onSubmit={handleSubmit(onSubmit, onFail)}>
+                    onSubmit={handleSubmit(onSubmit)}>
                     <div className="wrap-input">
                         <input
                             type="email"
                             className="login-input"
                             placeholder="Email"
                             {...register("email", {
-                                required: true,
+                                required: "⚠ this is required field",
                                 pattern:
                                     /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
                             })}
                         />
-                        {errors.email ? (
-                            <>
-                                {(errors.email.type === "required" ||
-                                    errors.email.type === "pattern") && (
-                                    <span className="focus-input focus-input-email invalid"></span>
-                                )}
-                            </>
-                        ) : (
-                            <span className="focus-input focus-input-email valid"></span>
+                        {(errors?.email?.type && (
+                            <span className="focus-input focus-input-email invalid" />
+                        )) || (
+                            <span className="focus-input focus-input-email valid" />
                         )}
+                        <ErrorMessage
+                            errors={errors}
+                            name="email"
+                            render={({ message }) => <p>{message}</p>}
+                        />
                     </div>
                     <div className="wrap-input">
                         <input
@@ -88,20 +90,20 @@ const LoginForm: React.FC = () => {
                             className="login-input"
                             placeholder="Password"
                             {...register("password", {
-                                required: true,
+                                required: "⚠ this is required field",
                                 pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
                             })}
                         />
-                        {errors.password ? (
-                            <>
-                                {(errors.password.type === "required" ||
-                                    errors.password.type === "pattern") && (
-                                    <span className="focus-input focus-input-password invalid"></span>
-                                )}
-                            </>
-                        ) : (
+                        {(errors?.email?.type && (
+                            <span className="focus-input focus-input-email invalid" />
+                        )) || (
                             <span className="focus-input focus-input-password valid"></span>
                         )}
+                        <ErrorMessage
+                            errors={errors}
+                            name="password"
+                            render={({ message }) => <p>{message}</p>}
+                        />
                     </div>
                     <button
                         className="fa-eye-btn"
