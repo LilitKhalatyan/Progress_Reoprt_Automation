@@ -5,7 +5,7 @@ interface IProps {
   onClick: () => void;
 }
 
-const CloseIcon: React.FC<IProps> = (props): JSX.Element => {
+const CloseIcon: React.FC<IProps> = (props) => {
   return <div className="close-win" onClick={props.onClick}></div>;
 };
 
