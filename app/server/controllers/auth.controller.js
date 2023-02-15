@@ -6,8 +6,7 @@ const config = require("../config/auth.config");
 const transporter = require("../config/mail.config");
 const { validationResult } = require("express-validator");
 
-const Staff = db.staff;
-const RefreshToken = db.refreshtoken;
+const { staff: Staff, refreshtoken: RefreshToken, course: Course } = db;
 
 const signup = async (req, res) => {
     try {
@@ -15,7 +14,7 @@ const signup = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { name, surname, email } = req.body;
+        const { name, surname, email, courseId } = req.body;
         const password = generator.generate({
             length: 10,
             numbers: true,
@@ -35,6 +34,10 @@ const signup = async (req, res) => {
             return res.status(409).send("Details are not correct");
         }
         await staff.setRoles([1]);
+        const course = await Course.findAll();
+        if (!course.length) {
+            await staff.setCourses(courseId);
+        }
         const mailOptions = {
             from: process.env.MAIL_USER,
             to: staff.email,
@@ -81,7 +84,6 @@ const login = async (req, res) => {
                 message: "Authentication failed",
             });
         }
-        refresh(req, res);
 
         const token = jwt.sign(
             { id: staff.id, exp: Math.round(new Date(Date.now()) / 1000) + 30 },
@@ -90,10 +92,10 @@ const login = async (req, res) => {
 
         let refreshToken = await createToken(staff);
 
-        let authorities = [];
+        let authorities;
         const roles = await staff.getRoles();
         roles.forEach((element) => {
-            authorities.push("ROLE_" + element.name.toUpperCase());
+            authorities = element.name.toUpperCase();
         });
 
         res.cookie("refresh_token", refreshToken, {

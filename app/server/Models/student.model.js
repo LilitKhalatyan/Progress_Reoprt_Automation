@@ -22,10 +22,9 @@ module.exports = (sequelize, DataTypes) => {
                 isEmail: true,
                 allowNull: false,
             },
-            // password: {
-            //     type: DataTypes.STRING,
-            //     allowNull: false,
-            // },
+            courseId: {
+                type: DataTypes.INTEGER,
+            },
         },
         { timestamps: false },
     );
