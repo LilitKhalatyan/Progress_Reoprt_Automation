@@ -133,7 +133,25 @@ const createToken = async (user) => {
     return refreshToken.token;
 };
 
+const logout = async (req, res) => {
+    try {
+        const id = req.userId;
+        await RefreshToken.destroy({
+            where: {
+                staffId: id,
+            },
+        });
+        res.clearCookie("access_token");
+        res.clearCookie("refresh_token");
+        res.status(200).send({ message: "logout success" });
+        return;
+    } catch (error) {
+        res.status(500).send([{ message: error }]);
+    }
+};
+
 module.exports = {
     signup,
     login,
+    logout,
 };

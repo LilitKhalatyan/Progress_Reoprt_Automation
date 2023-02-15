@@ -1,6 +1,6 @@
 const { check } = require("express-validator");
 const { verifyToken } = require("../middlewares/verifyToken");
-const { signup, login } = require("../controllers/auth.controller");
+const { signup, login, logout } = require("../controllers/auth.controller");
 const { checkDuplicateNameOrEmail } = require("../middlewares/verifySignUp.js");
 
 module.exports = (app) => {
@@ -12,6 +12,7 @@ module.exports = (app) => {
         next();
     });
 
+    app.get("/auth/logout",verifyToken, logout)
     app.post(
         "/auth/signin",
         [
