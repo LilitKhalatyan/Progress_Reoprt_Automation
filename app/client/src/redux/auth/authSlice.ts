@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+const localUser = JSON.parse(localStorage.getItem("user") || "false");
 
 const initialState = {
-    user: {},
-    auth: false,
+    user: localUser || {},
+    auth: !!localUser,
 };
 
 const authSlice = createSlice({
@@ -17,11 +18,6 @@ const authSlice = createSlice({
         loginFailed: (state) => {
             state = initialState;
         },
-        refreshAction: (state, action) => {},
-        refreshUserSuccess: (state, action) => {
-            state.user = action.payload;
-            state.auth = true;
-        },
         logoutAction: () => {},
         logoutSuccesed: (state) => {
             state = initialState;
@@ -33,10 +29,8 @@ export const {
     loginAction,
     loginFailed,
     logoutAction,
-    refreshAction,
     loginSuccesed,
     logoutSuccesed,
-    refreshUserSuccess,
 } = authSlice.actions;
 
 export default authSlice;

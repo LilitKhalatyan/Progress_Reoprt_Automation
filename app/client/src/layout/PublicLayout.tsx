@@ -5,10 +5,10 @@ import { authSelector } from "../redux/auth/authSelector";
 import { logoutAction } from "../redux/auth/authSlice";
 
 const PublicLayout = () => {
-    useSelector(authSelector); //stipum e krkin refresh anel ej@ ev redirect anel
+    const user = useSelector(authSelector);
     const dispatch = useDispatch();
 
-    if (!localStorage.getItem("user")) {
+    if (!user) {
         dispatch(logoutAction());
         return <Outlet />;
     }

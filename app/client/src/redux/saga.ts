@@ -15,8 +15,6 @@ import {
     loginSuccesed,
     logoutAction,
     logoutSuccesed,
-    refreshAction,
-    refreshUserSuccess,
 } from "./auth/authSlice";
 
 function* getStudentsData() {
@@ -32,10 +30,6 @@ function* getStudentsData() {
 export interface IData {
     type: string;
     payload: authState;
-}
-
-function* refreshUserData(data: IData) {
-    yield put(refreshUserSuccess(data.payload));
 }
 
 function* logoutUser() {
@@ -57,6 +51,5 @@ function* auth(data: IData) {
 export default function* watchDataSaga() {
     yield takeEvery(loginAction.type, auth);
     yield takeEvery(logoutAction.type, logoutUser);
-    yield takeEvery(refreshAction.type, refreshUserData);
     yield takeEvery(getAllStudentsAction.type, getStudentsData);
 }
