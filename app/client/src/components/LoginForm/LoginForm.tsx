@@ -63,11 +63,11 @@ const LoginForm: React.FC = () => {
               <>
                 {(errors.email.type === "required" ||
                   errors.email.type === "pattern") && (
-                  <span className="focus-input focus-input-email invalid"></span>
+                  <span className="focus-input focus-input-email invalid"/>
                 )}
               </>
             ) : (
-              <span className="focus-input focus-input-email valid"></span>
+              <span className="focus-input focus-input-email valid"/>
             )}
           </div>
           <div className="wrap-input">
@@ -84,11 +84,11 @@ const LoginForm: React.FC = () => {
               <>
                 {(errors.password.type === "required" ||
                   errors.password.type === "pattern") && (
-                  <span className="focus-input focus-input-password invalid"></span>
+                  <span className="focus-input focus-input-password invalid"/>
                 )}
               </>
             ) : (
-              <span className="focus-input focus-input-password valid"></span>
+              <span className="focus-input focus-input-password valid"/>
             )}
           </div>
           <button className="fa-eye-btn" onClick={togglePassVisibility}>

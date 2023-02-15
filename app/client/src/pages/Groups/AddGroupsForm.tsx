@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import { v4 as uuid } from "uuid";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
-import CloseIcon from "../../../components/CloseIcon/CloseIcon";
+import Button from "../../components/Button/Button";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 import "react-datepicker/src/stylesheets/datepicker.scss";
-import "./addGroup.scss";
-import Button from "../../../components/Button/Button";
 
-interface IProps {
-  show: boolean;
-  setAddGroup: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const AddGroup: React.FC<IProps> = (props) => {
-  let className = props.show ? "add-group show" : "add-group";
-
+const AddGroupsForm: React.FC = () => {
   const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
@@ -36,13 +30,6 @@ const AddGroup: React.FC<IProps> = (props) => {
   } = useForm<{ name: string; startDate: string; endDate: string }>();
 
   return (
-    <div className={className}>
-      <div className="add-group__content">
-        <CloseIcon
-          onClick={() => {
-            props.setAddGroup(false);
-          }}
-        />
         <form
           className="add-group-form__content"
           onSubmit={handleSubmit(onSubmit, onFail)}
@@ -73,7 +60,9 @@ const AddGroup: React.FC<IProps> = (props) => {
             ) : null}
           </div>
           <div className="input__grp">
-            <label htmlFor="start-date" className="input__label">Start Date</label>
+            <label htmlFor="start-date" className="input__label">
+              Start Date
+            </label>
             <Controller
               control={control}
               name="startDate"
@@ -92,7 +81,9 @@ const AddGroup: React.FC<IProps> = (props) => {
             />
           </div>
           <div className="input__grp">
-            <label htmlFor="end-date" className="input__label">End Date</label>
+            <label htmlFor="end-date" className="input__label">
+              End Date
+            </label>
             <Controller
               control={control}
               name="endDate"
@@ -110,11 +101,9 @@ const AddGroup: React.FC<IProps> = (props) => {
               )}
             />
           </div>
-          <Button value="Add Group"/>
+          <Button value="Add Group" />
         </form>
-      </div>
-    </div>
   );
 };
 
-export default AddGroup;
+export default AddGroupsForm;
