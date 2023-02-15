@@ -31,7 +31,6 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
   };
 
   const {
-    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -40,6 +39,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
     selectGroup: string;
     selectTrainer: string;
   }>();
+
   return (
     <form
       className="add-group-form__content"

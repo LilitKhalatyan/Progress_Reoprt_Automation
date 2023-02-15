@@ -26,7 +26,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
   };
 
   const {
-    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -36,6 +35,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
     email: string;
     select: string;
   }>();
+
   return (
     <form
       className="add-group-form__content"
