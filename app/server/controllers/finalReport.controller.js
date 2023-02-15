@@ -21,7 +21,7 @@ const getFinalReport = async (req, res) => {
     }
 };
 
-//TODO
+//TODO this function is responsible for sending the final report to the student
 const sendFinalReport = async (req, res) => {
     try {
         const { subjectsId, studentId, staffsId } = req.body;
@@ -32,7 +32,7 @@ const sendFinalReport = async (req, res) => {
 };
 
 const reportGenerator = (finalInfo) => {
-    //TODO
+    //TODO this function is responsible for generating the final report
 };
 
 const getData = async (subjectsId, studentId, staffsId) => {
