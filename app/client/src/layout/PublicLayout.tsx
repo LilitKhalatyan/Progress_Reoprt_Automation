@@ -1,17 +1,18 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { authSelector } from "../redux/auth/authSelector";
+import { logoutAction } from "../redux/auth/authSlice";
 
-function PublicLayout() {
-  //For example
-    if (!localStorage.getItem("token")) {
-      return (
-        <>
-          <Outlet />
-        </>
-      );
+const PublicLayout = () => {
+    const user = useSelector(authSelector);
+    const dispatch = useDispatch();
+
+    if (!user) {
+        dispatch(logoutAction());
+        return <Outlet />;
     }
-    return <Navigate to="/" />;
-}
+    return <Navigate to="/" replace={true} />;
+};
 
 export default PublicLayout;
