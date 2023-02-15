@@ -1,8 +1,8 @@
 const {
     getTrainerReport,
-    editTrainerReport,
     updateTrainerReport,
     createTrainerReport,
+    updateTrainerReportByAdmin,
 } = require("../controllers/trainerReport.controller");
 
 module.exports = (app) => {
@@ -14,11 +14,11 @@ module.exports = (app) => {
         next();
     });
 
-    app.put("/trainer_report/edit/:id", editTrainerReport);
     app.post("/trainer_report/create", createTrainerReport);
     app.put("/trainer_report/update/:id", updateTrainerReport);
     app.get(
         "/trainer_report/course/:courseId/subject/:subjectId",
         getTrainerReport,
     );
+    app.put("/trainer_report/edit/:id", updateTrainerReportByAdmin);
 };

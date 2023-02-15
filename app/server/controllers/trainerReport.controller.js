@@ -43,7 +43,7 @@ const updateTrainerReport = async (req, res) => {
     }
 };
 //TODO
-const editTrainerReport = async (req, res) => {
+const  updateTrainerReportByAdmin = async (req, res) => {
     try {
         const { edited_comment } = req.body;
         const id = req.params.id;
@@ -88,7 +88,7 @@ const getTrainerReport = async (req, res) => {
 
 module.exports = {
     getTrainerReport,
-    editTrainerReport,
     createTrainerReport,
     updateTrainerReport,
+    updateTrainerReportByAdmin,
 };
