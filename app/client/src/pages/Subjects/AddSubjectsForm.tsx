@@ -21,8 +21,8 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
     console.log(
       JSON.stringify({
         name: data.name,
-        startDate: data.startDate,
-        endDate: data.endDate,
+        selectGroup: data.selectGroup,
+        selectTrainer: data.selectTrainer,
       })
     );
   };
@@ -37,7 +37,8 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
     handleSubmit,
   } = useForm<{
     name: string;
-    select: string;
+    selectGroup: string;
+    selectTrainer: string;
   }>();
   return (
     <form
@@ -72,12 +73,12 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 
       <div className="input__grp">
         <select
-          id="select"
-          {...register("select", {
+          id="selectGroup"
+          {...register("selectGroup", {
             required: true,
           })}
         >
-          <option key={uuid()} value="" disabled selected hidden>
+          <option key={uuid()} value="m" disabled selected hidden>
             Select group name
           </option>
           {props.data.map((option) => {
@@ -88,9 +89,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
             );
           })}
         </select>
-        {errors.select ? (
+        {errors.selectGroup ? (
           <>
-            {errors.select.type === "required" && (
+            {errors.selectGroup.type === "required" && (
               <span className="input-invalid">This field is required</span>
             )}
           </>
@@ -98,8 +99,8 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
       </div>
       <div className="input__grp">
         <select
-          id="select"
-          {...register("select", {
+          id="selectTrainer"
+          {...register("selectTrainer", {
             required: true,
           })}
         >
@@ -114,9 +115,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
             );
           })}
         </select>
-        {errors.select ? (
+        {errors.selectTrainer ? (
           <>
-            {errors.select.type === "required" && (
+            {errors.selectTrainer.type === "required" && (
               <span className="input-invalid">This field is required</span>
             )}
           </>
