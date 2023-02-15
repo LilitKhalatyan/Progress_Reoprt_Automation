@@ -6,17 +6,16 @@ interface IProps extends React.HTMLAttributes<HTMLInputElement> {
   type: string;
   value: string;
   placeholder: string;
-  dataplaceholder: string;
-  isValid: boolean;
+  // className: string;
 }
 
 const Input: React.FC<IProps> = (props: IProps) => {
-  const { isValid, dataplaceholder, style, ...rest } = props;
-  let className = isValid ? `focus-input focus-input-${props.name} valid` : `focus-input focus-input-${props.name} invalid`;
+  const { style, ...rest } = props;
+  // let className = isValid ? `focus-input focus-input-${props.name} valid` : `focus-input focus-input-${props.name} invalid`;
+
   return (
     <div className="wrap-input">
       <input className="input" {...rest} />
-      <span className={className} ></span>
     </div>
   )
 }

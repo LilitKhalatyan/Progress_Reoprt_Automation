@@ -20,7 +20,6 @@
   z-index: 5;
 }
 .menu__container {
-  max-width: 220px;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   font-weight: 600;
@@ -43,7 +42,7 @@ nav {
     li {
       position: relative;
       width: 70px;
-      height: 120px;
+      height: 90px;
       cursor: pointer;
       background: $sm-middle;
       text-transform: uppercase;
@@ -92,12 +91,15 @@ nav {
       @include li-after("Trainers");
     }
     li:nth-child(2):after {
-      @include li-after("Courses");
+      @include li-after("Groups");
     }
     li:nth-child(3):after {
-      @include li-after("Subjects");
+      @include li-after("Students");
     }
     li:nth-child(4):after {
+      @include li-after("Subjects");
+    }
+    li:nth-child(5):after {
       @include li-after("Settings");
     }
   }
@@ -106,8 +108,11 @@ nav {
 .trainers-icon {
   @include icon("../../asset/images/menu/instructor.png");
 }
-.courses-icon {
+.groups-icon {
   @include icon("../../asset/images/menu/groups.png");
+}
+.students-icon {
+  @include icon("../../asset/images/menu/students.png");
 }
 .subjects-icon {
   @include icon("../../asset/images/menu/subjects.png");
