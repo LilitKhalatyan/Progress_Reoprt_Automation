@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            // startDate: {
-            //   type: sequelize.DATE,
-            //   allowNull: false
-            // },
-            // endDate: {
-            //   type: sequelize.DATE,
-            //   allowNull: false
-            // },
+            startDate: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            endDate: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
         },
         { timestamps: false },
     );

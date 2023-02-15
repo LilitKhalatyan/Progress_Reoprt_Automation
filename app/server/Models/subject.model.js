@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            // startDate: {
-            //   type: DataTypes.DATE,
-            //   allowNull: false
-            // },
-            // endDate: {
-            //   type: DataTypes.DATE,
-            //   allowNull: false
-            // },
+            courseId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            staffId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
         },
         { timestamps: false },
     );
