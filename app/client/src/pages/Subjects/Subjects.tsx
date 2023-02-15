@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UsersList from "../../components/UsersList/UsersList";
-import "./subjects.scss";
+// import "./subjects.scss";
 
 const subjects = [
   { id: 1, name: "DevOps" },

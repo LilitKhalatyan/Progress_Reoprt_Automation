@@ -7,7 +7,6 @@ import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 import "react-datepicker/src/stylesheets/datepicker.scss";
 
-
 const AddGroupsForm: React.FC = () => {
   const onSubmit = (data: any) => {
     console.log(
@@ -30,79 +29,77 @@ const AddGroupsForm: React.FC = () => {
   } = useForm<{ name: string; startDate: string; endDate: string }>();
 
   return (
-        <form
-          className="add-group-form__content"
-          onSubmit={handleSubmit(onSubmit, onFail)}
-        >
-          <div className="input__grp">
-            <label htmlFor="name" className="input__label">
-              Group Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter group Name"
-              className="input__field"
-              {...register("name", {
-                required: true,
-                pattern: /[a-z0-9A-Z]{2,4}/,
-              })}
+    <form
+      className="add-group-form__content"
+      onSubmit={handleSubmit(onSubmit, onFail)}
+    >
+      <div className="input__grp">
+      <label htmlFor="name" className="input">
+          <input
+            type="text"
+            className="input__field"
+            placeholder=" "
+            id="name"
+            {...register("name", {
+              required: true,
+              pattern: /[a-zA-Z]/,
+            })}
+          />
+          <span className="input__label">Name</span>
+        </label>
+        {errors.name ? (
+          <>
+            {errors.name.type === "required" && (
+              <span className="input-invalid">This field is required</span>
+            )}
+            {errors.name.type === "pattern" && (
+              <span className="input-invalid">Please enter valid name</span>
+            )}
+          </>
+        ) : null}
+      </div>
+      <div className="input__grp">
+        <Controller
+          control={control}
+          name="startDate"
+          render={({ field }: any) => (
+            <DatePicker
+              className="data-picker"
+              selected={field.value}
+              minDate={new Date()}
+              onChange={(date: Date) => field.onChange(date)}
+              selectsStart
+              startDate={new Date()}
+              endDate={new Date()}
+              placeholderText="Select Start Date"
+              id="start-date"
             />
-            {errors.name ? (
-              <>
-                {errors.name.type === "required" && (
-                  <span className="input-invalid">This field is required</span>
-                )}
-                {errors.name.type === "pattern" && (
-                  <span className="input-invalid">Please enter valid name</span>
-                )}
-              </>
-            ) : null}
-          </div>
-          <div className="input__grp">
-            <label htmlFor="start-date" className="input__label">
-              Start Date
-            </label>
-            <Controller
-              control={control}
-              name="startDate"
-              render={({ field }: any) => (
-                <DatePicker
-                  selected={field.value}
-                  minDate={new Date()}
-                  onChange={(date: Date) => field.onChange(date)}
-                  selectsStart
-                  startDate={new Date()}
-                  endDate={new Date()}
-                  placeholderText="Select Start Date"
-                  id="start-date"
-                />
-              )}
+          )}
+        />
+      </div>
+      <div className="input__grp">
+        <Controller
+          control={control}
+          name="endDate"
+          render={({ field }: any) => (
+            <DatePicker
+              className="data-picker"
+              selected={field.value}
+              minDate={new Date()}
+              onChange={(date: Date) => field.onChange(date)}
+              selectsEnd
+              startDate={new Date()}
+              endDate={new Date()}
+              placeholderText="Select End Date"
+              id="end-date"
             />
-          </div>
-          <div className="input__grp">
-            <label htmlFor="end-date" className="input__label">
-              End Date
-            </label>
-            <Controller
-              control={control}
-              name="endDate"
-              render={({ field }: any) => (
-                <DatePicker
-                  selected={field.value}
-                  minDate={new Date()}
-                  onChange={(date: Date) => field.onChange(date)}
-                  selectsEnd
-                  startDate={new Date()}
-                  endDate={new Date()}
-                  placeholderText="Select End Date"
-                  id="end-date"
-                />
-              )}
-            />
-          </div>
-          <Button value="Add Group" />
-        </form>
+          )}
+        />
+      </div>
+      <div className="input__grp">
+        <Button value="Add Group" />
+      </div>
+    </form>
   );
 };
 

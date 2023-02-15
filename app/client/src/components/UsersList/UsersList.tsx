@@ -19,7 +19,6 @@ interface IProps {
   title: string;
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  
 }
 
 const group = [
@@ -70,7 +69,11 @@ const UsersList: React.FC<IProps> = (props) => {
                 src={addIcon}
                 onClick={() => setDisplay(true)}
               />
-              <AddItem title={props.title} show={display} setShow={setDisplay} />
+              <AddItem
+                title={props.title}
+                show={display}
+                setShow={setDisplay}
+              />
             </div>
           </div>
           <div className="main-users__list">
