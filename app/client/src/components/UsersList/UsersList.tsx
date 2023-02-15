@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from 'uuid';
 import AddItem from "../../components/AddItem/AddItem";
 import Button from "../Button/Button";
 import addIcon from "../../asset/images/pages/add.png";
@@ -26,7 +27,7 @@ const group = [
   { id: 3, name: "AI / ML" },
 ];
 
-const UsersList: React.FC<IProps> = (props): JSX.Element => {
+const UsersList: React.FC<IProps> = (props) => {
   // const [select, setSelect] = useState("all");
   const { data, display, setDisplay } = props;
 
@@ -68,7 +69,7 @@ const UsersList: React.FC<IProps> = (props): JSX.Element => {
           <hr />
           {data.map((item) => {
             return (
-              <div className="list-item" key={Math.random()}>
+              <div className="list-item" key={uuid()}>
                 <div className="info-grp">
                   <input
                     type="text"

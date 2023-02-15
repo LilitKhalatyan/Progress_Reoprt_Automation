@@ -6,7 +6,7 @@ import logo from "../../asset/images/logo.svg";
 
 import "./loginForm.scss";
 
-const LoginForm: React.FC = (): JSX.Element => {
+const LoginForm: React.FC = () => {
   const [isPassVisibile, setPassVisibile] = useState({
     icon: faEyeSlash,
     type: "password",
@@ -27,7 +27,7 @@ const LoginForm: React.FC = (): JSX.Element => {
     handleSubmit,
   } = useForm<{ email: string; password: string }>();
 
-  const successCase = (data: any) => {
+  const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
         email: data.email,
@@ -35,7 +35,7 @@ const LoginForm: React.FC = (): JSX.Element => {
       })
     );
   };
-  const failCase = (error: any) => {
+  const onFail = (error: any) => {
     console.log(error, "Error");
   };
 
@@ -47,7 +47,7 @@ const LoginForm: React.FC = (): JSX.Element => {
         </div>
         <form
           className="login-form__fildes"
-          onSubmit={handleSubmit(successCase, failCase)}
+          onSubmit={handleSubmit(onSubmit, onFail)}
         >
           <div className="wrap-input">
             <input

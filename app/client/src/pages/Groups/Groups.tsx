@@ -8,7 +8,7 @@ const group = [
   { id: 3, name: "AI / ML" },
 ];
 
-const Groups: React.FC = (): JSX.Element => {
+const Groups: React.FC = () => {
   const [displayAdd, setDisplayAdd] = useState(false);
 
   return (

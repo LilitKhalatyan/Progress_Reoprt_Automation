@@ -12,10 +12,10 @@ interface IProps {
   setAddGroup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddGroup: React.FC<IProps> = (props): JSX.Element => {
+const AddGroup: React.FC<IProps> = (props) => {
   let className = props.show ? "add-group show" : "add-group";
 
-  const successCase = (data: any) => {
+  const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
         name: data.name,
@@ -24,7 +24,7 @@ const AddGroup: React.FC<IProps> = (props): JSX.Element => {
       })
     );
   };
-  const failCase = (error: any) => {
+  const onFail = (error: any) => {
     console.log(error, "Error");
   };
 
@@ -45,7 +45,7 @@ const AddGroup: React.FC<IProps> = (props): JSX.Element => {
         />
         <form
           className="add-group-form__content"
-          onSubmit={handleSubmit(successCase, failCase)}
+          onSubmit={handleSubmit(onSubmit, onFail)}
         >
           <div className="input__grp">
             <label htmlFor="name" className="input__label">

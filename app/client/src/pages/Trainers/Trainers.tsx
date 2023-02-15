@@ -18,7 +18,7 @@ const trainers = [
   { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
 ];
 
-const Trainers: React.FC = (): JSX.Element => {
+const Trainers: React.FC = () => {
   const [displayAdd, setDisplayAdd] = useState(false);
 
   return (

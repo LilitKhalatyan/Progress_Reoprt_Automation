@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from 'uuid';
 import "./leftMenu.scss";
 
 const icons = [
@@ -10,7 +11,7 @@ const icons = [
   "settings-icon",
 ];
 
-const LeftMenu: React.FC = (): JSX.Element => {
+const LeftMenu: React.FC = () => {
   const navigate = useNavigate();
   const handleListItemClick = (e: React.MouseEvent<HTMLLIElement>) => {
     navigate(e.currentTarget.id);
@@ -23,7 +24,7 @@ const LeftMenu: React.FC = (): JSX.Element => {
             {icons.map((icon) => {
               return (
                 <li
-                  key={icon}
+                  key={uuid()}
                   id={icon.slice(0, -5)}
                   onClick={handleListItemClick}
                 >
