@@ -35,7 +35,7 @@ const signup = async (req, res) => {
         }
         await staff.setRoles([1]);
         const course = await Course.findAll();
-        if (course.length !== 0) {
+        if (!course.length) {
             await staff.setCourses(courseId);
         }
         const mailOptions = {
