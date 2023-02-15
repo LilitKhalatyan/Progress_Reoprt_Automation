@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
               <>
                 {(errors.email.type === "required" ||
                   errors.email.type === "pattern") && (
-                  <span className="focus-input focus-input-email invalid"/>
+                  <span className="focus-input focus-input-email invalid"></span>
                 )}
               </>
             ) : (
@@ -84,7 +84,7 @@ const LoginForm: React.FC = () => {
               <>
                 {(errors.password.type === "required" ||
                   errors.password.type === "pattern") && (
-                  <span className="focus-input focus-input-password invalid"/>
+                  <span className="focus-input focus-input-password invalid"></span>
                 )}
               </>
             ) : (
