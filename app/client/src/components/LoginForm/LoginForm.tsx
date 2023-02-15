@@ -61,7 +61,7 @@ const LoginForm: React.FC = () => {
                 </div>
                 <form
                     className="login-form__fildes"
-                    onSubmit={handleSubmit(onSubmit)}>
+                    onSubmit={handleSubmit(onSubmit, onFail)}>
                     <div className="wrap-input">
                         <input
                             type="email"
