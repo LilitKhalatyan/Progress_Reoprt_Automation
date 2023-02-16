@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
-  deleteStudentByIdAction,
   getAllStudentsAction,
   getStudentByIdAction,
   updateStudentByIdAction,
+  deleteStudentByIdAction,
 } from './student/studentSlice';
 import {
   getStudentsData,

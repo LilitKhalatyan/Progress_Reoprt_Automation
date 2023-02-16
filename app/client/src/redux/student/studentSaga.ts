@@ -39,7 +39,7 @@ function* getStudentsData(data: IStudents) {
 }
 function* getStudentById(id: string) {
   try {
-    const student: TStudent[] = yield call(getStudentByIdService, id);
+    const student: TStudent = yield call(getStudentByIdService, id);
     yield put(getStudentByIdSuccesed(student));
   } catch (error) {
     yield put(getStudentByIdFailed(error));

@@ -29,7 +29,7 @@ export const updateStudentByIdService = async (id: string): Promise<Response> =>
   const studentData = await fetch(
     `http://localhost:3303/student/update/${id}`,
     {
-      method: 'GET',
+      method: 'PUT',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export const deleteStudentByIdService = async (id: string): Promise<Response> =>
   const studentData = await fetch(
     `http://localhost:3303/student/delete/${id}`,
     {
-      method: 'GET',
+      method: 'DELETE',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const deleteStudentByIdService = async (id: string): Promise<Response> =>
 // app.post("/student/create", createStudent);
 export const createStudentService = async (data: TStudent): Promise<Response> => {
   const studentData = await fetch(`http://localhost:3303/student/create`, {
-    method: 'GET',
+    method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',

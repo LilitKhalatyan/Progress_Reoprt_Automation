@@ -22,6 +22,7 @@ const studentSlice = createSlice({
     },
     getStudentByIdFailed: (state, action) => {
       state.student = [];
+      state.failed = action.payload;
     },
     updateStudentByIdAction: () => {},
     updateStudentByIdSuccesed: (state, action) => {
