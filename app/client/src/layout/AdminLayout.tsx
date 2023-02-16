@@ -8,7 +8,7 @@ import { authSelector } from '../redux/auth/authSelector';
 import '../style/style.scss';
 
 const AdminLayout: React.FC = (): JSX.Element => {
-  const auth = useSelector();
+  const auth = useSelector(authSelector);
 
   if (auth || localStorage.getItem('user')) {
     return (

@@ -26,14 +26,14 @@ function* getStudentsData(data: IStudents) {
   try {
     let id;
     if (typeof data.payload !== 'string') {
-      id = data.payload.courseId.toString;
+      id = data.payload.courseId;
     } else {
-      id = data.payload.toString;
+      id = data.payload;
     }
     const students: TStudent[] = yield call(getAllStudentsByCourseService, id);
     console.log(students, 'fetched students from saga');
     yield put(getAllStudentsSuccesed(students));
-  } catch (e) {
+  } catch (error) {
     yield put(getAllStudentsFailed());
   }
 }

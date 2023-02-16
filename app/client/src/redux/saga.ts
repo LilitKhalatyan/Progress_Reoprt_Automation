@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   getAllStudentsAction,
   getStudentByIdAction,
@@ -11,6 +11,22 @@ import {
   updateStudentById,
   deleteStudentById,
 } from './student/studentSaga';
+
+import {
+  createCourseAction,
+  deleteCourseByIdAction,
+  getAllCoursesAction,
+  getCourseByIdAction,
+  updateCourseByIdAction,
+} from './course/courseSlice';
+
+import {
+  createCourse,
+  deleteCourseById,
+  getCourseById,
+  getCoursesData,
+  updateCourseById,
+} from './course/courseSaga';
 
 import { AuthData } from '../types/authTypes';
 import { signIn, IUser, logout } from '../services/authService';
@@ -41,8 +57,13 @@ function* auth(data: AuthData) {
 export default function* watchDataSaga() {
   yield takeEvery(loginAction.type, auth);
   yield takeEvery(logoutAction.type, logoutUser);
-  yield takeEvery(getAllStudentsAction.type, getStudentsData);
-  yield takeEvery(getStudentByIdAction.type, getStudentById);
-  yield takeEvery(updateStudentByIdAction.type, updateStudentById);
-  yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+  yield takeLatest(createCourseAction.type, createCourse);
+  yield takeLatest(getAllCoursesAction.type, getCoursesData);
+  // yield takeLatest(getCourseByIdAction.type, getCourseById);
+  // yield takeLatest(updateCourseByIdAction.type, updateCourseById);
+  // yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
+  // yield takeEvery(getAllStudentsAction.type, getStudentsData);
+  // yield takeEvery(getStudentByIdAction.type, getStudentById);
+  // yield takeEvery(updateStudentByIdAction.type, updateStudentById);
+  // yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
 }
