@@ -1,6 +1,8 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
 import Multiselect from "multiselect-react-dropdown";
+import Select from 'react-select';
 import Button from "../../components/Button/Button";
 
 interface IProps {
@@ -10,7 +12,20 @@ interface IProps {
   }[];
 }
 
+interface IState {
+  id: number;
+  name: string;
+}
+
 const AddTrainersForm: React.FC<IProps> = (props) => {
+  const [select, setSelect] = useState<IState[]>([])
+
+  const handleSelectChange = (e: React.ChangeEvent<any>) => {
+// setSelect(e);
+// console.log(e.target.value)
+console.log(e)
+
+  }
   const onSubmit = (data: any) => {
     console.log(
       JSON.stringify({
@@ -26,6 +41,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
   };
 
   const {
+    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -117,17 +133,24 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
         ) : null}
       </div>
       <div className="input__grp">
-        <Multiselect
-          className="multi-select"
-          options={props.data} // Options to display in the dropdown
-          // selectedValues={"this.state.selectedValue"} // Preselected value to persist in dropdown
-          // onSelect={this.onSelect} // Function will trigger on select event
-          // onRemove={this.onRemove} // Function will trigger on remove event
-          displayValue="name" // Property name to display in the dropdown options
-          {...register("multiselect", {
-            required: true,
-          })}
+      <Controller
+          control={control}
+          name="multiselect"
+          render={({ field: { onChange, value } }) => (
+            <Multiselect
+            className="multi-select"
+            options={props.data} // Options to display in the dropdown
+            selectedValues={value ? value : []} // Preselected value to persist in dropdown
+            onSelect={onChange} // Function will trigger on select event
+            // onRemove={this.onRemove} // Function will trigger on remove event
+            displayValue="name" // Property name to display in the dropdown options
+            {...register("multiselect", {
+              required: true,
+            })}
+          />
+          )}
         />
+       
         {errors.multiselect ? (
           <>
             {errors.multiselect.type === "required" && (
