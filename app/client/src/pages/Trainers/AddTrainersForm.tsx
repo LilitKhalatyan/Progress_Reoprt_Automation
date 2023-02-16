@@ -139,11 +139,10 @@ console.log(e)
           render={({ field: { onChange, value } }) => (
             <Multiselect
             className="multi-select"
-            options={props.data} // Options to display in the dropdown
-            selectedValues={value ? value : []} // Preselected value to persist in dropdown
-            onSelect={onChange} // Function will trigger on select event
-            // onRemove={this.onRemove} // Function will trigger on remove event
-            displayValue="name" // Property name to display in the dropdown options
+            options={props.data}
+            selectedValues={value ? value : []}
+            onSelect={onChange}
+            displayValue="name"
             {...register("multiselect", {
               required: true,
             })}
