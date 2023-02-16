@@ -16,6 +16,18 @@ const trainers = [
   { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
   { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
   { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" }
 ];
 
 const Trainers: React.FC = () => {
@@ -24,6 +36,7 @@ const Trainers: React.FC = () => {
   return (
     <>
       <UsersList
+        title="Trainers"
         data={trainers}
         display={displayAdd}
         setDisplay={setDisplayAdd}

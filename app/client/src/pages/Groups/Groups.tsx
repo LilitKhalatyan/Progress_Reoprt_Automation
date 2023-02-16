@@ -13,7 +13,7 @@ const Groups: React.FC = () => {
 
   return (
     <>
-      <UsersList data={group} display={displayAdd} setDisplay={setDisplayAdd} />
+      <UsersList title="Groups" data={group} display={displayAdd} setDisplay={setDisplayAdd} />
     </>
   );
 };

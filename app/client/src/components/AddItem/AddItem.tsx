@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import Button from "../Button/Button";
+import React, { useRef, useEffect, useMemo } from "react";
+import AddStudentsForm from "../../pages/Students/AddStudentsForm";
+import AddTrainersForm from "../../pages/Trainers/AddTrainersForm";
+import AddSubjectsForm from "../../pages/Subjects/AddSubjectsForm";
+import AddGroupsForm from "../../pages/Groups/AddGroupsForm";
 import CloseIcon from "../CloseIcon/CloseIcon";
 
 import "./addItem.scss";
@@ -11,144 +13,74 @@ const group = [
   { id: 3, name: "AI / ML" },
 ];
 
+
+const trainers = [
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" },
+  { id: 3, name: "Tom", surname: "Mirzoyan", email: "nameX@gemail.com" },
+  { id: 4, name: "Ann", surname: "Hardy", email: "nameX@gemail.com" },
+  { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
+  { id: 2, name: "Jam", surname: "Yang", email: "nameX@gemail.com" }
+];
+
 interface IProps {
+  title: string;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddItem: React.FC<IProps> = (props) => {
+  // useEffect(() => {
+  //   if (props.show) {
+  //     document.body.style.opacity = ".4";
+  //     console.log('style')
+  //   } else {
+  //     document.body.style.opacity = "1";
+  //   }
+  // }, [props.show]);
+
+  const useOutsideClick = (ref: React.RefObject<HTMLDivElement>) => {
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
+          props.setShow(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  const wrapperRef = useRef(null);
+
+  useOutsideClick(wrapperRef);
+
   let className = props.show ? "add-item show" : "add-item";
 
-  const onSubmit = (data: any) => {
-    console.log(
-      JSON.stringify({
-        name: data.name,
-        startDate: data.startDate,
-        endDate: data.endDate,
-      })
-    );
-  };
-  const onFail = (error: any) => {
-    console.log(error, "Error");
-  };
-
-  const {
-    control,
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<{ name: string; surname: string; email: string, select: string }>();
+  const formComponent = useMemo(() => {
+    switch (props.title) {
+        case "Students":
+          return <AddStudentsForm data={group} />;
+        case "Trainers":
+          return <AddTrainersForm data={group} />;
+        case "Subjects":
+          return <AddSubjectsForm data={group} dataTrainers={trainers}/>;
+        case "Groups":
+          return <AddGroupsForm />;
+      }
+  }, [props.title])
 
   return (
-    <div className={className}>
+    <div className={className} ref={wrapperRef}>
       <div className="add-item__content">
         <CloseIcon
           onClick={() => {
             props.setShow(false);
           }}
         />
-        <form
-          className="add-group-form__content"
-          onSubmit={handleSubmit(onSubmit, onFail)}
-        >
-          <div className="input__grp">
-            <label htmlFor="name" className="input__label">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter group Name"
-              className="input__field"
-              {...register("name", {
-                required: true,
-                pattern: /[a-zA-Z]/,
-              })}
-            />
-            {errors.name ? (
-              <>
-                {errors.name.type === "required" && (
-                  <span className="input-invalid">This field is required</span>
-                )}
-                {errors.name.type === "pattern" && (
-                  <span className="input-invalid">Please enter valid name</span>
-                )}
-              </>
-            ) : null}
-          </div>
-          <div className="input__grp">
-            <label htmlFor="name" className="input__label">
-              Surname
-            </label>
-            <input
-              type="text"
-              id="surname"
-              placeholder="Enter group Name"
-              className="input__field"
-              {...register("surname", {
-                required: true,
-                pattern: /[a-zA-Z]/,
-              })}
-            />
-            {errors.surname ? (
-              <>
-                {errors.surname.type === "required" && (
-                  <span className="input-invalid">This field is required</span>
-                )}
-                {errors.surname.type === "pattern" && (
-                  <span className="input-invalid">Please enter valid name</span>
-                )}
-              </>
-            ) : null}
-          </div>
-          <div className="input__grp">
-            <label htmlFor="email" className="input__label">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter group Name"
-              className="input__field"
-              {...register("email", {
-                required: true,
-                pattern: /[a-z0-9A-Z]{2,4}/,
-              })}
-            />
-            {errors.email ? (
-              <>
-                {errors.email.type === "required" && (
-                  <span className="input-invalid">This field is required</span>
-                )}
-                {errors.email.type === "pattern" && (
-                  <span className="input-invalid">Please enter valid name</span>
-                )}
-              </>
-            ) : null}
-          </div>
-          <div className="input__grp">
-            <label htmlFor="select" className="input__label">
-              Groups
-            </label>
-            <select id="select"
-            {...register("select", {
-              required: true,
-            })}>
-           <option value="" disabled selected hidden>Select group name</option>
-              {group.map((option) => {
-                return <option value={option.name}>{option.name}</option>;
-              })}
-            </select>
-            {errors.select ? (
-              <>
-                {errors.select.type === "required" && (
-                  <span className="input-invalid">This field is required</span>
-                )}
-              </>
-            ) : null}
-          </div>
-          <Button value="Add Student"/>
-        </form>
+        {formComponent}
       </div>
     </div>
   );
