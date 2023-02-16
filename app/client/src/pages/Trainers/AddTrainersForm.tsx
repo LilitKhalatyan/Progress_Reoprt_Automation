@@ -17,7 +17,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
         name: data.name,
         surname: data.surname,
         email: data.email,
-        select: data.select
+        multiselect: data.multiselect
       })
     );
   };
@@ -33,7 +33,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
     name: string;
     surname: string;
     email: string;
-    select: string;
+    multiselect: string;
   }>();
   
   return (
@@ -120,17 +120,17 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
         <Multiselect
           className="multi-select"
           options={props.data} // Options to display in the dropdown
-          selectedValues={"this.state.selectedValue"} // Preselected value to persist in dropdown
+          // selectedValues={"this.state.selectedValue"} // Preselected value to persist in dropdown
           // onSelect={this.onSelect} // Function will trigger on select event
           // onRemove={this.onRemove} // Function will trigger on remove event
           displayValue="name" // Property name to display in the dropdown options
-          {...register("select", {
+          {...register("multiselect", {
             required: true,
           })}
         />
-        {errors.select ? (
+        {errors.multiselect ? (
           <>
-            {errors.select.type === "required" && (
+            {errors.multiselect.type === "required" && (
               <span className="input-invalid">This field is required</span>
             )}
           </>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import AddStudentsForm from "../../pages/Students/AddStudentsForm";
 import AddTrainersForm from "../../pages/Trainers/AddTrainersForm";
 import AddSubjectsForm from "../../pages/Subjects/AddSubjectsForm";
@@ -59,18 +59,19 @@ const AddItem: React.FC<IProps> = (props) => {
 
   let className = props.show ? "add-item show" : "add-item";
 
-  const addFormComponent = () => {
+  const formComponent = useMemo(() => {
     switch (props.title) {
-      case "Students":
-        return <AddStudentsForm data={group} />;
-      case "Trainers":
-        return <AddTrainersForm data={group} />;
-      case "Subjects":
-        return <AddSubjectsForm data={group} dataTrainers={trainers}/>;
-      case "Groups":
-        return <AddGroupsForm />;
-    }
-  };
+        case "Students":
+          return <AddStudentsForm data={group} />;
+        case "Trainers":
+          return <AddTrainersForm data={group} />;
+        case "Subjects":
+          return <AddSubjectsForm data={group} dataTrainers={trainers}/>;
+        case "Groups":
+          return <AddGroupsForm />;
+      }
+  }, [props.title])
+
   return (
     <div className={className} ref={wrapperRef}>
       <div className="add-item__content">
@@ -79,7 +80,7 @@ const AddItem: React.FC<IProps> = (props) => {
             props.setShow(false);
           }}
         />
-        {addFormComponent()}
+        {formComponent}
       </div>
     </div>
   );
