@@ -3,4 +3,5 @@ export type TStudent = {
   name: string;
   surname: string;
   email: string;
+  courseId: number;
 };
