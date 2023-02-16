@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-const initialState = {
+import { StudentSliceState } from '../../types/students';
+
+const initialState: StudentSliceState = {
   students: [],
   student: [],
   success: '',
   failed: '',
 };
+
 const studentSlice = createSlice({
   name: 'students',
   initialState: initialState,

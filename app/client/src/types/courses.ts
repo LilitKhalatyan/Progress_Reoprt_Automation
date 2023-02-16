@@ -4,3 +4,10 @@ export type TCourse = {
   startDate: string;
   endDate: string;
 };
+
+export interface CourseSliceState {
+  courses: TCourse[];
+  course: TCourse[];
+  success: string;
+  failed: string;
+}

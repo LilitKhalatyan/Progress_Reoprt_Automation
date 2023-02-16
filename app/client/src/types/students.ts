@@ -5,3 +5,10 @@ export type TStudent = {
   email: string;
   courseId: number;
 };
+
+export interface StudentSliceState {
+  students: TStudent[];
+  student: TStudent[];
+  success: string;
+  failed: string;
+}

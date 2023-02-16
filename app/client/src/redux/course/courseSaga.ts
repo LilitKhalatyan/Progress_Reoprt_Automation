@@ -21,6 +21,7 @@ import {
   deleteCourseByIdService,
 } from '../../services/courseService';
 
+
 export interface ICourse {
   type: string;
   payload: TCourse;
