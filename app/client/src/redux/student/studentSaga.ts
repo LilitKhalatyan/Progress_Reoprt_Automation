@@ -26,13 +26,13 @@ function* getStudentsData(data: IStudents) {
   try {
     let id;
     if (typeof data.payload !== 'string') {
-      id = data.payload.courseId;
+      id = data.payload.courseId.toString;
     } else {
-      id = data.payload;
+      id = data.payload.toString;
     }
-    const students: TStudent[] = yield call(getAllStudentsByCourseService, id);
-    console.log(students, 'fetched students from saga');
-    yield put(getAllStudentsSuccesed(students));
+    // const students: TStudent[] = yield call(getAllStudentsByCourseService, id);
+    // console.log(students, 'fetched students from saga');
+    // yield put(getAllStudentsSuccesed(students));
   } catch (error) {
     yield put(getAllStudentsFailed());
   }

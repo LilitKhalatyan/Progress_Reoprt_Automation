@@ -5,7 +5,7 @@ const selectSelf = (state: RootState) => state;
 
 const coursesSelector = createSelector(
   selectSelf,
-  (state) => state.s
+  (state) => state.courses.courses
 );
 const courseSelector = createSelector(
   selectSelf,
