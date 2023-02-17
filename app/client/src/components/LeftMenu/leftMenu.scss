@@ -42,7 +42,7 @@ nav {
 		li {
 			position: relative;
 			width: 70px;
-			height: 90px;
+			height: 120px;
 			cursor: pointer;
 			background: $sm-middle;
 			text-transform: uppercase;
@@ -88,10 +88,10 @@ nav {
 		}
 
 		li:nth-child(1):after {
-			@include li-after('Trainers');
+			@include li-after('Groups');
 		}
 		li:nth-child(2):after {
-			@include li-after('Groups');
+			@include li-after('Trainers');
 		}
 		li:nth-child(3):after {
 			@include li-after('Students');
@@ -99,24 +99,18 @@ nav {
 		li:nth-child(4):after {
 			@include li-after('Subjects');
 		}
-		li:nth-child(5):after {
-			@include li-after('Settings');
-		}
 	}
 }
 
-.trainers-icon {
-	@include icon('../../asset/images/menu/instructor.png');
-}
 .groups-icon {
 	@include icon('../../asset/images/menu/groups.png');
+}
+.trainers-icon {
+	@include icon('../../asset/images/menu/instructor.png');
 }
 .students-icon {
 	@include icon('../../asset/images/menu/students.png');
 }
 .subjects-icon {
 	@include icon('../../asset/images/menu/subjects.png');
-}
-.settings-icon {
-	@include icon('../../asset/images/menu/settings.png');
 }

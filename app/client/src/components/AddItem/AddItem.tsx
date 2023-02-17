@@ -66,7 +66,7 @@ const AddItem: React.FC<IProps> = (props) => {
 				return <AddTrainersForm data={group} />;
 			case 'Subjects':
 				return <AddSubjectsForm data={group} dataTrainers={trainers} />;
-			case 'Groups':
+			case 'Courses':
 				return <AddGroupsForm />;
 		}
 		// TODO add deps
