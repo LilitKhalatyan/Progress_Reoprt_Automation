@@ -37,15 +37,15 @@ const AddGroupsForm: React.FC = () => {
 						id="name"
 						{...register('name', {
 							required: true,
-							pattern: /[a-zA-Z]/,
+							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
 					<span className="input__label">Name</span>
 				</label>
 				{errors.name ? (
 					<>
-						{errors.name.type === 'required' && <span className="input-invalid">This field is required</span>}
-						{errors.name.type === 'pattern' && <span className="input-invalid">Please enter valid name</span>}
+						{errors.name.type === 'required' && <span className="input-invalid">⚠ This field is required</span>}
+						{errors.name.type === 'pattern' && <span className="input-invalid">⚠ Please enter valid name</span>}
 					</>
 				) : null}
 			</div>
@@ -88,8 +88,13 @@ const AddGroupsForm: React.FC = () => {
 					)}
 				/>
 			</div>
-			<div className="input__grp">
-				<Button value="Add Group" />
+			<div className="btn__grp">
+				<div className="input__grp">
+					<Button value="Save" />
+				</div>
+				<div className="input__grp">
+					<Button value="Save and add" />
+				</div>
 			</div>
 		</form>
 	);

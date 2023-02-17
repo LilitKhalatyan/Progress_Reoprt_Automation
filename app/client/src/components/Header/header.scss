@@ -5,7 +5,6 @@
 	left: 0;
 	background-color: transparent;
 	z-index: 5;
-
 	display: flex;
 	justify-content: center;
 }
@@ -20,4 +19,26 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+.user-side {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+	.user-icon {
+	  transition: all 0.2s ease-out;
+	  &:hover {
+		transform: scale(1.1);
+	  }
+	}
+	.logout-icon {
+	  width: 30px;
+	  height: 30px;
+	  cursor: pointer;
+	  transition: all 0.2s ease-out;
+	  background: url('../../asset/images/header/logout.png') no-repeat center;
+	  &:hover {
+		transform: scale(1.1);
+	  }
+	}
 }

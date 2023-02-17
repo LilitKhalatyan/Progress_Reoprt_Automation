@@ -1,5 +1,11 @@
 import React from 'react';
+import SettingsForm from './SettingsForm';
+import './settings.scss';
 
 export default function Settings() {
-	return <div>Settings</div>;
+	return (
+		<div className='settings__container'>
+		  <SettingsForm/>
+		</div>
+	  )
 }
