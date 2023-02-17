@@ -60,9 +60,9 @@ const signup = async (req, res) => {
                 console.log("Email sent: " + info.response);
             }
         });
-        return res.status(201).send(staff);
+        return res.status(201).send({message: "trainer create successfuly"});
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({message: "trainer create failed"});
     }
 };
 

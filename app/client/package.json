@@ -35,7 +35,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+"pretty": "prettier \"./src/**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
+
+
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +62,10 @@
     "@types/node-sass": "^4.11.3",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-router-dom": "^5.3.3",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "node-sass": "^7.0.3",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.4"
   }
 }

@@ -1,10 +1,12 @@
 export interface authState {
-    name?: string;
-    email: string;
-    password: string;
+	name?: string;
+	surname?: string;
+	email: string;
+	password?: string;
+	courseId?: [];
 }
 
 export interface AuthData {
-    type: string;
-    payload: authState;
+	type: string;
+	payload: authState;
 }

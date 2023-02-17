@@ -11,25 +11,25 @@ import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route element={<PublicLayout />}>
-            <Route path="/login" element={<LoginForm />} />
-          </Route>
-          <Route element={<AdminLayout />}>
-            <Route path="/" element={<Groups />} />
-            <Route path="/trainers" element={<Trainers />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/subjects" element={<Subjects />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
-        </Route>
-      </Routes>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Routes>
+				<Route element={<MainLayout />}>
+					<Route element={<PublicLayout />}>
+						<Route path="/login" element={<LoginForm />} />
+					</Route>
+					<Route element={<AdminLayout />}>
+						<Route path="/" element={<Groups />} />
+						<Route path="/trainers" element={<Trainers />} />
+						<Route path="/groups" element={<Groups />} />
+						<Route path="/students" element={<Students />} />
+						<Route path="/subjects" element={<Subjects />} />
+						<Route path="/settings" element={<Settings />} />
+					</Route>
+				</Route>
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
