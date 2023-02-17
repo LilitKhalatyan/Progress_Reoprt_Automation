@@ -7,25 +7,20 @@ import { courseSelector } from '../../redux/course/courseSelector';
 import './courses.scss';
 
 const Courses: React.FC = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCoursesAction());
-  }, []);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getAllCoursesAction());
+	}, []);
 
-  const [displayAdd, setDisplayAdd] = useState(false);
+	const [displayAdd, setDisplayAdd] = useState(false);
 
-  const courses = useSelector(courseSelector);
+	const courses = useSelector(courseSelector);
 
-  return (
-    <>
-      <UsersList
-        title="Courses"
-        data={courses}
-        display={displayAdd}
-        setDisplay={setDisplayAdd}
-      />
-    </>
-  );
+	return (
+		<>
+			<UsersList title="Courses" data={courses} display={displayAdd} setDisplay={setDisplayAdd} />
+		</>
+	);
 };
 
 export default Courses;
