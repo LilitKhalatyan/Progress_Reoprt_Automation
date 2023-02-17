@@ -21,7 +21,7 @@ function App() {
 					<Route element={<AdminLayout />}>
 						<Route path="/" element={<Groups />} />
 						<Route path="/trainers" element={<Trainers />} />
-						<Route path="/groups" element={<Groups />} />
+						<Route path="/courses" element={<Groups />} />
 						<Route path="/students" element={<Students />} />
 						<Route path="/subjects" element={<Subjects />} />
 						<Route path="/settings" element={<Settings />} />
