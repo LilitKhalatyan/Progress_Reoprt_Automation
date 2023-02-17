@@ -68,7 +68,7 @@ const UsersList: React.FC<IProps> = (props) => {
 						<div className="head-add">
 							<Button
 								className="add-btn"
-								title="add student"
+								title={"add" + " " + props.title}
 								src={addIcon}
 								onClick={(e: any) => {
 									setDisplay(true);
@@ -95,7 +95,7 @@ const UsersList: React.FC<IProps> = (props) => {
 										<Button
 											dataId={item.id}
 											className="users-btn"
-											title="edit student"
+											title={"edit" + " " + props.title}
 											src={editIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 												onClick(e);
@@ -105,7 +105,7 @@ const UsersList: React.FC<IProps> = (props) => {
 										<Button
 											dataId={item.id}
 											className="users-btn"
-											title="delete student"
+											title={'delete' + " " + props.title}
 											src={deleteIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 												onClick(e);

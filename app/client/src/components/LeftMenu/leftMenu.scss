@@ -88,7 +88,7 @@ nav {
 		}
 
 		li:nth-child(1):after {
-			@include li-after('Groups');
+			@include li-after('Courses');
 		}
 		li:nth-child(2):after {
 			@include li-after('Trainers');
@@ -102,7 +102,7 @@ nav {
 	}
 }
 
-.groups-icon {
+.courses-icon {
 	@include icon('../../asset/images/menu/groups.png');
 }
 .trainers-icon {

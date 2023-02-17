@@ -18,6 +18,7 @@
     "framer-motion": "^9.0.1",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
+    "react-avatar": "^5.0.3",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
@@ -36,9 +37,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-"pretty": "prettier \"./src/**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
-
-
+    "pretty": "prettier \"./src/**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
   },
   "eslintConfig": {
     "extends": [

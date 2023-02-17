@@ -68,7 +68,7 @@ const Students: React.FC = () => {
 
 	return (
 		<>
-			<UsersList title="Students" data={students} display={displayAdd} setDisplay={setDisplayAdd} />
+			<UsersList title="students" data={students} display={displayAdd} setDisplay={setDisplayAdd} />
 		</>
 	);
 };
