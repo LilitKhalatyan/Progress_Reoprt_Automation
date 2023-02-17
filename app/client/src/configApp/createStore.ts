@@ -9,17 +9,17 @@ import studentSlice from '../redux/student/studentSlice';
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: {
-    [authSlice.name]: authSlice.reducer,
-    [trainerSlice.name]: trainerSlice.reducer,
-    [studentSlice.name]: studentSlice.reducer,
-  },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware({
-      thunk: false,
-      serializableCheck: false,
-    }).concat(sagaMiddleware);
-  },
+	reducer: {
+		[authSlice.name]: authSlice.reducer,
+		[trainerSlice.name]: trainerSlice.reducer,
+		[studentSlice.name]: studentSlice.reducer,
+	},
+	middleware: (getDefaultMiddleware) => {
+		return getDefaultMiddleware({
+			thunk: false,
+			serializableCheck: false,
+		}).concat(sagaMiddleware);
+	},
 });
 
 sagaMiddleware.run(saga);

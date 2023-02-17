@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import UsersList from "../../components/UsersList/UsersList";
-import {
-    trainerSelector,
-    trainersSelector,
-} from "../../redux/trainer/selectors";
-import { getAllTrainersAction } from "../../redux/trainer/trainerSlice";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import UsersList from '../../components/UsersList/UsersList';
+import { trainerSelector, trainersSelector } from '../../redux/trainer/selectors';
+import { getAllTrainersAction } from '../../redux/trainer/trainerSlice';
 
-import "./trainers.scss";
+import './trainers.scss';
 
 // const trainers = [
 //     { id: 1, name: "John", surname: "Doe", email: "nameX@gemail.com" },
@@ -37,20 +34,13 @@ import "./trainers.scss";
 // ];
 
 const Trainers: React.FC = () => {
-    const [displayAdd, setDisplayAdd] = useState(false);
-    const trainers = useSelector(trainersSelector);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllTrainersAction());
-    }, []);
-    return (
-        <UsersList
-            title="Trainers"
-            data={trainers}
-            display={displayAdd}
-            setDisplay={setDisplayAdd}
-        />
-    );
+	const [displayAdd, setDisplayAdd] = useState(false);
+	const trainers = useSelector(trainersSelector);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getAllTrainersAction());
+	}, []);
+	return <UsersList title="Trainers" data={trainers} display={displayAdd} setDisplay={setDisplayAdd} />;
 };
 
 export default Trainers;

@@ -1,61 +1,51 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { TStudent } from "../types/students";
+import { TStudent } from '../types/students';
+import { getAllStudentsAction, getAllStudentsSuccesed, getAllStudentsFailed } from './student/studentSlice';
+import { getAllStudents } from '../services/studentService';
+import { AuthData } from '../types/authTypes';
+import { signIn, IUser, logout } from '../services/authService';
+import { loginAction, loginFailed, loginSuccesed, logoutAction, logoutSuccesed } from './auth/authSlice';
 import {
-    getAllStudentsAction,
-    getAllStudentsSuccesed,
-    getAllStudentsFailed,
-} from "./student/studentSlice";
-import { getAllStudents } from "../services/studentService";
-import { AuthData } from "../types/authTypes";
-import { signIn, IUser, logout } from "../services/authService";
-import {
-    loginAction,
-    loginFailed,
-    loginSuccesed,
-    logoutAction,
-    logoutSuccesed,
-} from "./auth/authSlice";
-import {
-    getAllTrainersAction,
-    updateTrainerAction,
-    getTrainerAction,
-    createTrainerAction,
-} from "./trainer/trainerSlice";
-import { createTrainer, getTrainerById, getTrainers } from "./trainer/trainerSaga";
+	getAllTrainersAction,
+	updateTrainerAction,
+	getTrainerAction,
+	createTrainerAction,
+} from './trainer/trainerSlice';
+import { createTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
 
 function* getStudentsData() {
-    try {
-        const students: TStudent[] = yield call(getAllStudents);
-        yield put(getAllStudentsSuccesed(students));
-    } catch (e) {
-        console.log(e);
-        yield put(getAllStudentsFailed());
-    }
+	try {
+		const students: TStudent[] = yield call(getAllStudents);
+		yield put(getAllStudentsSuccesed(students));
+	} catch (e) {
+		console.log(e);
+		yield put(getAllStudentsFailed());
+	}
 }
 
 function* logoutUser() {
-    yield localStorage.removeItem("user");
-    yield call(logout);
-    yield put(logoutSuccesed());
+	yield localStorage.removeItem('user');
+	yield call(logout);
+	yield put(logoutSuccesed());
 }
 
 function* auth(data: AuthData) {
-    try {
-        const user: IUser = yield call(signIn, data.payload);
-        yield localStorage.setItem("user", JSON.stringify(user));
-        yield put(loginSuccesed(user));
-    } catch (error) {
-        yield put(loginFailed());
-    }
+	try {
+		const user: IUser = yield call(signIn, data.payload);
+		yield localStorage.setItem('user', JSON.stringify(user));
+		yield put(loginSuccesed(user));
+	} catch (error) {
+		yield put(loginFailed());
+	}
 }
 
 export default function* watchDataSaga() {
-    yield takeEvery(loginAction.type, auth);
-    yield takeEvery(logoutAction.type, logoutUser);
-    yield takeEvery(getTrainerAction.type, getTrainerById);
-    yield takeEvery(updateTrainerAction.type, getTrainers);
-    yield takeEvery(getAllTrainersAction.type, getTrainers);
-    yield takeEvery(createTrainerAction.type, createTrainer);
-    yield takeEvery(getAllStudentsAction.type, getStudentsData);
+	yield takeEvery(loginAction.type, auth);
+	yield takeEvery(logoutAction.type, logoutUser);
+	yield takeEvery(getTrainerAction.type, getTrainerById);
+	yield takeEvery(updateTrainerAction.type, getTrainers);
+	yield takeEvery(getAllTrainersAction.type, getTrainers);
+	yield takeEvery(createTrainerAction.type, createTrainer);
+	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 }
