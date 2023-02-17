@@ -26,19 +26,19 @@
 	gap: 12px;
 	cursor: pointer;
 	.user-icon {
-	  transition: all 0.2s ease-out;
-	  &:hover {
-		transform: scale(1.1);
-	  }
+		transition: all 0.2s ease-out;
+		&:hover {
+			transform: scale(1.1);
+		}
 	}
 	.logout-icon {
-	  width: 30px;
-	  height: 30px;
-	  cursor: pointer;
-	  transition: all 0.2s ease-out;
-	  background: url('../../asset/images/header/logout.png') no-repeat center;
-	  &:hover {
-		transform: scale(1.1);
-	  }
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+		background: url('../../asset/images/header/logout.png') no-repeat center;
+		&:hover {
+			transform: scale(1.1);
+		}
 	}
 }

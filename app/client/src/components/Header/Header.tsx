@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from "react-avatar";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Avatar from 'react-avatar';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../asset/images/logo.svg';
-import { logoutAction } from "../../redux/auth/authSlice";
+import { logoutAction } from '../../redux/auth/authSlice';
 import './header.scss';
 
 const Header: React.FC = () => {
-	const [user, setUser] = useState("");
+	const [user, setUser] = useState('');
 
 	useEffect(() => {
 		setUser(
-			`${JSON.parse(localStorage.getItem("user")!).name} ${JSON.parse(localStorage.getItem("user")!).surname
-			}`
+			`${JSON.parse(localStorage.getItem('user')!).name} ${JSON.parse(localStorage.getItem('user')!).surname}`
 		);
 	}, []);
 
@@ -20,7 +19,7 @@ const Header: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const handleListItemClick = () => {
-		navigate("settings");
+		navigate('settings');
 	};
 
 	const isLogout = () => {

@@ -4,8 +4,8 @@ import './settings.scss';
 
 export default function Settings() {
 	return (
-		<div className='settings__container'>
-		  <SettingsForm/>
+		<div className="settings__container">
+			<SettingsForm />
 		</div>
-	  )
+	);
 }

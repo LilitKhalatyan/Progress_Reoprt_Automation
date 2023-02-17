@@ -44,8 +44,12 @@ const AddGroupsForm: React.FC = () => {
 				</label>
 				{errors.name ? (
 					<>
-						{errors.name.type === 'required' && <span className="input-invalid">⚠ This field is required</span>}
-						{errors.name.type === 'pattern' && <span className="input-invalid">⚠ Please enter valid name</span>}
+						{errors.name.type === 'required' && (
+							<span className="input-invalid">⚠ This field is required</span>
+						)}
+						{errors.name.type === 'pattern' && (
+							<span className="input-invalid">⚠ Please enter valid name</span>
+						)}
 					</>
 				) : null}
 			</div>
