@@ -8,7 +8,7 @@ import './courses.scss';
 
 const Courses: React.FC = () => {
   const dispatch = useDispatch();
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllCoursesAction());
   }, []);
 
