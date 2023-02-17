@@ -92,8 +92,8 @@ const LoginForm: React.FC = () => {
                 pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
               })}
             />
-            {(errors?.email?.type && (
-              <span className="focus-input focus-input-email invalid" />
+            {(errors?.password?.type && (
+              <span className="focus-input focus-input-password invalid" />
             )) || (
               <span className="focus-input focus-input-password valid"></span>
             )}

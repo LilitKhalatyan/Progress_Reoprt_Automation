@@ -2,6 +2,7 @@ const {
     updateTrainer,
     deleteTrainer,
     getAllTrainers,
+    getTrainerById,
 } = require("../controllers/trainer.controller");
 
 module.exports = (app) => {
@@ -14,6 +15,7 @@ module.exports = (app) => {
     });
 
     app.get("/trainers/all", getAllTrainers);
+    app.get("/trainersby/:id", getTrainerById);
     app.put("/trainers/update/:id", updateTrainer);
     app.delete("/trainers/delete/:id", deleteTrainer);
 };

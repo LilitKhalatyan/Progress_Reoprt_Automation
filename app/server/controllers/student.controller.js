@@ -43,7 +43,7 @@ const getSudentById = async (req, res) => {
                 id: id,
             },
         });
-        res.status(200).send(student);
+        res.status(200).send([student]);
     } catch (error) {
         res.status(500).send(error);
     }

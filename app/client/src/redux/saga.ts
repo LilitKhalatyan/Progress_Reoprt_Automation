@@ -16,6 +16,13 @@ import {
     logoutAction,
     logoutSuccesed,
 } from "./auth/authSlice";
+import {
+    getAllTrainersAction,
+    updateTrainerAction,
+    getTrainerAction,
+    createTrainerAction,
+} from "./trainer/trainerSlice";
+import { createTrainer, getTrainerById, getTrainers } from "./trainer/trainerSaga";
 
 function* getStudentsData() {
     try {
@@ -46,5 +53,9 @@ function* auth(data: AuthData) {
 export default function* watchDataSaga() {
     yield takeEvery(loginAction.type, auth);
     yield takeEvery(logoutAction.type, logoutUser);
+    yield takeEvery(getTrainerAction.type, getTrainerById);
+    yield takeEvery(updateTrainerAction.type, getTrainers);
+    yield takeEvery(getAllTrainersAction.type, getTrainers);
+    yield takeEvery(createTrainerAction.type, createTrainer);
     yield takeEvery(getAllStudentsAction.type, getStudentsData);
 }
