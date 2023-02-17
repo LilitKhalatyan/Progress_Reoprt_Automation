@@ -1,11 +1,19 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+	getAllStudentsAction,
+	getStudentByIdAction,
+	updateStudentByIdAction,
+	deleteStudentByIdAction,
+} from './student/studentSlice';
+import { getStudentsData, getStudentById, updateStudentById, deleteStudentById } from './student/studentSaga';
 
-import { TStudent } from '../types/students';
-import { getAllStudentsAction, getAllStudentsSuccesed, getAllStudentsFailed } from './student/studentSlice';
-import { getAllStudents } from '../services/studentService';
-import { AuthData } from '../types/authTypes';
-import { signIn, IUser, logout } from '../services/authService';
-import { loginAction, loginFailed, loginSuccesed, logoutAction, logoutSuccesed } from './auth/authSlice';
+import {
+	createCourseAction,
+	deleteCourseByIdAction,
+	getAllCoursesAction,
+	getCourseByIdAction,
+	updateCourseByIdAction,
+} from './course/courseSlice';
 import {
 	getAllTrainersAction,
 	updateTrainerAction,
@@ -14,15 +22,17 @@ import {
 } from './trainer/trainerSlice';
 import { createTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
 
-function* getStudentsData() {
-	try {
-		const students: TStudent[] = yield call(getAllStudents);
-		yield put(getAllStudentsSuccesed(students));
-	} catch (e) {
-		console.log(e);
-		yield put(getAllStudentsFailed());
-	}
-}
+import {
+	createCourse,
+	deleteCourseById,
+	getCourseById,
+	getCoursesData,
+	updateCourseById,
+} from './course/courseSaga';
+
+import { AuthData } from '../types/authTypes';
+import { signIn, IUser, logout } from '../services/authService';
+import { loginAction, loginFailed, loginSuccesed, logoutAction, logoutSuccesed } from './auth/authSlice';
 
 function* logoutUser() {
 	yield localStorage.removeItem('user');
@@ -43,9 +53,17 @@ function* auth(data: AuthData) {
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
 	yield takeEvery(logoutAction.type, logoutUser);
+	yield takeLatest(createCourseAction.type, createCourse);
+	yield takeLatest(getAllCoursesAction.type, getCoursesData);
 	yield takeEvery(getTrainerAction.type, getTrainerById);
 	yield takeEvery(updateTrainerAction.type, getTrainers);
 	yield takeEvery(getAllTrainersAction.type, getTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
+	// yield takeLatest(getCourseByIdAction.type, getCourseById);
+	// yield takeLatest(updateCourseByIdAction.type, updateCourseById);
+	// yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
+	//   yield takeEvery(getStudentByIdAction.type, getStudentById);
+	//   yield takeEvery(updateStudentByIdAction.type, updateStudentById);
+	//   yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
 }

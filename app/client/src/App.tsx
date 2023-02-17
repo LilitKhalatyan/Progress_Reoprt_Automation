@@ -5,7 +5,7 @@ import AdminLayout from './layout/AdminLayout';
 import PublicLayout from './layout/PublicLayout';
 import LoginForm from './components/LoginForm/LoginForm';
 import Trainers from './pages/Trainers/Trainers';
-import Groups from './pages/Groups/Groups';
+import Groups from './pages/Courses/Courses';
 import Students from './pages/Students/Students';
 import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
