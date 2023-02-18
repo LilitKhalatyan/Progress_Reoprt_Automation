@@ -1,5 +1,5 @@
 export type TCourse = {
-	id: number;
+	id?: number;
 	name: string;
 	startDate: string;
 	endDate: string;
@@ -8,6 +8,5 @@ export type TCourse = {
 export interface CourseSliceState {
 	courses: TCourse[];
 	course: TCourse[];
-	success: string;
-	failed: string;
+	message: {};
 }

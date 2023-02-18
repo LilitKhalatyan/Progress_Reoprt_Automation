@@ -6,6 +6,7 @@ import AddGroupsForm from '../../pages/Courses/AddCoursesForm';
 import CloseIcon from '../CloseIcon/CloseIcon';
 
 import './addItem.scss';
+import AddCoursesForm from '../../pages/Courses/AddCoursesForm';
 
 const group = [
 	{ id: 1, name: 'Front End' },
@@ -66,8 +67,8 @@ const AddItem: React.FC<IProps> = (props) => {
 				return <AddTrainersForm data={group} />;
 			case 'Subjects':
 				return <AddSubjectsForm data={group} dataTrainers={trainers} />;
-			case 'Groups':
-				return <AddGroupsForm />;
+			case 'Courses':
+				return <AddCoursesForm />;
 		}
 		// TODO add deps
 	}, [props.title]);

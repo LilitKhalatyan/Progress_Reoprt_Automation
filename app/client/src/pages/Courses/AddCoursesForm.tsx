@@ -4,16 +4,18 @@ import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 
 import 'react-datepicker/src/stylesheets/datepicker.scss';
+import { useDispatch } from 'react-redux';
+import { createCourseAction } from '../../redux/course/courseSlice';
 
 const AddGroupsForm: React.FC = () => {
+	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
-		console.log(
-			JSON.stringify({
-				name: data.name,
-				startDate: data.startDate,
-				endDate: data.endDate,
-			})
-		);
+		const finalData = {
+			name: data.name,
+			startDate: data.startDate.toLocaleString().slice(0, 9),
+			endDate: data.endDate.toLocaleString().slice(0, 9),
+		};
+		dispatch(createCourseAction(finalData));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');

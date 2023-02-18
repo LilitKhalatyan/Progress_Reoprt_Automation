@@ -9,7 +9,7 @@ export const getCourseByIdService = async (id: string): Promise<Response> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	return course.json();
+	return course;
 };
 
 // app.get("/courses/all", getAllCourses);
@@ -21,7 +21,7 @@ export const getAllCoursesService = async (): Promise<Response> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	return courseData.json();
+	return courseData;
 };
 
 // app.put("/courses/update/:id", updateCourse);
@@ -33,11 +33,11 @@ export const updateCourseByIdService = async (id: string): Promise<Response> => 
 			'Content-Type': 'application/json',
 		},
 	});
-	return courseData.json();
+	return courseData;
 };
 
 // app.delete("/courses/delete/:id", deleteCourse);
-export const deleteCourseByIdService = async (id: string): Promise<Response> => {
+export const deleteCourseByIdService = async (id: any): Promise<Response> => {
 	const courseData = await fetch(`http://localhost:3303/courses/delete/${id}`, {
 		method: 'DELETE',
 		credentials: 'include',
@@ -45,7 +45,7 @@ export const deleteCourseByIdService = async (id: string): Promise<Response> => 
 			'Content-Type': 'application/json',
 		},
 	});
-	return courseData.json();
+	return courseData;
 };
 
 // app.post("/courses/create", createCourse);
@@ -60,5 +60,5 @@ export const createCourseService = async (data: TCourse): Promise<Response> => {
 			...data,
 		}),
 	});
-	return courseData.json();
+	return courseData;
 };

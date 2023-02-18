@@ -1,52 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CourseSliceState } from '../../types/courses';
+import { CourseSliceState, TCourse } from '../../types/courses';
 
-const initialState: CourseSliceState = {
-	courses: [],
-	course: [],
-	success: '',
-	failed: '',
+const initialState = {
+	courses: [] as TCourse[],
+	course: [] as TCourse[],
+	message: {},
 };
 
 const courseSlice = createSlice({
 	name: 'courses',
 	initialState: initialState,
 	reducers: {
-		createCourseAction: (state) => {},
+		createCourseAction: (state, action) => {},
 		createCourseSuccesed: (state, action) => {
-			state.course = action.payload;
+			state.message = action.payload;
 		},
-		createCourseFailed: (state) => {
-			state.course = [];
+		createCourseFailed: (state, action) => {
+			state.message = action.payload;
 		},
 		getAllCoursesAction: (state) => {},
 		getAllCoursesSuccesed: (state, action) => {
 			state.courses = action.payload;
 		},
-		getAllCoursesFailed: (state) => {
-			state.courses = [];
+		getAllCoursesFailed: (state, action) => {
+			state.message = action.payload;
 		},
-		getCourseByIdAction: (state) => {},
+		getCourseByIdAction: (state, action) => {},
 		getCourseByIdSuccesed: (state, action) => {
 			state.course = action.payload;
 		},
 		getCourseByIdFailed: (state, action) => {
-			state.course = [];
-			state.failed = action.payload;
+			state.message = action.payload;
 		},
 		updateCourseByIdAction: (state) => {},
 		updateCourseByIdSuccesed: (state, action) => {
-			state.success = action.payload;
+			state.message = action.payload;
 		},
 		updateCourseByIdFailed: (state, action) => {
-			state.failed = action.payload;
+			state.message = action.payload;
 		},
 		deleteCourseByIdAction: () => {},
 		deleteCourseByIdSuccesed: (state, action) => {
-			state.success = action.payload;
+			state.message = action.payload;
 		},
 		deleteCourseByIdFailed: (state, action) => {
-			state.failed = action.payload;
+			state.message = action.payload;
 		},
 	},
 });

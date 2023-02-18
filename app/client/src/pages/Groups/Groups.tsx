@@ -10,10 +10,18 @@ const group = [
 
 const Groups: React.FC = () => {
 	const [displayAdd, setDisplayAdd] = useState(false);
-
+	const handleDelete = (id: any) => {};
+	const handleGetTrainer = (id: any) => {};
 	return (
 		<>
-			<UsersList title="Groups" data={group} display={displayAdd} setDisplay={setDisplayAdd} />
+			<UsersList
+				title="Groups"
+				data={group}
+				display={displayAdd}
+				setDisplay={setDisplayAdd}
+				onDelete={handleDelete}
+				getDataById={handleGetTrainer}
+			/>
 		</>
 	);
 };

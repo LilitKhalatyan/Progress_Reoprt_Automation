@@ -1,5 +1,4 @@
 import { authState } from '../types/authTypes';
-import { Trainer } from '../types/trainerTypes';
 
 export interface Message {
 	message: string;
@@ -7,7 +6,7 @@ export interface Message {
 export interface TrainerId {
 	id: string;
 }
-export const createTrainerFetch = async (form: authState): Promise<Message> => {
+export const createTrainerFetch = async (form: authState): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/auth/signup`, {
 		method: 'POST',
 		credentials: 'include',
@@ -18,11 +17,10 @@ export const createTrainerFetch = async (form: authState): Promise<Message> => {
 			...form,
 		}),
 	});
-	const message = await response.json();
-	return message as Message;
+	return response;
 };
 
-export const getTrainer = async (id: number): Promise<Trainer> => {
+export const getTrainer = async (id: string): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainersby/${id}`, {
 		method: 'GET',
 		credentials: 'include',
@@ -30,11 +28,10 @@ export const getTrainer = async (id: number): Promise<Trainer> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	const trainer = await response.json();
-	return trainer as Trainer;
+	return response;
 };
 
-export const getAllTrainers = async (): Promise<Trainer[]> => {
+export const getAllTrainers = async (): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainers/all`, {
 		method: 'GET',
 		credentials: 'include',
@@ -42,11 +39,10 @@ export const getAllTrainers = async (): Promise<Trainer[]> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	const trainers = await response.json();
-	return trainers as Trainer[];
+	return response;
 };
 
-export const deleteTrainerById = async (id: string): Promise<Message> => {
+export const deleteTrainerById = async (id: string): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainers/delete/${id}`, {
 		method: 'DELETE',
 		credentials: 'include',
@@ -54,8 +50,8 @@ export const deleteTrainerById = async (id: string): Promise<Message> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	const message = await response.json();
-	return message as Message;
+	return response;
 };
 
+// to do
 export const updateTrainerById = async (form: authState) => {};

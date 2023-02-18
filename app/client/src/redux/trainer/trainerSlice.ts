@@ -19,10 +19,8 @@ const trainerSlice = createSlice({
 			state.trainers = initialState.trainers;
 			state.message = action.payload;
 		},
-		getTrainerAction: () => {},
+		getTrainerAction: (state, action) => {},
 		getTrainerSuccesed: (state, action) => {
-			console.log(action.payload);
-
 			state.trainer = action.payload;
 		},
 		getTrainerFailed: (state, action) => {

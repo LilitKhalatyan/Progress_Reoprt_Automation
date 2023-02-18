@@ -24,22 +24,27 @@ import {
 
 export function* getTrainerById(data: TrainerData) {
 	try {
-		console.log(data.payload);
-
-		const trainer: Trainer = yield call(getTrainer, +data.payload);
-		console.log(trainer);
-
+		const response: Response = yield call(getTrainer, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainer get failed');
+		}
+		const trainer: Trainer[] = yield response.json() as Promise<Trainer[]>;
 		yield put(getTrainerSuccesed(trainer));
-	} catch (error) {
-		yield put(getTrainerFailed(error));
+	} catch (error: any) {
+		yield put(getTrainerFailed(error.message));
 	}
 }
 export function* deleteTrainer(data: TrainerData) {
 	try {
-		const trainer: Message = yield call(deleteTrainerById, data.payload);
-		yield put(deleteTrainerSuccesed(trainer));
-	} catch (error) {
-		yield put(deleteTrainerFailed(error));
+		const response: Response = yield call(deleteTrainerById, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainers delete failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllTrainersAction());
+		yield put(deleteTrainerSuccesed(message));
+	} catch (error: any) {
+		yield put(deleteTrainerFailed(error.message));
 	}
 }
 
@@ -50,21 +55,28 @@ export function* updateTrainer(data: AuthData) {
 
 export function* getTrainers() {
 	try {
-		const trainer: Trainer[] = yield call(getAllTrainers);
+		const response: Response = yield call(getAllTrainers);
+		if (!response.ok) {
+			throw new Error('Trainers get failed');
+		}
+		const trainer: Trainer[] = yield response.json() as Promise<Trainer[]>;
 		yield put(getAllTrainersSuccesed(trainer));
-	} catch (error) {
-		yield put(getAllTrainersFailed(error));
+	} catch (error: any) {
+		yield put(getAllTrainersFailed(error.message));
 	}
 }
 
 export function* createTrainer(data: AuthData) {
 	try {
-		const trainer: Message = yield call(createTrainerFetch, data.payload);
-		// const trainers: Trainer[] = yield call(getAllTrainers);
+		const response: Response = yield call(createTrainerFetch, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainer create failed');
+		}
+		const trainer: Message = yield response.json() as Promise<Message>;
+
 		yield put(getAllTrainersAction());
-		// yield put(getAllTrainersSuccesed(trainers));
 		yield put(createTrainerSuccesed(trainer));
-	} catch (error) {
-		yield put(createTrainerFailed(error));
+	} catch (error: any) {
+		yield put(createTrainerFailed(error.message));
 	}
 }

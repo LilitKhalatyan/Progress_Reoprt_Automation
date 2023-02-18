@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { v4 as uuid } from 'uuid';
 import AddItem from '../../components/AddItem/AddItem';
 import Button from '../Button/Button';
@@ -7,21 +7,22 @@ import editIcon from '../../asset/images/pages/edit.png';
 import deleteIcon from '../../asset/images/pages/delete.png';
 
 import './usersList.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllTrainersAction, getTrainerAction } from '../../redux/trainer/trainerSlice';
-import { trainersSelector } from '../../redux/trainer/selectors';
 
 interface IProps {
 	data: {
-		id: number;
+		id?: number;
 		name: string;
 		surname?: string;
 		email?: string;
 		groupId?: number;
+		startDate?: string;
+		endDate?: string;
 	}[];
 	title: string;
 	display: boolean;
 	setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+	onDelete: (id: any) => void;
+	getDataById: (id: any) => void;
 }
 
 const group = [
@@ -31,17 +32,9 @@ const group = [
 ];
 
 const UsersList: React.FC<IProps> = (props) => {
-	const { data, display, setDisplay } = props;
-	const dispatch = useDispatch();
+	const { data, display, setDisplay, onDelete, getDataById } = props;
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		// setSelect(e.target.value);
-	};
-
-	const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const id: any = e.currentTarget.dataset.id;
-		console.log(id);
-
-		dispatch(getTrainerAction(id));
 	};
 
 	return (
@@ -80,10 +73,6 @@ const UsersList: React.FC<IProps> = (props) => {
 					<div className="main-users__list">
 						<hr />
 						{data.map((item) => {
-							function dispatch(arg0: { payload: undefined; type: 'trainers/getTrainerAction' }) {
-								throw new Error('Function not implemented.');
-							}
-
 							return (
 								<div className="list-item" key={uuid()}>
 									<div className="info-grp">
@@ -98,7 +87,8 @@ const UsersList: React.FC<IProps> = (props) => {
 											title="edit student"
 											src={editIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-												onClick(e);
+												// onClick(e);
+												getDataById(e.currentTarget.dataset.id);
 												setDisplay(true);
 											}}
 										/>
@@ -108,7 +98,7 @@ const UsersList: React.FC<IProps> = (props) => {
 											title="delete student"
 											src={deleteIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-												onClick(e);
+												onDelete(e.currentTarget.dataset.id);
 											}}
 										/>
 									</div>
