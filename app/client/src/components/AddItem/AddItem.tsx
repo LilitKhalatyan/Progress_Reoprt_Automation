@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useMemo } from 'react';
 import AddStudentsForm from '../../pages/Students/AddStudentsForm';
 import AddTrainersForm from '../../pages/Trainers/AddTrainersForm';
 import AddSubjectsForm from '../../pages/Subjects/AddSubjectsForm';
-import AddGroupsForm from '../../pages/Courses/AddCoursesForm';
 import CloseIcon from '../CloseIcon/CloseIcon';
 
 import './addItem.scss';

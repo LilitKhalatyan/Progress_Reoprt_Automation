@@ -68,15 +68,19 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 						id="name"
 						{...register('name', {
 							required: true,
-							pattern: /[a-zA-Z]/,
+							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
 					<span className="input__label">Name</span>
 				</label>
 				{errors.name ? (
 					<>
-						{errors.name.type === 'required' && <span className="input-invalid">This field is required</span>}
-						{errors.name.type === 'pattern' && <span className="input-invalid">Please enter valid name</span>}
+						{errors.name.type === 'required' && (
+							<span className="input-invalid">⚠ This field is required</span>
+						)}
+						{errors.name.type === 'pattern' && (
+							<span className="input-invalid">⚠ Please enter valid name</span>
+						)}
 					</>
 				) : null}
 			</div>
@@ -89,7 +93,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 						id="surname"
 						{...register('surname', {
 							required: true,
-							pattern: /[a-zA-Z]/,
+							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
 					<span className="input__label">Surname</span>
@@ -97,10 +101,10 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				{errors.surname ? (
 					<>
 						{errors.surname.type === 'required' && (
-							<span className="input-invalid">This field is required</span>
+							<span className="input-invalid">⚠ This field is required</span>
 						)}
 						{errors.surname.type === 'pattern' && (
-							<span className="input-invalid">Please enter valid name</span>
+							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
@@ -114,7 +118,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 						id="email"
 						{...register('email', {
 							required: true,
-							pattern: /[a-zA-Z]/,
+							pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
 						})}
 					/>
 					<span className="input__label">Email</span>
@@ -122,10 +126,10 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				{errors.email ? (
 					<>
 						{errors.email.type === 'required' && (
-							<span className="input-invalid">This field is required</span>
+							<span className="input-invalid">⚠ This field is required</span>
 						)}
 						{errors.email.type === 'pattern' && (
-							<span className="input-invalid">Please enter valid name</span>
+							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
@@ -159,8 +163,13 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<div className="input__grp">
-				<Button value="Add Trainer" />
+			<div className="btn__grp">
+				<div className="input__grp">
+					<Button value="Save" />
+				</div>
+				<div className="input__grp">
+					<Button value="Save and add" />
+				</div>
 			</div>
 		</form>
 	);

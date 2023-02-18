@@ -1,23 +1,15 @@
-import React from 'react';
-import { v4 as uuid } from 'uuid';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 
-interface IProps {
-	data: {
-		id: number;
-		name: string;
-	}[];
-}
-
-const AddStudentsForm: React.FC<IProps> = (props) => {
+const SettingsForm: React.FC = () => {
 	const onSubmit = (data: any) => {
 		console.log(
 			JSON.stringify({
 				name: data.name,
 				surname: data.surname,
 				email: data.email,
-				select: data.select,
+				multiselect: data.multiselect,
 			})
 		);
 	};
@@ -26,6 +18,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 	};
 
 	const {
+		control,
 		register,
 		formState: { errors },
 		handleSubmit,
@@ -33,7 +26,8 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 		name: string;
 		surname: string;
 		email: string;
-		select: string;
+		newPassword: string;
+		oldPassword: string;
 	}>();
 
 	return (
@@ -46,7 +40,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 						placeholder=" "
 						id="name"
 						{...register('name', {
-							required: true,
 							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
@@ -54,9 +47,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 				</label>
 				{errors.name ? (
 					<>
-						{errors.name.type === 'required' && (
-							<span className="input-invalid">⚠ This field is required</span>
-						)}
 						{errors.name.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
@@ -71,7 +61,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 						placeholder=" "
 						id="surname"
 						{...register('surname', {
-							required: true,
 							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
@@ -79,9 +68,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 				</label>
 				{errors.surname ? (
 					<>
-						{errors.surname.type === 'required' && (
-							<span className="input-invalid">⚠ This field is required</span>
-						)}
 						{errors.surname.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
@@ -96,7 +82,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 						placeholder=" "
 						id="email"
 						{...register('email', {
-							required: true,
 							pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
 						})}
 					/>
@@ -104,9 +89,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 				</label>
 				{errors.email ? (
 					<>
-						{errors.email.type === 'required' && (
-							<span className="input-invalid">⚠ This field is required</span>
-						)}
 						{errors.email.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
@@ -114,42 +96,56 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 				) : null}
 			</div>
 			<div className="input__grp">
-				<select
-					id="select"
-					{...register('select', {
-						required: true,
-					})}
-					value="value"
-				>
-					<option key={uuid()} value="" disabled selected hidden>
-						Select group name
-					</option>
-					{props.data.map((option) => {
-						return (
-							<option key={uuid()} value={option.name}>
-								{option.name}
-							</option>
-						);
-					})}
-				</select>
-				{errors.select ? (
+				<label htmlFor="newPassword" className="input">
+					<input
+						type="newPassword"
+						className="input__field"
+						placeholder=" "
+						id="newPassword"
+						{...register('newPassword', {
+							pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+						})}
+					/>
+					<span className="input__label">New Password</span>
+				</label>
+				{errors.newPassword ? (
 					<>
-						{errors.select.type === 'required' && (
-							<span className="input-invalid">⚠ This field is required</span>
+						{errors.newPassword.type === 'pattern' && (
+							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					<Button value="Save" />
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" />
-				</div>
+			<div className="input__grp">
+				<label htmlFor="oldPassword" className="input">
+					<input
+						type="oldPassword"
+						className="input__field"
+						placeholder=" "
+						id="oldPassword"
+						{...register('oldPassword', {
+							required: true,
+							pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+						})}
+					/>
+					<span className="input__label">Old Password</span>
+				</label>
+				{errors.oldPassword ? (
+					<>
+						{errors.oldPassword.type === 'required' && (
+							<span className="input-invalid">⚠ This is required field</span>
+						)}
+						{errors.oldPassword.type === 'pattern' && (
+							<span className="input-invalid">⚠ Please enter valid name</span>
+						)}
+					</>
+				) : null}
+			</div>
+			<div className="input__grp">
+				<Button value="Update profile" />
 			</div>
 		</form>
 	);
 };
 
-export default AddStudentsForm;
+export default SettingsForm;
