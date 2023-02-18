@@ -76,7 +76,7 @@ const getAllCourses = async (req, res) => {
     }
 };
 
-const getCourseById = async (req, res) => {
+const getCourseByTrainerId = async (req, res) => {
     try {
         const trainerId = req.params.id;
         const courses = await Course.findAll({
@@ -102,6 +102,16 @@ const getCourseById = async (req, res) => {
     }
 };
 
+const getCourseById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const course = await Course.findByPk(id);
+
+        res.status(200).send([course]);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
 const deleteCourse = async (req, res) => {
     try {
         const id = req.params.id;
@@ -112,7 +122,7 @@ const deleteCourse = async (req, res) => {
         });
         res.status(200).send({ message: "course deleted succesfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "course deleted failed" });
     }
 };
 module.exports = {
