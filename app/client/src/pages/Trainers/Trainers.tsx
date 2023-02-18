@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
-import { trainerSelector, trainersSelector } from '../../redux/trainer/selectors';
-import { getAllTrainersAction } from '../../redux/trainer/trainerSlice';
+import { trainersSelector } from '../../redux/trainer/selectors';
+import {
+	deleteTrainerAction,
+	getAllTrainersAction,
+	getTrainerAction,
+} from '../../redux/trainer/trainerSlice';
 
 import './trainers.scss';
 
@@ -40,7 +44,23 @@ const Trainers: React.FC = () => {
 	useEffect(() => {
 		dispatch(getAllTrainersAction());
 	}, []);
-	return <UsersList title="trainers" data={trainers} display={displayAdd} setDisplay={setDisplayAdd} />;
+
+	const handleDelete = (id: any) => {
+		dispatch(deleteTrainerAction(id));
+	};
+	const handleGetTrainer = (id: any) => {
+		dispatch(getTrainerAction(id));
+	};
+	return (
+		<UsersList
+			title="Trainers"
+			data={trainers}
+			display={displayAdd}
+			setDisplay={setDisplayAdd}
+			onDelete={handleDelete}
+			getDataById={handleGetTrainer}
+		/>
+	);
 };
 
 export default Trainers;

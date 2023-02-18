@@ -7,7 +7,7 @@ export interface IUser {
 	roles: string;
 }
 
-const signIn = async (form: authState): Promise<IUser> => {
+const signIn = async (form: authState): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/auth/signin`, {
 		method: 'POST',
 		credentials: 'include',
@@ -18,8 +18,7 @@ const signIn = async (form: authState): Promise<IUser> => {
 			...form,
 		}),
 	});
-	const user = await response.json();
-	return user as IUser;
+	return response;
 };
 
 const logout = async () => {

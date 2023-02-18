@@ -65,10 +65,18 @@ const students = [
 
 const Students: React.FC = () => {
 	const [displayAdd, setDisplayAdd] = useState(false);
-
+	const handleDelete = (id: any) => {};
+	const handleGetTrainer = (id: any) => {};
 	return (
 		<>
-			<UsersList title="students" data={students} display={displayAdd} setDisplay={setDisplayAdd} />
+			<UsersList
+				title="Students"
+				data={students}
+				display={displayAdd}
+				setDisplay={setDisplayAdd}
+				onDelete={handleDelete}
+				getDataById={handleGetTrainer}
+			/>
 		</>
 	);
 };

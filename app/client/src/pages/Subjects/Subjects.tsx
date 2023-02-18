@@ -15,10 +15,18 @@ const subjects = [
 
 const Subjects: React.FC = () => {
 	const [displayAdd, setDisplayAdd] = useState(false);
-
+	const handleDelete = (id: any) => {};
+	const handleGetTrainer = (id: any) => {};
 	return (
 		<>
-			<UsersList title="Subjects" data={subjects} display={displayAdd} setDisplay={setDisplayAdd} />
+			<UsersList
+				title="Subjects"
+				data={subjects}
+				display={displayAdd}
+				setDisplay={setDisplayAdd}
+				onDelete={handleDelete}
+				getDataById={handleGetTrainer}
+			/>
 		</>
 	);
 };

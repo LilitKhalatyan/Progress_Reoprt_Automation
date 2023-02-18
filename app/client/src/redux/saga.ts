@@ -19,8 +19,9 @@ import {
 	updateTrainerAction,
 	getTrainerAction,
 	createTrainerAction,
+	deleteTrainerAction,
 } from './trainer/trainerSlice';
-import { createTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
+import { createTrainer, deleteTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
 
 import {
 	createCourse,
@@ -42,11 +43,18 @@ function* logoutUser() {
 
 function* auth(data: AuthData) {
 	try {
-		const user: IUser = yield call(signIn, data.payload);
+		const response: Response = yield call(signIn, data.payload);
+
+		if (!response.ok) {
+			throw new Error('Login failed');
+		}
+		const user: IUser = yield response.json() as Promise<IUser>;
+
 		yield localStorage.setItem('user', JSON.stringify(user));
 		yield put(loginSuccesed(user));
-	} catch (error) {
-		yield put(loginFailed());
+	} catch (error: any) {
+		// in typescript error can only be one of two types: "any" or "unknown"
+		yield put(loginFailed(error.message));
 	}
 }
 
@@ -59,9 +67,11 @@ export default function* watchDataSaga() {
 	yield takeEvery(updateTrainerAction.type, getTrainers);
 	yield takeEvery(getAllTrainersAction.type, getTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
+	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
+	yield takeEvery(getCourseByIdAction.type, getCourseById);
 	// yield takeLatest(getCourseByIdAction.type, getCourseById);
 	// yield takeLatest(updateCourseByIdAction.type, updateCourseById);
-	// yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
+	yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	//   yield takeEvery(getStudentByIdAction.type, getStudentById);
 	//   yield takeEvery(updateStudentByIdAction.type, updateStudentById);

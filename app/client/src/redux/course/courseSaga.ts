@@ -11,6 +11,7 @@ import {
 	updateCourseByIdSuccesed,
 	deleteCourseByIdFailed,
 	deleteCourseByIdSuccesed,
+	getAllCoursesAction,
 } from './courseSlice';
 
 import {
@@ -20,54 +21,82 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
+import { Message } from '../../services/trainerService';
 
 export interface ICourse {
 	type: string;
 	payload: TCourse;
 }
+export interface GetCourse {
+	type: string;
+	payload: string;
+}
 
 function* createCourse(data: ICourse) {
 	try {
-		const course: TCourse[] = yield call(createCourseService, data.payload);
-		yield put(getAllCoursesSuccesed(course));
-	} catch (error) {
-		yield put(getAllCoursesFailed());
+		const response: Response = yield call(createCourseService, data.payload);
+		if (!response.ok) {
+			throw new Error('Course create failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(createCourseSuccesed(message));
+		yield put(getAllCoursesAction());
+	} catch (error: any) {
+		yield put(getAllCoursesFailed(error.message));
 	}
 }
 
 function* getCoursesData() {
 	try {
-		const courses: TCourse[] = yield call(getAllCoursesService);
-		yield put(createCourseSuccesed(courses));
-	} catch (error) {
-		yield put(createCourseFailed());
+		const response: Response = yield call(getAllCoursesService);
+		if (!response.ok) {
+			throw new Error('Courses get failed');
+		}
+		const courses: TCourse[] = yield response.json() as Promise<TCourse[]>;
+		yield put(getAllCoursesSuccesed(courses));
+	} catch (error: any) {
+		yield put(getAllCoursesFailed(error.message));
 	}
 }
 
-function* getCourseById(id: string) {
+function* getCourseById(data: GetCourse) {
 	try {
-		const course: TCourse = yield call(getCourseByIdService, id);
+		const response: Response = yield call(getCourseByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('Course get failed');
+		}
+		const course: TCourse[] = yield response.json() as Promise<TCourse[]>;
+
 		yield put(getCourseByIdSuccesed(course));
-	} catch (error) {
-		yield put(getCourseByIdFailed(error));
+	} catch (error: any) {
+		yield put(getCourseByIdFailed(error.message));
 	}
 }
 
 function* updateCourseById(id: string) {
 	try {
-		const response: string = yield call(updateCourseByIdService, id);
+		const response: Response = yield call(updateCourseByIdService, id);
+		if (!response.ok) {
+			throw new Error('Course updated failed');
+		}
+		yield put(getAllCoursesAction());
 		yield put(updateCourseByIdSuccesed(response));
-	} catch (error) {
-		yield put(updateCourseByIdFailed(error));
+	} catch (error: any) {
+		yield put(updateCourseByIdFailed(error.message));
 	}
 }
 
-function* deleteCourseById(id: string) {
+function* deleteCourseById(data: ICourse) {
 	try {
-		const response: string = yield call(deleteCourseByIdService, id);
-		yield put(deleteCourseByIdSuccesed(response));
-	} catch (error) {
-		yield put(deleteCourseByIdFailed(error));
+		const response: Response = yield call(deleteCourseByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('Course delete failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllCoursesAction());
+		yield put(deleteCourseByIdSuccesed(message));
+	} catch (error: any) {
+		yield put(deleteCourseByIdFailed(error.message));
 	}
 }
 

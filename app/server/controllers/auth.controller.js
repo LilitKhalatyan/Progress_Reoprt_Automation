@@ -60,9 +60,9 @@ const signup = async (req, res) => {
                 console.log("Email sent: " + info.response);
             }
         });
-        return res.status(201).send({message: "trainer create successfuly"});
+        return res.status(201).json("trainer create successfuly");
     } catch (error) {
-        res.status(500).send({message: "trainer create failed"});
+        res.status(500).send(error);
     }
 };
 
@@ -75,7 +75,9 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const staff = await Staff.findOne({ where: { email: email } });
         if (!staff) {
-            return res.status(404).send({ message: "Authentication failed" });
+            return res.status(404).send({
+                message: "Authentication failed",
+            });
         }
         const passwordIsValid = await bcrypt.compare(password, staff.password);
 
@@ -113,7 +115,7 @@ const login = async (req, res) => {
             // refreshToken: refreshToken,
         });
     } catch (error) {
-        res.status(500).send("Authentication error");
+        res.status(500).send(error);
     }
 };
 

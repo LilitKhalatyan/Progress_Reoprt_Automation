@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Outlet, Navigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
@@ -10,7 +9,7 @@ import '../style/style.scss';
 const AdminLayout: React.FC = (): JSX.Element => {
 	const auth = useSelector(authSelector);
 
-	if (auth || localStorage.getItem('user')) {
+	if (auth) {
 		return (
 			<div className="main__container">
 				<Header />

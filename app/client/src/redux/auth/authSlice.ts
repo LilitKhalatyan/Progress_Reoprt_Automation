@@ -4,6 +4,7 @@ const localUser = JSON.parse(localStorage.getItem('user') || 'null');
 const initialState = {
 	user: localUser || {},
 	auth: !!localUser,
+	message: {},
 };
 
 const authSlice = createSlice({
@@ -15,8 +16,8 @@ const authSlice = createSlice({
 			state.user = action.payload;
 			state.auth = true;
 		},
-		loginFailed: (state) => {
-			state = initialState;
+		loginFailed: (state, action) => {
+			state.message = action.payload;
 		},
 		logoutAction: () => {},
 		logoutSuccesed: (state) => {

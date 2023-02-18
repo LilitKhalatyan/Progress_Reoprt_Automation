@@ -26,15 +26,6 @@ const getAllTrainers = async (req, res) => {
     try {
         const staff = await Staff.findAll({
             attributes: ["id", "name", "surname", "email"],
-            // include: [
-            //     {
-            //         model: Roles,
-            //         where: {
-            //             id: 1,
-            //         },
-            //         required: true,
-            //     },
-            // ],
             where: {
                 id: {
                     [Op.ne]: 1, // not equal to 1
