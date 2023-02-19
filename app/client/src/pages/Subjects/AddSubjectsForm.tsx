@@ -25,7 +25,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			name: data.name,
 			courseId: data.selectGroup,
 			staffId: data.selectTrainer,
-		}
+		};
 		dispatch(createSubjectAction(finalData));
 	};
 	const onFail = (error: any) => {

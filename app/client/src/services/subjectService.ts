@@ -1,4 +1,4 @@
-import { TSubject } from "../types/subjectTypes";
+import { TSubject } from '../types/subjectTypes';
 
 export const getSubjectByIdService = async (id: string): Promise<Response> => {
 	const subjectData = await fetch(`http://localhost:3303/subjectby/${id}`, {

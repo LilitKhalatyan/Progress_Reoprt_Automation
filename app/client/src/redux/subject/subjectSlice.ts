@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { TSubject } from "../../types/subjectTypes";
+import { createSlice } from '@reduxjs/toolkit';
+import { TSubject } from '../../types/subjectTypes';
 
 const initialState = {
-    subjects: [] as TSubject[],
-    subject: [] as TSubject[],
-    message: {}
-}
+	subjects: [] as TSubject[],
+	subject: [] as TSubject[],
+	message: {},
+};
 
 const subjectSlice = createSlice({
 	name: 'subjects',
@@ -25,13 +25,13 @@ const subjectSlice = createSlice({
 		getAllSubjectFailed: (state, action) => {
 			state.message = action.payload;
 		},
-        getSubjectByIdAction: (state, action) => {},
-        getSubjectByIdSuccesed: (state, action) => {
-            state.subject = action.payload;
-        },
-        getSubjectByIdFailed: (state, action) => {
-            state.message = action.payload;
-        },
+		getSubjectByIdAction: (state, action) => {},
+		getSubjectByIdSuccesed: (state, action) => {
+			state.subject = action.payload;
+		},
+		getSubjectByIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
 		updateSubjectByIdAction: (state) => {},
 		updateSubjectByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -61,8 +61,8 @@ export const {
 	deleteSubjectByIdAction,
 	deleteSubjectByIdSuccesed,
 	deleteSubjectByIdFailed,
-    getSubjectByIdAction,
-    getSubjectByIdFailed,
-    getSubjectByIdSuccesed,
+	getSubjectByIdAction,
+	getSubjectByIdFailed,
+	getSubjectByIdSuccesed,
 } = subjectSlice.actions;
 export default subjectSlice;

@@ -1,9 +1,27 @@
 import { call, put } from 'redux-saga/effects';
 
 import { Message } from '../../services/trainerService';
-import { createSubjectFailed, createSubjectSuccesed, deleteSubjectByIdFailed, deleteSubjectByIdSuccesed, getAllSubjectAction, getAllSubjectFailed, getAllSubjectSuccesed, getSubjectByIdFailed, getSubjectByIdSuccesed, updateSubjectByIdFailed, updateSubjectByIdSuccesed } from './subjectSlice';
+import {
+	createSubjectFailed,
+	createSubjectSuccesed,
+	deleteSubjectByIdFailed,
+	deleteSubjectByIdSuccesed,
+	getAllSubjectAction,
+	getAllSubjectFailed,
+	getAllSubjectSuccesed,
+	getSubjectByIdFailed,
+	getSubjectByIdSuccesed,
+	updateSubjectByIdFailed,
+	updateSubjectByIdSuccesed,
+} from './subjectSlice';
 import { TSubject } from '../../types/subjectTypes';
-import { createSubjectService, deleteSubjectByIdService, getAllSubjectService, getSubjectByIdService, updateSubjectByIdService } from '../../services/subjectService';
+import {
+	createSubjectService,
+	deleteSubjectByIdService,
+	getAllSubjectService,
+	getSubjectByIdService,
+	updateSubjectByIdService,
+} from '../../services/subjectService';
 
 export interface ISubject {
 	type: string;
@@ -54,14 +72,13 @@ function* getSubjectById(data: SubjectId) {
 	}
 }
 
-
 function* updateSubjectById(data: SubjectId) {
 	try {
 		const response: Response = yield call(updateSubjectByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}
-        const message: Message = yield response.json() as Promise<Message>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllSubjectAction());
 		yield put(updateSubjectByIdSuccesed(message));
 	} catch (error: any) {

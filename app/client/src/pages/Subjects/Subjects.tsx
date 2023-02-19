@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
 import { subjectsSelector } from '../../redux/subject/subjectSelector';
-import { deleteSubjectByIdAction, getAllSubjectAction, getSubjectByIdAction } from '../../redux/subject/subjectSlice';
+import {
+	deleteSubjectByIdAction,
+	getAllSubjectAction,
+	getSubjectByIdAction,
+} from '../../redux/subject/subjectSlice';
 // import "./subjects.scss";
 
 // const subjects = [
@@ -44,6 +48,6 @@ const Subjects: React.FC = () => {
 			/>
 		</>
 	);
-};	
+};
 
 export default Subjects;
