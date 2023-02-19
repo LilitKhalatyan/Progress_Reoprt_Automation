@@ -34,6 +34,8 @@ import {
 import { AuthData } from '../types/authTypes';
 import { signIn, IUser, logout } from '../services/authService';
 import { loginAction, loginFailed, loginSuccesed, logoutAction, logoutSuccesed } from './auth/authSlice';
+import { createSubjectAction, deleteSubjectByIdAction, getAllSubjectAction, getSubjectByIdAction, updateSubjectByIdAction } from './subject/subjectSlice';
+import { createSubject, deleteSubjectById, getSubjectById, getSubjectsData, updateSubjectById } from './subject/subjectSaga';
 
 function* logoutUser() {
 	yield localStorage.removeItem('user');
@@ -76,4 +78,9 @@ export default function* watchDataSaga() {
 	//   yield takeEvery(getStudentByIdAction.type, getStudentById);
 	//   yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	//   yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+    yield takeEvery(createSubjectAction.type, createSubject);
+    yield takeEvery(getAllSubjectAction.type, getSubjectsData);
+    yield takeEvery(getSubjectByIdAction.type, getSubjectById);
+    yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
+    yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
 }

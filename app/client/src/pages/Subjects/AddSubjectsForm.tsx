@@ -2,6 +2,8 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
+import { useDispatch } from 'react-redux';
+import { createSubjectAction } from '../../redux/subject/subjectSlice';
 
 interface IProps {
 	data: {
@@ -17,14 +19,14 @@ interface IProps {
 }
 
 const AddSubjectsForm: React.FC<IProps> = (props) => {
+	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
-		console.log(
-			JSON.stringify({
-				name: data.name,
-				selectGroup: data.selectGroup,
-				selectTrainer: data.selectTrainer,
-			})
-		);
+		const finalData = {
+			name: data.name,
+			courseId: data.selectGroup,
+			staffId: data.selectTrainer,
+		}
+		dispatch(createSubjectAction(finalData));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');
@@ -80,7 +82,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					</option>
 					{props.data.map((option) => {
 						return (
-							<option key={uuid()} value={option.name}>
+							<option key={uuid()} value={option.id}>
 								{option.name}
 							</option>
 						);
@@ -106,7 +108,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					</option>
 					{props.dataTrainers.map((option) => {
 						return (
-							<option key={uuid()} value={option.name}>
+							<option key={uuid()} value={option.id}>
 								{option.name}
 							</option>
 						);

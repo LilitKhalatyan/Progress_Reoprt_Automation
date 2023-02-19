@@ -17,6 +17,8 @@ interface IProps {
 		groupId?: number;
 		startDate?: string;
 		endDate?: string;
+        courseId?: number;
+        staffId?: number;
 	}[];
 	title: string;
 	display: boolean;
@@ -36,6 +38,7 @@ const UsersList: React.FC<IProps> = (props) => {
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		// setSelect(e.target.value);
 	};
+console.log(data);
 
 	return (
 		<div className="users__container">

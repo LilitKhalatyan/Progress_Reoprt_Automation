@@ -48,6 +48,20 @@ const getAllSubject = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
+const getSubjectById = async (req, res) => {
+    try {
+        const id = req.params.id
+        const subjects = await Subject.findByPk(id);
+        if (!subjects) {
+            res.status(404).send({ message: "subject not found" });
+        }
+        res.status(200).send([subjects]);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
 const getSubjectbyTrainer = async (req, res) => {
     try {
         const staffId = req.userId;
@@ -89,5 +103,6 @@ module.exports = {
     createSubject,
     getAllSubject,
     deleteSubject,
+    getSubjectById,
     getSubjectbyTrainer,
 };
