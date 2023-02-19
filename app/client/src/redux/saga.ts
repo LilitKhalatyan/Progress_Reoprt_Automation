@@ -41,6 +41,20 @@ import {
 	// updateCourseById,
 } from './course/courseSaga';
 
+import {
+	createSubjectAction,
+	deleteSubjectByIdAction,
+	getAllSubjectAction,
+	getSubjectByIdAction,
+	updateSubjectByIdAction,
+} from './subject/subjectSlice';
+import {
+	createSubject,
+	deleteSubjectById,
+	getSubjectById,
+	getSubjectsData,
+	updateSubjectById,
+} from './subject/subjectSaga';
 import { loginAction, logoutAction } from './auth/authSlice';
 import { auth, logoutUser } from './auth/authSaga';
 
@@ -63,4 +77,9 @@ export default function* watchDataSaga() {
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+	yield takeEvery(createSubjectAction.type, createSubject);
+	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
+	yield takeEvery(getSubjectByIdAction.type, getSubjectById);
+	yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
+	yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
 }
