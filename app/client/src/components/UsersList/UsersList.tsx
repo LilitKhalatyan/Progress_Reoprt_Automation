@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import AddItem from '../../components/AddItem/AddItem';
 import Button from '../Button/Button';
@@ -34,11 +34,11 @@ const group = [
 ];
 
 const UsersList: React.FC<IProps> = (props) => {
+	const [type, setType] = useState('add');
 	const { data, display, setDisplay, onDelete, getDataById } = props;
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		// setSelect(e.target.value);
 	};
-	console.log(data);
 
 	return (
 		<div className="users__container">
@@ -66,11 +66,12 @@ const UsersList: React.FC<IProps> = (props) => {
 								className="add-btn"
 								title={'add' + ' ' + props.title}
 								src={addIcon}
-								onClick={(e: any) => {
+								onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 									setDisplay(true);
+									setType('add');
 								}}
 							/>
-							<AddItem title={props.title} show={display} setShow={setDisplay} />
+							<AddItem title={props.title} show={display} setShow={setDisplay} btnType={type}/>
 						</div>
 					</div>
 					<div className="main-users__list">
@@ -92,6 +93,7 @@ const UsersList: React.FC<IProps> = (props) => {
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 												getDataById(e.currentTarget.dataset.id);
 												setDisplay(true);
+												setType('edit')
 											}}
 										/>
 										<Button

@@ -8,6 +8,7 @@ import { createCourseAction } from '../../redux/course/courseSlice';
 import 'react-datepicker/src/stylesheets/datepicker.scss';
 
 interface IProps {
+	btnType: string;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -31,6 +32,28 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		formState: { errors },
 		handleSubmit,
 	} = useForm<{ name: string; startDate: string; endDate: string }>();
+
+	const buttonComponent = () => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<div className="btn__grp">
+						<div className="input__grp">
+							<Button value="Save" className='btn-modal' />
+						</div>
+						<div className="input__grp">
+							<Button value="Save and add" className='btn-modal' />
+						</div>
+					</div>
+				)
+			case 'edit':
+				return (
+					<div className="input__grp">
+						<Button value="Update" className='btn-modal' />
+					</div>
+				);
+		}
+	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -98,19 +121,9 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 					)}
 				/>
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					  <Button value="Save" className='btn-modal' onClick={() => {
-						console.log( errors.name)
-						if(!errors.name) {
-							 props.setShow(false)
-						}
-					}}/>
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" className='btn-modal' />
-				</div>
-			</div>
+			<>
+				{buttonComponent()}
+			</>
 		</form>
 	);
 };

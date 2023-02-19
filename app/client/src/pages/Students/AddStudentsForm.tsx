@@ -11,6 +11,7 @@ interface IProps {
 		id: number;
 		name: string;
 	}[];
+	btnType: string;
 }
 
 const AddStudentsForm: React.FC<IProps> = (props) => {
@@ -38,6 +39,28 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 		email: string;
 		select: string;
 	}>();
+
+	const buttonComponent = () => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<div className="btn__grp">
+						<div className="input__grp">
+							<Button value="Save" className='btn-modal' />
+						</div>
+						<div className="input__grp">
+							<Button value="Save and add" className='btn-modal' />
+						</div>
+					</div>
+				)
+			case 'edit':
+				return (
+					<div className="input__grp">
+						<Button value="Update" className='btn-modal' />
+					</div>
+				);
+		}
+	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -143,14 +166,9 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					<Button value="Save" className='btn-modal'/>
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" className='btn-modal'/>
-				</div>
-			</div>
+			<>
+				{buttonComponent()}
+			</>
 		</form>
 	);
 };
