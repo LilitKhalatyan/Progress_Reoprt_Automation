@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import AddItem from '../../components/AddItem/AddItem';
 import Button from '../Button/Button';
@@ -34,11 +34,11 @@ const group = [
 ];
 
 const UsersList: React.FC<IProps> = (props) => {
+	const [type, setType] = useState('add');
 	const { data, display, setDisplay, onDelete, getDataById } = props;
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		// setSelect(e.target.value);
 	};
-	console.log(data);
 
 	return (
 		<div className="users__container">
@@ -66,11 +66,12 @@ const UsersList: React.FC<IProps> = (props) => {
 								className="add-btn"
 								title={'add' + ' ' + props.title}
 								src={addIcon}
-								onClick={(e: any) => {
+								onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 									setDisplay(true);
+									setType('add');
 								}}
 							/>
-							<AddItem title={props.title} show={display} setShow={setDisplay} />
+							<AddItem title={props.title} show={display} setShow={setDisplay} btnType={type}/>
 						</div>
 					</div>
 					<div className="main-users__list">
@@ -79,9 +80,9 @@ const UsersList: React.FC<IProps> = (props) => {
 							return (
 								<div className="list-item" key={uuid()}>
 									<div className="info-grp">
-										<input type="text" value={item.name} onChange={() => console.log('first')} />
-										<input type="text" value={item.surname} onChange={() => console.log('first')} />
-										<input type="text" value={item.email} onChange={() => console.log('first')} />
+										<span >{item.name}</span>
+										<span >{item.surname}</span>
+										<span >{item.email}</span>
 									</div>
 									<div className="edit-grp">
 										<Button
@@ -90,9 +91,9 @@ const UsersList: React.FC<IProps> = (props) => {
 											title={'edit' + ' ' + props.title}
 											src={editIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-												// onClick(e);
 												getDataById(e.currentTarget.dataset.id);
 												setDisplay(true);
+												setType('edit')
 											}}
 										/>
 										<Button

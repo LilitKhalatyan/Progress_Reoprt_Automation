@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import {
 	deleteCourseByIdAction,
@@ -8,11 +9,11 @@ import {
 	getCourseByIdAction,
 } from '../../redux/course/courseSlice';
 import { coursesSelector } from '../../redux/course/courseSelector';
-import './courses.scss';
+// import './courses.scss';
 
 const Courses: React.FC = () => {
 	const dispatch = useDispatch();
-	const courses = useSelector(coursesSelector);
+	const {courses, loading}:any = useSelector(coursesSelector);
 
 	useEffect(() => {
 		dispatch(getAllCoursesAction());
@@ -28,14 +29,14 @@ const Courses: React.FC = () => {
 	};
 	return (
 		<>
-			<UsersList
+		{loading ? Spinner() : <UsersList
 				title="Courses"
 				data={courses}
 				display={displayAdd}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}
 				getDataById={handleGetCourse}
-			/>
+			/>}
 		</>
 	);
 };

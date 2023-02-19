@@ -3,8 +3,8 @@ import { RootState } from '../../configApp/createStore';
 
 const selectSelf = (state: RootState) => state;
 
+const trainersSelector = createSelector(selectSelf, (state) => state.trainers);
 const trainerSelector = createSelector(selectSelf, (state) => state.trainers.trainer);
-const trainersSelector = createSelector(selectSelf, (state) => state.trainers.trainers);
 
 const trainersMessageSelector = createSelector(selectSelf, (state) => state.trainers.message);
 

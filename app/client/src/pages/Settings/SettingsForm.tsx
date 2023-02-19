@@ -142,7 +142,7 @@ const SettingsForm: React.FC = () => {
 				) : null}
 			</div>
 			<div className="input__grp">
-				<Button value="Update profile" />
+				<Button value="Update profile" className='btn-modal'/>
 			</div>
 		</form>
 	);

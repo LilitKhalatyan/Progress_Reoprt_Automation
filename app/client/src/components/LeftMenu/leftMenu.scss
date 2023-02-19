@@ -42,7 +42,7 @@ nav {
 		li {
 			position: relative;
 			width: 70px;
-			height: 120px;
+			height: 100px;
 			cursor: pointer;
 			background: $sm-middle;
 			text-transform: uppercase;
@@ -99,6 +99,9 @@ nav {
 		li:nth-child(4):after {
 			@include li-after('Subjects');
 		}
+		li:nth-child(5):after {
+			@include li-after('Reports');
+		}
 	}
 }
 
@@ -113,4 +116,7 @@ nav {
 }
 .subjects-icon {
 	@include icon('../../asset/images/menu/subjects.png');
+}
+.reports-icon {
+	@include icon('../../asset/images/menu/reports.png');
 }

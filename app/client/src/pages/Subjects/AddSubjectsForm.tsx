@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
@@ -16,6 +16,7 @@ interface IProps {
 		surname: string;
 		email: string;
 	}[];
+	btnType: string;
 }
 
 const AddSubjectsForm: React.FC<IProps> = (props) => {
@@ -41,6 +42,49 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 		selectGroup: string;
 		selectTrainer: string;
 	}>();
+
+	// const buttonComponent = useMemo(() => {
+	// 	switch (props.btnType) {
+	// 		case 'add':
+	// 			return (
+	// 				<div className="btn__grp">
+	// 					<div className="input__grp">
+	// 						<Button value="Save" className='btn-modal' />
+	// 					</div>
+	// 					<div className="input__grp">
+	// 						<Button value="Save and add" className='btn-modal' />
+	// 					</div>
+	// 				</div>
+	// 			)
+	// 		case 'edit':
+	// 			return (
+	// 				<div className="input__grp">
+	// 					<Button value="Update" className='btn-modal' />
+	// 				</div>
+	// 			);
+	// 	}
+	// }, [props.btnType]);
+	const buttonComponent = () => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<div className="btn__grp">
+						<div className="input__grp">
+							<Button value="Save" className='btn-modal' />
+						</div>
+						<div className="input__grp">
+							<Button value="Save and add" className='btn-modal' />
+						</div>
+					</div>
+				)
+			case 'edit':
+				return (
+					<div className="input__grp">
+						<Button value="Update" className='btn-modal' />
+					</div>
+				);
+		}
+	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -122,14 +166,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					<Button value="Save" />
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" />
-				</div>
-			</div>
+			<>
+				{buttonComponent()}
+			</>
 		</form>
 	);
 };

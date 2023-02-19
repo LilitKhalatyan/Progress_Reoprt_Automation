@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import { subjectsSelector } from '../../redux/subject/subjectSelector';
 import {
@@ -22,7 +23,7 @@ import {
 
 const Subjects: React.FC = () => {
 	const dispatch = useDispatch();
-	const subjects = useSelector(subjectsSelector);
+	const {subjects, loading} = useSelector(subjectsSelector);
 	// const subjects = useSelector()
 	const [displayAdd, setDisplayAdd] = useState(false);
 	const handleDelete = (id: any) => {
@@ -38,14 +39,15 @@ const Subjects: React.FC = () => {
 
 	return (
 		<>
-			<UsersList
+		{loading ? Spinner() : <UsersList
 				title="Subjects"
 				data={subjects}
 				display={displayAdd}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}
 				getDataById={handleGetTrainer}
-			/>
+			/>}
+			
 		</>
 	);
 };

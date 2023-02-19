@@ -26,6 +26,7 @@ interface IProps {
 	title: string;
 	show: boolean;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+	btnType: string;
 }
 
 const AddItem: React.FC<IProps> = (props) => {
@@ -37,12 +38,13 @@ const AddItem: React.FC<IProps> = (props) => {
 	//     document.body.style.opacity = "1";
 	//   }
 	// }, [props.show]);
+	const {title, btnType, show, setShow} = props;
 
 	const useOutsideClick = (ref: React.RefObject<HTMLDivElement>) => {
 		useEffect(() => {
 			const handleClickOutside = (event: MouseEvent) => {
 				if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
-					props.setShow(false);
+					setShow(false);
 				}
 			};
 			document.addEventListener('mousedown', handleClickOutside);
@@ -56,28 +58,28 @@ const AddItem: React.FC<IProps> = (props) => {
 
 	useOutsideClick(wrapperRef);
 
-	let className = props.show ? 'add-item show' : 'add-item';
+	let className = show ? 'add-item show' : 'add-item';
 
 	const formComponent = useMemo(() => {
-		switch (props.title) {
+		switch (title) {
 			case 'Students':
-				return <AddStudentsForm data={group} />;
+				return <AddStudentsForm data={group} btnType={btnType}/>;
 			case 'Trainers':
-				return <AddTrainersForm data={group} />;
+				return <AddTrainersForm data={group} btnType={btnType}/>;
 			case 'Subjects':
-				return <AddSubjectsForm data={group} dataTrainers={trainers} />;
+				return <AddSubjectsForm data={group} dataTrainers={trainers} btnType={btnType}/>;
 			case 'Courses':
-				return <AddCoursesForm />;
+				return <AddCoursesForm setShow={setShow} btnType={btnType}/>;
 		}
 		// TODO add deps
-	}, [props.title]);
+	}, [title, btnType]);
 
 	return (
 		<div className={className} ref={wrapperRef}>
 			<div className="add-item__content">
 				<CloseIcon
 					onClick={() => {
-						props.setShow(false);
+						setShow(false);
 					}}
 				/>
 				{formComponent}

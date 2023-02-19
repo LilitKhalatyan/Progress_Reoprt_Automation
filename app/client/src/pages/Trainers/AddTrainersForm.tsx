@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import Multiselect from 'multiselect-react-dropdown';
@@ -12,6 +12,8 @@ interface IProps {
 		id: number;
 		name: string;
 	}[];
+	btnType: string;
+
 }
 interface SelectElement {
 	id: number;
@@ -57,6 +59,30 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 	//     }
 
 	// },[trainer])
+	console.log(props.btnType)
+
+	const buttonComponent = useMemo(() => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<div className="btn__grp">
+						<div className="input__grp">
+							<Button value="Save" className='btn-modal' />
+						</div>
+						<div className="input__grp">
+							<Button value="Save and add" className='btn-modal' />
+						</div>
+					</div>
+				)
+			case 'edit':
+				return (
+					<div className="input__grp">
+						<Button value="Update" className='btn-modal' />
+					</div>
+				);
+		}
+	}, [props.btnType]);
+
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className="input__grp">
@@ -163,14 +189,9 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					<Button value="Save" />
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" />
-				</div>
-			</div>
+			<>
+				{buttonComponent}
+			</>
 		</form>
 	);
 };

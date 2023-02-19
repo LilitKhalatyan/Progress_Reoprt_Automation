@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import AddItem from '../../components/AddItem/AddItem';
-
-import './students.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentsSelector } from '../../redux/student/studentSelector';
 import {
@@ -11,6 +10,8 @@ import {
 	getStudentByIdAction,
 } from '../../redux/student/studentSlice';
 import { deleteStudentById } from '../../redux/student/studentSaga';
+
+// import './students.scss';
 
 // const students = [
 // 	{
@@ -73,7 +74,7 @@ import { deleteStudentById } from '../../redux/student/studentSaga';
 
 const Students: React.FC = () => {
 	const dispatch = useDispatch();
-	const students = useSelector(studentsSelector);
+	const { students, loading } = useSelector(studentsSelector);
 	const [displayAdd, setDisplayAdd] = useState(false);
 
 	useEffect(() => {
@@ -88,14 +89,15 @@ const Students: React.FC = () => {
 	};
 	return (
 		<>
-			<UsersList
+			{loading ? Spinner() : <UsersList
 				title="Students"
 				data={students}
 				display={displayAdd}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}
 				getDataById={handleGetStudent}
-			/>
+			/>}
+
 		</>
 	);
 };

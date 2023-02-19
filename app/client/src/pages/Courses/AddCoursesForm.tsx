@@ -2,12 +2,17 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-
-import 'react-datepicker/src/stylesheets/datepicker.scss';
 import { useDispatch } from 'react-redux';
 import { createCourseAction } from '../../redux/course/courseSlice';
 
-const AddGroupsForm: React.FC = () => {
+import 'react-datepicker/src/stylesheets/datepicker.scss';
+
+interface IProps {
+	btnType: string;
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
 		const finalData = {
@@ -27,6 +32,28 @@ const AddGroupsForm: React.FC = () => {
 		formState: { errors },
 		handleSubmit,
 	} = useForm<{ name: string; startDate: string; endDate: string }>();
+
+	const buttonComponent = () => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<div className="btn__grp">
+						<div className="input__grp">
+							<Button value="Save" className='btn-modal' />
+						</div>
+						<div className="input__grp">
+							<Button value="Save and add" className='btn-modal' />
+						</div>
+					</div>
+				)
+			case 'edit':
+				return (
+					<div className="input__grp">
+						<Button value="Update" className='btn-modal' />
+					</div>
+				);
+		}
+	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -94,14 +121,9 @@ const AddGroupsForm: React.FC = () => {
 					)}
 				/>
 			</div>
-			<div className="btn__grp">
-				<div className="input__grp">
-					<Button value="Save" />
-				</div>
-				<div className="input__grp">
-					<Button value="Save and add" />
-				</div>
-			</div>
+			<>
+				{buttonComponent()}
+			</>
 		</form>
 	);
 };
