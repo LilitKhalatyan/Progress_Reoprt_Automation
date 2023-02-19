@@ -1,19 +1,28 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 import {
 	getAllStudentsAction,
 	getStudentByIdAction,
 	updateStudentByIdAction,
 	deleteStudentByIdAction,
+	createStudentAction,
 } from './student/studentSlice';
-import { getStudentsData, getStudentById, updateStudentById, deleteStudentById } from './student/studentSaga';
+
+import {
+	getStudentsData,
+	getStudentById,
+	updateStudentById,
+	deleteStudentById,
+	createStudent,
+} from './student/studentSaga';
 
 import {
 	createCourseAction,
 	deleteCourseByIdAction,
 	getAllCoursesAction,
 	getCourseByIdAction,
-	updateCourseByIdAction,
+	// updateCourseByIdAction,
 } from './course/courseSlice';
+
 import {
 	getAllTrainersAction,
 	updateTrainerAction,
@@ -21,6 +30,7 @@ import {
 	createTrainerAction,
 	deleteTrainerAction,
 } from './trainer/trainerSlice';
+
 import { createTrainer, deleteTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
 
 import {
@@ -28,37 +38,11 @@ import {
 	deleteCourseById,
 	getCourseById,
 	getCoursesData,
-	updateCourseById,
+	// updateCourseById,
 } from './course/courseSaga';
 
-import { AuthData } from '../types/authTypes';
-import { signIn, IUser, logout } from '../services/authService';
-import { loginAction, loginFailed, loginSuccesed, logoutAction, logoutSuccesed } from './auth/authSlice';
-import { createSubjectAction, deleteSubjectByIdAction, getAllSubjectAction, getSubjectByIdAction, updateSubjectByIdAction } from './subject/subjectSlice';
-import { createSubject, deleteSubjectById, getSubjectById, getSubjectsData, updateSubjectById } from './subject/subjectSaga';
-
-function* logoutUser() {
-	yield localStorage.removeItem('user');
-	yield call(logout);
-	yield put(logoutSuccesed());
-}
-
-function* auth(data: AuthData) {
-	try {
-		const response: Response = yield call(signIn, data.payload);
-
-		if (!response.ok) {
-			throw new Error('Login failed');
-		}
-		const user: IUser = yield response.json() as Promise<IUser>;
-
-		yield localStorage.setItem('user', JSON.stringify(user));
-		yield put(loginSuccesed(user));
-	} catch (error: any) {
-		// in typescript error can only be one of two types: "any" or "unknown"
-		yield put(loginFailed(error.message));
-	}
-}
+import { loginAction, logoutAction } from './auth/authSlice';
+import { auth, logoutUser } from './auth/authSaga';
 
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
@@ -71,16 +55,13 @@ export default function* watchDataSaga() {
 	yield takeEvery(createTrainerAction.type, createTrainer);
 	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
-	// yield takeLatest(getCourseByIdAction.type, getCourseById);
-	// yield takeLatest(updateCourseByIdAction.type, updateCourseById);
+	yield takeEvery(createStudentAction.type, createStudent);
+	//yield takeLatest(getCourseByIdAction.type, getCourseById);
+	//yield takeLatest(updateCourseByIdAction.type, updateCourseById);
 	yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
-	//   yield takeEvery(getStudentByIdAction.type, getStudentById);
-	//   yield takeEvery(updateStudentByIdAction.type, updateStudentById);
-	//   yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
-    yield takeEvery(createSubjectAction.type, createSubject);
-    yield takeEvery(getAllSubjectAction.type, getSubjectsData);
-    yield takeEvery(getSubjectByIdAction.type, getSubjectById);
-    yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
-    yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
+	yield takeEvery(getStudentByIdAction.type, getStudentById);
+	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
+	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+   
 }

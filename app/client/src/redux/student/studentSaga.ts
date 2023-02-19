@@ -9,59 +9,116 @@ import {
 	updateStudentByIdSuccesed,
 	deleteStudentByIdFailed,
 	deleteStudentByIdSuccesed,
+	createStudentSuccesed,
+	createStudentFailed,
+	getAllStudentsAction,
 } from './studentSlice';
 
 import {
+	createStudentService,
 	deleteStudentByIdService,
 	getAllStudentsByCourseService,
+	getAllStudentsService,
 	getStudentByIdService,
 	updateStudentByIdService,
 } from '../../services/studentService';
+import { Message } from '../../services/trainerService';
 
 export interface IStudents {
 	type: string;
-	payload: string | TStudent;
+	payload: TStudent;
 }
-function* getStudentsData(data: IStudents) {
+export interface StudentsId {
+	type: string;
+	payload: string;
+}
+
+function* getStudentsData() {
 	try {
-		let id;
-		if (typeof data.payload !== 'string') {
-			id = data.payload.courseId.toString;
-		} else {
-			id = data.payload.toString;
+		const response: Response = yield call(getAllStudentsService);
+		if (!response.ok) {
+			throw new Error('get all students failed');
 		}
-		// const students: TStudent[] = yield call(getAllStudentsByCourseService, id);
-		// console.log(students, 'fetched students from saga');
-		// yield put(getAllStudentsSuccesed(students));
-	} catch (error) {
-		yield put(getAllStudentsFailed());
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
+		yield put(getAllStudentsSuccesed(students));
+	} catch (error: any) {
+		yield put(getAllStudentsFailed(error.message));
 	}
 }
-function* getStudentById(id: string) {
+
+function* getStudentsDataByCourse(data: StudentsId) {
 	try {
-		const student: TStudent = yield call(getStudentByIdService, id);
+		const response: Response = yield call(getAllStudentsByCourseService, data.payload);
+		if (!response.ok) {
+			throw new Error('get all students by course failed');
+		}
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
+		yield put(getAllStudentsSuccesed(students));
+	} catch (error: any) {
+		yield put(getAllStudentsFailed(error.message));
+	}
+}
+
+function* getStudentById(data: StudentsId) {
+	try {
+		const response: Response = yield call(getStudentByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('student get failed');
+		}
+		const student: TStudent[] = yield response.json() as Promise<TStudent[]>;
 		yield put(getStudentByIdSuccesed(student));
-	} catch (error) {
-		yield put(getStudentByIdFailed(error));
+	} catch (error: any) {
+		yield put(getStudentByIdFailed(error.message));
 	}
 }
 
-function* updateStudentById(id: string) {
+function* updateStudentById(data: StudentsId) {
 	try {
-		const response: string = yield call(updateStudentByIdService, id);
-		yield put(updateStudentByIdSuccesed(response));
-	} catch (error) {
-		yield put(updateStudentByIdFailed(error));
+		const response: Response = yield call(updateStudentByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('student update failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllStudentsAction());
+		yield put(updateStudentByIdSuccesed(message));
+	} catch (error: any) {
+		yield put(updateStudentByIdFailed(error.message));
 	}
 }
 
-function* deleteStudentById(id: string) {
+function* deleteStudentById(data: StudentsId) {
 	try {
-		const response: string = yield call(deleteStudentByIdService, id);
-		yield put(deleteStudentByIdSuccesed(response));
-	} catch (error) {
-		yield put(deleteStudentByIdFailed(error));
+		const response: Response = yield call(deleteStudentByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('student delete failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllStudentsAction());
+		yield put(deleteStudentByIdSuccesed(message));
+	} catch (error: any) {
+		yield put(deleteStudentByIdFailed(error.message));
 	}
 }
 
-export { getStudentsData, getStudentById, updateStudentById, deleteStudentById };
+function* createStudent(data: IStudents) {
+	try {
+		const response: Response = yield call(createStudentService, data.payload);
+		if (!response.ok) {
+			throw new Error('Create new student failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllStudentsAction());
+		yield put(createStudentSuccesed(message));
+	} catch (error: any) {
+		yield put(createStudentFailed(error.message));
+	}
+}
+
+export {
+	getStudentsData,
+	getStudentById,
+	updateStudentById,
+	deleteStudentById,
+	createStudent,
+	getStudentsDataByCourse,
+};

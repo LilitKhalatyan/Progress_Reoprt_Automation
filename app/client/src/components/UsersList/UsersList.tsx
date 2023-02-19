@@ -64,7 +64,7 @@ console.log(data);
 						<div className="head-add">
 							<Button
 								className="add-btn"
-								title={"add" + " " + props.title}
+								title={'add' + ' ' + props.title}
 								src={addIcon}
 								onClick={(e: any) => {
 									setDisplay(true);
@@ -87,7 +87,7 @@ console.log(data);
 										<Button
 											dataId={item.id}
 											className="users-btn"
-											title={"edit" + " " + props.title}
+											title={'edit' + ' ' + props.title}
 											src={editIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 												// onClick(e);
@@ -98,7 +98,7 @@ console.log(data);
 										<Button
 											dataId={item.id}
 											className="users-btn"
-											title={'delete' + " " + props.title}
+											title={'delete' + ' ' + props.title}
 											src={deleteIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 												onDelete(e.currentTarget.dataset.id);

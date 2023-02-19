@@ -3,6 +3,7 @@ const {
     createStudent,
     getSudentById,
     deleteStudent,
+    getAllStudents,
     getAllStudentsByCourse,
 } = require("../controllers/student.controller");
 
@@ -18,6 +19,7 @@ module.exports = (app) => {
     app.get("/studentby/:id", getSudentById);
     app.post("/student/create", createStudent);
     app.put("/student/update/:id", updateSudent);
+    app.get("/student/all", getAllStudents);
     app.get("/student/all/:id", getAllStudentsByCourse);
     app.delete("/student/delete/:id", deleteStudent);
 };

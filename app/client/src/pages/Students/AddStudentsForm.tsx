@@ -2,6 +2,9 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
+import { useDispatch } from 'react-redux';
+import { studentSelector } from '../../redux/student/studentSelector';
+import { createStudentAction } from '../../redux/student/studentSlice';
 
 interface IProps {
 	data: {
@@ -11,15 +14,15 @@ interface IProps {
 }
 
 const AddStudentsForm: React.FC<IProps> = (props) => {
+	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
-		console.log(
-			JSON.stringify({
-				name: data.name,
-				surname: data.surname,
-				email: data.email,
-				select: data.select,
-			})
-		);
+		const finalData = {
+			name: data.name,
+			surname: data.surname,
+			email: data.email,
+			courseId: data.select,
+		};
+		dispatch(createStudentAction(finalData));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');
@@ -126,7 +129,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					</option>
 					{props.data.map((option) => {
 						return (
-							<option key={uuid()} value={option.name}>
+							<option key={uuid()} value={option.id}>
 								{option.name}
 							</option>
 						);

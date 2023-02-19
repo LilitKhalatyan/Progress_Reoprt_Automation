@@ -1,5 +1,5 @@
 export type TStudent = {
-	id: number;
+	id?: number;
 	name: string;
 	surname: string;
 	email: string;
@@ -9,6 +9,5 @@ export type TStudent = {
 export interface StudentSliceState {
 	students: TStudent[];
 	student: TStudent[];
-	success: string;
-	failed: string;
+	message: {};
 }

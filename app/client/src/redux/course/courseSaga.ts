@@ -42,7 +42,7 @@ function* createCourse(data: ICourse) {
 		yield put(createCourseSuccesed(message));
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
-		yield put(getAllCoursesFailed(error.message));
+		yield put(createCourseFailed(error.message));
 	}
 }
 
