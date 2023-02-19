@@ -13,7 +13,7 @@ export const getStudentByIdService = async (id: string): Promise<Response> => {
 };
 
 // app.get("/student/all/:id", getAllStudentsByCourse);
-export const getAllStudentsByCourseService = async (id: string = ""): Promise<Response> => {
+export const getAllStudentsByCourseService = async (id: string = ''): Promise<Response> => {
 	const studentData = await fetch(`http://localhost:3303/student/all/${id}`, {
 		method: 'GET',
 		credentials: 'include',

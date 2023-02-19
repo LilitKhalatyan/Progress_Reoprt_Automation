@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TStudent } from '../../types/students';
 
 const initialState = {
-	students: [] as TStudent[] ,
+	students: [] as TStudent[],
 	student: [] as TStudent[],
-  message: {}
+	message: {},
 };
 
 const studentSlice = createSlice({
@@ -39,13 +39,13 @@ const studentSlice = createSlice({
 		deleteStudentByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-    createStudentAction: (state, action) => {},
-    createStudentSuccesed: (state, action) => {
-      state.message = action.payload;
-    },
-    createStudentFailed: (state,action) => {
-      state.message = action.payload;
-    }
+		createStudentAction: (state, action) => {},
+		createStudentSuccesed: (state, action) => {
+			state.message = action.payload;
+		},
+		createStudentFailed: (state, action) => {
+			state.message = action.payload;
+		},
 	},
 });
 export const {
@@ -61,9 +61,9 @@ export const {
 	deleteStudentByIdAction,
 	deleteStudentByIdSuccesed,
 	deleteStudentByIdFailed,
-  createStudentAction,
-  createStudentFailed,
-  createStudentSuccesed,
+	createStudentAction,
+	createStudentFailed,
+	createStudentSuccesed,
 } = studentSlice.actions;
 
 export default studentSlice;

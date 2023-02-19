@@ -5,7 +5,11 @@ import AddItem from '../../components/AddItem/AddItem';
 import './students.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentsSelector } from '../../redux/student/studentSelector';
-import { deleteStudentByIdAction, getAllStudentsAction, getStudentByIdAction } from '../../redux/student/studentSlice';
+import {
+	deleteStudentByIdAction,
+	getAllStudentsAction,
+	getStudentByIdAction,
+} from '../../redux/student/studentSlice';
 import { deleteStudentById } from '../../redux/student/studentSaga';
 
 // const students = [
@@ -74,7 +78,7 @@ const Students: React.FC = () => {
 
 	useEffect(() => {
 		dispatch(getAllStudentsAction());
-	},[])
+	}, []);
 
 	const handleDelete = (id: any) => {
 		dispatch(deleteStudentByIdAction(id));
@@ -97,4 +101,3 @@ const Students: React.FC = () => {
 };
 
 export default Students;
-

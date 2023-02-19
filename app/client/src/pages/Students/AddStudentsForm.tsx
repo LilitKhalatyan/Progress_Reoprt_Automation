@@ -14,15 +14,15 @@ interface IProps {
 }
 
 const AddStudentsForm: React.FC<IProps> = (props) => {
-  const dispatch = useDispatch();
-	const onSubmit = (data: any) => {    
-    const finalData = {
-      name: data.name,
-      surname: data.surname,
-      email: data.email,
-      courseId: data.select
-    }
-    dispatch(createStudentAction(finalData));
+	const dispatch = useDispatch();
+	const onSubmit = (data: any) => {
+		const finalData = {
+			name: data.name,
+			surname: data.surname,
+			email: data.email,
+			courseId: data.select,
+		};
+		dispatch(createStudentAction(finalData));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');

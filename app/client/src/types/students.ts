@@ -9,5 +9,5 @@ export type TStudent = {
 export interface StudentSliceState {
 	students: TStudent[];
 	student: TStudent[];
-	message: {}
+	message: {};
 }

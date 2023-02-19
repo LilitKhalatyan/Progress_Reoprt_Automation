@@ -30,16 +30,16 @@ export interface IStudents {
 }
 export interface StudentsId {
 	type: string;
-	payload: string 
+	payload: string;
 }
 
 function* getStudentsData() {
 	try {
 		const response: Response = yield call(getAllStudentsService);
-		if(!response.ok) {
-			throw new Error("get all students failed");
+		if (!response.ok) {
+			throw new Error('get all students failed');
 		}
-		const students:TStudent[] = yield response.json() as Promise<TStudent[]>;
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
 		yield put(getAllStudentsSuccesed(students));
 	} catch (error: any) {
 		yield put(getAllStudentsFailed(error.message));
@@ -49,10 +49,10 @@ function* getStudentsData() {
 function* getStudentsDataByCourse(data: StudentsId) {
 	try {
 		const response: Response = yield call(getAllStudentsByCourseService, data.payload);
-		if(!response.ok) {
-			throw new Error("get all students by course failed");
+		if (!response.ok) {
+			throw new Error('get all students by course failed');
 		}
-		const students:TStudent[] = yield response.json() as Promise<TStudent[]>;
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
 		yield put(getAllStudentsSuccesed(students));
 	} catch (error: any) {
 		yield put(getAllStudentsFailed(error.message));
@@ -62,10 +62,10 @@ function* getStudentsDataByCourse(data: StudentsId) {
 function* getStudentById(data: StudentsId) {
 	try {
 		const response: Response = yield call(getStudentByIdService, data.payload);
-		if(!response.ok) {
-			throw new Error("student get failed");
+		if (!response.ok) {
+			throw new Error('student get failed');
 		}
-		const student:TStudent[] = yield response.json() as Promise<TStudent[]>;
+		const student: TStudent[] = yield response.json() as Promise<TStudent[]>;
 		yield put(getStudentByIdSuccesed(student));
 	} catch (error: any) {
 		yield put(getStudentByIdFailed(error.message));
@@ -75,10 +75,10 @@ function* getStudentById(data: StudentsId) {
 function* updateStudentById(data: StudentsId) {
 	try {
 		const response: Response = yield call(updateStudentByIdService, data.payload);
-		if(!response.ok) {
-			throw new Error("student update failed");
+		if (!response.ok) {
+			throw new Error('student update failed');
 		}
-		const message:Message = yield response.json() as Promise<Message>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllStudentsAction());
 		yield put(updateStudentByIdSuccesed(message));
 	} catch (error: any) {
@@ -89,10 +89,10 @@ function* updateStudentById(data: StudentsId) {
 function* deleteStudentById(data: StudentsId) {
 	try {
 		const response: Response = yield call(deleteStudentByIdService, data.payload);
-		if(!response.ok) {
-			throw new Error("student delete failed");
+		if (!response.ok) {
+			throw new Error('student delete failed');
 		}
-		const message:Message = yield response.json() as Promise<Message>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllStudentsAction());
 		yield put(deleteStudentByIdSuccesed(message));
 	} catch (error: any) {
@@ -102,11 +102,11 @@ function* deleteStudentById(data: StudentsId) {
 
 function* createStudent(data: IStudents) {
 	try {
-		const response:Response = yield call(createStudentService, data.payload);
-		if(!response.ok) {
-			throw new Error("Create new student failed");
+		const response: Response = yield call(createStudentService, data.payload);
+		if (!response.ok) {
+			throw new Error('Create new student failed');
 		}
-		const message:Message = yield response.json() as Promise<Message>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllStudentsAction());
 		yield put(createStudentSuccesed(message));
 	} catch (error: any) {
@@ -114,4 +114,11 @@ function* createStudent(data: IStudents) {
 	}
 }
 
-export { getStudentsData, getStudentById, updateStudentById, deleteStudentById , createStudent, getStudentsDataByCourse};
+export {
+	getStudentsData,
+	getStudentById,
+	updateStudentById,
+	deleteStudentById,
+	createStudent,
+	getStudentsDataByCourse,
+};

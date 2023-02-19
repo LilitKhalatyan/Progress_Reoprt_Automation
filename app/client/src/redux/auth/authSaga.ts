@@ -1,9 +1,8 @@
 import { call, put } from 'redux-saga/effects';
 import { IUser, logout, signIn } from '../../services/authService';
 
-import { AuthData } from "../../types/authTypes";
+import { AuthData } from '../../types/authTypes';
 import { loginFailed, loginSuccesed, logoutSuccesed } from './authSlice';
-
 
 export function* logoutUser() {
 	yield localStorage.removeItem('user');
