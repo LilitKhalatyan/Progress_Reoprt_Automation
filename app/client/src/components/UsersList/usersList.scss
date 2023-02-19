@@ -88,7 +88,7 @@ hr {
 	justify-content: space-between;
 	align-items: center;
 	margin: 8px 0px;
-	background-color: #fff;
+	background-color: $white;
 	padding-left: 14px;
 	border-radius: 2px;
 	box-shadow: 0px 0px 1px 0px $sm-blue;
@@ -103,7 +103,12 @@ hr {
 		background-color: #f6f8fa;
 	}
 }
-
+.info-grp {
+	span {
+		color: #595d5f;
+    	font-size: 14px;
+	}
+}
 @media (max-width: 991.98px) {
 	.users__content {
 		padding: 2% 0 0 3%;

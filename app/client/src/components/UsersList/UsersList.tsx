@@ -79,9 +79,9 @@ const UsersList: React.FC<IProps> = (props) => {
 							return (
 								<div className="list-item" key={uuid()}>
 									<div className="info-grp">
-										<input type="text" value={item.name} onChange={() => console.log('first')} />
-										<input type="text" value={item.surname} onChange={() => console.log('first')} />
-										<input type="text" value={item.email} onChange={() => console.log('first')} />
+										<span >{item.name}</span>
+										<span >{item.surname}</span>
+										<span >{item.email}</span>
 									</div>
 									<div className="edit-grp">
 										<Button
@@ -90,7 +90,6 @@ const UsersList: React.FC<IProps> = (props) => {
 											title={'edit' + ' ' + props.title}
 											src={editIcon}
 											onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-												// onClick(e);
 												getDataById(e.currentTarget.dataset.id);
 												setDisplay(true);
 											}}

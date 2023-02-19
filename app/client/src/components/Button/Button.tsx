@@ -31,7 +31,7 @@ const Button: React.FC<IProps> = (props) => {
 			<button
 				data-id={dataId}
 				type="submit"
-				className={className + ' btn'}
+				className={className + ' btn-hover btn'}
 				onClick={(e) => {
 					if (onClick) onClick(e);
 				}}
