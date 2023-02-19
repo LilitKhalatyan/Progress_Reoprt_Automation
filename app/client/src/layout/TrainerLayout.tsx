@@ -1,12 +1,10 @@
 import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
-import { userSelector } from '../redux/auth/authSelector';
-
 import '../style/style.scss';
 
-const AdminLayout: React.FC = (): JSX.Element => {
+const TrainerLayout: React.FC = (): any => {
 	return (
 		<div className="main__container">
 			<Header />
@@ -20,4 +18,4 @@ const AdminLayout: React.FC = (): JSX.Element => {
 	);
 };
 
-export default AdminLayout;
+export default TrainerLayout;
