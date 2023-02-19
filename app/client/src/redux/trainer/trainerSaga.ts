@@ -34,6 +34,7 @@ export function* getTrainerById(data: TrainerData) {
 		yield put(getTrainerFailed(error.message));
 	}
 }
+
 export function* deleteTrainer(data: TrainerData) {
 	try {
 		const response: Response = yield call(deleteTrainerById, data.payload);
@@ -48,10 +49,11 @@ export function* deleteTrainer(data: TrainerData) {
 	}
 }
 
-export function* updateTrainer(data: AuthData) {
-	try {
-	} catch (error) {}
-}
+// to do
+// export function* updateTrainer(data: AuthData) {
+// 	try {
+// 	} catch (error) {}
+// }
 
 export function* getTrainers() {
 	try {
