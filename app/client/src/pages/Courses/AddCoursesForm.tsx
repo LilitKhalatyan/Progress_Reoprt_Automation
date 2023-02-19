@@ -100,7 +100,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 			</div>
 			<div className="btn__grp">
 				<div className="input__grp">
-					  <Button value="Save" onClick={() => {
+					  <Button value="Save" className='btn-modal' onClick={() => {
 						console.log( errors.name)
 						if(!errors.name) {
 							 props.setShow(false)
@@ -108,7 +108,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 					}}/>
 				</div>
 				<div className="input__grp">
-					<Button value="Save and add" />
+					<Button value="Save and add" className='btn-modal' />
 				</div>
 			</div>
 		</form>

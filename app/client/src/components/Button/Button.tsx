@@ -17,7 +17,7 @@ const Button: React.FC<IProps> = (props) => {
 		return (
 			<button
 				data-id={dataId}
-				className={className + ' btn'}
+				className={className + ' btn-hover'}
 				title={title}
 				onClick={(e) => {
 					if (onClick) onClick(e);
@@ -31,7 +31,7 @@ const Button: React.FC<IProps> = (props) => {
 			<button
 				data-id={dataId}
 				type="submit"
-				className={className + ' btn-hover btn'}
+				className={className + ' btn-hover'}
 				onClick={(e) => {
 					if (onClick) onClick(e);
 				}}

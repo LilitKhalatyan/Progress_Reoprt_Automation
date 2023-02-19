@@ -2,7 +2,7 @@
 
 .btn-hover {
 	width: 30%;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 700;
 	color: #f6f8fa;
 	cursor: pointer;
@@ -12,9 +12,9 @@
 	border: 1px solid rgba(0, 0, 0, 0.6);
 	background-size: 300% 100%;
 	border-radius: 6px;
-	-o-transition: all 0.4s ease-in-out;
-	-webkit-transition: all 0.4s ease-in-out;
-	transition: all 0.4s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-out;
 	&:hover {
 		border: 1px solid rgba(0, 0, 0, 0.2);
 		background-position: 100% 0;
@@ -26,7 +26,7 @@
 		outline: none;
 	  }
   }
-  .btn-hover.btn {
+  .btn-hover.btn-modal {
 	background-image: linear-gradient(
 		to right,
 		$sm-middle,
@@ -34,5 +34,5 @@
 		$blue,
 		$sm-pink
 	  );
-	box-shadow: 0 4px 15px 0 $sm-middle;
+	box-shadow: 1px 4px 12px 0px $sm-middle;
   }

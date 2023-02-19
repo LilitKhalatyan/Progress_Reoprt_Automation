@@ -165,10 +165,10 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			</div>
 			<div className="btn__grp">
 				<div className="input__grp">
-					<Button value="Save" />
+					<Button value="Save" className='btn-modal'/>
 				</div>
 				<div className="input__grp">
-					<Button value="Save and add" />
+					<Button value="Save and add" className='btn-modal'/>
 				</div>
 			</div>
 		</form>
