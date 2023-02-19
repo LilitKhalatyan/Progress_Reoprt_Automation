@@ -3,7 +3,7 @@ import { RootState } from '../../configApp/createStore';
 
 const selectSelf = (state: RootState) => state;
 
-const studentsSelector = createSelector(selectSelf, (state) => state.students.students);
+const studentsSelector = createSelector(selectSelf, (state) => state.students);
 const studentSelector = createSelector(selectSelf, (state) => state.students.student);
 
 export { studentsSelector, studentSelector };

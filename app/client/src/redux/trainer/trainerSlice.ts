@@ -5,15 +5,19 @@ const initialState = {
 	trainers: [] as Trainer[],
 	trainer: [] as Trainer[],
 	message: {},
+	loading: true
 };
 
 const trainerSlice = createSlice({
 	name: 'trainers',
 	initialState: initialState,
 	reducers: {
-		getAllTrainersAction: (state) => {},
+		getAllTrainersAction: (state) => {
+			state.loading = true;
+		},
 		getAllTrainersSuccesed: (state, action) => {
 			state.trainers = action.payload;
+			state.loading = false;
 		},
 		getAllTrainersFailed: (state, action) => {
 			state.trainers = initialState.trainers;

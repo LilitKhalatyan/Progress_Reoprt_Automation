@@ -9,7 +9,7 @@ import {
 	getCourseByIdAction,
 } from '../../redux/course/courseSlice';
 import { coursesSelector } from '../../redux/course/courseSelector';
-import './courses.scss';
+// import './courses.scss';
 
 const Courses: React.FC = () => {
 	const dispatch = useDispatch();
