@@ -11,7 +11,7 @@ const createStudent = async (req, res) => {
             courseId,
         };
         const student = await Student.create(studentInfo);
-        return res.status(200).send("Student created successfully");
+        return res.status(200).json("Student created successfully");
     } catch (error) {
         res.status(500);
     }
@@ -28,6 +28,15 @@ const getAllStudentsByCourse = async (req, res) => {
             });
             return res.status(200).send(students);
         }
+        const students = await Student.findAll();
+        return res.status(200).send(students);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+const getAllStudents = async (req, res) => {
+    try {
         const students = await Student.findAll();
         return res.status(200).send(students);
     } catch (error) {
@@ -64,7 +73,7 @@ const updateSudent = async (req, res) => {
                 id: id,
             },
         });
-        res.status(200).send("Student Updated successfully");
+        res.status(200).json("Student Updated successfully");
     } catch (error) {
         res.status(500).send(error);
     }
@@ -78,7 +87,7 @@ const deleteStudent = async (req, res) => {
                 id: id,
             },
         });
-        res.status(200).send("Student Deleted successfully");
+        res.status(200).json("Student Deleted successfully");
     } catch (error) {
         res.status(500).send(error);
     }
@@ -89,5 +98,6 @@ module.exports = {
     createStudent,
     getSudentById,
     deleteStudent,
+    getAllStudents,
     getAllStudentsByCourse,
 };

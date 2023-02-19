@@ -9,11 +9,11 @@ export const getStudentByIdService = async (id: string): Promise<Response> => {
 			'Content-Type': 'application/json',
 		},
 	});
-	return student.json();
+	return student;
 };
 
 // app.get("/student/all/:id", getAllStudentsByCourse);
-export const getAllStudentsByCourseService = async (id: string): Promise<Response> => {
+export const getAllStudentsByCourseService = async (id: string = ''): Promise<Response> => {
 	const studentData = await fetch(`http://localhost:3303/student/all/${id}`, {
 		method: 'GET',
 		credentials: 'include',
@@ -21,7 +21,18 @@ export const getAllStudentsByCourseService = async (id: string): Promise<Respons
 			'Content-Type': 'application/json',
 		},
 	});
-	return studentData.json();
+	return studentData;
+};
+
+export const getAllStudentsService = async (): Promise<Response> => {
+	const studentData = await fetch(`http://localhost:3303/student/all`, {
+		method: 'GET',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return studentData;
 };
 
 // app.put("/student/update/:id", updateSudent);
@@ -33,7 +44,7 @@ export const updateStudentByIdService = async (id: string): Promise<Response> =>
 			'Content-Type': 'application/json',
 		},
 	});
-	return studentData.json();
+	return studentData;
 };
 
 // app.delete("/student/delete/:id", deleteStudent);
@@ -45,7 +56,7 @@ export const deleteStudentByIdService = async (id: string): Promise<Response> =>
 			'Content-Type': 'application/json',
 		},
 	});
-	return studentData.json();
+	return studentData;
 };
 
 // app.post("/student/create", createStudent);
@@ -60,5 +71,5 @@ export const createStudentService = async (data: TStudent): Promise<Response> =>
 			...data,
 		}),
 	});
-	return studentData.json();
+	return studentData;
 };
