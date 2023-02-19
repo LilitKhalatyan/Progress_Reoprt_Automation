@@ -5,6 +5,7 @@ const initialState = {
 	courses: [] as TCourse[],
 	course: [] as TCourse[],
 	message: {},
+	loading: true
 };
 
 const courseSlice = createSlice({
@@ -18,9 +19,12 @@ const courseSlice = createSlice({
 		createCourseFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		getAllCoursesAction: (state) => {},
+		getAllCoursesAction: (state) => {
+			state.loading = true;
+		},
 		getAllCoursesSuccesed: (state, action) => {
 			state.courses = action.payload;
+			state.loading = false;
 		},
 		getAllCoursesFailed: (state, action) => {
 			state.message = action.payload;

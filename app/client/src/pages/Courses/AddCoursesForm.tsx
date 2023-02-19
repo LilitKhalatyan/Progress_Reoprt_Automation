@@ -2,12 +2,16 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-
-import 'react-datepicker/src/stylesheets/datepicker.scss';
 import { useDispatch } from 'react-redux';
 import { createCourseAction } from '../../redux/course/courseSlice';
 
-const AddGroupsForm: React.FC = () => {
+import 'react-datepicker/src/stylesheets/datepicker.scss';
+
+interface IProps {
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
 		const finalData = {
@@ -96,7 +100,12 @@ const AddGroupsForm: React.FC = () => {
 			</div>
 			<div className="btn__grp">
 				<div className="input__grp">
-					<Button value="Save" />
+					  <Button value="Save" onClick={() => {
+						console.log( errors.name)
+						if(!errors.name) {
+							 props.setShow(false)
+						}
+					}}/>
 				</div>
 				<div className="input__grp">
 					<Button value="Save and add" />
