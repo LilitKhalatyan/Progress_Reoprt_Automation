@@ -6,6 +6,7 @@ import PublicLayout from './layout/PublicLayout';
 import LoginForm from './components/LoginForm/LoginForm';
 import Trainers from './pages/Trainers/Trainers';
 import Groups from './pages/Courses/Courses';
+import Reports from './pages/Reports/Reports';
 import Students from './pages/Students/Students';
 import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
@@ -24,6 +25,7 @@ function App() {
 						<Route path="/courses" element={<Groups />} />
 						<Route path="/students" element={<Students />} />
 						<Route path="/subjects" element={<Subjects />} />
+						<Route path="/reports" element={<Reports />} />
 						<Route path="/settings" element={<Settings />} />
 					</Route>
 				</Route>

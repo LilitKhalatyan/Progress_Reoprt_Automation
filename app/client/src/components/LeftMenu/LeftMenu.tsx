@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import './leftMenu.scss';
 
-const icons = ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon'];
+const icons = ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
 
 const LeftMenu: React.FC = () => {
 	const navigate = useNavigate();
