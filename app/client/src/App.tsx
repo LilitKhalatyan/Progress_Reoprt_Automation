@@ -12,7 +12,8 @@ import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
-import TrainersHompage from './pages/trainersHomepage';
+import TrainersHompage from './pages/TrainersHomepage';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
 	return (
@@ -36,7 +37,7 @@ function App() {
 							<Route path="/trainershomepage" element={<TrainersHompage />} />
 						</Route>
 					</Route>
-					<Route path="*" element={<div>asdfasdfasdf</div>} />
+					<Route path="*" element={<PageNotFound />} />
 				</Route>
 			</Routes>
 		</div>
