@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { authSelector } from '../redux/auth/authSelector';
 import { logoutAction } from '../redux/auth/authSlice';
-import AuthLayout from './AuthLayout';
 
 const PublicLayout = () => {
 	const user = useSelector(authSelector);
@@ -13,8 +12,7 @@ const PublicLayout = () => {
 		dispatch(logoutAction());
 		return <Outlet />;
 	}
-	// return <Navigate to="/" replace={true} />;
-	return <AuthLayout />
+	return <Navigate to="/" replace />
 };
 
 export default PublicLayout;

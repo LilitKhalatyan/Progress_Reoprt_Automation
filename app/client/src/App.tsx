@@ -36,6 +36,7 @@ function App() {
 							<Route path="/trainershomepage" element={<TrainersHompage />} />
 						</Route>
 					</Route>
+					<Route path="*" element={<div>asdfasdfasdf</div>} />
 				</Route>
 			</Routes>
 		</div>
