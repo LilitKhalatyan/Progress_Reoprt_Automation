@@ -22,7 +22,6 @@ const signup = async (req, res) => {
             strict: true,
             exclude: '"',
         });
-        console.log(password);
         const userStaff = {
             name,
             surname,
@@ -35,9 +34,10 @@ const signup = async (req, res) => {
         }
         await staff.setRoles([1]);
         const course = await Course.findAll();
-        if (!course.length) {
+        // if (!course.length) {
             await staff.setCourses(courseId);
-        }
+        // }
+        
         const mailOptions = {
             from: process.env.MAIL_USER,
             to: staff.email,
@@ -108,9 +108,9 @@ const login = async (req, res) => {
         res.status(201).send({
             id: staff.id,
             name: staff.name,
+            surname: staff.surname,
             email: staff.email,
             roles: authorities,
-            status: staff.status,
             // accessToken: token,
             // refreshToken: refreshToken,
         });
