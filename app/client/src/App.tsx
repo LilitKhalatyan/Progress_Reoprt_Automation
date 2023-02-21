@@ -10,26 +10,29 @@ import Reports from './pages/Reports/Reports';
 import Students from './pages/Students/Students';
 import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
 	return (
 		<div className="App">
-			<Routes>
-				<Route element={<MainLayout />}>
-					<Route element={<PublicLayout />}>
-						<Route path="/login" element={<LoginForm />} />
+			<AnimatePresence>
+				<Routes>
+					<Route element={<MainLayout />}>
+						<Route element={<PublicLayout />}>
+							<Route path="/login" element={<LoginForm />} />
+						</Route>
+						<Route element={<AdminLayout />}>
+							<Route path="/" element={<Groups />} />
+							<Route path="/trainers" element={<Trainers />} />
+							<Route path="/courses" element={<Groups />} />
+							<Route path="/students" element={<Students />} />
+							<Route path="/subjects" element={<Subjects />} />
+							<Route path="/reports" element={<Reports />} />
+							<Route path="/settings" element={<Settings />} />
+						</Route>
 					</Route>
-					<Route element={<AdminLayout />}>
-						<Route path="/" element={<Groups />} />
-						<Route path="/trainers" element={<Trainers />} />
-						<Route path="/courses" element={<Groups />} />
-						<Route path="/students" element={<Students />} />
-						<Route path="/subjects" element={<Subjects />} />
-						<Route path="/reports" element={<Reports />} />
-						<Route path="/settings" element={<Settings />} />
-					</Route>
-				</Route>
-			</Routes>
+				</Routes>
+			</AnimatePresence>
 		</div>
 	);
 }

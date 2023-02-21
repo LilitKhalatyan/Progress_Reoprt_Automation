@@ -5,7 +5,7 @@
 	width: 100%;
 	height: 100%;
 	z-index: 5;
-	overflow: auto;
+	overflow: hidden;
 	background-color: #e6e8ec27;
 }
 .users__content {
@@ -41,11 +41,13 @@
 		height: 30px;
 		padding: 0px 15px 0px 8px;
 		box-shadow: 0px 0px 1px 0px $sm-blue;
+		border-radius: 2px;
 		background: url('../../asset/images/pages/search.png') no-repeat right scroll;
 	}
 	.users-sort {
 		width: 50%;
 		height: 30px;
+		border-radius: 2px;
 		box-shadow: 0px 0px 1px 0px $sm-blue;
 		background-color: transparent;
 	}
@@ -77,13 +79,57 @@
 	}
 }
 .main-users__list {
-	width: 94%;
-	margin-bottom: 50px;
+	width: 94.5%;
+	height: 95%;
+	// margin-bottom: 50px;
+	margin-left: 1px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
+.user_list_wrap {
+	width: 98.5%;
+	height: 465px;
+	margin-right: 10px;
+	overflow-y: auto;
+}
+.svg_wrap {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* Scroll  */
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+	border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
 hr {
-	margin: 24px 0px;
+	width: 93.4%;
+	margin: 24px 50px 24px 0px;
 }
 .list-item {
+	width: 99%;
 	height: 40px;
 	display: flex;
 	justify-content: space-between;
@@ -110,7 +156,7 @@ hr {
 .info-grp {
 	span {
 		color: #595d5f;
-    	font-size: 14px;
+		font-size: 14px;
 	}
 }
 @media (max-width: 991.98px) {

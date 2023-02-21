@@ -1,15 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSubjectAction } from '../../redux/subject/subjectSlice';
+import { subjectSelector } from '../../redux/subject/subjectSelector';
+import { TCourse } from '../../types/courses';
 
 interface IProps {
-	data: {
-		id: number;
-		name: string;
-	}[];
+	data: TCourse[];
 	dataTrainers: {
 		id: number;
 		name: string;
@@ -17,10 +16,13 @@ interface IProps {
 		email: string;
 	}[];
 	btnType: string;
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+	show: boolean;
 }
 
 const AddSubjectsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
+	const subject = useSelector(subjectSelector);
 	const onSubmit = (data: any) => {
 		const finalData = {
 			name: data.name,
@@ -35,6 +37,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 
 	const {
 		register,
+		reset,
 		formState: { errors },
 		handleSubmit,
 	} = useForm<{
@@ -42,45 +45,34 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 		selectGroup: string;
 		selectTrainer: string;
 	}>();
-
-	// const buttonComponent = useMemo(() => {
-	// 	switch (props.btnType) {
-	// 		case 'add':
-	// 			return (
-	// 				<div className="btn__grp">
-	// 					<div className="input__grp">
-	// 						<Button value="Save" className='btn-modal' />
-	// 					</div>
-	// 					<div className="input__grp">
-	// 						<Button value="Save and add" className='btn-modal' />
-	// 					</div>
-	// 				</div>
-	// 			)
-	// 		case 'edit':
-	// 			return (
-	// 				<div className="input__grp">
-	// 					<Button value="Update" className='btn-modal' />
-	// 				</div>
-	// 			);
-	// 	}
-	// }, [props.btnType]);
+	useEffect(() => {
+		if (props.btnType === 'edit') {
+			reset({
+				name: subject[0]?.name,
+				selectGroup: `${subject[0]?.courseId}`,
+				selectTrainer: `${subject[0]?.staffId}`,
+			});
+		} else {
+			reset({ name: '', selectTrainer: 'default', selectGroup: 'default' });
+		}
+	}, [reset, props.btnType, subject]);
 	const buttonComponent = () => {
 		switch (props.btnType) {
 			case 'add':
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className='btn-modal' />
+							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save and add" className='btn-modal' />
+							<Button value="Save and add" className="btn-modal" />
 						</div>
 					</div>
-				)
+				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className='btn-modal' />
+						<Button value="Update" className="btn-modal" />
 					</div>
 				);
 		}
@@ -121,7 +113,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 						required: true,
 					})}
 				>
-					<option key={uuid()} value="m" disabled selected hidden>
+					<option key={uuid()} value="default" disabled selected hidden>
 						Select group name
 					</option>
 					{props.data.map((option) => {
@@ -147,7 +139,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 						required: true,
 					})}
 				>
-					<option key={uuid()} value="" disabled selected hidden>
+					<option key={uuid()} value="default" disabled selected hidden>
 						Select Trainer
 					</option>
 					{props.dataTrainers.map((option) => {
@@ -166,9 +158,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<>
-				{buttonComponent()}
-			</>
+			<>{buttonComponent()}</>
 		</form>
 	);
 };

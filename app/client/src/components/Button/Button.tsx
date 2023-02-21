@@ -1,4 +1,5 @@
 import React from 'react';
+import { FieldErrors } from 'react-hook-form';
 import './button.scss';
 
 interface IProps extends React.HTMLAttributes<HTMLInputElement> {
@@ -8,10 +9,12 @@ interface IProps extends React.HTMLAttributes<HTMLInputElement> {
 	src?: string;
 	// className?: string;
 	onClick?: ((e: any) => void) | undefined;
+	setShow?: React.Dispatch<React.SetStateAction<boolean>>;
+	err?: FieldErrors;
 }
 
 const Button: React.FC<IProps> = (props) => {
-	const { className, value, title, src, onClick, dataId } = props;
+	const { className, value, title, src, onClick, dataId, setShow, err } = props;
 
 	if (src) {
 		return (
@@ -34,6 +37,7 @@ const Button: React.FC<IProps> = (props) => {
 				className={className + ' btn-hover'}
 				onClick={(e) => {
 					if (onClick) onClick(e);
+					if (setShow) setShow(false);
 				}}
 			>
 				{value}

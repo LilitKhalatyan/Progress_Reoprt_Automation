@@ -72,7 +72,7 @@ nav {
 		}
 
 		li:hover {
-			transform: translateX(-70px);
+			transform: translateX(-70px) perspective(400px);
 		}
 
 		li:hover:after {

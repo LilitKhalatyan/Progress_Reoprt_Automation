@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction } from '../../redux/course/courseSlice';
 
 import 'react-datepicker/src/stylesheets/datepicker.scss';
+import { courseSelector } from '../../redux/course/courseSelector';
 
 interface IProps {
 	btnType: string;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+	show: boolean;
 }
 
 const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
+	const course = useSelector(courseSelector);
 	const onSubmit = (data: any) => {
 		const finalData = {
 			name: data.name,
-			startDate: data.startDate.toLocaleString().slice(0, 9),
-			endDate: data.endDate.toLocaleString().slice(0, 9),
+			startDate: data.startDate,
+			endDate: data.endDate,
 		};
 		dispatch(createCourseAction(finalData));
 	};
@@ -28,28 +31,41 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 
 	const {
 		control,
+		reset,
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm<{ name: string; startDate: string; endDate: string }>();
-
+	} = useForm<{ name: string; startDate: Date; endDate: Date }>();
+	useEffect(() => {
+		if (course.length) {
+			if (props.btnType === 'edit') {
+				reset({
+					name: course[0]?.name,
+					startDate: new Date(course[0]?.startDate),
+					endDate: new Date(course[0]?.endDate),
+				});
+			} else {
+				reset({ name: '', startDate: new Date(), endDate: new Date() });
+			}
+		}
+	}, [reset, props.btnType, course]);
 	const buttonComponent = () => {
 		switch (props.btnType) {
 			case 'add':
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className='btn-modal' />
+							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save and add" className='btn-modal' />
+							<Button value="Save & add" className="btn-modal" setShow={props.setShow} err={errors} />
 						</div>
 					</div>
-				)
+				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className='btn-modal' />
+						<Button value="Update" className="btn-modal" />
 					</div>
 				);
 		}
@@ -66,7 +82,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 						id="name"
 						{...register('name', {
 							required: true,
-							pattern: /^[a-zA-Z]{3,30}$/,
+							pattern: /^[a-zA-Z-]{3,30}$/,
 						})}
 					/>
 					<span className="input__label">Name</span>
@@ -94,7 +110,6 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 							onChange={(date: Date) => field.onChange(date)}
 							selectsStart
 							startDate={new Date()}
-							// endDate={new Date()}
 							placeholderText="Select Start Date"
 							id="start-date"
 						/>
@@ -114,16 +129,13 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 							onChange={(date: Date) => field.onChange(date)}
 							selectsEnd
 							startDate={new Date()}
-							// endDate={new Date()}
 							placeholderText="Select End Date"
 							id="end-date"
 						/>
 					)}
 				/>
 			</div>
-			<>
-				{buttonComponent()}
-			</>
+			<>{buttonComponent()}</>
 		</form>
 	);
 };
