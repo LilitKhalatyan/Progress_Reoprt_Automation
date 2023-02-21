@@ -58,7 +58,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & add" className="btn-modal" setShow={props.setShow} err={errors} />
+							<Button value="Save & Close" className="btn-modal" setShow={props.setShow} err={errors} />
 						</div>
 					</div>
 				);
@@ -82,7 +82,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 						id="name"
 						{...register('name', {
 							required: true,
-							pattern: /^[a-zA-Z-]{3,30}$/,
+							pattern: /^[a-zA-Z_-]{3,30}$/,
 						})}
 					/>
 					<span className="input__label">Name</span>

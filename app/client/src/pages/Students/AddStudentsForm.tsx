@@ -62,7 +62,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save and add" className="btn-modal" />
+							<Button value="Save & Close" className="btn-modal" />
 						</div>
 					</div>
 				);
