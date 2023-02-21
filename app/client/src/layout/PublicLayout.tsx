@@ -8,7 +8,7 @@ const PublicLayout = () => {
 	if (!user) {
 		return <Outlet />;
 	}
-	return <Navigate to="/" replace={true} />;
+	return <Navigate to="/" replace />
 };
 
 export default PublicLayout;
