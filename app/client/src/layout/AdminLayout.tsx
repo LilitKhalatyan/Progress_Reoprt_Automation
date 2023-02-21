@@ -1,28 +1,18 @@
 import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from 'react-router-dom';
-import Header from '../components/Header/Header';
-import LeftMenu from '../components/LeftMenu/LeftMenu';
-import { authSelector } from '../redux/auth/authSelector';
-
+import { Outlet } from 'react-router-dom';
+import { userSelector } from '../redux/auth/authSelector';
+import LayoutWrapper from './LayoutWrapper';
+import warning from '../asset/images//warning/warning.svg'
 import '../style/style.scss';
 
 const AdminLayout: React.FC = (): JSX.Element => {
-	const auth = useSelector(authSelector);
 
-	if (auth) {
-		return (
-			<div className="main__container">
-				<Header />
-				<div className="page__container">
-					<div className="page__content">
-						<LeftMenu />
-						<Outlet />
-					</div>
-				</div>
-			</div>
-		);
-	}
-	return <Navigate to="/login" replace={true} />;
+	const user = useSelector(userSelector);
+		if (user.roles !== 'ADMIN') {
+			return <LayoutWrapper><h4>Access Denied</h4><img src={warning} alt="Access Denied" /></LayoutWrapper>
+		} else {
+			return <LayoutWrapper><Outlet/></LayoutWrapper>
+		}
 };
 
 export default AdminLayout;
