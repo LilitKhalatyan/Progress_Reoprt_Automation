@@ -17,7 +17,7 @@ interface Data {
 export function* logoutUser(data: Data) {
 	yield call(logout);
 	yield put(logoutSuccesed());
-	yield data.payload('/login');
+	yield data.payload('login');
 	yield localStorage.removeItem('user');
 	yield resetStore();
 }

@@ -14,7 +14,7 @@ import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
 import TrainersHompage from './pages/TrainersHomepage';
 import PageNotFound from './pages/PageNotFound';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
 	return (

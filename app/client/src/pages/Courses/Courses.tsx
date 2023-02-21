@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import { deleteCourseByIdAction, getCourseByIdAction } from '../../redux/course/courseSlice';
 import { coursesSelector, loadingSelector } from '../../redux/course/courseSelector';
@@ -34,6 +33,7 @@ const Courses: React.FC = () => {
 				onDelete={handleDelete}
 				getDataById={handleGetCourse}
 				onSelect={handleSelectChange}
+				titles={[{name: "Name", startDate: "Start Date", endDate: "End Date"}]}
 			/>
 		</>
 	);

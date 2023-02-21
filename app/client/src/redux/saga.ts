@@ -20,6 +20,7 @@ import {
 	deleteCourseByIdAction,
 	getAllCoursesAction,
 	getCourseByIdAction,
+	updateCourseByIdAction,
 	// updateCourseByIdAction,
 } from './course/courseSlice';
 
@@ -38,6 +39,7 @@ import {
 	deleteCourseById,
 	getCourseById,
 	getCoursesData,
+	updateCourseById,
 	// updateCourseById,
 } from './course/courseSaga';
 
@@ -71,8 +73,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
 	yield takeEvery(createStudentAction.type, createStudent);
-	//yield takeLatest(getCourseByIdAction.type, getCourseById);
-	//yield takeLatest(updateCourseByIdAction.type, updateCourseById);
+	yield takeLatest(updateCourseByIdAction.type, updateCourseById);
 	yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	yield takeEvery(getStudentByIdAction.type, getStudentById);

@@ -59,8 +59,9 @@ function* getCoursesData() {
 	}
 }
 
-function* getCourseById(data: GetCourse) {
+function* getCourseById(data: GetCourse ) {
 	try {
+
 		const response: Response = yield call(getCourseByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course get failed');
@@ -73,9 +74,9 @@ function* getCourseById(data: GetCourse) {
 	}
 }
 
-function* updateCourseById(id: string) {
+function* updateCourseById(data: ICourse) {
 	try {
-		const response: Response = yield call(updateCourseByIdService, id);
+		const response: Response = yield call(updateCourseByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}

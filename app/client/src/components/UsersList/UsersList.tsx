@@ -11,6 +11,7 @@ import './usersList.scss';
 import { useSelector } from 'react-redux';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import { motion } from 'framer-motion';
+import { TCourse } from '../../types/courses';
 
 interface IProps {
 	data: {
@@ -31,6 +32,7 @@ interface IProps {
 	getDataById: (id: any) => void;
 	onSelect: (id: any) => void;
 	loading: boolean;
+	titles?: TCourse[];
 }
 
 const UsersList: React.FC<IProps> = (props) => {
@@ -38,7 +40,7 @@ const UsersList: React.FC<IProps> = (props) => {
 	const [type, setType] = useState('add');
 	const courses = useSelector(coursesSelector);
 
-	const { data, display, setDisplay, onDelete, getDataById, onSelect } = props;
+	const { data, display, setDisplay, onDelete, getDataById, onSelect, titles } = props;
 
 	return (
 		<motion.div
@@ -106,52 +108,79 @@ const UsersList: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<hr />
+					{/* <div className="list-item"> */}
+						{/* {titles?.map((el) => {
+							return (
+								<div className="info-grp">
+									<span>{el.name}</span>
+									<span>{el.startDate}</span>
+									<span>{el.endDate}</span>
+								</div>
+							);
+						})} */}
+
+						{/* <span>{titles?.[0]}</span>
+							<span>{titles?.[1]}</span>
+							<span>{titles?.[2]}</span>
+							<span>{titles?.[3]}</span>
+							<span>{titles?.[4]}</span> */}
+					{/* </div> */}
 					<div className="user_list_wrap">
 						<div className="main-users__list">
 							<>
 								{loading ? (
 									<Spinner loading={setLoading} />
 								) : (
-									data.map((item) => {
-										return (
-											<motion.div
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 1 }}
-												exit={{ opacity: 0 }}
-												transition={{ type: 'easeOut', stiffness: 120, damping: 20, duration: 2.5, delay: 1 }}
-												className="list-item"
-												key={uuid()}
-											>
-												<div className="info-grp">
-													<span>{item.name}</span>
-													<span>{item.surname}</span>
-													<span>{item.email}</span>
-												</div>
-												<div className="edit-grp">
-													<Button
-														dataId={item.id}
-														className="users-btn"
-														title={'edit' + ' ' + props.title}
-														src={editIcon}
-														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-															getDataById(e.currentTarget.dataset.id);
-															setDisplay(true);
-															setType('edit');
-														}}
-													/>
-													<Button
-														dataId={item.id}
-														className="users-btn"
-														title={'delete' + ' ' + props.title}
-														src={deleteIcon}
-														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-															onDelete(e.currentTarget.dataset.id);
-														}}
-													/>
-												</div>
-											</motion.div>
-										);
-									})
+									<>
+										{data.map((item) => {
+											return (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+													transition={{
+														type: 'easeOut',
+														stiffness: 120,
+														damping: 20,
+														duration: 2.5,
+														delay: 0.2,
+													}}
+													className="list-item"
+													key={uuid()}
+												>
+													<div className="info-grp">
+														<span>{item.name}</span>
+														<span>{item.surname}</span>
+														<span>{item.email}</span>
+														<span>{item.startDate?.toLocaleString().slice(0, 10)}</span>
+														<span>{item.endDate?.toLocaleString().slice(0, 10)}</span>
+													</div>
+													<div className="edit-grp">
+														<Button
+															dataId={item.id}
+															className="users-btn"
+															title={'edit' + ' ' + props.title}
+															src={editIcon}
+															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+																getDataById(e.currentTarget.dataset.id);
+																setDisplay(true);
+																setType('edit');
+															}}
+														/>
+														<Button
+															dataId={item.id}
+															className="users-btn"
+															title={'delete' + ' ' + props.title}
+															src={deleteIcon}
+															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+																onDelete(e.currentTarget.dataset.id);
+															}}
+														/>
+													</div>
+												</motion.div>
+											);
+										})}
+									</>
 								)}
 							</>
 						</div>

@@ -72,7 +72,7 @@ function* getStudentById(data: StudentsId) {
 	}
 }
 
-function* updateStudentById(data: StudentsId) {
+function* updateStudentById(data: IStudents) {
 	try {
 		const response: Response = yield call(updateStudentByIdService, data.payload);
 		if (!response.ok) {

@@ -1,20 +1,17 @@
 import React from 'react';
-import { FieldErrors } from 'react-hook-form';
 import './button.scss';
 
 interface IProps extends React.HTMLAttributes<HTMLInputElement> {
 	dataId?: number;
 	value?: string;
-	// title?: string;
 	src?: string;
-	// className?: string;
+	name?: string;
 	onClick?: ((e: any) => void) | undefined;
-	setShow?: React.Dispatch<React.SetStateAction<boolean>>;
-	err?: FieldErrors;
+	getID?: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const Button: React.FC<IProps> = (props) => {
-	const { className, value, title, src, onClick, dataId, setShow, err } = props;
+	const { className, value, title, src, onClick, dataId, name, getID } = props;
 
 	if (src) {
 		return (
@@ -25,6 +22,7 @@ const Button: React.FC<IProps> = (props) => {
 				onClick={(e) => {
 					if (onClick) onClick(e);
 				}}
+				name={name}
 			>
 				<img src={src} alt="" />
 			</button>
@@ -36,9 +34,12 @@ const Button: React.FC<IProps> = (props) => {
 				type="submit"
 				className={className + ' btn-hover'}
 				onClick={(e) => {
+					console.log(e.currentTarget.dataset.id);
+
 					if (onClick) onClick(e);
-					if (setShow) setShow(false);
+					if (getID) getID(e.currentTarget.dataset.dataId);
 				}}
+				name={name}
 			>
 				{value}
 			</button>

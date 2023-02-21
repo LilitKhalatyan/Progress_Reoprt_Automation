@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import { loadingSelector, trainersSelector } from '../../redux/trainer/selectors';
 import { deleteTrainerAction, getTrainerAction } from '../../redux/trainer/trainerSlice';

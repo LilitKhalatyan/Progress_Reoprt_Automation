@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadingSelector, studentsSelector } from '../../redux/student/studentSelector';

@@ -36,9 +36,10 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 		reset({ name: '', surname: '', email: '' });
 		setSelectedValue('');
 		dispatch(createTrainerAction(dataSelect));
+		props.setShow(false);
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
@@ -61,7 +62,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			reset({ name: '', surname: '', email: '' });
 			setSelectedValue('');
 		}
-	}, [trainer, props.btnType, reset]);
+	}, [trainer, props.btnType, reset, props.data]);
 
 	const buttonComponent = useMemo(() => {
 		switch (props.btnType) {
@@ -72,7 +73,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Close" className="btn-modal" />
+							<Button value="Save & Add" className="btn-modal" />
 						</div>
 					</div>
 				);

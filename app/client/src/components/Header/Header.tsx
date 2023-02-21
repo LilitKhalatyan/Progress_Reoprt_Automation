@@ -25,8 +25,8 @@ const Header: React.FC = () => {
 	};
 
 	const isLogout = (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
+		// e.preventDefault();
+		// e.stopPropagation();
 		localStorage.removeItem('user');
 		dispatch(logoutAction(navigate));
 	};

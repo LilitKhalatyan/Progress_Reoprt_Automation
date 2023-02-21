@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentSelector } from '../../redux/student/studentSelector';
-import { createStudentAction } from '../../redux/student/studentSlice';
+import { createStudentAction, updateStudentByIdAction } from '../../redux/student/studentSlice';
 import { TCourse } from '../../types/courses';
 
 interface IProps {
@@ -17,17 +17,35 @@ interface IProps {
 const AddStudentsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const student = useSelector(studentSelector);
-	const onSubmit = (data: any) => {
+	const onSubmit = (data: any, e: any) => {
+		console.log(e.nativeEvent.submitter.name);
+
 		const finalData = {
+			id: student[0]?.id,
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
 			courseId: data.select,
 		};
-		dispatch(createStudentAction(finalData));
+		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
+			dispatch(createStudentAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(false);
+		}
+		if (e.nativeEvent.submitter.name === 'save') {
+			dispatch(createStudentAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(true);
+		}
+		if (e.nativeEvent.submitter.name === 'update') {
+			dispatch(updateStudentByIdAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(false);
+		}
+		
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
@@ -59,17 +77,17 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" />
+							<Button value="Save" className="btn-modal" name={'save'} />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Close" className="btn-modal" />
+							<Button value="Save & Add" className="btn-modal" name={'saveAndAdd'} />
 						</div>
 					</div>
 				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" />
+						<Button value="Update" className="btn-modal" name={'update'} />
 					</div>
 				);
 		}
@@ -158,7 +176,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					{...register('select', {
 						required: true,
 					})}
-					value="value"
+					// value="value"
 				>
 					<option key={uuid()} value="" disabled selected hidden>
 						Select group name

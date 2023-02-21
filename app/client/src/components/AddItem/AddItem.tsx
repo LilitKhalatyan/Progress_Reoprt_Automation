@@ -66,13 +66,13 @@ const AddItem: React.FC<IProps> = (props) => {
 	}, [title, setShow, courses, btnType, show, trainers]);
 
 	return (
-		<AnimatePresence exitBeforeEnter>
+		<AnimatePresence >
 			{show && (
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					transition={{ duration: 1.5, delay: 0.2, type: 'easeInOut' }}
+					// transition={{ duration: 1,delay: 0.3,  type: 'easeInOut' }}
 					className={className}
 					ref={wrapperRef}
 				>

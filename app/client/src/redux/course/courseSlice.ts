@@ -36,7 +36,7 @@ const courseSlice = createSlice({
 		getCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		updateCourseByIdAction: (state) => {},
+		updateCourseByIdAction: (state, action) => {},
 		updateCourseByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},

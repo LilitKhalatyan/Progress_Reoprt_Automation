@@ -30,9 +30,10 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			staffId: data.selectTrainer,
 		};
 		dispatch(createSubjectAction(finalData));
+		props.setShow(false);
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
@@ -65,7 +66,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Close" className="btn-modal" />
+							<Button value="Save & Add" className="btn-modal" />
 						</div>
 					</div>
 				);

@@ -36,13 +36,16 @@ export const getAllStudentsService = async (): Promise<Response> => {
 };
 
 // app.put("/student/update/:id", updateSudent);
-export const updateStudentByIdService = async (id: string): Promise<Response> => {
-	const studentData = await fetch(`http://localhost:3303/student/update/${id}`, {
+export const updateStudentByIdService = async (data: TStudent): Promise<Response> => {
+	const studentData = await fetch(`http://localhost:3303/student/update/${data.id}`, {
 		method: 'PUT',
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
 		},
+		body: JSON.stringify({
+			...data,
+		}),
 	});
 	return studentData;
 };

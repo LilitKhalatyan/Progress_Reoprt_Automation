@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCourseAction } from '../../redux/course/courseSlice';
+import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
 
 import 'react-datepicker/src/stylesheets/datepicker.scss';
 import { courseSelector } from '../../redux/course/courseSelector';
@@ -16,17 +16,39 @@ interface IProps {
 
 const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
+
 	const course = useSelector(courseSelector);
-	const onSubmit = (data: any) => {
+	
+	const onSubmit = (data: any, e: any) => {
+		console.log(e.nativeEvent.submitter);
+		// console.log(e.nativeEvent.srcElement[3].innerText);
+
+		console.log(course[0]?.id);
+
 		const finalData = {
+			id:course[0]?.id,
 			name: data.name,
 			startDate: data.startDate,
 			endDate: data.endDate,
 		};
-		dispatch(createCourseAction(finalData));
+		if(e.nativeEvent.submitter.name === "saveAndAdd") {
+			dispatch(createCourseAction(finalData));
+			reset({ name: '', startDate: new Date(), endDate: new Date() });
+			props.setShow(false);
+		}
+		if(e.nativeEvent.submitter.name === "save") {
+			dispatch(createCourseAction(finalData));
+			reset({ name: '', startDate: new Date(), endDate: new Date() });
+			props.setShow(true);
+		}
+		if(e.nativeEvent.submitter.name === "update") {
+			dispatch(updateCourseByIdAction(finalData));
+			reset({ name: '', startDate: new Date(), endDate: new Date() });
+			props.setShow(false);
+		}
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
@@ -55,17 +77,17 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" />
+							<Button value="Save" className="btn-modal" name="save"  />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Close" className="btn-modal" setShow={props.setShow} err={errors} />
+							<Button value="Save & Add" className="btn-modal" name="saveAndAdd" />
 						</div>
 					</div>
 				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" />
+						<Button value="Update" className="btn-modal" name={"update"} dataId={course[0]?.id} />
 					</div>
 				);
 		}
@@ -109,6 +131,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 							minDate={new Date()}
 							onChange={(date: Date) => field.onChange(date)}
 							selectsStart
+							autoComplete="off"
 							startDate={new Date()}
 							placeholderText="Select Start Date"
 							id="start-date"
@@ -128,6 +151,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 							minDate={new Date()}
 							onChange={(date: Date) => field.onChange(date)}
 							selectsEnd
+							autoComplete="off"
 							startDate={new Date()}
 							placeholderText="Select End Date"
 							id="end-date"

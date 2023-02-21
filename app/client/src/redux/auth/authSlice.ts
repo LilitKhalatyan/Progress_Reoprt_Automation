@@ -24,8 +24,9 @@ const authSlice = createSlice({
 			state.auth = false;
 		},
 		refreshAction: () => {},
-		userReset: () => {
-			return initialState;
+		userReset: (state) => {
+			state.user = localUser || {};
+			state.auth = false;
 		},
 	},
 });
