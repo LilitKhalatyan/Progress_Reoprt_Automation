@@ -5,7 +5,7 @@ const initialState = {
 	courses: [] as TCourse[],
 	course: [] as TCourse[],
 	message: {},
-	loading: true
+	loading: true,
 };
 
 const courseSlice = createSlice({
@@ -50,6 +50,9 @@ const courseSlice = createSlice({
 		deleteCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		courseReset: () => {
+			return initialState;
+		},
 	},
 });
 export const {
@@ -68,5 +71,6 @@ export const {
 	deleteCourseByIdAction,
 	deleteCourseByIdSuccesed,
 	deleteCourseByIdFailed,
+	courseReset,
 } = courseSlice.actions;
 export default courseSlice;

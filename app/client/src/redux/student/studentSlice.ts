@@ -5,7 +5,7 @@ const initialState = {
 	students: [] as TStudent[],
 	student: [] as TStudent[],
 	message: {},
-	loading: true
+	loading: true,
 };
 
 const studentSlice = createSlice({
@@ -50,6 +50,9 @@ const studentSlice = createSlice({
 		createStudentFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		studentReset: () => {
+			return initialState;
+		},
 	},
 });
 export const {
@@ -68,6 +71,7 @@ export const {
 	createStudentAction,
 	createStudentFailed,
 	createStudentSuccesed,
+	studentReset,
 } = studentSlice.actions;
 
 export default studentSlice;

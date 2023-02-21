@@ -7,7 +7,7 @@ import {
 	deleteTrainerById,
 } from '../../services/trainerService';
 import { AuthData } from '../../types/authTypes';
-import { Trainer, TrainerData } from '../../types/trainerTypes';
+import { Trainer, TrainerByID, TrainerData } from '../../types/trainerTypes';
 import {
 	getAllTrainersFailed,
 	// updateTrainerFailed,
@@ -28,7 +28,7 @@ export function* getTrainerById(data: TrainerData) {
 		if (!response.ok) {
 			throw new Error('Trainer get failed');
 		}
-		const trainer: Trainer[] = yield response.json() as Promise<Trainer[]>;
+		const trainer: TrainerByID[] = yield response.json() as Promise<TrainerByID[]>;
 		yield put(getTrainerSuccesed(trainer));
 	} catch (error: any) {
 		yield put(getTrainerFailed(error.message));

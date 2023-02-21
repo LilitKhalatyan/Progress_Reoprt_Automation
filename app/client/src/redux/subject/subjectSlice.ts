@@ -5,7 +5,7 @@ const initialState = {
 	subjects: [] as TSubject[],
 	subject: [] as TSubject[],
 	message: {},
-	loading: true
+	loading: true,
 };
 
 const subjectSlice = createSlice({
@@ -50,6 +50,9 @@ const subjectSlice = createSlice({
 		deleteSubjectByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		subjectReset: () => {
+			return initialState;
+		},
 	},
 });
 export const {
@@ -68,5 +71,6 @@ export const {
 	getSubjectByIdAction,
 	getSubjectByIdFailed,
 	getSubjectByIdSuccesed,
+	subjectReset,
 } = subjectSlice.actions;
 export default subjectSlice;

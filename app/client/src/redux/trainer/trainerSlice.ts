@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Trainer } from '../../types/trainerTypes';
+import { Trainer, TrainerByID } from '../../types/trainerTypes';
 
 const initialState = {
 	trainers: [] as Trainer[],
-	trainer: [] as Trainer[],
+	trainer: [] as TrainerByID[],
 	message: {},
-	loading: true
+	loading: true,
 };
 
 const trainerSlice = createSlice({
@@ -51,6 +51,9 @@ const trainerSlice = createSlice({
 		deleteTrainerFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		trainerReset: () => {
+			return initialState;
+		},
 	},
 });
 
@@ -70,6 +73,7 @@ export const {
 	deleteTrainerAction,
 	deleteTrainerFailed,
 	deleteTrainerSuccesed,
+	trainerReset,
 } = trainerSlice.actions;
 
 export default trainerSlice;
