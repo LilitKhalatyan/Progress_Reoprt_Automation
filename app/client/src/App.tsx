@@ -14,32 +14,35 @@ import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
 import TrainersHompage from './pages/TrainersHomepage';
 import PageNotFound from './pages/PageNotFound';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
 	return (
 		<div className="App">
-			<Routes>
-				<Route element={<MainLayout />}>
-					<Route element={<PublicLayout />}>
-						<Route path="/login" element={<LoginForm />} />
-					</Route>
-					<Route element={<AuthLayout />}>
-						<Route element={<AdminLayout />}>
-							<Route path="/" element={<Groups />} />
-							<Route path="/trainers" element={<Trainers />} />
-							<Route path="/courses" element={<Groups />} />
-							<Route path="/students" element={<Students />} />
-							<Route path="/subjects" element={<Subjects />} />
-							<Route path="/reports" element={<Reports />} />
-							<Route path="/settings" element={<Settings />} />
+			<AnimatePresence>
+				<Routes>
+					<Route element={<MainLayout />}>
+						<Route element={<PublicLayout />}>
+							<Route path="/login" element={<LoginForm />} />
 						</Route>
-						<Route element={<TrainerLayout />}>
-							<Route path="/trainershomepage" element={<TrainersHompage />} />
+						<Route element={<AuthLayout />}>
+							<Route element={<AdminLayout />}>
+								<Route path="/" element={<Groups />} />
+								<Route path="/trainers" element={<Trainers />} />
+								<Route path="/courses" element={<Groups />} />
+								<Route path="/students" element={<Students />} />
+								<Route path="/subjects" element={<Subjects />} />
+								<Route path="/reports" element={<Reports />} />
+								<Route path="/settings" element={<Settings />} />
+							</Route>
+							<Route element={<TrainerLayout />}>
+								<Route path="/trainershomepage" element={<TrainersHompage />} />
+							</Route>
 						</Route>
+						<Route path="*" element={<PageNotFound />} />
 					</Route>
-					<Route path="*" element={<PageNotFound />} />
-				</Route>
-			</Routes>
+				</Routes>
+			</AnimatePresence>
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import Multiselect from 'multiselect-react-dropdown';
@@ -6,14 +6,14 @@ import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTrainerAction } from '../../redux/trainer/trainerSlice';
 import { trainerSelector } from '../../redux/trainer/selectors';
+import { TCourse } from '../../types/courses';
+import { coursesSelector } from '../../redux/course/courseSelector';
 
 interface IProps {
-	data: {
-		id: number;
-		name: string;
-	}[];
+	data: TCourse[];
 	btnType: string;
-
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+	show: boolean;
 }
 interface SelectElement {
 	id: number;
@@ -22,7 +22,10 @@ interface SelectElement {
 
 const AddTrainersForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
+	const [selectedValue, setSelectedValue] = useState<any>();
 	const trainer = useSelector(trainerSelector);
+	const courses = useSelector(coursesSelector);
+
 	const onSubmit = (data: any) => {
 		const dataSelect = {
 			name: data.name,
@@ -31,10 +34,12 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			courseId: data.multiselect.map((el: SelectElement) => el.id),
 		};
 		reset({ name: '', surname: '', email: '' });
+		setSelectedValue('');
 		dispatch(createTrainerAction(dataSelect));
+		props.setShow(false);
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
@@ -42,7 +47,6 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 		register,
 		reset,
 		handleSubmit,
-		setValue,
 		formState: { errors },
 	} = useForm<{
 		name: string;
@@ -50,16 +54,15 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 		email: string;
 		multiselect: string;
 	}>();
-
-	//sa setValue anelu hamara editi jamanak,bayc der verjacrac chi
-	// useEffect(()=> {
-	//     if(trainer[0]?.name) {
-	//         setValue("name",`${trainer[0]?.name}`)
-	//         setValue("surname",`${trainer[0]?.surname}`)
-	//     }
-
-	// },[trainer])
-	console.log(props.btnType)
+	useEffect(() => {
+		if (props.btnType === 'edit') {
+			reset({ name: trainer[0]?.name, surname: trainer[0]?.surname, email: trainer[0]?.email });
+			setSelectedValue(props.data.filter((el) => el?.id === trainer[0]?.courses[0]?.id));
+		} else {
+			reset({ name: '', surname: '', email: '' });
+			setSelectedValue('');
+		}
+	}, [trainer, props.btnType, reset, props.data]);
 
 	const buttonComponent = useMemo(() => {
 		switch (props.btnType) {
@@ -67,17 +70,17 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className='btn-modal' />
+							<Button value="Save" className="btn-modal" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save and add" className='btn-modal' />
+							<Button value="Save & Add" className="btn-modal" />
 						</div>
 					</div>
-				)
+				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className='btn-modal' />
+						<Button value="Update" className="btn-modal" />
 					</div>
 				);
 		}
@@ -165,22 +168,20 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					control={control}
 					name="multiselect"
 					render={({ field: { onChange, value } }) => {
-						console.log(value);
-
 						return (
 							<Multiselect
 								className="multi-select"
-								options={props.data}
+								options={!props.data.length ? courses : props.data}
 								onSelect={onChange}
 								displayValue="name"
 								{...register('multiselect', {
 									required: true,
 								})}
+								selectedValues={selectedValue}
 							/>
 						);
 					}}
 				/>
-
 				{errors.multiselect ? (
 					<>
 						{errors.multiselect.type === 'required' && (
@@ -189,9 +190,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<>
-				{buttonComponent}
-			</>
+			<>{buttonComponent}</>
 		</form>
 	);
 };

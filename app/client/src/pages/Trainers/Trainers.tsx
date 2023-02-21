@@ -1,50 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
-import { trainersSelector } from '../../redux/trainer/selectors';
-import {
-	deleteTrainerAction,
-	getAllTrainersAction,
-	getTrainerAction,
-} from '../../redux/trainer/trainerSlice';
+import { loadingSelector, trainersSelector } from '../../redux/trainer/selectors';
+import { deleteTrainerAction, getTrainerAction } from '../../redux/trainer/trainerSlice';
 
-// import './trainers.scss';
-
-// const trainers = [
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// 	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-// 	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-// 	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-// 	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-// ];
+import './trainers.scss';
 
 const Trainers: React.FC = () => {
 	const [displayAdd, setDisplayAdd] = useState(false);
-	const { trainers, loading } = useSelector(trainersSelector);
+	const trainers = useSelector(trainersSelector);
+	const loading = useSelector(loadingSelector);
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getAllTrainersAction());
-	}, []);
 
 	const handleDelete = (id: any) => {
 		dispatch(deleteTrainerAction(id));
@@ -52,18 +18,22 @@ const Trainers: React.FC = () => {
 	const handleGetTrainer = (id: any) => {
 		dispatch(getTrainerAction(id));
 	};
+	const handleSelectChange = (id: any) => {
+		// setSelect(e.target.value);
+	};
 	return (
 		<>
-			{loading ? Spinner() : <UsersList
+			<UsersList
 				title="Trainers"
 				data={trainers}
 				display={displayAdd}
+				loading={loading}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}
 				getDataById={handleGetTrainer}
-			/>}
+				onSelect={handleSelectChange}
+			/>
 		</>
-
 	);
 };
 

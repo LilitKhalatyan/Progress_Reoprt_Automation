@@ -20,6 +20,7 @@ import {
 	deleteCourseByIdAction,
 	getAllCoursesAction,
 	getCourseByIdAction,
+	updateCourseByIdAction,
 	// updateCourseByIdAction,
 } from './course/courseSlice';
 
@@ -38,6 +39,7 @@ import {
 	deleteCourseById,
 	getCourseById,
 	getCoursesData,
+	updateCourseById,
 	// updateCourseById,
 } from './course/courseSaga';
 
@@ -55,11 +57,12 @@ import {
 	getSubjectsData,
 	updateSubjectById,
 } from './subject/subjectSaga';
-import { loginAction, logoutAction } from './auth/authSlice';
-import { auth, logoutUser } from './auth/authSaga';
+import { loginAction, logoutAction, refreshAction } from './auth/authSlice';
+import { auth, getAllData, logoutUser } from './auth/authSaga';
 
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
+	yield takeEvery(refreshAction.type, getAllData);
 	yield takeEvery(logoutAction.type, logoutUser);
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
@@ -70,8 +73,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
 	yield takeEvery(createStudentAction.type, createStudent);
-	//yield takeLatest(getCourseByIdAction.type, getCourseById);
-	//yield takeLatest(updateCourseByIdAction.type, updateCourseById);
+	yield takeLatest(updateCourseByIdAction.type, updateCourseById);
 	yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	yield takeEvery(getStudentByIdAction.type, getStudentById);

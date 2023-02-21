@@ -5,7 +5,7 @@ const initialState = {
 	courses: [] as TCourse[],
 	course: [] as TCourse[],
 	message: {},
-	loading: true
+	loading: true,
 };
 
 const courseSlice = createSlice({
@@ -36,7 +36,7 @@ const courseSlice = createSlice({
 		getCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		updateCourseByIdAction: (state) => {},
+		updateCourseByIdAction: (state, action) => {},
 		updateCourseByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},
@@ -49,6 +49,9 @@ const courseSlice = createSlice({
 		},
 		deleteCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
+		},
+		courseReset: () => {
+			return initialState;
 		},
 	},
 });
@@ -68,5 +71,6 @@ export const {
 	deleteCourseByIdAction,
 	deleteCourseByIdSuccesed,
 	deleteCourseByIdFailed,
+	courseReset,
 } = courseSlice.actions;
 export default courseSlice;

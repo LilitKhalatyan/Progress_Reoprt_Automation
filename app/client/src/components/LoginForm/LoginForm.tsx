@@ -10,6 +10,7 @@ import logo from '../../asset/images/logo.svg';
 import './loginForm.scss';
 import { authState } from '../../types/authTypes';
 import { loginAction } from '../../redux/auth/authSlice';
+import { motion } from 'framer-motion';
 
 const LoginForm: React.FC = () => {
 	const dispatch = useDispatch();
@@ -35,12 +36,6 @@ const LoginForm: React.FC = () => {
 	} = useForm<authState>();
 
 	const onSubmit: SubmitHandler<authState> = (data) => {
-		console.log(
-			JSON.stringify({
-				email: data.email,
-				password: data.password,
-			})
-		);
 		const form: authState = {
 			email: data.email,
 			password: data.password,
@@ -52,7 +47,13 @@ const LoginForm: React.FC = () => {
 	};
 
 	return (
-		<div className="login-form__container">
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 1.5, delay: 1, type: 'easeInOut' }}
+			className="login-form__container"
+		>
 			<div className="login-form__content">
 				<div className="login-form__logo">
 					<img src={logo} alt="Sourceminde logo" />
@@ -96,7 +97,7 @@ const LoginForm: React.FC = () => {
 					</button>
 				</form>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -1,7 +1,7 @@
 const db = require("../models");
 const { Op } = require("sequelize");
 
-const { staff: Staff, role: Roles } = db;
+const { staff: Staff, role: Roles ,course: Course} = db;
 
 const getTrainerById = async (req, res) => {
     try {
@@ -12,6 +12,13 @@ const getTrainerById = async (req, res) => {
             where: {
                 id: id,
             },
+            include: [
+                {
+                    model: Course,
+                    required:false,
+                    attributes: ["id", "name"],
+                },
+            ],
         });
         if (!staff) {
             return res.status(404).send({ message: "Trainer not found" });

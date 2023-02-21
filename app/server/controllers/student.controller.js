@@ -68,7 +68,7 @@ const updateSudent = async (req, res) => {
             email,
             courseId,
         };
-        const student = await Student.update({
+        const student = await Student.update(studentInfo,{
             where: {
                 id: id,
             },

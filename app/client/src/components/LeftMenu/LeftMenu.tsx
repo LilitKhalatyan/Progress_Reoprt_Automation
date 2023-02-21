@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import './leftMenu.scss';
+import { motion } from 'framer-motion';
 
 const icons = ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
 
@@ -10,19 +11,33 @@ const LeftMenu: React.FC = () => {
 	const handleListItemClick = (e: React.MouseEvent<HTMLLIElement>) => {
 		navigate(e.currentTarget.id);
 	};
+	const container = {
+		hidden: { opacity: 0 },
+		show: {
+			opacity: 1,
+			transition: {
+				delayChildren: 0.5,
+			},
+		},
+	};
+
+	const item = {
+		hidden: { opacity: 0 },
+		show: { opacity: 1 },
+	};
 	return (
 		<div className="menu">
 			<div className="menu__container">
 				<nav>
-					<ul>
+					<motion.ul variants={container} initial="hidden" animate="show">
 						{icons.map((icon) => {
 							return (
-								<li key={uuid()} id={icon.slice(0, -5)} onClick={handleListItemClick}>
+								<motion.li variants={item} key={icon} id={icon.slice(0, -5)} onClick={handleListItemClick}>
 									<div className={icon}></div>
-								</li>
+								</motion.li>
 							);
 						})}
-					</ul>
+					</motion.ul>
 				</nav>
 			</div>
 		</div>

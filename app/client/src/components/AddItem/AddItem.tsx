@@ -3,24 +3,13 @@ import AddStudentsForm from '../../pages/Students/AddStudentsForm';
 import AddTrainersForm from '../../pages/Trainers/AddTrainersForm';
 import AddSubjectsForm from '../../pages/Subjects/AddSubjectsForm';
 import CloseIcon from '../CloseIcon/CloseIcon';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import './addItem.scss';
 import AddCoursesForm from '../../pages/Courses/AddCoursesForm';
-
-const group = [
-	{ id: 1, name: 'Front End' },
-	{ id: 2, name: 'Back End' },
-	{ id: 3, name: 'AI / ML' },
-];
-
-const trainers = [
-	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-	{ id: 3, name: 'Tom', surname: 'Mirzoyan', email: 'nameX@gemail.com' },
-	{ id: 4, name: 'Ann', surname: 'Hardy', email: 'nameX@gemail.com' },
-	{ id: 1, name: 'John', surname: 'Doe', email: 'nameX@gemail.com' },
-	{ id: 2, name: 'Jam', surname: 'Yang', email: 'nameX@gemail.com' },
-];
+import { useSelector } from 'react-redux';
+import { coursesSelector } from '../../redux/course/courseSelector';
+import { trainersSelector } from '../../redux/trainer/selectors';
 
 interface IProps {
 	title: string;
@@ -30,15 +19,10 @@ interface IProps {
 }
 
 const AddItem: React.FC<IProps> = (props) => {
-	// useEffect(() => {
-	//   if (props.show) {
-	//     document.body.style.opacity = ".4";
-	//     console.log('style')
-	//   } else {
-	//     document.body.style.opacity = "1";
-	//   }
-	// }, [props.show]);
-	const {title, btnType, show, setShow} = props;
+	const { title, btnType, show, setShow } = props;
+
+	const courses = useSelector(coursesSelector);
+	const trainers = useSelector(trainersSelector);
 
 	const useOutsideClick = (ref: React.RefObject<HTMLDivElement>) => {
 		useEffect(() => {
@@ -63,28 +47,46 @@ const AddItem: React.FC<IProps> = (props) => {
 	const formComponent = useMemo(() => {
 		switch (title) {
 			case 'Students':
-				return <AddStudentsForm data={group} btnType={btnType}/>;
+				return <AddStudentsForm setShow={setShow} data={courses} btnType={btnType} show={show} />;
 			case 'Trainers':
-				return <AddTrainersForm data={group} btnType={btnType}/>;
+				return <AddTrainersForm setShow={setShow} data={courses} btnType={btnType} show={show} />;
 			case 'Subjects':
-				return <AddSubjectsForm data={group} dataTrainers={trainers} btnType={btnType}/>;
+				return (
+					<AddSubjectsForm
+						setShow={setShow}
+						data={courses}
+						dataTrainers={trainers}
+						btnType={btnType}
+						show={show}
+					/>
+				);
 			case 'Courses':
-				return <AddCoursesForm setShow={setShow} btnType={btnType}/>;
+				return <AddCoursesForm setShow={setShow} btnType={btnType} show={show} />;
 		}
-		// TODO add deps
-	}, [title, btnType]);
+	}, [title, setShow, courses, btnType, show, trainers]);
 
 	return (
-		<div className={className} ref={wrapperRef}>
-			<div className="add-item__content">
-				<CloseIcon
-					onClick={() => {
-						setShow(false);
-					}}
-				/>
-				{formComponent}
-			</div>
-		</div>
+		<AnimatePresence >
+			{show && (
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					// transition={{ duration: 1,delay: 0.3,  type: 'easeInOut' }}
+					className={className}
+					ref={wrapperRef}
+				>
+					<div className="add-item__content">
+						<CloseIcon
+							onClick={() => {
+								setShow(false);
+							}}
+						/>
+						{formComponent}
+					</div>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 };
 

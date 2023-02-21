@@ -33,9 +33,11 @@ db.staff.belongsToMany(db.role, {
 });
 db.course.belongsToMany(db.staff, {
     through: "course_model",
+    timestamps: false 
 });
 db.staff.belongsToMany(db.course, {
     through: "course_model",
+    timestamps: false 
 });
 
 db.course.hasMany(db.subject);

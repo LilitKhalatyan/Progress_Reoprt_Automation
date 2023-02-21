@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
 import UsersList from '../../components/UsersList/UsersList';
-import {
-	deleteCourseByIdAction,
-	getAllCoursesAction,
-	getCourseByIdAction,
-} from '../../redux/course/courseSlice';
-import { coursesSelector } from '../../redux/course/courseSelector';
+import { deleteCourseByIdAction, getCourseByIdAction } from '../../redux/course/courseSlice';
+import { coursesSelector, loadingSelector } from '../../redux/course/courseSelector';
 // import './courses.scss';
 
 const Courses: React.FC = () => {
 	const dispatch = useDispatch();
-	const {courses, loading}:any = useSelector(coursesSelector);
-
-	useEffect(() => {
-		dispatch(getAllCoursesAction());
-	}, []);
+	const courses = useSelector(coursesSelector);
+	const loading = useSelector(loadingSelector);
 
 	const [displayAdd, setDisplayAdd] = useState(false);
 
@@ -27,16 +19,22 @@ const Courses: React.FC = () => {
 	const handleGetCourse = (id: any) => {
 		dispatch(getCourseByIdAction(id));
 	};
+	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		// setSelect(e.target.value);
+	};
 	return (
 		<>
-		{loading ? Spinner() : <UsersList
+			<UsersList
 				title="Courses"
 				data={courses}
+				loading={loading}
 				display={displayAdd}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}
 				getDataById={handleGetCourse}
-			/>}
+				onSelect={handleSelectChange}
+				titles={[{name: "Name", startDate: "Start Date", endDate: "End Date"}]}
+			/>
 		</>
 	);
 };

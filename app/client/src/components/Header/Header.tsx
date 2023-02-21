@@ -11,7 +11,9 @@ const Header: React.FC = () => {
 
 	useEffect(() => {
 		setUser(
-			`${JSON.parse(localStorage.getItem('user')!).name} ${JSON.parse(localStorage.getItem('user')!).surname}`
+			`${JSON.parse(localStorage.getItem('user')!)?.name} ${
+				JSON.parse(localStorage.getItem('user')!)?.surname
+			}`
 		);
 	}, []);
 
@@ -22,9 +24,11 @@ const Header: React.FC = () => {
 		navigate('settings');
 	};
 
-	const isLogout = () => {
-		dispatch(logoutAction());
-		// navigate("login");
+	const isLogout = (e: React.MouseEvent<HTMLElement>) => {
+		// e.preventDefault();
+		// e.stopPropagation();
+		localStorage.removeItem('user');
+		dispatch(logoutAction(navigate));
 	};
 
 	return (
@@ -46,7 +50,13 @@ const Header: React.FC = () => {
 								color="#5c1c70"
 							/>
 						</div>
-						<div className="logout-icon" title="log out" onClick={isLogout} />
+						<div
+							className="logout-icon"
+							title="log out"
+							onClick={(e) => {
+								isLogout(e);
+							}}
+						/>
 					</div>
 				</div>
 			</div>

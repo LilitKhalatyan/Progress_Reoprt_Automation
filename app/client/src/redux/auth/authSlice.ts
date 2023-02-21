@@ -19,13 +19,26 @@ const authSlice = createSlice({
 		loginFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		logoutAction: () => {},
+		logoutAction: (state, action) => {},
 		logoutSuccesed: (state) => {
-			state = initialState;
+			state.auth = false;
+		},
+		refreshAction: () => {},
+		userReset: (state) => {
+			state.user = localUser || {};
+			state.auth = false;
 		},
 	},
 });
 
-export const { loginAction, loginFailed, logoutAction, loginSuccesed, logoutSuccesed } = authSlice.actions;
+export const {
+	loginAction,
+	loginFailed,
+	logoutAction,
+	loginSuccesed,
+	logoutSuccesed,
+	refreshAction,
+	userReset,
+} = authSlice.actions;
 
 export default authSlice;

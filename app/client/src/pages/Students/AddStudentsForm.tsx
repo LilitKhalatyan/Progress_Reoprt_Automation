@@ -1,36 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { studentSelector } from '../../redux/student/studentSelector';
-import { createStudentAction } from '../../redux/student/studentSlice';
+import { createStudentAction, updateStudentByIdAction } from '../../redux/student/studentSlice';
+import { TCourse } from '../../types/courses';
 
 interface IProps {
-	data: {
-		id: number;
-		name: string;
-	}[];
+	data: TCourse[];
 	btnType: string;
+	setShow: React.Dispatch<React.SetStateAction<boolean>>;
+	show: boolean;
 }
 
 const AddStudentsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
-	const onSubmit = (data: any) => {
+	const student = useSelector(studentSelector);
+	const onSubmit = (data: any, e: any) => {
+		console.log(e.nativeEvent.submitter.name);
+
 		const finalData = {
+			id: student[0]?.id,
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
 			courseId: data.select,
 		};
-		dispatch(createStudentAction(finalData));
+		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
+			dispatch(createStudentAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(false);
+		}
+		if (e.nativeEvent.submitter.name === 'save') {
+			dispatch(createStudentAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(true);
+		}
+		if (e.nativeEvent.submitter.name === 'update') {
+			dispatch(updateStudentByIdAction(finalData));
+			reset({ name: '', surname: '', email: '', select: '' });
+			props.setShow(false);
+		}
+		
 	};
 	const onFail = (error: any) => {
-		console.log(error, 'Error');
+		props.setShow(true);
 	};
 
 	const {
 		register,
+		reset,
 		formState: { errors },
 		handleSubmit,
 	} = useForm<{
@@ -39,24 +59,35 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 		email: string;
 		select: string;
 	}>();
-
+	useEffect(() => {
+		if (props.btnType === 'edit') {
+			reset({
+				name: student[0]?.name,
+				surname: student[0]?.surname,
+				email: student[0]?.email,
+				select: `${student[0]?.courseId}`,
+			});
+		} else {
+			reset({ name: '', surname: '', email: '', select: '' });
+		}
+	}, [student, reset, props.btnType]);
 	const buttonComponent = () => {
 		switch (props.btnType) {
 			case 'add':
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className='btn-modal' />
+							<Button value="Save" className="btn-modal" name={'save'} />
 						</div>
 						<div className="input__grp">
-							<Button value="Save and add" className='btn-modal' />
+							<Button value="Save & Add" className="btn-modal" name={'saveAndAdd'} />
 						</div>
 					</div>
-				)
+				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className='btn-modal' />
+						<Button value="Update" className="btn-modal" name={'update'} />
 					</div>
 				);
 		}
@@ -145,7 +176,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					{...register('select', {
 						required: true,
 					})}
-					value="value"
+					// value="value"
 				>
 					<option key={uuid()} value="" disabled selected hidden>
 						Select group name
@@ -166,9 +197,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<>
-				{buttonComponent()}
-			</>
+			<>{buttonComponent()}</>
 		</form>
 	);
 };

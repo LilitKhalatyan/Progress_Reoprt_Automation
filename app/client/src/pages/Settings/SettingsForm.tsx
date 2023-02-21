@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
+import { userSelector } from '../../redux/auth/authSelector';
 
 const SettingsForm: React.FC = () => {
+	const user = useSelector(userSelector);
 	const onSubmit = (data: any) => {
 		console.log(
 			JSON.stringify({
@@ -18,7 +22,7 @@ const SettingsForm: React.FC = () => {
 	};
 
 	const {
-		control,
+		reset,
 		register,
 		formState: { errors },
 		handleSubmit,
@@ -29,10 +33,19 @@ const SettingsForm: React.FC = () => {
 		newPassword: string;
 		oldPassword: string;
 	}>();
+	useEffect(() => {
+		reset(user);
+	}, []);
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
-			<div className="input__grp">
+			<motion.div
+				initial={{ x: '-100vw', opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				exit={{ x: '-100vw' }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				className="input__grp"
+			>
 				<label htmlFor="name" className="input">
 					<input
 						type="text"
@@ -40,6 +53,7 @@ const SettingsForm: React.FC = () => {
 						placeholder=" "
 						id="name"
 						{...register('name', {
+							required: true,
 							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
@@ -47,13 +61,22 @@ const SettingsForm: React.FC = () => {
 				</label>
 				{errors.name ? (
 					<>
+						{errors.name.type === 'required' && (
+							<span className="input-invalid">⚠ This is required field</span>
+						)}
 						{errors.name.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
-			</div>
-			<div className="input__grp">
+			</motion.div>
+			<motion.div
+				initial={{ x: '100vw', opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				exit={{ x: '100vw' }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				className="input__grp"
+			>
 				<label htmlFor="surname" className="input">
 					<input
 						type="text"
@@ -61,6 +84,7 @@ const SettingsForm: React.FC = () => {
 						placeholder=" "
 						id="surname"
 						{...register('surname', {
+							required: true,
 							pattern: /^[a-zA-Z]{3,30}$/,
 						})}
 					/>
@@ -68,13 +92,22 @@ const SettingsForm: React.FC = () => {
 				</label>
 				{errors.surname ? (
 					<>
+						{errors.surname.type === 'required' && (
+							<span className="input-invalid">⚠ This is required field</span>
+						)}
 						{errors.surname.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
-			</div>
-			<div className="input__grp">
+			</motion.div>
+			<motion.div
+				initial={{ x: '-100vw', opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				exit={{ x: '-100vw' }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				className="input__grp"
+			>
 				<label htmlFor="email" className="input">
 					<input
 						type="email"
@@ -82,6 +115,7 @@ const SettingsForm: React.FC = () => {
 						placeholder=" "
 						id="email"
 						{...register('email', {
+							required: true,
 							pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,
 						})}
 					/>
@@ -89,13 +123,22 @@ const SettingsForm: React.FC = () => {
 				</label>
 				{errors.email ? (
 					<>
+						{errors.email.type === 'required' && (
+							<span className="input-invalid">⚠ This is required field</span>
+						)}
 						{errors.email.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
-			</div>
-			<div className="input__grp">
+			</motion.div>
+			<motion.div
+				initial={{ x: '100vw', opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				exit={{ x: '100vw' }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				className="input__grp"
+			>
 				<label htmlFor="newPassword" className="input">
 					<input
 						type="newPassword"
@@ -103,6 +146,7 @@ const SettingsForm: React.FC = () => {
 						placeholder=" "
 						id="newPassword"
 						{...register('newPassword', {
+							required: true,
 							pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
 						})}
 					/>
@@ -110,13 +154,22 @@ const SettingsForm: React.FC = () => {
 				</label>
 				{errors.newPassword ? (
 					<>
+						{errors.newPassword.type === 'required' && (
+							<span className="input-invalid">⚠ This is required field</span>
+						)}
 						{errors.newPassword.type === 'pattern' && (
 							<span className="input-invalid">⚠ Please enter valid name</span>
 						)}
 					</>
 				) : null}
-			</div>
-			<div className="input__grp">
+			</motion.div>
+			<motion.div
+				initial={{ x: '-80vw', opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				exit={{ x: '-80vw' }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				className="input__grp"
+			>
 				<label htmlFor="oldPassword" className="input">
 					<input
 						type="oldPassword"
@@ -140,9 +193,9 @@ const SettingsForm: React.FC = () => {
 						)}
 					</>
 				) : null}
-			</div>
+			</motion.div>
 			<div className="input__grp">
-				<Button value="Update profile" className='btn-modal'/>
+				<Button value="Update profile" className="btn-modal" />
 			</div>
 		</form>
 	);
