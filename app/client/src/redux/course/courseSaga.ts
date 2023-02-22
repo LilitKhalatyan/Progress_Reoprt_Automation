@@ -81,7 +81,8 @@ function* updateCourseById(data: ICourse) {
 			throw new Error('Course updated failed');
 		}
 		yield put(getAllCoursesAction());
-		yield put(updateCourseByIdSuccesed(response));
+		const message: Message  = yield response.json() as Promise<Message>
+		yield put(updateCourseByIdSuccesed(message.message));
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
 	}

@@ -4,9 +4,10 @@ import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
+import { toast } from 'react-toastify';
 
 import 'react-datepicker/src/stylesheets/datepicker.scss';
-import { courseSelector } from '../../redux/course/courseSelector';
+import { courseSelector, coursesSelector, messageSelector } from '../../redux/course/courseSelector';
 
 interface IProps {
 	btnType: string;
@@ -18,7 +19,10 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 
 	const course = useSelector(courseSelector);
-	
+	const message = useSelector(messageSelector);
+	// console.log(message?.message)
+	const notify = () => toast(message);
+
 	const onSubmit = (data: any, e: any) => {
 		console.log(e.nativeEvent.submitter);
 		// console.log(e.nativeEvent.srcElement[3].innerText);
@@ -26,23 +30,26 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		console.log(course[0]?.id);
 
 		const finalData = {
-			id:course[0]?.id,
+			id: course[0]?.id,
 			name: data.name,
 			startDate: data.startDate,
 			endDate: data.endDate,
 		};
-		if(e.nativeEvent.submitter.name === "saveAndAdd") {
+		if (e.nativeEvent.submitter.name === "saveAndAdd") {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
+			notify();
 			props.setShow(false);
 		}
-		if(e.nativeEvent.submitter.name === "save") {
+		if (e.nativeEvent.submitter.name === "save") {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
+			notify();
 			props.setShow(true);
 		}
-		if(e.nativeEvent.submitter.name === "update") {
+		if (e.nativeEvent.submitter.name === "update") {
 			dispatch(updateCourseByIdAction(finalData));
+			notify();
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			props.setShow(false);
 		}
@@ -77,7 +84,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name="save"  />
+							<Button value="Save" className="btn-modal" name="save" />
 						</div>
 						<div className="input__grp">
 							<Button value="Save & Add" className="btn-modal" name="saveAndAdd" />

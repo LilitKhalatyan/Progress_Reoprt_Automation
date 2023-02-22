@@ -6,5 +6,6 @@ const selectSelf = (state: RootState) => state;
 const coursesSelector = createSelector(selectSelf, (state) => state.courses.courses);
 const loadingSelector = createSelector(selectSelf, (state) => state.courses.loading);
 const courseSelector = createSelector(selectSelf, (state) => state.courses.course);
+const messageSelector = createSelector(selectSelf, (state) => state.courses.message);
 
-export { coursesSelector, courseSelector, loadingSelector };
+export { coursesSelector, courseSelector, loadingSelector, messageSelector };
