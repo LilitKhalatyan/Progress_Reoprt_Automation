@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 const initialState = {
 	courses: [] as TCourse[],

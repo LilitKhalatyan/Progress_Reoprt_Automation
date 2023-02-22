@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentSelector } from '../../redux/student/studentSelector';
 import { createStudentAction, updateStudentByIdAction } from '../../redux/student/studentSlice';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: TCourse[];
@@ -42,7 +42,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 			reset({ name: '', surname: '', email: '', select: '' });
 			props.setShow(false);
 		}
-		
 	};
 	const onFail = (error: any) => {
 		props.setShow(true);

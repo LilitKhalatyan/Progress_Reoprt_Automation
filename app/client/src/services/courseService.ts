@@ -1,4 +1,4 @@
-import { TCourse } from '../types/courses';
+import { TCourse } from '../types/courseTypes';
 
 // app.get("/course/:id", getCourseById);
 export const getCourseByIdService = async (id: string): Promise<Response> => {

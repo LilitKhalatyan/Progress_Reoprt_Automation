@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { TCourse } from '../../types/courses';
+import { TCourse, ICourse, CourseSliceState, GetCourse, Message } from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -21,16 +21,6 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
-import { Message } from '../../services/trainerService';
-
-export interface ICourse {
-	type: string;
-	payload: TCourse;
-}
-export interface GetCourse {
-	type: string;
-	payload: string;
-}
 
 function* createCourse(data: ICourse) {
 	try {
@@ -38,8 +28,8 @@ function* createCourse(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course create failed');
 		}
-		const message: Message = yield response.json() as Promise<Message>;
-		yield put(createCourseSuccesed(message));
+		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(createCourseSuccesed(message.message));
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
@@ -59,9 +49,8 @@ function* getCoursesData() {
 	}
 }
 
-function* getCourseById(data: GetCourse ) {
+function* getCourseById(data: GetCourse) {
 	try {
-
 		const response: Response = yield call(getCourseByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course get failed');
@@ -80,9 +69,9 @@ function* updateCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}
+		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(createCourseSuccesed(message.message));
 		yield put(getAllCoursesAction());
-		const message: Message  = yield response.json() as Promise<Message>
-		yield put(updateCourseByIdSuccesed(message.message));
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
 	}
@@ -94,9 +83,9 @@ function* deleteCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course delete failed');
 		}
-		const message: Message = yield response.json() as Promise<Message>;
+		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(deleteCourseByIdSuccesed(message.message));
 		yield put(getAllCoursesAction());
-		yield put(deleteCourseByIdSuccesed(message));
 	} catch (error: any) {
 		yield put(deleteCourseByIdFailed(error.message));
 	}

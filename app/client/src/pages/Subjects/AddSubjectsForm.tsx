@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSubjectAction } from '../../redux/subject/subjectSlice';
 import { subjectSelector } from '../../redux/subject/subjectSelector';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: TCourse[];

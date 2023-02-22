@@ -7,7 +7,7 @@ import { createCourseAction, updateCourseByIdAction } from '../../redux/course/c
 import { toast } from 'react-toastify';
 
 import 'react-datepicker/src/stylesheets/datepicker.scss';
-import { courseSelector, coursesSelector, messageSelector } from '../../redux/course/courseSelector';
+import { courseSelector, messageSelector } from '../../redux/course/courseSelector';
 
 interface IProps {
 	btnType: string;
@@ -20,8 +20,18 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 
 	const course = useSelector(courseSelector);
 	const message = useSelector(messageSelector);
-	// console.log(message?.message)
-	const notify = () => toast(message);
+
+	const notify = () =>
+		toast(message, {
+			position: 'top-center',
+			className: 'toast-message',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			progress: undefined,
+			theme: 'dark',
+		});
 
 	const onSubmit = (data: any, e: any) => {
 		console.log(e.nativeEvent.submitter);
@@ -35,19 +45,19 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 			startDate: data.startDate,
 			endDate: data.endDate,
 		};
-		if (e.nativeEvent.submitter.name === "saveAndAdd") {
+		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			notify();
 			props.setShow(false);
 		}
-		if (e.nativeEvent.submitter.name === "save") {
+		if (e.nativeEvent.submitter.name === 'save') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			notify();
 			props.setShow(true);
 		}
-		if (e.nativeEvent.submitter.name === "update") {
+		if (e.nativeEvent.submitter.name === 'update') {
 			dispatch(updateCourseByIdAction(finalData));
 			notify();
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
@@ -94,7 +104,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name={"update"} dataId={course[0]?.id} />
+						<Button value="Update" className="btn-modal" name={'update'} dataId={course[0]?.id} />
 					</div>
 				);
 		}
