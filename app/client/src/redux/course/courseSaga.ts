@@ -13,6 +13,7 @@ import {
 	deleteCourseByIdSuccesed,
 	getAllCoursesAction,
 } from './courseSlice';
+import { toast } from 'react-toastify';
 
 import {
 	createCourseService,
@@ -21,6 +22,7 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
+import { notify } from '../../utils';
 
 function* createCourse(data: ICourse) {
 	try {
@@ -28,8 +30,9 @@ function* createCourse(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course create failed');
 		}
-		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
-		yield put(createCourseSuccesed(message.message));
+		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(createCourseSuccesed(message));
+		notify(message as string);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
@@ -69,8 +72,9 @@ function* updateCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}
-		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
-		yield put(createCourseSuccesed(message.message));
+		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(updateCourseByIdSuccesed(message));
+		notify(message as string);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
@@ -83,8 +87,9 @@ function* deleteCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course delete failed');
 		}
-		const message: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
-		yield put(deleteCourseByIdSuccesed(message.message));
+		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		yield put(deleteCourseByIdSuccesed(message));
+		notify(message as string);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(deleteCourseByIdFailed(error.message));

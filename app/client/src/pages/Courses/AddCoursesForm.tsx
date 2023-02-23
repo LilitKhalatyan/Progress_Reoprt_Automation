@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
-import { toast } from 'react-toastify';
-
+import { courseSelector } from '../../redux/course/courseSelector';
 import 'react-datepicker/src/stylesheets/datepicker.scss';
-import { courseSelector, messageSelector } from '../../redux/course/courseSelector';
 
 interface IProps {
 	btnType: string;
@@ -17,21 +15,7 @@ interface IProps {
 
 const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
-
 	const course = useSelector(courseSelector);
-	const message = useSelector(messageSelector);
-
-	const notify = () =>
-		toast(message, {
-			position: 'top-center',
-			className: 'toast-message',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			progress: undefined,
-			theme: 'dark',
-		});
 
 	const onSubmit = (data: any, e: any) => {
 		console.log(e.nativeEvent.submitter);
@@ -48,18 +32,15 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
-			notify();
 			props.setShow(false);
 		}
 		if (e.nativeEvent.submitter.name === 'save') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
-			notify();
 			props.setShow(true);
 		}
 		if (e.nativeEvent.submitter.name === 'update') {
 			dispatch(updateCourseByIdAction(finalData));
-			notify();
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			props.setShow(false);
 		}

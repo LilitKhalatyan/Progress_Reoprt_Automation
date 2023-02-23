@@ -20,10 +20,9 @@ const createCourse = async (req, res) => {
     };
 
     await Course.create(courseInfo);
-
     res.status(201).send({ message: "Course created successfuly" });
   } catch (error) {
-    res.status(500).send({ message: "Course created failed" });
+    res.status(500).send({ message: "Failed to create course" });
   }
 };
 
@@ -54,7 +53,7 @@ const updateCourse = async (req, res) => {
     });
     res.status(200).send({ message: "Course updated successfully" });
   } catch (error) {
-    res.status(500).send({ message: "Course updated failed" });
+    res.status(500).send({ message: "Failed to update course" });
   }
 };
 
@@ -116,9 +115,9 @@ const deleteCourse = async (req, res) => {
         id: id,
       },
     });
-    res.status(200).send({ message: "course deleted succesfully" });
+    res.status(200).send({ message: "Course deleted succesfully" });
   } catch (error) {
-    res.status(500).send({ message: "course deleted failed" });
+    res.status(500).send({ message: "Failed to delete course" });
   }
 };
 module.exports = {
