@@ -108,23 +108,6 @@ const UsersList: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<hr />
-					{/* <div className="list-item"> */}
-						{/* {titles?.map((el) => {
-							return (
-								<div className="info-grp">
-									<span>{el.name}</span>
-									<span>{el.startDate}</span>
-									<span>{el.endDate}</span>
-								</div>
-							);
-						})} */}
-
-						{/* <span>{titles?.[0]}</span>
-							<span>{titles?.[1]}</span>
-							<span>{titles?.[2]}</span>
-							<span>{titles?.[3]}</span>
-							<span>{titles?.[4]}</span> */}
-					{/* </div> */}
 					<div className="user_list_wrap">
 						<div className="main-users__list">
 							<>

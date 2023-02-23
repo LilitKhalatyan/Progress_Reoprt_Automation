@@ -19,6 +19,8 @@ const signup = async (req, res) => {
             length: 10,
             numbers: true,
             symbols: true,
+            lowercase:true,
+            uppercase: true,
             strict: true,
             exclude: '"',
         });

@@ -72,7 +72,7 @@ function* getSubjectById(data: SubjectId) {
 	}
 }
 
-function* updateSubjectById(data: SubjectId) {
+function* updateSubjectById(data: ISubject) {
 	try {
 		const response: Response = yield call(updateSubjectByIdService, data.payload);
 		if (!response.ok) {

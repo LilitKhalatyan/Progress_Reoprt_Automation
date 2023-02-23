@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
@@ -20,10 +20,6 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 	const course = useSelector(courseSelector);
 	
 	const onSubmit = (data: any, e: any) => {
-		console.log(e.nativeEvent.submitter);
-		// console.log(e.nativeEvent.srcElement[3].innerText);
-
-		console.log(course[0]?.id);
 
 		const finalData = {
 			id:course[0]?.id,
@@ -34,12 +30,12 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		if(e.nativeEvent.submitter.name === "saveAndAdd") {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
-			props.setShow(false);
+			props.setShow(true);
 		}
 		if(e.nativeEvent.submitter.name === "save") {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
-			props.setShow(true);
+			props.setShow(false);
 		}
 		if(e.nativeEvent.submitter.name === "update") {
 			dispatch(updateCourseByIdAction(finalData));

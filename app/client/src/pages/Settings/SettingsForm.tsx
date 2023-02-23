@@ -43,7 +43,7 @@ const SettingsForm: React.FC = () => {
 				initial={{ x: '-100vw', opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				exit={{ x: '-100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
 				className="input__grp"
 			>
 				<label htmlFor="name" className="input">
@@ -74,7 +74,7 @@ const SettingsForm: React.FC = () => {
 				initial={{ x: '100vw', opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				exit={{ x: '100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
 				className="input__grp"
 			>
 				<label htmlFor="surname" className="input">
@@ -105,7 +105,7 @@ const SettingsForm: React.FC = () => {
 				initial={{ x: '-100vw', opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				exit={{ x: '-100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
 				className="input__grp"
 			>
 				<label htmlFor="email" className="input">
@@ -136,7 +136,7 @@ const SettingsForm: React.FC = () => {
 				initial={{ x: '100vw', opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				exit={{ x: '100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
 				className="input__grp"
 			>
 				<label htmlFor="newPassword" className="input">
@@ -167,7 +167,7 @@ const SettingsForm: React.FC = () => {
 				initial={{ x: '-80vw', opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				exit={{ x: '-80vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 2.5, delay: 0.5 }}
+				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
 				className="input__grp"
 			>
 				<label htmlFor="oldPassword" className="input">

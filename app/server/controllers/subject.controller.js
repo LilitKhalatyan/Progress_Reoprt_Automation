@@ -4,11 +4,13 @@ const { staff: Staff, course: Course, subject: Subject } = db;
 
 const createSubject = async (req, res) => {
     try {
-        const { name, staffId, courseId } = req.body;
+        const { name, staffId, courseId, balls, finalballs} = req.body;
         const subjectInfo = {
             name,
             staffId,
             courseId,
+            balls,
+            finalballs,
         };
         const subject = Subject.create(subjectInfo);
         res.status(200).send({ message: "subject create succesfully" });

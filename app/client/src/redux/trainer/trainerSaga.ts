@@ -5,13 +5,14 @@ import {
 	getTrainer,
 	getAllTrainers,
 	deleteTrainerById,
+	updateTrainerById,
 } from '../../services/trainerService';
 import { AuthData } from '../../types/authTypes';
 import { Trainer, TrainerByID, TrainerData } from '../../types/trainerTypes';
 import {
 	getAllTrainersFailed,
-	// updateTrainerFailed,
-	// updateTrainerSuccesed,
+	updateTrainerFailed,
+	updateTrainerSuccesed,
 	createTrainerFailed,
 	createTrainerSuccesed,
 	getAllTrainersSuccesed,
@@ -21,6 +22,11 @@ import {
 	getTrainerFailed,
 	getAllTrainersAction,
 } from './trainerSlice';
+
+export interface ITrainer {
+	type: string;
+	payload: Trainer;
+}
 
 export function* getTrainerById(data: TrainerData) {
 	try {
@@ -50,10 +56,19 @@ export function* deleteTrainer(data: TrainerData) {
 }
 
 // to do
-// export function* updateTrainer(data: AuthData) {
-// 	try {
-// 	} catch (error) {}
-// }
+export function* updateTrainer(data:ITrainer) {
+	try {
+		const response: Response = yield call(updateTrainerById, data.payload );
+		if (!response.ok) {
+			throw new Error('Trainers updated failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllTrainersAction());
+		yield put(updateTrainerSuccesed(message));
+	} catch (error: any) {
+		yield put(updateTrainerFailed(error.message));
+	}
+}
 
 export function* getTrainers() {
 	try {

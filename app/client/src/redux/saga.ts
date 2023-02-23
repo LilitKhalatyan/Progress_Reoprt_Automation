@@ -32,7 +32,7 @@ import {
 	deleteTrainerAction,
 } from './trainer/trainerSlice';
 
-import { createTrainer, deleteTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
+import { createTrainer, deleteTrainer, getTrainerById, getTrainers, updateTrainer } from './trainer/trainerSaga';
 
 import {
 	createCourse,
@@ -67,7 +67,7 @@ export default function* watchDataSaga() {
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
 	yield takeEvery(getTrainerAction.type, getTrainerById);
-	yield takeEvery(updateTrainerAction.type, getTrainers);
+	yield takeEvery(updateTrainerAction.type, updateTrainer);
 	yield takeEvery(getAllTrainersAction.type, getTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
 	yield takeEvery(deleteTrainerAction.type, deleteTrainer);

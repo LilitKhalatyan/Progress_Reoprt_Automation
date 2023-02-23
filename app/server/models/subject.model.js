@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            balls: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            }
         },
         { timestamps: false },
     );
