@@ -32,7 +32,7 @@ export const getTrainer = async (id: string): Promise<Response> => {
 };
 
 export const getAllTrainers = async (): Promise<Response> => {
-	const response = await fetch(`http://localhost:3303/trainers/all`, {
+	const response = await fetch(`http://localhost:3303/trainers/all<`, {
 		method: 'GET',
 		credentials: 'include',
 		headers: {

@@ -6,6 +6,7 @@ const initialState = {
 	course: [] as TCourse[],
 	message: {},
 	loading: true,
+	error: false //new line
 };
 
 const courseSlice = createSlice({
@@ -25,9 +26,11 @@ const courseSlice = createSlice({
 		getAllCoursesSuccesed: (state, action) => {
 			state.courses = action.payload;
 			state.loading = false;
+			state.error = false; //new line
 		},
 		getAllCoursesFailed: (state, action) => {
 			state.message = action.payload;
+			state.error = true; //new line
 		},
 		getCourseByIdAction: (state, action) => {},
 		getCourseByIdSuccesed: (state, action) => {

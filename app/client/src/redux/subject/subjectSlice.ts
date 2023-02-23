@@ -6,6 +6,7 @@ const initialState = {
 	subject: [] as TSubject[],
 	message: {},
 	loading: true,
+	error: false
 };
 
 const subjectSlice = createSlice({
@@ -25,9 +26,11 @@ const subjectSlice = createSlice({
 		getAllSubjectSuccesed: (state, action) => {
 			state.subjects = action.payload;
 			state.loading = false;
+			state.error = false;
 		},
 		getAllSubjectFailed: (state, action) => {
 			state.message = action.payload;
+			state.error = true;
 		},
 		getSubjectByIdAction: (state, action) => {},
 		getSubjectByIdSuccesed: (state, action) => {

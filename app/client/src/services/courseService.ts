@@ -14,7 +14,7 @@ export const getCourseByIdService = async (id: string): Promise<Response> => {
 
 // app.get("/courses/all", getAllCourses);
 export const getAllCoursesService = async (): Promise<Response> => {
-	const courseData = await fetch(`http://localhost:3303/courses/all`, {
+	const courseData = await fetch(`http://localhost:3303/courses/all.`, {
 		method: 'GET',
 		credentials: 'include',
 		headers: {

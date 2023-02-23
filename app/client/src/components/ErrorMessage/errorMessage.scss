@@ -1,0 +1,12 @@
+@import '../../style/variables';
+
+.error-image {
+	display: block;
+	width: 34%;
+	object-fit: contain;
+	margin: 0 auto;
+    background-color: transparent;
+}
+.error-title {
+	color: $sm-blue;
+}
