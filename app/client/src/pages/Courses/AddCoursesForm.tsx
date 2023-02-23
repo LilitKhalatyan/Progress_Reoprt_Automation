@@ -4,9 +4,8 @@ import { Controller, useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
-
-import 'react-datepicker/src/stylesheets/datepicker.scss';
 import { courseSelector } from '../../redux/course/courseSelector';
+import 'react-datepicker/src/stylesheets/datepicker.scss';
 
 interface IProps {
 	btnType: string;
@@ -16,28 +15,27 @@ interface IProps {
 
 const AddGroupsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
-
 	const course = useSelector(courseSelector);
-	
+
 	const onSubmit = (data: any, e: any) => {
 
 		const finalData = {
-			id:course[0]?.id,
+			id: course[0]?.id,
 			name: data.name,
 			startDate: data.startDate,
 			endDate: data.endDate,
 		};
-		if(e.nativeEvent.submitter.name === "saveAndAdd") {
+		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			props.setShow(true);
 		}
-		if(e.nativeEvent.submitter.name === "save") {
+		if (e.nativeEvent.submitter.name === 'save') {
 			dispatch(createCourseAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			props.setShow(false);
 		}
-		if(e.nativeEvent.submitter.name === "update") {
+		if (e.nativeEvent.submitter.name === 'update') {
 			dispatch(updateCourseByIdAction(finalData));
 			reset({ name: '', startDate: new Date(), endDate: new Date() });
 			props.setShow(false);
@@ -73,7 +71,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name="save"  />
+							<Button value="Save" className="btn-modal" name="save" />
 						</div>
 						<div className="input__grp">
 							<Button value="Save & Add" className="btn-modal" name="saveAndAdd" />
@@ -83,7 +81,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name={"update"} dataId={course[0]?.id} />
+						<Button value="Update" className="btn-modal" name={'update'} dataId={course[0]?.id} />
 					</div>
 				);
 		}

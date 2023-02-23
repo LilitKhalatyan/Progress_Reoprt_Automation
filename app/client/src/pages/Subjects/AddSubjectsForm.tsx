@@ -7,6 +7,7 @@ import { createSubjectAction, updateSubjectByIdAction } from '../../redux/subjec
 import { subjectSelector } from '../../redux/subject/subjectSelector';
 import { TCourse } from '../../types/courses';
 import './subjects.scss';
+import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: TCourse[];

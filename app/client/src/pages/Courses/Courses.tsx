@@ -33,7 +33,7 @@ const Courses: React.FC = () => {
 				onDelete={handleDelete}
 				getDataById={handleGetCourse}
 				onSelect={handleSelectChange}
-				titles={[{name: "Name", startDate: "Start Date", endDate: "End Date"}]}
+				titles={[{ name: 'Name', startDate: 'Start Date', endDate: 'End Date' }]}
 			/>
 		</>
 	);

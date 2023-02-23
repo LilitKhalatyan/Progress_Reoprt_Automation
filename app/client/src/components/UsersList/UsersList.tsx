@@ -11,7 +11,7 @@ import './usersList.scss';
 import { useSelector } from 'react-redux';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import { motion } from 'framer-motion';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: {
