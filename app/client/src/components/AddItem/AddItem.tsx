@@ -66,7 +66,7 @@ const AddItem: React.FC<IProps> = (props) => {
 	}, [title, setShow, courses, btnType, show, trainers]);
 
 	return (
-		<AnimatePresence >
+		<AnimatePresence>
 			{show && (
 				<motion.div
 					initial={{ opacity: 0 }}

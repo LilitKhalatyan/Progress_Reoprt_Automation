@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTrainerAction } from '../../redux/trainer/trainerSlice';
 import { trainerSelector } from '../../redux/trainer/selectors';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 import { coursesSelector } from '../../redux/course/courseSelector';
 
 interface IProps {

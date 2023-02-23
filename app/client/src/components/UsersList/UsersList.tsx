@@ -11,7 +11,7 @@ import './usersList.scss';
 import { useSelector } from 'react-redux';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import { motion } from 'framer-motion';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: {
@@ -109,7 +109,7 @@ const UsersList: React.FC<IProps> = (props) => {
 					</div>
 					<hr />
 					{/* <div className="list-item"> */}
-						{/* {titles?.map((el) => {
+					{/* {titles?.map((el) => {
 							return (
 								<div className="info-grp">
 									<span>{el.name}</span>
@@ -119,7 +119,7 @@ const UsersList: React.FC<IProps> = (props) => {
 							);
 						})} */}
 
-						{/* <span>{titles?.[0]}</span>
+					{/* <span>{titles?.[0]}</span>
 							<span>{titles?.[1]}</span>
 							<span>{titles?.[2]}</span>
 							<span>{titles?.[3]}</span>

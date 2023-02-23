@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TCourse } from '../../types/courses';
+import { TCourse } from '../../types/courseTypes';
 
 const initialState = {
 	courses: [] as TCourse[],
@@ -43,7 +43,7 @@ const courseSlice = createSlice({
 		updateCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		deleteCourseByIdAction: () => {},
+		deleteCourseByIdAction: (state, action) => {},
 		deleteCourseByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},
