@@ -10,7 +10,8 @@ const Students: React.FC = () => {
 	const loading = useSelector(loadingSelector);
 	const error = useSelector(errorSelector); //new line
 	const message = useSelector(messageSelector);
-console.log(error,'error', message, 'msg')
+	console.log(message)
+// console.log(error,'error', message, 'msg')
 	const [displayAdd, setDisplayAdd] = useState(false);
 
 	const handleDelete = (id: any) => {

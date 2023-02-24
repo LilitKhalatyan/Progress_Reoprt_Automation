@@ -22,7 +22,7 @@ const studentSlice = createSlice({
 			state.error = false;
 		},
 		getAllStudentsFailed: (state, action) => {
-			// state.students = [];
+			state.students = [];
 			state.message = action.payload;
 			state.error = true;
 		},

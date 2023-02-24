@@ -12,7 +12,7 @@ export const getSubjectByIdService = async (id: string): Promise<Response> => {
 };
 
 export const getAllSubjectService = async (): Promise<Response> => {
-	const subjectData = await fetch(`http://localhost:3303/subject/allc`, {
+	const subjectData = await fetch(`http://localhost:3303/subject/all`, {
 		method: 'GET',
 		credentials: 'include',
 		headers: {
