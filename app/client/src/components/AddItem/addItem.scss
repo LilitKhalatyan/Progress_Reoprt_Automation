@@ -44,6 +44,14 @@
 	button {
 		width: 100%;
 	}
+	.form_title {
+		// position: absolute;
+		text-transform: capitalize;
+		// top: 8%;
+		// left: 1%;
+		color: $sm-blue;
+		letter-spacing: 0.08rem;
+	}
 }
 .btn__grp {
 	width: 50%;
