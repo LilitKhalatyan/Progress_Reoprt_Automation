@@ -36,7 +36,6 @@ export const getAllCoursesService = async (): Promise<Response> => {
 	return courseData;
 };
 
-// app.put("/courses/update/:id", updateCourse);
 export const updateCourseByIdService = async (data: TCourse): Promise<Response> => {
 	const courseData = await fetch(`http://localhost:3303/courses/update/${data.id}`, {
 		method: 'PUT',
@@ -51,7 +50,6 @@ export const updateCourseByIdService = async (data: TCourse): Promise<Response> 
 	return courseData;
 };
 
-// app.delete("/courses/delete/:id", deleteCourse);
 export const deleteCourseByIdService = async (id: any): Promise<Response> => {
 	const courseData = await fetch(`http://localhost:3303/courses/delete/${id}`, {
 		method: 'DELETE',
