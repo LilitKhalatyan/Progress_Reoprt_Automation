@@ -32,15 +32,12 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
-			// courseId: data.multiselect.map((el: SelectElement) => el.id),
-			courseId: data.multiselect
-
+			courseId: data.multiselect.map((el: SelectElement) => el.id),
 		};
 		reset({ name: '', surname: '', email: '' });
 		setSelectedValue('');
 		dispatch(createTrainerAction(dataSelect));
 		props.setShow(false);
-		console.log(data.multiselect)
 	};
 	const onFail = (error: any) => {
 		props.setShow(true);
@@ -92,7 +89,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 
 	const options = (!props.data.length ? courses : props.data).map(item => {
 		return (
-			{ value: item.name, label: item.name }
+			{ value: item.name, label: item.name, id: item.id }
 		)
 	})
 
@@ -178,31 +175,18 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					control={control}
 					render={({ field: { onChange, value } }) => (
 						<Select
-							isMulti
 							className="multi-select"
+							classNamePrefix="select"
+							closeMenuOnSelect={false}
+							isMulti
 							options={options}
 							value={options.find((c) => c.value === value)}
 							onChange={(option: any) => {
-								onChange(option[0].value);
+								onChange(option);
 							}}
 						/>
 					)}
 					name={"multiselect"}
-				// control={control}
-				// name="multiselect"
-				// render={({ field: { onChange, value } }) => {
-				// 	return (
-				// 		<Multiselect
-				// 			className="multi-select"
-				// 			options={!props.data.length ? courses : props.data}
-				// 			onSelect={onChange}
-				// 			displayValue="name"
-				// 			{...register('multiselect', {
-				// 				required: true,
-				// 			})}
-				// 			selectedValues={selectedValue}
-				// 		/>
-				// 	)}}
 				/>
 				{errors.multiselect ? (
 					<>
