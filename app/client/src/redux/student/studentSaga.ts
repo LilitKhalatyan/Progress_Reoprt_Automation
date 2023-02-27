@@ -1,36 +1,43 @@
 import { call, put } from 'redux-saga/effects';
-import { TStudent } from '../../types/students';
+import { toast } from 'react-toastify';
+import { notify } from '../../utils';
+import { IStudents, TStudent, IStudentsId, Message} from '../../types/studentTypes';
 import {
+	createStudentSuccesed,
+	createStudentFailed,
 	getAllStudentsSuccesed,
 	getAllStudentsFailed,
 	getStudentByIdSuccesed,
 	getStudentByIdFailed,
-	updateStudentByIdFailed,
 	updateStudentByIdSuccesed,
-	deleteStudentByIdFailed,
+	updateStudentByIdFailed,
 	deleteStudentByIdSuccesed,
-	createStudentSuccesed,
-	createStudentFailed,
+	deleteStudentByIdFailed,
 	getAllStudentsAction,
 } from './studentSlice';
 
 import {
 	createStudentService,
-	deleteStudentByIdService,
 	getAllStudentsByCourseService,
 	getAllStudentsService,
 	getStudentByIdService,
 	updateStudentByIdService,
+	deleteStudentByIdService,
 } from '../../services/studentService';
-import { Message } from '../../services/trainerService';
 
-export interface IStudents {
-	type: string;
-	payload: TStudent;
-}
-export interface StudentsId {
-	type: string;
-	payload: string;
+
+function* createStudent(data: IStudents) {
+	try {
+		const response: Response = yield call(createStudentService, data.payload);
+		if (!response.ok) {
+			throw new Error('Create new student failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllStudentsAction());
+		yield put(createStudentSuccesed(message));
+	} catch (error: any) {
+		yield put(createStudentFailed(error.message));
+	}
 }
 
 function* getStudentsData() {
@@ -46,7 +53,7 @@ function* getStudentsData() {
 	}
 }
 
-function* getStudentsDataByCourse(data: StudentsId) {
+function* getStudentsDataByCourse(data: IStudentsId) {
 	try {
 		const response: Response = yield call(getAllStudentsByCourseService, data.payload);
 		if (!response.ok) {
@@ -59,7 +66,7 @@ function* getStudentsDataByCourse(data: StudentsId) {
 	}
 }
 
-function* getStudentById(data: StudentsId) {
+function* getStudentById(data: IStudentsId) {
 	try {
 		const response: Response = yield call(getStudentByIdService, data.payload);
 		if (!response.ok) {
@@ -86,7 +93,7 @@ function* updateStudentById(data: IStudents) {
 	}
 }
 
-function* deleteStudentById(data: StudentsId) {
+function* deleteStudentById(data: IStudentsId) {
 	try {
 		const response: Response = yield call(deleteStudentByIdService, data.payload);
 		if (!response.ok) {
@@ -100,25 +107,12 @@ function* deleteStudentById(data: StudentsId) {
 	}
 }
 
-function* createStudent(data: IStudents) {
-	try {
-		const response: Response = yield call(createStudentService, data.payload);
-		if (!response.ok) {
-			throw new Error('Create new student failed');
-		}
-		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllStudentsAction());
-		yield put(createStudentSuccesed(message));
-	} catch (error: any) {
-		yield put(createStudentFailed(error.message));
-	}
-}
 
 export {
+	createStudent,
 	getStudentsData,
 	getStudentById,
-	updateStudentById,
-	deleteStudentById,
-	createStudent,
 	getStudentsDataByCourse,
+	updateStudentById,
+	deleteStudentById
 };

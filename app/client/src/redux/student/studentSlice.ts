@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TStudent } from '../../types/students';
+import { TStudent } from '../../types/studentTypes';
 
 const initialState = {
 	students: [] as TStudent[],
@@ -12,6 +12,13 @@ const studentSlice = createSlice({
 	name: 'students',
 	initialState: initialState,
 	reducers: {
+		createStudentAction: (state, action) => {},
+		createStudentSuccesed: (state, action) => {
+			state.message = action.payload;
+		},
+		createStudentFailed: (state, action) => {
+			state.message = action.payload;
+		},
 		getAllStudentsAction: (state) => {
 			state.loading = true;
 		},
@@ -19,8 +26,8 @@ const studentSlice = createSlice({
 			state.students = action.payload;
 			state.loading = false;
 		},
-		getAllStudentsFailed: (state) => {
-			state.students = [];
+		getAllStudentsFailed: (state, action) => {
+			state.message = action.payload;
 		},
 		getStudentByIdAction: (state, action) => {},
 		getStudentByIdSuccesed: (state, action) => {
@@ -43,34 +50,27 @@ const studentSlice = createSlice({
 		deleteStudentByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		createStudentAction: (state, action) => {},
-		createStudentSuccesed: (state, action) => {
-			state.message = action.payload;
-		},
-		createStudentFailed: (state, action) => {
-			state.message = action.payload;
-		},
 		studentReset: () => {
 			return initialState;
 		},
 	},
 });
 export const {
+	createStudentAction,
+	createStudentSuccesed,
+	createStudentFailed,
 	getAllStudentsAction,
 	getAllStudentsSuccesed,
 	getAllStudentsFailed,
 	getStudentByIdAction,
-	getStudentByIdFailed,
 	getStudentByIdSuccesed,
+	getStudentByIdFailed,
 	updateStudentByIdAction,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,
 	deleteStudentByIdAction,
 	deleteStudentByIdSuccesed,
 	deleteStudentByIdFailed,
-	createStudentAction,
-	createStudentFailed,
-	createStudentSuccesed,
 	studentReset,
 } = studentSlice.actions;
 

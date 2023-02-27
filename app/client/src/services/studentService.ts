@@ -1,4 +1,4 @@
-import { TStudent } from '../types/students';
+import { TStudent } from '../types/studentTypes';
 
 // app.get("/studentby/:id", getSudentById);
 export const getStudentByIdService = async (id: string): Promise<Response> => {

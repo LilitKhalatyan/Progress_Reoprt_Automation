@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects';
-import { TCourse, ICourse, CourseSliceState, GetCourse } from '../../types/courseTypes';
+import { toast } from 'react-toastify';
+import { notify } from '../../utils';
+import { TCourse, ICourse, ICourseId, Message} from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -7,13 +9,12 @@ import {
 	getAllCoursesFailed,
 	getCourseByIdSuccesed,
 	getCourseByIdFailed,
-	updateCourseByIdFailed,
 	updateCourseByIdSuccesed,
-	deleteCourseByIdFailed,
+	updateCourseByIdFailed,
 	deleteCourseByIdSuccesed,
+	deleteCourseByIdFailed,
 	getAllCoursesAction,
 } from './courseSlice';
-import { toast } from 'react-toastify';
 
 import {
 	createCourseService,
@@ -22,7 +23,7 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
-import { notify } from '../../utils';
+
 
 function* createCourse(data: ICourse) {
 	try {
@@ -30,13 +31,14 @@ function* createCourse(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course create failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(createCourseSuccesed(message));
-		notify(message as string);
-		toast.success(message); // option 2, to review later
+		notify(message.message);
+		toast.success(message.message); // option 2, to review later
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
+		toast.error(error.message); // *L
 	}
 }
 
@@ -46,24 +48,25 @@ function* getCoursesData() {
 		if (!response.ok) {
 			throw new Error('Courses get failed');
 		}
-		const courses: TCourse[] = yield response.json() as Promise<TCourse[]>;
+		const courses: ICourse[] = yield response.json() as Promise<ICourse[]>;
 		yield put(getAllCoursesSuccesed(courses));
 	} catch (error: any) {
 		yield put(getAllCoursesFailed(error.message));
+		toast.error(error.message); // *L
 	}
 }
 
-function* getCourseById(data: GetCourse) {
+function* getCourseById(data: ICourseId) {
 	try {
 		const response: Response = yield call(getCourseByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course get failed');
 		}
 		const course: TCourse[] = yield response.json() as Promise<TCourse[]>;
-
 		yield put(getCourseByIdSuccesed(course));
 	} catch (error: any) {
 		yield put(getCourseByIdFailed(error.message));
+		toast.error(error.message); // *L
 	}
 }
 
@@ -73,12 +76,13 @@ function* updateCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(updateCourseByIdSuccesed(message));
-		notify(message as string);
+		notify(message.message);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
+		toast.error(error.message); // *L
 	}
 }
 
@@ -88,13 +92,20 @@ function* deleteCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course delete failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const message: Message = yield response.json() as Promise<Message>;
 		yield put(deleteCourseByIdSuccesed(message));
-		notify(message as string);
+		notify(message.message);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(deleteCourseByIdFailed(error.message));
+		toast.error(error.message); // *L
 	}
 }
 
-export { createCourse, getCoursesData, getCourseById, updateCourseById, deleteCourseById };
+export {
+	createCourse,
+	getCoursesData,
+	getCourseById,
+	updateCourseById,
+	deleteCourseById
+};

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TCourse } from '../../types/courseTypes';
+import { CourseSliceState, TCourse } from '../../types/courseTypes';
 
-const initialState = {
+const initialState: CourseSliceState = {
 	courses: [] as TCourse[],
 	course: [] as TCourse[],
 	message: {},
@@ -63,8 +63,8 @@ export const {
 	getAllCoursesSuccesed,
 	getAllCoursesFailed,
 	getCourseByIdAction,
-	getCourseByIdFailed,
 	getCourseByIdSuccesed,
+	getCourseByIdFailed,
 	updateCourseByIdAction,
 	updateCourseByIdSuccesed,
 	updateCourseByIdFailed,
