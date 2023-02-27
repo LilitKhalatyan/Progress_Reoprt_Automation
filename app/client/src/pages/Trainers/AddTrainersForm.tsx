@@ -5,7 +5,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTrainerAction } from '../../redux/trainer/trainerSlice';
-import { trainerSelector } from '../../redux/trainer/selectors';
+import { trainerSelector } from '../../redux/trainer/trainerSselectors';
 import { TCourse } from '../../types/courseTypes';
 import { coursesSelector } from '../../redux/course/courseSelector';
 

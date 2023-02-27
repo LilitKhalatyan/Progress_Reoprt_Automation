@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
-import { loadingSelector, trainersSelector } from '../../redux/trainer/selectors';
+import { loadingSelector, trainersSelector } from '../../redux/trainer/trainerSselectors';
 import { deleteTrainerByIdAction, getTrainerByIdAction } from '../../redux/trainer/trainerSlice';
 
 import './trainers.scss';
