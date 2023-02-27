@@ -25,7 +25,6 @@ export interface TrainerSliceState {
 	loading: boolean;
 }
 
-
 export interface TrainerData {
 	type: string;
 	payload: string;

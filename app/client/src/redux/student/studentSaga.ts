@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { notify } from '../../utils';
-import { IStudents, TStudent, IStudentId, Message, ICourseId} from '../../types/studentTypes';
+import { IStudents, TStudent, IStudentId, Message, ICourseId } from '../../types/studentTypes';
 import {
 	createStudentSuccesed,
 	createStudentFailed,
@@ -24,7 +24,6 @@ import {
 	deleteStudentByIdService,
 } from '../../services/studentService';
 
-
 function* createStudent(data: IStudents) {
 	try {
 		const response: Response = yield call(createStudentService, data.payload);
@@ -32,7 +31,7 @@ function* createStudent(data: IStudents) {
 			throw new Error('Create student failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		console.log(message)
+		console.log(message);
 		yield put(createStudentSuccesed(message));
 		notify(message.message);
 		yield put(getAllStudentsAction());
@@ -116,5 +115,5 @@ export {
 	getStudentById,
 	getStudentsDataByCourse,
 	updateStudentById,
-	deleteStudentById
+	deleteStudentById,
 };

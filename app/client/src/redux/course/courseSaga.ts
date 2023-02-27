@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { notify } from '../../utils';
-import { TCourse, ICourse, ICourseId, Message} from '../../types/courseTypes';
+import { TCourse, ICourse, ICourseId, Message } from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -23,7 +23,6 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
-
 
 function* createCourse(data: ICourse) {
 	try {
@@ -97,10 +96,4 @@ function* deleteCourseById(data: ICourse) {
 	}
 }
 
-export {
-	createCourse,
-	getCoursesData,
-	getCourseById,
-	updateCourseById,
-	deleteCourseById
-};
+export { createCourse, getCoursesData, getCourseById, updateCourseById, deleteCourseById };

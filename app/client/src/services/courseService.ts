@@ -25,7 +25,6 @@ export const getCourseByIdService = async (id: string): Promise<Response> => {
 	return course;
 };
 
-
 export const getAllCoursesService = async (): Promise<Response> => {
 	const courseData = await fetch(`http://localhost:3303/courses/all`, {
 		method: 'GET',
@@ -63,4 +62,3 @@ export const deleteCourseByIdService = async (id: any): Promise<Response> => {
 	});
 	return courseData;
 };
-

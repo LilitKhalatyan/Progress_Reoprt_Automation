@@ -10,7 +10,7 @@ import { ITrainer } from '../../types/trainerTypes';
 
 interface IProps {
 	data: TCourse[];
-	dataTrainers: ITrainer [];
+	dataTrainers: ITrainer[];
 	btnType: string;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 	show: boolean;

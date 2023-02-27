@@ -22,8 +22,6 @@ import {
 	updateSubjectByIdService,
 } from '../../services/subjectService';
 
-
-
 function* createSubject(data: ISubject) {
 	try {
 		const response: Response = yield call(createSubjectService, data.payload);

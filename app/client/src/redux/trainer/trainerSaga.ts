@@ -23,7 +23,6 @@ import {
 	getAllTrainersAction,
 } from './trainerSlice';
 
-
 export function* createTrainer(data: AuthData) {
 	try {
 		const response: Response = yield call(createTrainerService, data.payload);
@@ -85,5 +84,3 @@ export function* deleteTrainerById(data: TrainerData) {
 // 	try {
 // 	} catch (error) {}
 // }
-
-
