@@ -68,7 +68,7 @@ const updateTrainer = async (req, res) => {
 
         res.status(200).send({ message: "trainer updated successfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send(res.status(500).send({ message: "Failed to update trainer" }));
     }
 };
 
@@ -82,13 +82,13 @@ const deleteTrainer = async (req, res) => {
         });
         res.status(200).send({ message: "trainer deleted succesfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send(res.status(500).send({ message: "Failed to delete trainer" }));
     }
 };
 
 module.exports = {
+    getAllTrainers,
+    getTrainerById,
     updateTrainer,
     deleteTrainer,
-    getTrainerById,
-    getAllTrainers,
 };

@@ -11,7 +11,19 @@ const createSubject = async (req, res) => {
             courseId,
         };
         const subject = Subject.create(subjectInfo);
-        res.status(200).send({ message: "subject create succesfully" });
+        res.status(200).send({ message: "Subject create succesfully" });
+    } catch (error) {
+        res.status(500).send({ message: "Failed to create Subject" });
+    }
+};
+
+const getAllSubject = async (req, res) => {
+    try {
+        const subjects = await Subject.findAll();
+        if (!subjects) {
+            res.status(404).send({ message: "Failed to get subjects" });
+        }
+        res.status(200).send(subjects);
     } catch (error) {
         res.status(500).send(error);
     }
@@ -29,25 +41,13 @@ const updateSubject = async (req, res) => {
             where: {
                 id: id,
             },
-        });
-
+    });
         res.status(200).send({ message: "Subject updated successfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to update Subject" });
     }
 };
 
-const getAllSubject = async (req, res) => {
-    try {
-        const subjects = await Subject.findAll();
-        if (!subjects) {
-            res.status(404).send({ message: "subjects not found" });
-        }
-        res.status(200).send(subjects);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-};
 
 const getSubjectById = async (req, res) => {
     try {
@@ -58,7 +58,7 @@ const getSubjectById = async (req, res) => {
         }
         res.status(200).send([subjects]);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to get Subject by Id" });
     }
 };
 
@@ -79,7 +79,7 @@ const getSubjectbyTrainer = async (req, res) => {
 
         res.status(200).send(subjects);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to get Subject by Trainer" });
     }
 };
 
@@ -92,17 +92,17 @@ const deleteSubject = async (req, res) => {
                 id: id,
             },
         });
-        res.status(200).send({ message: "subject deleted succesfully" });
+        res.status(200).send({ message: "Subject deleted successfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to delete Subject" });
     }
 };
 
 module.exports = {
-    updateSubject,
     createSubject,
     getAllSubject,
-    deleteSubject,
     getSubjectById,
     getSubjectbyTrainer,
+    updateSubject,
+    deleteSubject,
 };

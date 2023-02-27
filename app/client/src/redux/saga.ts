@@ -26,36 +26,35 @@ import {
 
 import {
 	getAllTrainersAction,
-	updateTrainerAction,
-	getTrainerAction,
+	updateTrainerByIdAction,
+	getTrainerByIdAction,
 	createTrainerAction,
-	deleteTrainerAction,
+	deleteTrainerByIdAction,
 } from './trainer/trainerSlice';
 
-import { createTrainer, deleteTrainer, getTrainerById, getTrainers } from './trainer/trainerSaga';
+import { createTrainer, deleteTrainerById, getTrainerById, getAllTrainers } from './trainer/trainerSaga';
 
 import {
 	createCourse,
-	deleteCourseById,
 	getCourseById,
 	getCoursesData,
 	updateCourseById,
-	// updateCourseById,
+	deleteCourseById,
 } from './course/courseSaga';
 
 import {
 	createSubjectAction,
-	deleteSubjectByIdAction,
 	getAllSubjectAction,
 	getSubjectByIdAction,
 	updateSubjectByIdAction,
+	deleteSubjectByIdAction,
 } from './subject/subjectSlice';
 import {
 	createSubject,
-	deleteSubjectById,
-	getSubjectById,
 	getSubjectsData,
+	getSubjectById,
 	updateSubjectById,
+	deleteSubjectById,
 } from './subject/subjectSaga';
 import { loginAction, logoutAction, refreshAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser } from './auth/authSaga';
@@ -66,11 +65,11 @@ export default function* watchDataSaga() {
 	yield takeEvery(logoutAction.type, logoutUser);
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
-	yield takeEvery(getTrainerAction.type, getTrainerById);
-	yield takeEvery(updateTrainerAction.type, getTrainers);
-	yield takeEvery(getAllTrainersAction.type, getTrainers);
+	yield takeEvery(getAllTrainersAction.type, getTrainerById);
+	yield takeEvery(updateTrainerByIdAction.type, getAllTrainers);
+	yield takeEvery(getAllTrainersAction.type, getAllTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
-	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
+	yield takeEvery(deleteTrainerByIdAction.type, deleteTrainerById);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
 	yield takeEvery(createStudentAction.type, createStudent);
 	yield takeLatest(updateCourseByIdAction.type, updateCourseById);

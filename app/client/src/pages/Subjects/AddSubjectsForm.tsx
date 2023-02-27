@@ -6,15 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSubjectAction } from '../../redux/subject/subjectSlice';
 import { subjectSelector } from '../../redux/subject/subjectSelector';
 import { TCourse } from '../../types/courseTypes';
+import { ITrainer } from '../../types/trainerTypes';
 
 interface IProps {
 	data: TCourse[];
-	dataTrainers: {
-		id: number;
-		name: string;
-		surname: string;
-		email: string;
-	}[];
+	dataTrainers: ITrainer [];
 	btnType: string;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 	show: boolean;

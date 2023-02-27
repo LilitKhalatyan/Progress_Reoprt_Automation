@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
 import { loadingSelector, trainersSelector } from '../../redux/trainer/selectors';
-import { deleteTrainerAction, getTrainerAction } from '../../redux/trainer/trainerSlice';
+import { deleteTrainerByIdAction, getTrainerByIdAction } from '../../redux/trainer/trainerSlice';
 
 import './trainers.scss';
 
@@ -13,10 +13,10 @@ const Trainers: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const handleDelete = (id: any) => {
-		dispatch(deleteTrainerAction(id));
+		dispatch(deleteTrainerByIdAction(id));
 	};
 	const handleGetTrainer = (id: any) => {
-		dispatch(getTrainerAction(id));
+		dispatch(getTrainerByIdAction(id));
 	};
 	const handleSelectChange = (id: any) => {
 		// setSelect(e.target.value);
