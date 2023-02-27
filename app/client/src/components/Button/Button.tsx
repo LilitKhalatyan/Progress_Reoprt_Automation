@@ -34,8 +34,6 @@ const Button: React.FC<IProps> = (props) => {
 				type="submit"
 				className={className + ' btn-hover'}
 				onClick={(e) => {
-					console.log(e.currentTarget.dataset.id);
-
 					if (onClick) onClick(e);
 					if (getID) getID(e.currentTarget.dataset.dataId);
 				}}

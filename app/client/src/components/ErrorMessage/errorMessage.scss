@@ -1,8 +1,14 @@
 @import '../../style/variables';
 
+.error-wrapper {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8%;
+}
 .error-image {
 	display: block;
-	width: 32%;
 	object-fit: contain;
 	margin: 0 auto;
     background-color: transparent;

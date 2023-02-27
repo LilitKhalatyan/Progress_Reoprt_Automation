@@ -18,14 +18,14 @@ const ErrorMessage: React.FC<IProps> = (props) => {
     // 	};
     // }, [props.error]);
     return (
-        <>
+        <div className='error-wrapper'>
             <img
                 className='error-image'
                 src={img}
                 alt="Error"
             />
-            <h3 className='error-title'>{props.message}</h3>
-        </>
+            <h2 className='error-title'>{props.message}</h2>
+        </div>
     );
 };
 

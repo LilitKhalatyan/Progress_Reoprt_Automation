@@ -1,11 +1,10 @@
 import LayoutWrapper from '../layout/LayoutWrapper';
-import warning from '../asset/images//warning/warning.svg';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 const PageNotFound: React.FC = () => {
 	return (
 		<LayoutWrapper>
-			<h4>Page Not Found</h4>
-			<img src={warning} alt="Page Not Found" />
+			<ErrorMessage message="Page Not Found!" />
 		</LayoutWrapper>
 	);
 };

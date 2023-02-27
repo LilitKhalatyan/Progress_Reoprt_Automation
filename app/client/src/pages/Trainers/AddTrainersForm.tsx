@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
@@ -31,12 +32,15 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
-			courseId: data.multiselect.map((el: SelectElement) => el.id),
+			// courseId: data.multiselect.map((el: SelectElement) => el.id),
+			courseId: data.multiselect
+
 		};
 		reset({ name: '', surname: '', email: '' });
 		setSelectedValue('');
 		dispatch(createTrainerAction(dataSelect));
 		props.setShow(false);
+		console.log(data.multiselect)
 	};
 	const onFail = (error: any) => {
 		props.setShow(true);
@@ -85,6 +89,12 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				);
 		}
 	}, [props.btnType]);
+
+	const options = (!props.data.length ? courses : props.data).map(item => {
+		return (
+			{ value: item.name, label: item.name }
+		)
+	})
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -166,21 +176,33 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			<div className="input__grp">
 				<Controller
 					control={control}
-					name="multiselect"
-					render={({ field: { onChange, value } }) => {
-						return (
-							<Multiselect
-								className="multi-select"
-								options={!props.data.length ? courses : props.data}
-								onSelect={onChange}
-								displayValue="name"
-								{...register('multiselect', {
-									required: true,
-								})}
-								selectedValues={selectedValue}
-							/>
-						);
-					}}
+					render={({ field: { onChange, value } }) => (
+						<Select
+							isMulti
+							className="multi-select"
+							options={options}
+							value={options.find((c) => c.value === value)}
+							onChange={(option: any) => {
+								onChange(option[0].value);
+							}}
+						/>
+					)}
+					name={"multiselect"}
+				// control={control}
+				// name="multiselect"
+				// render={({ field: { onChange, value } }) => {
+				// 	return (
+				// 		<Multiselect
+				// 			className="multi-select"
+				// 			options={!props.data.length ? courses : props.data}
+				// 			onSelect={onChange}
+				// 			displayValue="name"
+				// 			{...register('multiselect', {
+				// 				required: true,
+				// 			})}
+				// 			selectedValues={selectedValue}
+				// 		/>
+				// 	)}}
 				/>
 				{errors.multiselect ? (
 					<>
