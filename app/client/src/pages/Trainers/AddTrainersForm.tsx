@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
@@ -86,6 +87,12 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 		}
 	}, [props.btnType]);
 
+	const options = (!props.data.length ? courses : props.data).map(item => {
+		return (
+			{ value: item.name, label: item.name, id: item.id }
+		)
+	})
+
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className="input__grp">
@@ -166,21 +173,20 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			<div className="input__grp">
 				<Controller
 					control={control}
-					name="multiselect"
-					render={({ field: { onChange, value } }) => {
-						return (
-							<Multiselect
-								className="multi-select"
-								options={!props.data.length ? courses : props.data}
-								onSelect={onChange}
-								displayValue="name"
-								{...register('multiselect', {
-									required: true,
-								})}
-								selectedValues={selectedValue}
-							/>
-						);
-					}}
+					render={({ field: { onChange, value } }) => (
+						<Select
+							className="multi-select"
+							classNamePrefix="select"
+							closeMenuOnSelect={false}
+							isMulti
+							options={options}
+							value={options.find((c) => c.value === value)}
+							onChange={(option: any) => {
+								onChange(option);
+							}}
+						/>
+					)}
+					name={"multiselect"}
 				/>
 				{errors.multiselect ? (
 					<>

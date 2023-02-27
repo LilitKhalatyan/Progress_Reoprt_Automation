@@ -91,8 +91,25 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		}
 	};
 
+	const titleComponent = () => {
+		switch (props.btnType) {
+			case 'add':
+				return (
+					<h3>add course</h3>
+				);
+			case 'edit':
+				return (
+					<h3>update course</h3>
+				);
+		}
+	};
+
 	return (
+
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
+			<div className='form_title'>
+				{titleComponent()}
+			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
 					<input

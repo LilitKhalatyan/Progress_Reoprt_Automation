@@ -6,6 +6,7 @@ const initialState = {
 	student: [] as TStudent[],
 	message: {},
 	loading: true,
+	error: false
 };
 
 const studentSlice = createSlice({
@@ -18,9 +19,12 @@ const studentSlice = createSlice({
 		getAllStudentsSuccesed: (state, action) => {
 			state.students = action.payload;
 			state.loading = false;
+			state.error = false;
 		},
-		getAllStudentsFailed: (state) => {
+		getAllStudentsFailed: (state, action) => {
 			state.students = [];
+			state.message = action.payload;
+			state.error = true;
 		},
 		getStudentByIdAction: (state, action) => {},
 		getStudentByIdSuccesed: (state, action) => {

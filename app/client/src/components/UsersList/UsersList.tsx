@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import Spinner from '../Spinner/Spinner';
+import { motion } from 'framer-motion';
+import { TCourse } from '../../types/courseTypes';
 import AddItem from '../../components/AddItem/AddItem';
+import { coursesSelector } from '../../redux/course/courseSelector';
 import Button from '../Button/Button';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'; //new line
+import Spinner from '../Spinner/Spinner';
 import addIcon from '../../asset/images/pages/add.png';
 import editIcon from '../../asset/images/pages/edit.png';
 import deleteIcon from '../../asset/images/pages/delete.png';
 
 import './usersList.scss';
-import { useSelector } from 'react-redux';
-import { coursesSelector } from '../../redux/course/courseSelector';
-import { motion } from 'framer-motion';
-import { TCourse } from '../../types/courseTypes';
 
 interface IProps {
 	data: {
@@ -32,6 +33,8 @@ interface IProps {
 	getDataById: (id: any) => void;
 	onSelect: (id: any) => void;
 	loading: boolean;
+	error?: boolean;
+	message?: any;
 	titles?: TCourse[];
 }
 
@@ -40,7 +43,7 @@ const UsersList: React.FC<IProps> = (props) => {
 	const [type, setType] = useState('add');
 	const courses = useSelector(coursesSelector);
 
-	const { data, display, setDisplay, onDelete, getDataById, onSelect, titles } = props;
+	const { data, display, setDisplay, onDelete, getDataById, onSelect, titles, error, message } = props;
 
 	return (
 		<motion.div
@@ -99,7 +102,7 @@ const UsersList: React.FC<IProps> = (props) => {
 								className="add-btn"
 								title={'add' + ' ' + props.title}
 								src={addIcon}
-								onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+								onClick={() => {
 									setDisplay(true);
 									setType('add');
 								}}
@@ -128,10 +131,17 @@ const UsersList: React.FC<IProps> = (props) => {
 					<div className="user_list_wrap">
 						<div className="main-users__list">
 							<>
-								{loading ? (
-									<Spinner loading={setLoading} />
-								) : (
+								{!loading && !error ? (
 									<>
+										<div className='items-title__wrapper'>
+											<div className='items-title'>
+												<span>{data[0]?.name ? 'name' : null}</span>
+												<span>{data[0]?.surname ? 'surname' : null}</span>
+												<span>{data[0]?.email ? 'email' : null}</span>
+												<span>{data[0]?.startDate?.toLocaleString().slice(0, 10) ? 'start date' : null}</span>
+												<span>{data[0]?.endDate?.toLocaleString().slice(0, 10) ? 'end date' : null}</span>
+											</div>
+										</div>
 										{data.map((item) => {
 											return (
 												<motion.div
@@ -148,6 +158,7 @@ const UsersList: React.FC<IProps> = (props) => {
 													className="list-item"
 													key={uuid()}
 												>
+
 													<div className="info-grp">
 														<span>{item.name}</span>
 														<span>{item.surname}</span>
@@ -180,7 +191,20 @@ const UsersList: React.FC<IProps> = (props) => {
 												</motion.div>
 											);
 										})}
+
 									</>
+								) : (
+									null
+								)}
+								{loading && !error ? (
+									<Spinner loading={setLoading} />
+								) : (
+									null
+								)}
+								{props.error ? (
+									<ErrorMessage message={message} />
+								) : (
+									null
 								)}
 							</>
 						</div>
