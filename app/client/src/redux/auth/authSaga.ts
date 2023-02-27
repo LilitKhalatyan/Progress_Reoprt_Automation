@@ -30,6 +30,7 @@ export function* resetStore() {
 	yield put(subjectReset());
 }
 
+
 export function* auth(data: AuthData) {
 	try {
 		const response: Response = yield call(signIn, data.payload);
@@ -38,7 +39,7 @@ export function* auth(data: AuthData) {
 			throw new Error('Login failed');
 		}
 		const user: IUser = yield response.json() as Promise<IUser>;
-
+		yield put(getAllCoursesAction());
 		yield localStorage.setItem('user', JSON.stringify(user));
 		yield put(loginSuccesed(user));
 	} catch (error: any) {

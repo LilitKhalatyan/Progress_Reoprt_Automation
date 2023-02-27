@@ -20,9 +20,12 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            balls: {
+            max_score: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            weightage: {
+                type: DataTypes.INTEGER,
             }
         },
         { timestamps: false },

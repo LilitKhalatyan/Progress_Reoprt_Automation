@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { TCourse, ICourse, CourseSliceState, GetCourse } from '../../types/courseTypes';
+import { TCourse, ICourse, CourseSliceState, GetCourse, Message } from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -30,7 +30,7 @@ function* createCourse(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course create failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const { message }: Message = yield response.json() as Promise<Message>;
 		yield put(createCourseSuccesed(message));
 		notify(message as string);
 		toast.success(message); // option 2, to review later

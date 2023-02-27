@@ -1,4 +1,5 @@
 const db = require("../models");
+const { Op } = require("sequelize");
 
 const {
     staff: Staff,
@@ -38,7 +39,7 @@ const reportGenerator = (finalInfo) => {
 const getData = async (subjectsId, studentId, staffsId) => {
     try {
         const student = await Student.findByPk(studentId);
-        const finalInfo = await Staff.findAll({
+        const finalSubjects = await Staff.findAll({
             attributes: ["id", "name", "surname"],
             where: {
                 id: staffsId,
@@ -48,6 +49,7 @@ const getData = async (subjectsId, studentId, staffsId) => {
                     model: Subject,
                     where: {
                         id: subjectsId,
+                        weightage: null,
                     },
                     include: [
                         {
@@ -62,11 +64,40 @@ const getData = async (subjectsId, studentId, staffsId) => {
             ],
             required: false,
         });
-        return [student, finalInfo];
+        const finalAssessments = await Staff.findAll({
+            attributes: ["id", "name", "surname"],
+            where: {
+                id: staffsId,
+            },
+            include: [
+                {
+                    model: Subject,
+                    where: {
+                        id: subjectsId,
+                        weightage: {
+                            [Op.ne] : null,
+                        },
+                    },
+                    include: [
+                        {
+                            model: TrainerReport,
+                            where: {
+                                studentId: studentId,
+                            },
+                        },
+                    ],
+                    required: false,
+                },
+            ],
+            required: false,
+        });
+        return [student, finalSubjects, finalAssessments];
     } catch (error) {
         return error;
     }
 };
+
+
 module.exports = {
     getFinalReport,
     sendFinalReport,

@@ -4,13 +4,13 @@ const { staff: Staff, course: Course, subject: Subject } = db;
 
 const createSubject = async (req, res) => {
     try {
-        const { name, staffId, courseId, balls, finalballs} = req.body;
+        const { name, staffId, courseId, max_score, weightage = null} = req.body;
         const subjectInfo = {
             name,
             staffId,
             courseId,
-            balls,
-            finalballs,
+            max_score,
+            weightage,
         };
         const subject = Subject.create(subjectInfo);
         res.status(200).send({ message: "subject create succesfully" });
@@ -21,11 +21,13 @@ const createSubject = async (req, res) => {
 
 const updateSubject = async (req, res) => {
     try {
-        const { name, staffId, courseId, id } = req.body;
+        const { name, staffId, courseId, id, max_score, weightage = null } = req.body;
         const subjectInfo = {
             name,
             staffId,
             courseId,
+            max_score,
+            weightage,
         };
         await Subject.update(subjectInfo, {
             where: {

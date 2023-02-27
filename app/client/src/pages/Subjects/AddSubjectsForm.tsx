@@ -5,7 +5,6 @@ import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSubjectAction, updateSubjectByIdAction } from '../../redux/subject/subjectSlice';
 import { subjectSelector } from '../../redux/subject/subjectSelector';
-import { TCourse } from '../../types/courses';
 import './subjects.scss';
 import { TCourse } from '../../types/courseTypes';
 
