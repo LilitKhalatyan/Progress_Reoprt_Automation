@@ -1,18 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Trainer, TrainerByID } from '../../types/trainerTypes';
+import { TrainerSliceState } from '../../types/trainerTypes';
 
-const initialState = {
-	trainers: [] as Trainer[],
-	trainer: [] as TrainerByID[],
+const initialState: TrainerSliceState = {
+	trainers: [],
+	trainer: [],
 	message: {},
 	loading: true,
-	error: false
+	error: false,
 };
 
 const trainerSlice = createSlice({
 	name: 'trainers',
 	initialState: initialState,
 	reducers: {
+		createTrainerAction: (state, action) => {},
+		createTrainerSuccesed: (state, action) => {
+			state.message = action.payload;
+		},
+		createTrainerFailed: (state, action) => {
+			state.message = action.payload;
+		},
 		getAllTrainersAction: (state) => {
 			state.loading = true;
 		},
@@ -21,37 +28,30 @@ const trainerSlice = createSlice({
 			state.loading = false;
 		},
 		getAllTrainersFailed: (state, action) => {
-			state.trainers = initialState.trainers;
+			// state.trainers = initialState.trainers;
 			state.message = action.payload;
 			state.error = true;
 		},
-		getTrainerAction: (state, action) => {},
-		getTrainerSuccesed: (state, action) => {
+		getTrainerByIdAction: (state, action) => {},
+		getTrainerByIdSuccesed: (state, action) => {
 			state.trainer = action.payload;
 			state.error = false;
 		},
-		getTrainerFailed: (state, action) => {
+		getTrainerByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		updateTrainerAction: (state, action) => {},
-		updateTrainerSuccesed: (state, action) => {
+		updateTrainerByIdAction: (state, action) => {},
+		updateTrainerByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},
-		updateTrainerFailed: (state, action) => {
+		updateTrainerByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		createTrainerAction: (state, action) => {},
-		createTrainerSuccesed: (state, action) => {
+		deleteTrainerByIdAction: (state, action) => {},
+		deleteTrainerByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},
-		createTrainerFailed: (state, action) => {
-			state.message = action.payload;
-		},
-		deleteTrainerAction: (state, action) => {},
-		deleteTrainerSuccesed: (state, action) => {
-			state.message = action.payload;
-		},
-		deleteTrainerFailed: (state, action) => {
+		deleteTrainerByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
 		trainerReset: () => {
@@ -61,21 +61,21 @@ const trainerSlice = createSlice({
 });
 
 export const {
-	getTrainerAction,
-	getTrainerFailed,
-	getTrainerSuccesed,
+	createTrainerAction,
+	createTrainerSuccesed,
+	createTrainerFailed,
+	getTrainerByIdAction,
+	getTrainerByIdSuccesed,
+	getTrainerByIdFailed,
 	getAllTrainersAction,
-	updateTrainerAction,
-	updateTrainerFailed,
-	updateTrainerSuccesed,
 	getAllTrainersSuccesed,
 	getAllTrainersFailed,
-	createTrainerAction,
-	createTrainerFailed,
-	createTrainerSuccesed,
-	deleteTrainerAction,
-	deleteTrainerFailed,
-	deleteTrainerSuccesed,
+	updateTrainerByIdAction,
+	updateTrainerByIdFailed,
+	updateTrainerByIdSuccesed,
+	deleteTrainerByIdAction,
+	deleteTrainerByIdSuccesed,
+	deleteTrainerByIdFailed,
 	trainerReset,
 } = trainerSlice.actions;
 
