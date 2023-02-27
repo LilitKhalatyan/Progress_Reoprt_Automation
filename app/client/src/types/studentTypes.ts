@@ -18,7 +18,12 @@ export interface IStudents {
 	payload: TStudent;
 }
 
-export interface IStudentsId {
+export interface IStudentId {
+	type: string;
+	payload: string;
+}
+
+export interface ICourseId {
 	type: string;
 	payload: string;
 }

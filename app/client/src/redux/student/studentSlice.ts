@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TStudent } from '../../types/studentTypes';
+import { StudentSliceState, TStudent } from '../../types/studentTypes';
 
-const initialState = {
+const initialState: StudentSliceState = {
 	students: [] as TStudent[],
 	student: [] as TStudent[],
 	message: {},

@@ -1,7 +1,6 @@
 import { call, put } from 'redux-saga/effects';
-import { toast } from 'react-toastify';
 import { notify } from '../../utils';
-import { IStudents, TStudent, IStudentsId, Message} from '../../types/studentTypes';
+import { IStudents, TStudent, IStudentId, Message, ICourseId} from '../../types/studentTypes';
 import {
 	createStudentSuccesed,
 	createStudentFailed,
@@ -30,11 +29,13 @@ function* createStudent(data: IStudents) {
 	try {
 		const response: Response = yield call(createStudentService, data.payload);
 		if (!response.ok) {
-			throw new Error('Create new student failed');
+			throw new Error('Create student failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllStudentsAction());
+		console.log(message)
 		yield put(createStudentSuccesed(message));
+		notify(message.message);
+		yield put(getAllStudentsAction());
 	} catch (error: any) {
 		yield put(createStudentFailed(error.message));
 	}
@@ -53,7 +54,7 @@ function* getStudentsData() {
 	}
 }
 
-function* getStudentsDataByCourse(data: IStudentsId) {
+function* getStudentsDataByCourse(data: ICourseId) {
 	try {
 		const response: Response = yield call(getAllStudentsByCourseService, data.payload);
 		if (!response.ok) {
@@ -66,7 +67,7 @@ function* getStudentsDataByCourse(data: IStudentsId) {
 	}
 }
 
-function* getStudentById(data: IStudentsId) {
+function* getStudentById(data: IStudentId) {
 	try {
 		const response: Response = yield call(getStudentByIdService, data.payload);
 		if (!response.ok) {
@@ -86,22 +87,24 @@ function* updateStudentById(data: IStudents) {
 			throw new Error('student update failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllStudentsAction());
 		yield put(updateStudentByIdSuccesed(message));
+		notify(message.message);
+		yield put(getAllStudentsAction());
 	} catch (error: any) {
 		yield put(updateStudentByIdFailed(error.message));
 	}
 }
 
-function* deleteStudentById(data: IStudentsId) {
+function* deleteStudentById(data: IStudentId) {
 	try {
 		const response: Response = yield call(deleteStudentByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('student delete failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllStudentsAction());
 		yield put(deleteStudentByIdSuccesed(message));
+		notify(message.message);
+		yield put(getAllStudentsAction());
 	} catch (error: any) {
 		yield put(deleteStudentByIdFailed(error.message));
 	}

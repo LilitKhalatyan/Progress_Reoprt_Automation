@@ -38,7 +38,6 @@ function* createCourse(data: ICourse) {
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
-		toast.error(error.message); // *L
 	}
 }
 
@@ -52,7 +51,6 @@ function* getCoursesData() {
 		yield put(getAllCoursesSuccesed(courses));
 	} catch (error: any) {
 		yield put(getAllCoursesFailed(error.message));
-		toast.error(error.message); // *L
 	}
 }
 
@@ -66,7 +64,6 @@ function* getCourseById(data: ICourseId) {
 		yield put(getCourseByIdSuccesed(course));
 	} catch (error: any) {
 		yield put(getCourseByIdFailed(error.message));
-		toast.error(error.message); // *L
 	}
 }
 
@@ -82,7 +79,6 @@ function* updateCourseById(data: ICourse) {
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
-		toast.error(error.message); // *L
 	}
 }
 
@@ -98,7 +94,6 @@ function* deleteCourseById(data: ICourse) {
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(deleteCourseByIdFailed(error.message));
-		toast.error(error.message); // *L
 	}
 }
 
