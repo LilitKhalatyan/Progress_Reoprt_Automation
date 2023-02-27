@@ -110,7 +110,6 @@ function* deleteStudentById(data: IStudentId) {
 	}
 }
 
-
 export {
 	createStudent,
 	getStudentsData,
