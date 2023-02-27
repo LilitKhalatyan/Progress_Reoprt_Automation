@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { CourseSliceState, TCourse } from '../../types/courseTypes';
 
 const initialState: CourseSliceState = {
-	courses: [] as TCourse[],
-	course: [] as TCourse[],
+	courses: [],
+	course: [],
 	message: {},
 	loading: true,
 };

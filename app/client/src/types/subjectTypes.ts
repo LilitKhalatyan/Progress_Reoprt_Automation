@@ -5,6 +5,13 @@ export type TSubject = {
 	staffId: number;
 };
 
+export interface SubjectSliceState {
+	subjects: TSubject[];
+	subject: TSubject[];
+	message: {};
+	loading: boolean;
+}
+
 export interface ISubject {
 	type: string;
 	payload: TSubject;
