@@ -25,7 +25,7 @@ const getTrainerById = async (req, res) => {
         }
         res.status(200).send([staff]);
     } catch (error) {
-        return res.status(500).send(error);
+        res.status(500).send({ message: "Failed to get Trainer by Id" });
     }
 };
 
@@ -45,7 +45,7 @@ const getAllTrainers = async (req, res) => {
 
         return res.status(201).send(staff);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to get Trainers" });
     }
 };
 
@@ -66,9 +66,9 @@ const updateTrainer = async (req, res) => {
             },
         });
 
-        res.status(200).send({ message: "trainer updated successfully" });
+        res.status(200).send({ message: "Trainer updated successfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to update trainer" });
     }
 };
 
@@ -80,15 +80,15 @@ const deleteTrainer = async (req, res) => {
                 id: id,
             },
         });
-        res.status(200).send({ message: "trainer deleted succesfully" });
+        res.status(200).send({ message: "Trainer deleted succesfully" });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({ message: "Failed to delete trainer" });
     }
 };
 
 module.exports = {
+    getAllTrainers,
+    getTrainerById,
     updateTrainer,
     deleteTrainer,
-    getTrainerById,
-    getAllTrainers,
 };

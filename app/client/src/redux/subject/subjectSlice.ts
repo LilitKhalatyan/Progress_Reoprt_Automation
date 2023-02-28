@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TSubject } from '../../types/subjectTypes';
+import { SubjectSliceState } from '../../types/subjectTypes';
 
-const initialState = {
-	subjects: [] as TSubject[],
-	subject: [] as TSubject[],
+const initialState: SubjectSliceState = {
+	subjects: [],
+	subject: [],
 	message: {},
 	loading: true,
 	error: false

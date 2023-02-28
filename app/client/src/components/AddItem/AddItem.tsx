@@ -9,7 +9,7 @@ import './addItem.scss';
 import AddCoursesForm from '../../pages/Courses/AddCoursesForm';
 import { useSelector } from 'react-redux';
 import { coursesSelector } from '../../redux/course/courseSelector';
-import { trainersSelector } from '../../redux/trainer/selectors';
+import { trainersSelector } from '../../redux/trainer/trainerSelector';
 
 interface IProps {
 	title: string;

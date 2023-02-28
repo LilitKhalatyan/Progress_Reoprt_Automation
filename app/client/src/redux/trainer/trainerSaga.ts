@@ -1,51 +1,82 @@
 import { put, call } from 'redux-saga/effects';
+import { notify } from '../../utils';
+import { ITrainer, TrainerByID, TrainerData, Message } from '../../types/trainerTypes';
 import {
-	createTrainerFetch,
-	Message,
-	getTrainer,
-	getAllTrainers,
-	deleteTrainerById,
+	createTrainerService,
+	getAllTrainersService,
+	getTrainerByIdService,
+	updateTrainerByIdService,
+	deleteTrainerByIdService,
 } from '../../services/trainerService';
 import { AuthData } from '../../types/authTypes';
-import { Trainer, TrainerByID, TrainerData } from '../../types/trainerTypes';
 import {
-	getAllTrainersFailed,
-	// updateTrainerFailed,
-	// updateTrainerSuccesed,
-	createTrainerFailed,
 	createTrainerSuccesed,
+	createTrainerFailed,
 	getAllTrainersSuccesed,
-	deleteTrainerSuccesed,
-	deleteTrainerFailed,
-	getTrainerSuccesed,
-	getTrainerFailed,
+	getAllTrainersFailed,
+	getTrainerByIdSuccesed,
+	getTrainerByIdFailed,
+	updateTrainerByIdSuccesed,
+	updateTrainerByIdFailed,
+	deleteTrainerByIdSuccesed,
+	deleteTrainerByIdFailed,
 	getAllTrainersAction,
 } from './trainerSlice';
 
+export function* createTrainer(data: AuthData) {
+	try {
+		const response: Response = yield call(createTrainerService, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainer create failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(createTrainerSuccesed(message));
+		notify(message.message);
+		yield put(getAllTrainersAction());
+	} catch (error: any) {
+		yield put(createTrainerFailed(error.message));
+	}
+}
+
+export function* getAllTrainers() {
+	try {
+		const response: Response = yield call(getAllTrainersService);
+		console.log(response)
+		if (!response.ok) {
+			throw new Error('Trainers get failed');
+		}
+		const trainers: ITrainer[] = yield response.json() as Promise<ITrainer[]>;
+		yield put(getAllTrainersSuccesed(trainers));
+	} catch (error: any) {
+		yield put(getAllTrainersFailed(error.message));
+	}
+}
+
 export function* getTrainerById(data: TrainerData) {
 	try {
-		const response: Response = yield call(getTrainer, data.payload);
+		const response: Response = yield call(getTrainerByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Trainer get failed');
 		}
 		const trainer: TrainerByID[] = yield response.json() as Promise<TrainerByID[]>;
-		yield put(getTrainerSuccesed(trainer));
+		yield put(getAllTrainersSuccesed(trainer));
 	} catch (error: any) {
-		yield put(getTrainerFailed(error.message));
+		yield put(getAllTrainersFailed(error.message));
 	}
 }
 
-export function* deleteTrainer(data: TrainerData) {
+export function* deleteTrainerById(data: TrainerData) {
 	try {
-		const response: Response = yield call(deleteTrainerById, data.payload);
+		const response: Response = yield call(deleteTrainerByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Trainers delete failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
+		yield put(deleteTrainerByIdSuccesed(message));
+		notify(message.message);
 		yield put(getAllTrainersAction());
-		yield put(deleteTrainerSuccesed(message));
 	} catch (error: any) {
-		yield put(deleteTrainerFailed(error.message));
+		yield put(deleteTrainerByIdFailed(error.message));
 	}
 }
 
@@ -54,31 +85,3 @@ export function* deleteTrainer(data: TrainerData) {
 // 	try {
 // 	} catch (error) {}
 // }
-
-export function* getTrainers() {
-	try {
-		const response: Response = yield call(getAllTrainers);
-		if (!response.ok) {
-			throw new Error('Trainers get failed');
-		}
-		const trainer: Trainer[] = yield response.json() as Promise<Trainer[]>;
-		yield put(getAllTrainersSuccesed(trainer));
-	} catch (error: any) {
-		yield put(getAllTrainersFailed(error.message));
-	}
-}
-
-export function* createTrainer(data: AuthData) {
-	try {
-		const response: Response = yield call(createTrainerFetch, data.payload);
-		if (!response.ok) {
-			throw new Error('Trainer create failed');
-		}
-		const trainer: Message = yield response.json() as Promise<Message>;
-
-		yield put(getAllTrainersAction());
-		yield put(createTrainerSuccesed(trainer));
-	} catch (error: any) {
-		yield put(createTrainerFailed(error.message));
-	}
-}

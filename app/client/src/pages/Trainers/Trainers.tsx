@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
-import { loadingSelector, trainersSelector, errorSelector, messageSelector } from '../../redux/trainer/selectors';
-import { deleteTrainerAction, getTrainerAction } from '../../redux/trainer/trainerSlice';
+
+import {
+	loadingSelector,
+	errorSelector,
+	messageSelector,
+	trainersSelector,
+} from '../../redux/trainer/trainerSelector';
+import { deleteTrainerByIdAction, getTrainerByIdAction } from '../../redux/trainer/trainerSlice';
 
 import './trainers.scss';
 
@@ -15,10 +21,10 @@ const Trainers: React.FC = () => {
 	const message = useSelector(messageSelector); //new line
 
 	const handleDelete = (id: any) => {
-		dispatch(deleteTrainerAction(id));
+		dispatch(deleteTrainerByIdAction(id));
 	};
 	const handleGetTrainer = (id: any) => {
-		dispatch(getTrainerAction(id));
+		dispatch(getTrainerByIdAction(id));
 	};
 	const handleSelectChange = (id: any) => {
 		// setSelect(e.target.value);
