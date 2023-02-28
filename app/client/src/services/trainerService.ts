@@ -8,7 +8,7 @@ export interface TrainerId {
 	id: string;
 }
 
-export const createTrainerFetch = async (form: authState): Promise<Response> => {
+export const createTrainerService = async (form: authState): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/auth/signup`, {
 		method: 'POST',
 		credentials: 'include',
@@ -22,7 +22,7 @@ export const createTrainerFetch = async (form: authState): Promise<Response> => 
 	return response;
 };
 
-export const getTrainer = async (id: string): Promise<Response> => {
+export const getTrainerByIdService = async (id: string): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainersby/${id}`, {
 		method: 'GET',
 		credentials: 'include',
@@ -33,7 +33,7 @@ export const getTrainer = async (id: string): Promise<Response> => {
 	return response;
 };
 
-export const getAllTrainers = async (): Promise<Response> => {
+export const getAllTrainersService = async (): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainers/all`, {
 		method: 'GET',
 		credentials: 'include',
@@ -44,7 +44,7 @@ export const getAllTrainers = async (): Promise<Response> => {
 	return response;
 };
 
-export const deleteTrainerById = async (id: string): Promise<Response> => {
+export const deleteTrainerByIdService = async (id: string): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainers/delete/${id}`, {
 		method: 'DELETE',
 		credentials: 'include',
@@ -55,7 +55,7 @@ export const deleteTrainerById = async (id: string): Promise<Response> => {
 	return response;
 };
 
-export const updateTrainerById = async (form: Trainer) => {
+export const updateTrainerByIdService = async (form: Trainer) => {
 	const response = await fetch(`http://localhost:3303/trainers/update/${form.id}`,{
 		method: 'PUT',
 		credentials: 'include',

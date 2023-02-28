@@ -17,7 +17,24 @@ export interface TrainerByID extends Trainer {
 		}
 	];
 }
+
+export interface TrainerSliceState {
+	trainers: Trainer[];
+	trainer: TrainerByID[];
+	message: {};
+	error: boolean;
+	loading: boolean;
+}
+
 export interface TrainerData {
 	type: string;
 	payload: string;
+}
+
+export interface TrainerId {
+	id: string;
+}
+
+export interface Message {
+	message: string;
 }

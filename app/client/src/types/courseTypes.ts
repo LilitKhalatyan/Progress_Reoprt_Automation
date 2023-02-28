@@ -5,22 +5,24 @@ export type TCourse = {
 	endDate: string;
 };
 
+export interface CourseSliceState {
+	courses: TCourse[];
+	course: TCourse[];
+	message: {};
+	error: boolean;
+	loading: boolean;
+}
+
 export interface ICourse {
 	type: string;
 	payload: TCourse;
 }
 
-export interface CourseSliceState {
-	courses: TCourse[];
-	course: TCourse[];
-	message: {};
+export interface ICourseId {
+	type: string;
+	payload: string;
 }
 
 export interface Message {
 	message: string;
-}
-
-export interface GetCourse {
-	type: string;
-	payload: string;
 }

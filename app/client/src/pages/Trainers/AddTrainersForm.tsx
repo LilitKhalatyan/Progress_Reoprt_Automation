@@ -5,8 +5,8 @@ import Select from 'react-select';
 import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTrainerAction, updateTrainerAction } from '../../redux/trainer/trainerSlice';
-import { trainerSelector } from '../../redux/trainer/selectors';
+import { createTrainerAction, updateTrainerByIdAction } from '../../redux/trainer/trainerSlice';
+import { trainerSelector } from '../../redux/trainer/trainerSelector';
 import { TCourse } from '../../types/courseTypes';
 import { coursesSelector } from '../../redux/course/courseSelector';
 
@@ -44,7 +44,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			props.setShow(false);
 		}
 		if (e.nativeEvent.submitter.name === 'update') {
-			dispatch(updateTrainerAction(dataSelect));
+			dispatch(updateTrainerByIdAction(dataSelect));
 			props.setShow(false);
 		}
 		reset({ name: '', surname: '', email: '' });
@@ -98,11 +98,9 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 		}
 	}, [props.btnType]);
 
-	const options = (!props.data.length ? courses : props.data).map(item => {
-		return (
-			{ value: item.name, label: item.name, id: item.id }
-		)
-	})
+	const options = (!props.data.length ? courses : props.data).map((item) => {
+		return { value: item.name, label: item.name, id: item.id };
+	});
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
@@ -197,7 +195,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 							}}
 						/>
 					)}
-					name={"multiselect"}
+					name={'multiselect'}
 				/>
 				{errors.multiselect ? (
 					<>

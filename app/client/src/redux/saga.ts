@@ -26,36 +26,36 @@ import {
 
 import {
 	getAllTrainersAction,
-	updateTrainerAction,
-	getTrainerAction,
+	updateTrainerByIdAction,
+	getTrainerByIdAction,
 	createTrainerAction,
-	deleteTrainerAction,
+	deleteTrainerByIdAction,
 } from './trainer/trainerSlice';
 
-import { createTrainer, deleteTrainer, getTrainerById, getTrainers, updateTrainer } from './trainer/trainerSaga';
+import { createTrainer, deleteTrainerById, getTrainerById, getTrainers, updateTrainer } from './trainer/trainerSaga';
+
 
 import {
 	createCourse,
-	deleteCourseById,
 	getCourseById,
 	getCoursesData,
 	updateCourseById,
-	// updateCourseById,
+	deleteCourseById,
 } from './course/courseSaga';
 
 import {
 	createSubjectAction,
-	deleteSubjectByIdAction,
 	getAllSubjectAction,
 	getSubjectByIdAction,
 	updateSubjectByIdAction,
+	deleteSubjectByIdAction,
 } from './subject/subjectSlice';
 import {
 	createSubject,
-	deleteSubjectById,
-	getSubjectById,
 	getSubjectsData,
+	getSubjectById,
 	updateSubjectById,
+	deleteSubjectById,
 } from './subject/subjectSaga';
 import { loginAction, logoutAction, refreshAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser } from './auth/authSaga';
@@ -66,11 +66,11 @@ export default function* watchDataSaga() {
 	yield takeEvery(logoutAction.type, logoutUser);
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
-	yield takeEvery(getTrainerAction.type, getTrainerById);
-	yield takeEvery(updateTrainerAction.type, updateTrainer);
+	yield takeEvery(getTrainerByIdAction.type, getTrainerById);
+	yield takeEvery(updateTrainerByIdAction.type, updateTrainer);
 	yield takeEvery(getAllTrainersAction.type, getTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
-	yield takeEvery(deleteTrainerAction.type, deleteTrainer);
+	yield takeEvery(deleteTrainerByIdAction.type, deleteTrainerById);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
 	yield takeEvery(createStudentAction.type, createStudent);
 	yield takeLatest(updateCourseByIdAction.type, updateCourseById);
@@ -79,6 +79,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+	
 	yield takeEvery(createSubjectAction.type, createSubject);
 	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
 	yield takeEvery(getSubjectByIdAction.type, getSubjectById);

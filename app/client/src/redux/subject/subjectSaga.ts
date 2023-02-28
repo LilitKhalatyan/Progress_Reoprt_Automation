@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-
-import { Message } from '../../services/trainerService';
+import { notify } from '../../utils';
 import {
 	createSubjectFailed,
 	createSubjectSuccesed,
@@ -14,7 +13,7 @@ import {
 	updateSubjectByIdFailed,
 	updateSubjectByIdSuccesed,
 } from './subjectSlice';
-import { TSubject } from '../../types/subjectTypes';
+import { ISubject, ISubjectId, Message, TSubject } from '../../types/subjectTypes';
 import {
 	createSubjectService,
 	deleteSubjectByIdService,
@@ -22,15 +21,6 @@ import {
 	getSubjectByIdService,
 	updateSubjectByIdService,
 } from '../../services/subjectService';
-
-export interface ISubject {
-	type: string;
-	payload: TSubject;
-}
-export interface SubjectId {
-	type: string;
-	payload: string;
-}
 
 function* createSubject(data: ISubject) {
 	try {
@@ -40,6 +30,7 @@ function* createSubject(data: ISubject) {
 		}
 		const message: Message = yield response.json() as Promise<Message>;
 		yield put(createSubjectSuccesed(message));
+		notify(message.message);
 		yield put(getAllSubjectAction());
 	} catch (error: any) {
 		yield put(createSubjectFailed(error.message));
@@ -59,7 +50,7 @@ function* getSubjectsData() {
 	}
 }
 
-function* getSubjectById(data: SubjectId) {
+function* getSubjectById(data: ISubjectId) {
 	try {
 		const response: Response = yield call(getSubjectByIdService, data.payload);
 		if (!response.ok) {
@@ -79,22 +70,25 @@ function* updateSubjectById(data: ISubject) {
 			throw new Error('Subject updated failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllSubjectAction());
+		console.log(message, "this is from SERVICE")
 		yield put(updateSubjectByIdSuccesed(message));
+		notify(message.message);
+		yield put(getAllSubjectAction());
 	} catch (error: any) {
 		yield put(updateSubjectByIdFailed(error.message));
 	}
 }
 
-function* deleteSubjectById(data: SubjectId) {
+function* deleteSubjectById(data: ISubjectId) {
 	try {
 		const response: Response = yield call(deleteSubjectByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Subject delete failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		yield put(getAllSubjectAction());
 		yield put(deleteSubjectByIdSuccesed(message));
+		notify(message.message);
+		yield put(getAllSubjectAction());
 	} catch (error: any) {
 		yield put(deleteSubjectByIdFailed(error.message));
 	}

@@ -7,15 +7,11 @@ import { createSubjectAction, updateSubjectByIdAction } from '../../redux/subjec
 import { subjectSelector } from '../../redux/subject/subjectSelector';
 import './subjects.scss';
 import { TCourse } from '../../types/courseTypes';
+import { Trainer } from '../../types/trainerTypes';
 
 interface IProps {
 	data: TCourse[];
-	dataTrainers: {
-		id?: number;
-		name: string;
-		surname: string;
-		email: string;
-	}[];
+	dataTrainers: Trainer[];
 	btnType: string;
 	setShow: React.Dispatch<React.SetStateAction<boolean>>;
 	show: boolean;
