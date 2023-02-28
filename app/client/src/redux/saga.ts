@@ -78,6 +78,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
+	
 	yield takeEvery(createSubjectAction.type, createSubject);
 	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
 	yield takeEvery(getSubjectByIdAction.type, getSubjectById);
