@@ -23,8 +23,8 @@ interface IProps {
 interface FinalData {
 	id?: number;
 	name: string;
-	balls: string;
-	finalballs?: string;
+	max_score: string;
+	weightage?: string;
 	courseId: string;
 	staffId: string;
 }
@@ -36,17 +36,17 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const subject = useSelector(subjectSelector);
 	const onSubmit = (data: any, e: any) => {
-		const finalData:FinalData = {
+		const finalData: FinalData = {
 			id: subject[0]?.id,
-			balls: data.balls,
+			max_score: data.balls,
 			name: data.name,
 			courseId: data.selectGroup,
 			staffId: data.selectTrainer,
 		};
-		console.log(finalData, "ddd");
-		
+		console.log(finalData, 'ddd');
+
 		if (checkbox) {
-			finalData.finalballs = data.finalballs;
+			finalData.weightage = data.weightage;
 		}
 		console.log(finalData);
 
@@ -62,7 +62,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			dispatch(updateSubjectByIdAction(finalData));
 			props.setShow(false);
 		}
-		reset({ name: '', selectTrainer: 'default', selectGroup: 'default', balls: '', finalballs: '' });
+		reset({ name: '', selectTrainer: 'default', selectGroup: 'default', balls: '', weightage: '' });
 	};
 	const onFail = (error: any) => {
 		props.setShow(true);
@@ -76,7 +76,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 	} = useForm<{
 		name: string;
 		balls: string;
-		finalballs?: string;
+		weightage?: string;
 		selectGroup: string;
 		selectTrainer: string;
 	}>();
@@ -86,9 +86,11 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 				name: subject[0]?.name,
 				selectGroup: `${subject[0]?.courseId}`,
 				selectTrainer: `${subject[0]?.staffId}`,
+				weightage:`${subject[0]?.weightage}`,
+				balls:`${subject[0]?.max_score}`
 			});
 		} else {
-			reset({ name: '', selectTrainer: 'default', selectGroup: 'default' });
+			reset({ name: '', selectTrainer: 'default', selectGroup: 'default',weightage: "", balls: "" });
 		}
 	}, [reset, props.btnType, subject]);
 	const buttonComponent = () => {
@@ -167,25 +169,25 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			</div>
 			{checkbox && (
 				<div className="input__grp">
-					<label htmlFor="finalballs" className="input">
+					<label htmlFor="weightage" className="input">
 						<input
 							type="number"
 							className="input__field"
 							placeholder=" "
-							id="finalballs"
-							{...register('finalballs', {
+							id="weightage"
+							{...register('weightage', {
 								required: true,
 								pattern: /^[1-9]\d*$/,
 							})}
 						/>
 						<span className="input__label">Weightage</span>
 					</label>
-					{errors.finalballs ? (
+					{errors.weightage ? (
 						<>
-							{errors.finalballs.type === 'required' && (
+							{errors.weightage.type === 'required' && (
 								<span className="input-invalid">⚠ This field is required</span>
 							)}
-							{errors.finalballs.type === 'pattern' && (
+							{errors.weightage.type === 'pattern' && (
 								<span className="input-invalid">⚠ Please enter valid number</span>
 							)}
 						</>

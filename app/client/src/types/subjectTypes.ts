@@ -3,4 +3,6 @@ export type TSubject = {
 	name: string;
 	courseId: number;
 	staffId: number;
+	max_score: number;
+	weightage?: number | null 
 };
