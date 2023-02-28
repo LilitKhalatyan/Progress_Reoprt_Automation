@@ -1,5 +1,5 @@
 export interface ITrainer {
-	courses: any;
+	// courses: any;
 	id?: number;
 	name: string;
 	surname: string;

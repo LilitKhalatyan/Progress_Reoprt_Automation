@@ -6,7 +6,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTrainerAction } from '../../redux/trainer/trainerSlice';
-import { trainersSelector } from '../../redux/trainer/trainerSelector';
+import { trainerSelector } from '../../redux/trainer/trainerSelector';
 import { TCourse } from '../../types/courseTypes';
 import { coursesSelector } from '../../redux/course/courseSelector';
 
@@ -24,7 +24,7 @@ interface SelectElement {
 const AddTrainersForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const [selectedValue, setSelectedValue] = useState<any>();
-	const trainer = useSelector(trainersSelector);
+	const trainer = useSelector(trainerSelector);
 	const courses = useSelector(coursesSelector);
 
 	const onSubmit = (data: any) => {

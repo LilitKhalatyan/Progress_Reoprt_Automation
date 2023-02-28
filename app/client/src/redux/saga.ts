@@ -65,7 +65,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(logoutAction.type, logoutUser);
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
-	yield takeEvery(getAllTrainersAction.type, getTrainerById);
+	// yield takeEvery(getAllTrainersAction.type, getTrainerById);
 	yield takeEvery(updateTrainerByIdAction.type, getAllTrainers);
 	yield takeEvery(getAllTrainersAction.type, getAllTrainers);
 	yield takeEvery(createTrainerAction.type, createTrainer);
