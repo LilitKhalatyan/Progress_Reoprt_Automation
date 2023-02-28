@@ -24,6 +24,12 @@
 		font-size: 28px;
 	}
 }
+.item-title {
+	position: absolute;
+	top: 10%;
+	left: 10%;
+
+}
 .users__header {
 	position: relative;
 	top: 18%;
@@ -52,6 +58,25 @@
 		background-color: transparent;
 	}
 }
+.items-title__wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0px 0px 4px 0px;
+	padding-left: 14px;
+	.items-title {
+		width: 50%;
+		display: flex;
+			span {
+				text-transform: capitalize;
+				width: 100%;
+				color: #191c1f;
+				font-size: 15px;
+			}
+	}
+}
+
 .list-item {
 	height: 40px;
 	display: flex;
@@ -186,12 +211,7 @@ hr {
 		background-color: #f6f8fa;
 	}
 }
-.info-grp {
-	span {
-		color: #595d5f;
-		font-size: 14px;
-	}
-}
+
 @media (max-width: 991.98px) {
 	.users__content {
 		padding: 2% 0 0 3%;

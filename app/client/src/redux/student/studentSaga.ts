@@ -37,7 +37,7 @@ function* getStudentsData() {
 	try {
 		const response: Response = yield call(getAllStudentsService);
 		if (!response.ok) {
-			throw new Error('get all students failed');
+			throw new Error('Students get failed');
 		}
 		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
 		yield put(getAllStudentsSuccesed(students));

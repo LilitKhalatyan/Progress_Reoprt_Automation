@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import UsersList from '../../components/UsersList/UsersList';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadingSelector, studentsSelector } from '../../redux/student/studentSelector';
+import UsersList from '../../components/UsersList/UsersList';
 import { deleteStudentByIdAction, getStudentByIdAction } from '../../redux/student/studentSlice';
-
-// import './students.scss';
+import { loadingSelector, studentsSelector, messageSelector, errorSelector } from '../../redux/student/studentSelector';
 
 const Students: React.FC = () => {
 	const dispatch = useDispatch();
 	const students = useSelector(studentsSelector);
 	const loading = useSelector(loadingSelector);
+	const error = useSelector(errorSelector); //new line
+	const message = useSelector(messageSelector);
+	console.log(message)
+// console.log(error,'error', message, 'msg')
 	const [displayAdd, setDisplayAdd] = useState(false);
 
 	const handleDelete = (id: any) => {
@@ -27,6 +29,8 @@ const Students: React.FC = () => {
 				title="Students"
 				data={students}
 				loading={loading}
+				error={error}
+				message={message}
 				display={displayAdd}
 				setDisplay={setDisplayAdd}
 				onDelete={handleDelete}

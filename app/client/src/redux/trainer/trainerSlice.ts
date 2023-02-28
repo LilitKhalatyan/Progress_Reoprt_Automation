@@ -6,6 +6,7 @@ const initialState = {
 	trainer: [] as TrainerByID[],
 	message: {},
 	loading: true,
+	error: false
 };
 
 const trainerSlice = createSlice({
@@ -22,10 +23,12 @@ const trainerSlice = createSlice({
 		getAllTrainersFailed: (state, action) => {
 			state.trainers = initialState.trainers;
 			state.message = action.payload;
+			state.error = true;
 		},
 		getTrainerAction: (state, action) => {},
 		getTrainerSuccesed: (state, action) => {
 			state.trainer = action.payload;
+			state.error = false;
 		},
 		getTrainerFailed: (state, action) => {
 			state.message = action.payload;

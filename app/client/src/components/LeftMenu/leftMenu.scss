@@ -48,59 +48,53 @@ nav {
 			text-transform: uppercase;
 			transition: all 0.4s ease-out;
 			box-shadow: 0px 0px 8px 0px $sm-middle;
-		}
-
-		li:after {
-			position: absolute;
-			background: $white;
-			color: $sm-blue;
-			top: 0;
-			left: 70px;
-			width: 70px;
-			height: 100%;
-
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			opacity: 0.5;
-			transform: perspective(400px) rotateY(90deg);
-			transform-origin: 0 100%;
-			transition: all 0.4s ease-out;
-
-			box-shadow: 0px 0px 8px 0px $sm-middle;
-		}
-
-		li:hover {
-			transform: translateX(-70px) perspective(400px);
-		}
-
-		li:hover:after {
-			opacity: 1;
-			transform: perspective(400px) rotateY(0deg) scale(1);
-		}
-		li {
 			div {
 				display: inline-block;
 				padding: 25px 0;
 				background: transparent;
 			}
-		}
-
-		li:nth-child(1):after {
-			@include li-after('Courses');
-		}
-		li:nth-child(2):after {
-			@include li-after('Trainers');
-		}
-		li:nth-child(3):after {
-			@include li-after('Students');
-		}
-		li:nth-child(4):after {
-			@include li-after('Subjects');
-		}
-		li:nth-child(5):after {
-			@include li-after('Reports');
+			&:after {
+				position: absolute;
+				background: $white;
+				color: $sm-blue;
+				top: 0;
+				left: 70px;
+				width: 70px;
+				height: 100%;
+	
+				display: flex;
+				justify-content: center;
+				align-items: center;
+	
+				opacity: 0.5;
+				transform: perspective(400px) rotateY(90deg);
+				transform-origin: 0 100%;
+				transition: all 0.4s ease-out;
+	
+				box-shadow: 0px 0px 8px 0px $sm-middle;
+			}
+			&:hover {
+				transform: translateX(-70px) perspective(400px);
+			}
+			&:hover:after {
+				opacity: 1;
+				transform: perspective(400px) rotateY(0deg) scale(1);
+			}
+			&:nth-child(1):after {
+				@include li-after('Courses');
+			}
+			&:nth-child(2):after {
+				@include li-after('Trainers');
+			}
+			&:nth-child(3):after {
+				@include li-after('Students');
+			}
+			&:nth-child(4):after {
+				@include li-after('Subjects');
+			}
+			&:nth-child(5):after {
+				@include li-after('Reports');
+			}
 		}
 	}
 }

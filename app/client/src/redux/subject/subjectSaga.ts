@@ -36,7 +36,7 @@ function* createSubject(data: ISubject) {
 	try {
 		const response: Response = yield call(createSubjectService, data.payload);
 		if (!response.ok) {
-			throw new Error('Course create failed');
+			throw new Error('Subject create failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
 		yield put(createSubjectSuccesed(message));
@@ -50,7 +50,7 @@ function* getSubjectsData() {
 	try {
 		const response: Response = yield call(getAllSubjectService);
 		if (!response.ok) {
-			throw new Error('Courses get failed');
+			throw new Error('Subjects get failed');
 		}
 		const subjects: TSubject[] = yield response.json() as Promise<TSubject[]>;
 		yield put(getAllSubjectSuccesed(subjects));
@@ -63,7 +63,7 @@ function* getSubjectById(data: SubjectId) {
 	try {
 		const response: Response = yield call(getSubjectByIdService, data.payload);
 		if (!response.ok) {
-			throw new Error('Course get failed');
+			throw new Error('Subject get failed');
 		}
 		const subject: TSubject[] = yield response.json() as Promise<TSubject[]>;
 		yield put(getSubjectByIdSuccesed(subject));
@@ -76,7 +76,7 @@ function* updateSubjectById(data: ISubject) {
 	try {
 		const response: Response = yield call(updateSubjectByIdService, data.payload);
 		if (!response.ok) {
-			throw new Error('Course updated failed');
+			throw new Error('Subject updated failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllSubjectAction());
@@ -90,7 +90,7 @@ function* deleteSubjectById(data: SubjectId) {
 	try {
 		const response: Response = yield call(deleteSubjectByIdService, data.payload);
 		if (!response.ok) {
-			throw new Error('Course delete failed');
+			throw new Error('Subject delete failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllSubjectAction());

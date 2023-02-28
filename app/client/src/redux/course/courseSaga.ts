@@ -33,7 +33,7 @@ function* createCourse(data: ICourse) {
 		const { message }: Message = yield response.json() as Promise<Message>;
 		yield put(createCourseSuccesed(message));
 		notify(message as string);
-		toast.success(message); // option 2, to review later
+		toast.success(message as string); // option 2, to review later
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
