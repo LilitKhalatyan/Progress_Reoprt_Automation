@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require('../models');
 
 const { staff: Staff, course: Course, subject: Subject } = db;
 
@@ -11,9 +11,9 @@ const createSubject = async (req, res) => {
       courseId,
     };
     const subject = Subject.create(subjectInfo);
-    res.status(200).send({ message: "Subject create succesfully" });
+    res.status(200).send({ message: 'Subject created succesfully' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to create Subject" });
+    res.status(500).send({ message: 'Failed to create Subject' });
   }
 };
 
@@ -21,11 +21,11 @@ const getAllSubject = async (req, res) => {
   try {
     const subjects = await Subject.findAll();
     if (!subjects) {
-      res.status(404).send({ message: "Failed to get subjects" });
+      res.status(404).send({ message: 'Failed to get subjects' });
     }
     res.status(200).send(subjects);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get Subjects" });
+    res.status(500).send({ message: 'Failed to get Subjects' });
   }
 };
 
@@ -42,9 +42,9 @@ const updateSubject = async (req, res) => {
         id: id,
       },
     });
-    res.status(200).send({ message: "Subject updated successfully" });
+    res.status(200).send({ message: 'Subject updated successfully' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to update Subject" });
+    res.status(500).send({ message: 'Failed to update Subject' });
   }
 };
 
@@ -53,11 +53,11 @@ const getSubjectById = async (req, res) => {
     const id = req.params.id;
     const subjects = await Subject.findByPk(id);
     if (!subjects) {
-      res.status(404).send({ message: "subject not found" });
+      res.status(404).send({ message: 'subject not found' });
     }
     res.status(200).send([subjects]);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get Subject by Id" });
+    res.status(500).send({ message: 'Failed to get Subject by Id' });
   }
 };
 
@@ -73,12 +73,12 @@ const getSubjectbyTrainer = async (req, res) => {
       },
     });
     if (!subjects) {
-      res.status(404).send({ message: "subjects not found" });
+      res.status(404).send({ message: 'subjects not found' });
     }
 
     res.status(200).send(subjects);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get Subject by Trainer" });
+    res.status(500).send({ message: 'Failed to get Subject by Trainer' });
   }
 };
 
@@ -91,9 +91,9 @@ const deleteSubject = async (req, res) => {
         id: id,
       },
     });
-    res.status(200).send({ message: "Subject deleted successfully" });
+    res.status(200).send({ message: 'Subject deleted successfully' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to delete Subject" });
+    res.status(500).send({ message: 'Failed to delete Subject' });
   }
 };
 
