@@ -158,6 +158,7 @@ const reportGenerator = async (finalInfo) => {
     });
   } catch (error) {}
 };
+
 const sendMail = (data, finalInfo) => {
   try {
     const mailOptions = {
