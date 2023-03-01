@@ -4,9 +4,8 @@ import { authSelector, userSelector } from '../redux/auth/authSelector';
 import LayoutWrapper from './LayoutWrapper';
 import { useEffect } from 'react';
 import { refreshAction } from '../redux/auth/authSlice';
-
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import '../style/style.scss';
-import { ErrorMessage } from '@hookform/error-message';
 
 const AdminLayout: React.FC = () => {
 	const user = useSelector(userSelector);
