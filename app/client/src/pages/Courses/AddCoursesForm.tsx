@@ -7,6 +7,7 @@ import { createCourseAction, updateCourseByIdAction } from '../../redux/course/c
 import { courseSelector } from '../../redux/course/courseSelector';
 import 'react-datepicker/src/stylesheets/datepicker.scss';
 import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
+import PopUpButton from '../../components/PopUpButton/PopUpButton';
 
 interface IProps {
 	btnType: string;
@@ -66,34 +67,12 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 			}
 		}
 	}, [reset, props.btnType, course]);
-	const buttonComponent = () => {
-		switch (props.btnType) {
-			case 'add':
-				return (
-					<div className="btn__grp">
-						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name="save" />
-						</div>
-						<div className="input__grp">
-							<Button value="Save & Add" className="btn-modal" name="saveAndAdd" />
-						</div>
-					</div>
-				);
-			case 'edit':
-				return (
-					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name={'update'} dataId={course[0]?.id} />
-					</div>
-				);
-		}
-	};
-
 
 	return (
 
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className='form_title'>
-				<PopUpTitle type={props.btnType} />
+				<PopUpTitle type={props.btnType} title='course'/>
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
@@ -159,7 +138,7 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 					)}
 				/>
 			</div>
-			<>{buttonComponent()}</>
+			<PopUpButton type={props.btnType}/>
 		</form>
 	);
 };
