@@ -8,8 +8,8 @@ const Courses: React.FC = () => {
 	const dispatch = useDispatch();
 	const courses = useSelector(coursesSelector);
 	const loading = useSelector(loadingSelector);
-	const error = useSelector(errorSelector); //new line
-	const message = useSelector(messageSelector); //new line
+	const error = useSelector(errorSelector);
+	const message = useSelector(messageSelector);
 
 	const [displayAdd, setDisplayAdd] = useState(false);
 

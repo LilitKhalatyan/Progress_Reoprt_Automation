@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
 import { courseSelector } from '../../redux/course/courseSelector';
 import 'react-datepicker/src/stylesheets/datepicker.scss';
+import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
 
 interface IProps {
 	btnType: string;
@@ -87,24 +88,12 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 		}
 	};
 
-	const titleComponent = () => {
-		switch (props.btnType) {
-			case 'add':
-				return (
-					<h3>add course</h3>
-				);
-			case 'edit':
-				return (
-					<h3>update course</h3>
-				);
-		}
-	};
 
 	return (
 
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className='form_title'>
-				{titleComponent()}
+				<PopUpTitle type={props.btnType} />
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">

@@ -13,7 +13,7 @@ import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
 import TrainersHompage from './pages/TrainersHomepage';
-import PageNotFound from './pages/PageNotFound';
+import PageNotFound from './components/NotFound/NotFound';
 import { AnimatePresence } from 'framer-motion';
 
 import { ToastContainer } from 'react-toastify';

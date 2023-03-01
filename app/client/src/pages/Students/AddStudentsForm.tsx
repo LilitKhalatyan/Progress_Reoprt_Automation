@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
+import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentSelector } from '../../redux/student/studentSelector';
 import { createStudentAction, updateStudentByIdAction } from '../../redux/student/studentSlice';
@@ -94,6 +95,9 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
+			<div className='form_title'>
+				<PopUpTitle type={props.btnType}/>
+			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
 					<input

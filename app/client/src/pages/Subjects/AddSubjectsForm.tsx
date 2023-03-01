@@ -8,6 +8,7 @@ import { subjectSelector } from '../../redux/subject/subjectSelector';
 import './subjects.scss';
 import { TCourse } from '../../types/courseTypes';
 import { Trainer } from '../../types/trainerTypes';
+import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
 
 interface IProps {
 	data: TCourse[];
@@ -113,6 +114,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
+			<div className='form_title'>
+				<PopUpTitle type={props.btnType}/>
+			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
 					<input
