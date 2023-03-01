@@ -1,19 +1,20 @@
 import { put, call } from 'redux-saga/effects';
 import { notify } from '../../utils';
-import { ITrainer, TrainerByID, TrainerData, Message } from '../../types/trainerTypes';
+import { Trainer, TrainerByID, TrainerData } from '../../types/trainerTypes';
 import {
 	createTrainerService,
-	getAllTrainersService,
 	getTrainerByIdService,
-	updateTrainerByIdService,
+	Message,
+	getAllTrainersService,
 	deleteTrainerByIdService,
+	updateTrainerByIdService,
 } from '../../services/trainerService';
 import { AuthData } from '../../types/authTypes';
 import {
+	getAllTrainersFailed,
 	createTrainerSuccesed,
 	createTrainerFailed,
 	getAllTrainersSuccesed,
-	getAllTrainersFailed,
 	getTrainerByIdSuccesed,
 	getTrainerByIdFailed,
 	updateTrainerByIdSuccesed,
@@ -23,33 +24,9 @@ import {
 	getAllTrainersAction,
 } from './trainerSlice';
 
-export function* createTrainer(data: AuthData) {
-	try {
-		const response: Response = yield call(createTrainerService, data.payload);
-		if (!response.ok) {
-			throw new Error('Trainer create failed');
-		}
-		const message: Message = yield response.json() as Promise<Message>;
-		yield put(createTrainerSuccesed(message));
-		notify(message.message);
-		yield put(getAllTrainersAction());
-	} catch (error: any) {
-		yield put(createTrainerFailed(error.message));
-	}
-}
-
-export function* getAllTrainers() {
-	try {
-		const response: Response = yield call(getAllTrainersService);
-		console.log(response)
-		if (!response.ok) {
-			throw new Error('Trainers get failed');
-		}
-		const trainers: ITrainer[] = yield response.json() as Promise<ITrainer[]>;
-		yield put(getAllTrainersSuccesed(trainers));
-	} catch (error: any) {
-		yield put(getAllTrainersFailed(error.message));
-	}
+export interface ITrainer {
+	type: string;
+	payload: Trainer;
 }
 
 export function* getTrainerById(data: TrainerData) {
@@ -59,9 +36,9 @@ export function* getTrainerById(data: TrainerData) {
 			throw new Error('Trainer get failed');
 		}
 		const trainer: TrainerByID[] = yield response.json() as Promise<TrainerByID[]>;
-		yield put(getAllTrainersSuccesed(trainer));
+		yield put(getTrainerByIdSuccesed(trainer));
 	} catch (error: any) {
-		yield put(getAllTrainersFailed(error.message));
+		yield put(getTrainerByIdFailed(error.message));
 	}
 }
 
@@ -81,7 +58,44 @@ export function* deleteTrainerById(data: TrainerData) {
 }
 
 // to do
-// export function* updateTrainer(data: AuthData) {
-// 	try {
-// 	} catch (error) {}
-// }
+export function* updateTrainer(data:ITrainer) {
+	try {
+		const response: Response = yield call(updateTrainerByIdService, data.payload );
+		if (!response.ok) {
+			throw new Error('Trainers updated failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		yield put(getAllTrainersAction());
+		yield put(updateTrainerByIdSuccesed(message));
+	} catch (error: any) {
+		yield put(updateTrainerByIdFailed(error.message));
+	}
+}
+
+export function* getTrainers() {
+	try {
+		const response: Response = yield call(getAllTrainersService);
+		if (!response.ok) {
+			throw new Error('Trainers get failed');
+		}
+		const trainer: Trainer[] = yield response.json() as Promise<Trainer[]>;
+		yield put(getAllTrainersSuccesed(trainer));
+	} catch (error: any) {
+		yield put(getAllTrainersFailed(error.message));
+	}
+}
+
+export function* createTrainer(data: AuthData) {
+	try {
+		const response: Response = yield call(createTrainerService, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainer create failed');
+		}
+		const trainer: Message = yield response.json() as Promise<Message>;
+
+		yield put(getAllTrainersAction());
+		yield put(createTrainerSuccesed(trainer));
+	} catch (error: any) {
+		yield put(createTrainerFailed(error.message));
+	}
+}

@@ -39,7 +39,7 @@ const subjectSlice = createSlice({
 		getSubjectByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
-		updateSubjectByIdAction: (state) => {},
+		updateSubjectByIdAction: (state, action) => {},
 		updateSubjectByIdSuccesed: (state, action) => {
 			state.message = action.payload;
 		},

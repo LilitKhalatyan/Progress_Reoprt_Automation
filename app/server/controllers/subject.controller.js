@@ -3,18 +3,42 @@ const db = require('../models');
 const { staff: Staff, course: Course, subject: Subject } = db;
 
 const createSubject = async (req, res) => {
-  try {
-    const { name, staffId, courseId } = req.body;
-    const subjectInfo = {
-      name,
-      staffId,
-      courseId,
-    };
-    const subject = Subject.create(subjectInfo);
-    res.status(200).send({ message: 'Subject created succesfully' });
-  } catch (error) {
-    res.status(500).send({ message: 'Failed to create Subject' });
-  }
+    try {
+        const { name, staffId, courseId, max_score, weightage = null} = req.body;
+        const subjectInfo = {
+            name,
+            staffId,
+            courseId,
+            max_score,
+            weightage,
+        };
+        const subject = Subject.create(subjectInfo);
+        res.status(200).send({ message: "subject create succesfully" });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+const updateSubject = async (req, res) => {
+    try {
+        const { name, staffId, courseId, id, max_score, weightage = null } = req.body;
+        const subjectInfo = {
+            name,
+            staffId,
+            courseId,
+            max_score,
+            weightage,
+        };
+        await Subject.update(subjectInfo, {
+            where: {
+                id: id,
+            },
+        });
+
+        res.status(200).send({ message: "Subject updated successfully" });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
 const getAllSubject = async (req, res) => {
@@ -26,25 +50,6 @@ const getAllSubject = async (req, res) => {
     res.status(200).send(subjects);
   } catch (error) {
     res.status(500).send({ message: 'Failed to get Subjects' });
-  }
-};
-
-const updateSubject = async (req, res) => {
-  try {
-    const { name, staffId, courseId, id } = req.body;
-    const subjectInfo = {
-      name,
-      staffId,
-      courseId,
-    };
-    await Subject.update(subjectInfo, {
-      where: {
-        id: id,
-      },
-    });
-    res.status(200).send({ message: 'Subject updated successfully' });
-  } catch (error) {
-    res.status(500).send({ message: 'Failed to update Subject' });
   }
 };
 

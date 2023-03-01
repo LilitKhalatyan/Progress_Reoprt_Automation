@@ -20,6 +20,13 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            max_score: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            weightage: {
+                type: DataTypes.INTEGER,
+            }
         },
         { timestamps: false },
     );

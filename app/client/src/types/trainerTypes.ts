@@ -1,12 +1,11 @@
-export interface ITrainer {
-	// courses: any;
+export interface Trainer {
 	id?: number;
 	name: string;
 	surname: string;
 	email: string;
 }
 
-export interface TrainerByID extends ITrainer {
+export interface TrainerByID extends Trainer {
 	courses: [
 		{
 			id: number;
@@ -20,7 +19,7 @@ export interface TrainerByID extends ITrainer {
 }
 
 export interface TrainerSliceState {
-	trainers: ITrainer[];
+	trainers: Trainer[];
 	trainer: TrainerByID[];
 	message: {};
 	error: boolean;

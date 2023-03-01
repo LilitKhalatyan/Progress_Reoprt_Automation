@@ -22,13 +22,16 @@ export const getAllSubjectService = async (): Promise<Response> => {
 	return subjectData;
 };
 
-export const updateSubjectByIdService = async (id: string): Promise<Response> => {
-	const subjectData = await fetch(`http://localhost:3303/subject/update/${id}`, {
+export const updateSubjectByIdService = async (data: TSubject): Promise<Response> => {
+	const subjectData = await fetch(`http://localhost:3303/subject/update/${data.id}`, {
 		method: 'PUT',
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
 		},
+		body: JSON.stringify({
+			...data,
+		}),
 	});
 	return subjectData;
 };

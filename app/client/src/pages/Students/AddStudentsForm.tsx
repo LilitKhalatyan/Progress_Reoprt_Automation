@@ -30,12 +30,12 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createStudentAction(finalData));
 			reset({ name: '', surname: '', email: '', select: '' });
-			props.setShow(false);
+			props.setShow(true);
 		}
 		if (e.nativeEvent.submitter.name === 'save') {
 			dispatch(createStudentAction(finalData));
 			reset({ name: '', surname: '', email: '', select: '' });
-			props.setShow(true);
+			props.setShow(false);
 		}
 		if (e.nativeEvent.submitter.name === 'update') {
 			dispatch(updateStudentByIdAction(finalData));

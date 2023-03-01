@@ -8,7 +8,7 @@ const Spinner: FC<IProps> = (props) => {
 	useEffect(() => {
 		const setId = setTimeout(() => {
 			props.loading(false);
-		}, 3500);
+		}, 1500);
 
 		return (): void => {
 			clearTimeout(setId);

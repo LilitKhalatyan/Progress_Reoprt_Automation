@@ -5,7 +5,7 @@ import Select from 'react-select';
 import Multiselect from 'multiselect-react-dropdown';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTrainerAction } from '../../redux/trainer/trainerSlice';
+import { createTrainerAction, updateTrainerByIdAction } from '../../redux/trainer/trainerSlice';
 import { trainerSelector } from '../../redux/trainer/trainerSelector';
 import { TCourse } from '../../types/courseTypes';
 import { coursesSelector } from '../../redux/course/courseSelector';
@@ -27,17 +27,28 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 	const trainer = useSelector(trainerSelector);
 	const courses = useSelector(coursesSelector);
 
-	const onSubmit = (data: any) => {
+	const onSubmit = (data: any, e:any) => {
 		const dataSelect = {
+			id:trainer[0]?.id,
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
 			courseId: data.multiselect.map((el: SelectElement) => el.id),
 		};
+		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
+			dispatch(createTrainerAction(dataSelect));
+			props.setShow(true);
+		}
+		if (e.nativeEvent.submitter.name === 'save') {
+			dispatch(createTrainerAction(dataSelect));
+			props.setShow(false);
+		}
+		if (e.nativeEvent.submitter.name === 'update') {
+			dispatch(updateTrainerByIdAction(dataSelect));
+			props.setShow(false);
+		}
 		reset({ name: '', surname: '', email: '' });
 		setSelectedValue('');
-		dispatch(createTrainerAction(dataSelect));
-		props.setShow(false);
 	};
 	const onFail = (error: any) => {
 		props.setShow(true);
@@ -71,17 +82,17 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" />
+							<Button value="Save" className="btn-modal" name='save'/>
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Add" className="btn-modal" />
+							<Button value="Save & Add" className="btn-modal" name='saveAndAdd'/>
 						</div>
 					</div>
 				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" />
+						<Button value="Update" className="btn-modal" name='update'/>
 					</div>
 				);
 		}
@@ -200,3 +211,4 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 };
 
 export default AddTrainersForm;
+
