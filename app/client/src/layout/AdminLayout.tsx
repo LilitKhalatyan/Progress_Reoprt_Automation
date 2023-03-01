@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { authSelector, userSelector } from '../redux/auth/authSelector';
 import LayoutWrapper from './LayoutWrapper';
-import warning from '../asset/images//warning/warning.svg';
-import '../style/style.scss';
 import { useEffect } from 'react';
 import { refreshAction } from '../redux/auth/authSlice';
 
-const AdminLayout: React.FC = (): JSX.Element => {
+import '../style/style.scss';
+import { ErrorMessage } from '@hookform/error-message';
+
+const AdminLayout: React.FC = () => {
 	const user = useSelector(userSelector);
 	const auth = useSelector(authSelector);
 	const dispatch = useDispatch();
@@ -19,8 +20,7 @@ const AdminLayout: React.FC = (): JSX.Element => {
 	if (user.roles !== 'ADMIN') {
 		return (
 			<LayoutWrapper>
-				<h4>Access Denied</h4>
-				<img src={warning} alt="Access Denied" />
+				<ErrorMessage message="Access Denied" />
 			</LayoutWrapper>
 		);
 	} else {

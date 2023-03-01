@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 import Button from '../../components/Button/Button';
 import { coursesSelector } from '../../redux/course/courseSelector';
@@ -12,6 +13,8 @@ export default function Reports() {
 	const courses = useSelector(coursesSelector);
 	const subjects = useSelector(subjectsSelector);
 	const students = useSelector(studentsSelector);
+
+	const navigate = useNavigate();
 
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		// setSelect(e.target.value);
@@ -116,6 +119,7 @@ export default function Reports() {
 														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 															// onDelete(e.currentTarget.dataset.id);
 															console.log(e.currentTarget)
+															navigate('reports/sent-report')
 														}}
 													/>
 													{/* <Button

@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function CreateReports() {
+const SendReports: React.FC = () => {
   return (
     <div>CreateReports</div>
   )
 }
+
+export default SendReports;

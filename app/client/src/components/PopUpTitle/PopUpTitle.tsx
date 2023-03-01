@@ -6,14 +6,15 @@ interface IProps {
 }
 
 const PopUpTitle: React.FC<IProps> = (props) => {
-    switch (props.type) {
+    const { type, title } = props;
+    switch (type) {
         case 'add':
             return (
-                <h3>add {props.title}</h3>
+                <h3>add {title}</h3>
             );
         case 'edit':
             return (
-                <h3>update {props.title}</h3>
+                <h3>update {title}</h3>
             );
         default:
             return (
