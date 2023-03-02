@@ -126,8 +126,6 @@ export default function Reports() {
 													<span>{item.name}</span>
 													<span>{item.surname}</span>
 													<span>{item.email}</span>
-													{/* <span>{item.startDate?.toLocaleString().slice(0, 10)}</span>
-														<span>{item.endDate?.toLocaleString().slice(0, 10)}</span> */}
 												</div>
 												<div className="edit-grp">
 													<Button
