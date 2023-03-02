@@ -1,31 +1,24 @@
-import { takeEvery, takeLatest } from 'redux-saga/effects';
-import {
-	getAllStudentsAction,
-	getStudentByIdAction,
-	updateStudentByIdAction,
-	deleteStudentByIdAction,
-	createStudentAction,
-	getStudentByCourseAction,
-} from './student/studentSlice';
-
-import {
-	getStudentsData,
-	getStudentById,
-	updateStudentById,
-	deleteStudentById,
-	createStudent,
-	getStudentsDataByCourse,
-} from './student/studentSaga';
-
+import { takeEvery } from 'redux-saga/effects';
+// Courses
 import {
 	createCourseAction,
 	deleteCourseByIdAction,
 	getAllCoursesAction,
 	getCourseByIdAction,
+	getCoursesByTrainerIdAction,
 	updateCourseByIdAction,
-	// updateCourseByIdAction,
 } from './course/courseSlice';
 
+import {
+	createCourse,
+	getCourseById,
+	getCoursesData,
+	updateCourseById,
+	deleteCourseById,
+	getCoursesByTrainerId,
+} from './course/courseSaga';
+
+// Trainers
 import {
 	getAllTrainersAction,
 	updateTrainerByIdAction,
@@ -37,21 +30,33 @@ import {
 
 import {
 	createTrainer,
-	deleteTrainerById,
-	getTrainerByCourse,
-	getTrainerById,
 	getTrainers,
+	getTrainerById,
+	getTrainerByCourse,
+	deleteTrainerById,
 	updateTrainer,
 } from './trainer/trainerSaga';
 
+//Students
 import {
-	createCourse,
-	getCourseById,
-	getCoursesData,
-	updateCourseById,
-	deleteCourseById,
-} from './course/courseSaga';
+	createStudentAction,
+	getAllStudentsAction,
+	getStudentByIdAction,
+	getStudentByCourseAction,
+	updateStudentByIdAction,
+	deleteStudentByIdAction,
+} from './student/studentSlice';
 
+import {
+	createStudent,
+	getStudentsData,
+	getStudentsDataByCourse,
+	getStudentById,
+	updateStudentById,
+	deleteStudentById,
+} from './student/studentSaga';
+
+// Subject
 import {
 	createSubjectAction,
 	getAllSubjectAction,
@@ -60,6 +65,7 @@ import {
 	deleteSubjectByIdAction,
 	getSubjectByCourseIdAction,
 } from './subject/subjectSlice';
+
 import {
 	createSubject,
 	getSubjectsData,
@@ -68,6 +74,8 @@ import {
 	deleteSubjectById,
 	getSubjectByCourse,
 } from './subject/subjectSaga';
+
+
 import { loginAction, logoutAction, refreshAction, updateProfileAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser, updateProfile } from './auth/authSaga';
 
@@ -75,27 +83,32 @@ export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
 	yield takeEvery(refreshAction.type, getAllData);
 	yield takeEvery(logoutAction.type, logoutUser);
-	yield takeLatest(createCourseAction.type, createCourse);
-	yield takeLatest(getAllCoursesAction.type, getCoursesData);
-	yield takeEvery(getTrainerByIdAction.type, getTrainerById);
-	yield takeEvery(updateTrainerByIdAction.type, updateTrainer);
-	yield takeEvery(getAllTrainersAction.type, getTrainers);
-	yield takeEvery(createTrainerAction.type, createTrainer);
-	yield takeEvery(deleteTrainerByIdAction.type, deleteTrainerById);
+	// Courses
+	yield takeEvery(createCourseAction.type, createCourse);
+	yield takeEvery(getAllCoursesAction.type, getCoursesData);
 	yield takeEvery(getCourseByIdAction.type, getCourseById);
+	yield takeEvery(getCoursesByTrainerIdAction.type, getCoursesByTrainerId);
+	yield takeEvery(updateCourseByIdAction.type, updateCourseById);
+	yield takeEvery(deleteCourseByIdAction.type, deleteCourseById);
+	// Trainers
+	yield takeEvery(createTrainerAction.type, createTrainer);
+	yield takeEvery(getAllTrainersAction.type, getTrainers);
+	yield takeEvery(getTrainerByIdAction.type, getTrainerById);
+	yield takeEvery(getTrainerByCourseAction.type, getTrainerByCourse);
+	yield takeEvery(updateTrainerByIdAction.type, updateTrainer);
+	yield takeEvery(deleteTrainerByIdAction.type, deleteTrainerById);
+	// Students
 	yield takeEvery(createStudentAction.type, createStudent);
-	yield takeLatest(updateCourseByIdAction.type, updateCourseById);
-	yield takeLatest(deleteCourseByIdAction.type, deleteCourseById);
-	yield takeEvery(getStudentByCourseAction.type, getStudentsDataByCourse);
-	yield takeEvery(getSubjectByCourseIdAction.type, getSubjectByCourse);
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
+	yield takeEvery(getStudentByCourseAction.type, getStudentsDataByCourse);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
-	yield takeEvery(getTrainerByCourseAction.type, getTrainerByCourse);
+	// Subject
 	yield takeEvery(createSubjectAction.type, createSubject);
 	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
 	yield takeEvery(getSubjectByIdAction.type, getSubjectById);
+	yield takeEvery(getSubjectByCourseIdAction.type, getSubjectByCourse);
 	yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
 	yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
 	yield takeEvery(updateProfileAction.type, updateProfile);

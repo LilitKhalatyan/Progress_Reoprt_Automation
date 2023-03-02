@@ -1,13 +1,11 @@
-
 import React from 'react';
 
 import StudentList from '../../components/StudentList/StudentList';
 
 const TrainersHompage: React.FC = () => {
-
 	return (
 		<>
-			<StudentList/>
+			<StudentList title="Welcome to Your Page"/>
 		</>
 	);
 };

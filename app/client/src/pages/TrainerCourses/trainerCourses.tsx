@@ -1,5 +1,15 @@
+import { useSelector } from 'react-redux';
+// import StudentList from '../../components/StudentList/StudentList';
+import StudentListElement from '../../components/StudentList/StudentListElem';
+import { coursesSelector } from '../../redux/course/courseSelector';
+
 const TrainerCourses: React.FC = () => {
-	return <h1>These are Courses for the trainer</h1>;
+	const courses = useSelector(coursesSelector);
+	return (
+		<>
+			<StudentListElement title="All Courses" data={courses}/>
+		</>
+	);
 };
 
 export default TrainerCourses;

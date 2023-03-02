@@ -1,5 +1,13 @@
-const TrainerStudents: React.FC = () => {
-	return <h1>These are Students for the trainer courses</h1>;
-};
+import { useSelector } from 'react-redux';
+import StudentListElement from '../../components/StudentList/StudentListElem';
+import { studentsSelector } from '../../redux/student/studentSelector';
 
+const TrainerStudents: React.FC = () => {
+	const students = useSelector(studentsSelector);
+	return (
+		<>
+			<StudentListElement title="All Students" data={students} />
+		</>
+	);
+};
 export default TrainerStudents;

@@ -24,6 +24,7 @@ import {
 	getCourseByIdService,
 	updateCourseByIdService,
 	deleteCourseByIdService,
+	getCourseByTrainerIdService,
 } from '../../services/courseService';
 
 function* createCourse(data: ICourse) {
@@ -71,7 +72,7 @@ function* getCourseById(data: ICourseId) {
 // --start --trainer-home
 function* getCoursesByTrainerId(data: ICourseId) {
 	try {
-		const response: Response = yield call(getCourseByIdService, data.payload);
+		const response: Response = yield call(getCourseByTrainerIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Course get failed');
 		}
