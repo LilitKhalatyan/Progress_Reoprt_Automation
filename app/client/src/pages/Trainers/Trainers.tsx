@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
+import { authSelector } from '../../redux/auth/authSelector';
+import { courseReset, getAllCoursesAction } from '../../redux/course/courseSlice';
 
 import {
 	loadingSelector,
@@ -8,13 +10,33 @@ import {
 	messageSelector,
 	trainersSelector,
 } from '../../redux/trainer/trainerSelector';
-import { deleteTrainerByIdAction, getTrainerByIdAction } from '../../redux/trainer/trainerSlice';
+import {
+	deleteTrainerByIdAction,
+	getAllTrainersAction,
+	getTrainerByCourseAction,
+	getTrainerByIdAction,
+	trainerReset,
+} from '../../redux/trainer/trainerSlice';
 
 import './trainers.scss';
 
 const Trainers: React.FC = () => {
 	const dispatch = useDispatch();
+	const auth = useSelector(authSelector);
+
+	useEffect(() => {
+		if (auth && localStorage.getItem('user')) {
+			dispatch(getAllTrainersAction());
+			dispatch(getAllCoursesAction());
+		}
+		return () => {
+			dispatch(trainerReset());
+			dispatch(courseReset());
+		};
+	}, []);
+
 	const [displayAdd, setDisplayAdd] = useState(false);
+	const [selectedValue, setSelectedValue] = useState('all');
 	const trainers = useSelector(trainersSelector);
 	const loading = useSelector(loadingSelector);
 	const error = useSelector(errorSelector); //new line
@@ -26,8 +48,17 @@ const Trainers: React.FC = () => {
 	const handleGetTrainer = (id: any) => {
 		dispatch(getTrainerByIdAction(id));
 	};
-	const handleSelectChange = (id: any) => {
+	const handleSelectChange = (e: any) => {
 		// setSelect(e.target.value);
+
+		const id = e.target.value;
+		console.log(id);
+		if (id === 'all') {
+			dispatch(getAllTrainersAction());
+		} else {
+			dispatch(getTrainerByCourseAction(id));
+		}
+		setSelectedValue(id);
 	};
 	return (
 		<>
@@ -36,6 +67,7 @@ const Trainers: React.FC = () => {
 				data={trainers}
 				display={displayAdd}
 				loading={loading}
+				selectedValue={selectedValue}
 				error={error} //new line
 				message={message}
 				setDisplay={setDisplayAdd}
