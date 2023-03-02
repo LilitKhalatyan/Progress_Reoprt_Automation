@@ -21,6 +21,20 @@ const signIn = async (form: authState): Promise<Response> => {
 	return response;
 };
 
+const updateProfileService = async (form: authState): Promise<Response> => {
+	const response = await fetch(`http://localhost:3303/profile/update`, {
+		method: 'PUT',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			...form,
+		}),
+	});
+	return response;
+};
+
 const logout = async () => {
 	await fetch(`http://localhost:3303/auth/logout`, {
 		method: 'GET',
@@ -30,4 +44,4 @@ const logout = async () => {
 		},
 	});
 };
-export { signIn, logout };
+export { signIn, logout, updateProfileService };
