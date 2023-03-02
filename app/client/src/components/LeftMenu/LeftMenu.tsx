@@ -11,7 +11,7 @@ const getLeftMenue = () => {
 	if (userRole === "ADMIN") {
 		return ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
 	} else {
-		return ['courses-icon', 'students-icon', 'subjects-icon'];
+		return ['tcourses-icon', 'tstudents-icon', 'tsubjects-icon'];
 	}
 }
 

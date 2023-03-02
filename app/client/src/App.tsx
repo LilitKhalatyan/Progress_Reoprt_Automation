@@ -41,6 +41,9 @@ function App() {
 							</Route>
 							<Route element={<TrainerLayout />}>
 								<Route path="/trainershomepage" element={<TrainersHompage />} />
+								<Route path="/tcourses" element={<TrainersHompage />} />
+								<Route path="/tsubjects" element={<TrainersHompage />} />
+								<Route path="/tstudents" element={<TrainersHompage />} />
 							</Route>
 						</Route>
 						<Route path="*" element={<PageNotFound />} />
