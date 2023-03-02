@@ -21,7 +21,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	// const notify = () => toast("Wow so easy!");
 	return (
 		<div className="App">
 			<ToastContainer />
@@ -39,7 +38,7 @@ function App() {
 								<Route path="/students" element={<Students />} />
 								<Route path="/subjects" element={<Subjects />} />
 								<Route path="/reports" element={<Reports />} />
-								<Route path="/sent-report" element={<SendReports />} />
+								<Route path="/send-report" element={<SendReports />} />
 								<Route path="/settings" element={<Settings />} />
 							</Route>
 							<Route element={<TrainerLayout />}>
