@@ -83,7 +83,6 @@ function* updateSubjectById(data: ISubject) {
 			throw new Error('Subject updated failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		console.log(message, 'this is from SERVICE');
 		yield put(updateSubjectByIdSuccesed(message));
 		notify(message.message);
 		yield put(getAllSubjectAction());

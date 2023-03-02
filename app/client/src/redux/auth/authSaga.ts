@@ -52,8 +52,6 @@ export function* auth(data: AuthData) {
 export function* updateProfile(data: AuthData) {
 	try {
 		const response: Response = yield call(updateProfileService, data.payload);
-		console.log(response);
-
 		if (!response.ok) {
 			const message: Message = yield response.json() as Promise<Message>;
 			throw new Error(message.message);

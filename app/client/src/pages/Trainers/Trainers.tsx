@@ -49,10 +49,7 @@ const Trainers: React.FC = () => {
 		dispatch(getTrainerByIdAction(id));
 	};
 	const handleSelectChange = (e: any) => {
-		// setSelect(e.target.value);
-
 		const id = e.target.value;
-		console.log(id);
 		if (id === 'all') {
 			dispatch(getAllTrainersAction());
 		} else {

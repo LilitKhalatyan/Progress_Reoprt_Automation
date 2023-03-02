@@ -46,7 +46,6 @@ const Students: React.FC = () => {
 	};
 	const handleSelectChange = (e: any) => {
 		const id = e.target.value;
-		console.log(id);
 		if (id === 'all') {
 			dispatch(getAllStudentsAction());
 		} else {

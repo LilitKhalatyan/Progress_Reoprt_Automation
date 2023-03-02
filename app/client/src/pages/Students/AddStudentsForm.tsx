@@ -18,8 +18,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 	const dispatch = useDispatch();
 	const student = useSelector(studentSelector);
 	const onSubmit = (data: any, e: any) => {
-		console.log(e.nativeEvent.submitter.name);
-
 		const finalData = {
 			id: student[0]?.id,
 			name: data.name,

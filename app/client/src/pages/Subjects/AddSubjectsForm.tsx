@@ -28,7 +28,6 @@ interface FinalData {
 
 const AddSubjectsForm: React.FC<IProps> = (props) => {
 	const [checkbox, setCheckbox] = useState<boolean>(false);
-	console.log(checkbox);
 
 	const dispatch = useDispatch();
 	const subject = useSelector(subjectSelector);
@@ -40,12 +39,10 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			courseId: data.selectGroup,
 			staffId: data.selectTrainer,
 		};
-		console.log(finalData, 'ddd');
 
 		if (checkbox) {
 			finalData.weightage = data.weightage;
 		}
-		console.log(finalData);
 
 		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createSubjectAction(finalData));
@@ -81,11 +78,8 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 
 	const mySelectCourse = watch('selectGroup');
 	const mySelectTrainer = watch('selectTrainer');
-	console.log(mySelectCourse);
 	useEffect(() => {
 		if (mySelectCourse !== 'default') {
-			console.log('hhhhhhh');
-
 			dispatch(getTrainerByCourseAction(mySelectCourse));
 		}
 	}, [dispatch, mySelectCourse]);

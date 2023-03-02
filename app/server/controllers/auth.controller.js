@@ -138,7 +138,6 @@ const updateProfile = async (req, res) => {
           staff.surname = surname;
           const existingUser = await Staff.findOne({ where: { email } });
           if (existingUser && existingUser.id !== req.userId) {
-            console.log("exist");
             throw new Error('Email address already in use');
           } else {
             staff.email = email;
