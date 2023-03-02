@@ -99,16 +99,16 @@ nav {
 	}
 }
 
-.courses-icon, .tcourses-icon {
+.courses-icon {
 	@include icon('../../asset/images/menu/groups.png');
 }
 .trainers-icon {
 	@include icon('../../asset/images/menu/instructor.png');
 }
-.students-icon, .tstudents-icon{
+.students-icon {
 	@include icon('../../asset/images/menu/students.png');
 }
-.subjects-icon, .tsubjects-icon {
+.subjects-icon {
 	@include icon('../../asset/images/menu/subjects.png');
 }
 .reports-icon {

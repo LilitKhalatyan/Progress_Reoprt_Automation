@@ -5,21 +5,32 @@ import './leftMenu.scss';
 import { motion } from 'framer-motion';
 
 
-const userRole = JSON.parse(localStorage.getItem('user')!)?.roles
+const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
 
-const getLeftMenue = () => {
+const getLeftMenu = () => {
 	if (userRole === "ADMIN") {
 		return ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
 	} else {
-		return ['tcourses-icon', 'tstudents-icon', 'tsubjects-icon'];
+		return ['courses-icon', 'students-icon', 'subjects-icon'];
 	}
 }
 
-const icons = getLeftMenue();
+const getPath = () => {
+	if (userRole === "ADMIN") {
+		return '';
+	} else {
+		return 'trainer/';
+	}
+}
+
+const icons = getLeftMenu();
+const path = getPath();
+console.log(path)
 
 const LeftMenu: React.FC = () => {
 	const navigate = useNavigate();
 	const handleListItemClick = (e: React.MouseEvent<HTMLLIElement>) => {
+		console.log(e.currentTarget.id)
 		navigate(e.currentTarget.id);
 	};
 	const container = {
@@ -43,7 +54,7 @@ const LeftMenu: React.FC = () => {
 					<motion.ul variants={container} initial="hidden" animate="show">
 						{icons.map((icon) => {
 							return (
-								<motion.li variants={item} key={icon} id={icon.slice(0, -5)} onClick={handleListItemClick}>
+								<motion.li variants={item} key={icon} id={`${path}${icon.slice(0, -5)}`} onClick={handleListItemClick}>
 									<div className={icon}></div>
 								</motion.li>
 							);
