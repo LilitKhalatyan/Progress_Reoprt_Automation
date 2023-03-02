@@ -4,6 +4,7 @@ const {
     deleteCourse,
     getAllCourses,
     getCourseById,
+    getCourseByTrainerId
 } = require("../controllers/course.controller");
 
 module.exports = (app) => {
@@ -16,6 +17,7 @@ module.exports = (app) => {
     });
 
     app.get("/course/:id", getCourseById);
+    app.get("/course/trainer/:id", getCourseByTrainerId);
     app.get("/courses/all", getAllCourses);
     app.post("/courses/create", createCourse);
     app.put("/courses/update/:id", updateCourse);

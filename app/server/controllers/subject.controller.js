@@ -66,6 +66,23 @@ const getSubjectById = async (req, res) => {
   }
 };
 
+const getSubjectByCourse = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const subjects = await Subject.findAll({
+      where: {
+        courseId: id
+      }
+    });
+    if (!subjects) {
+      res.status(404).send({ message: 'subjects not found' });
+    }
+    res.status(200).send(subjects);
+  } catch (error) {
+    res.status(500).send({ message: 'Failed to get Subjects by Course' });
+  }
+};
+
 const getSubjectbyTrainer = async (req, res) => {
   try {
     const staffId = req.userId;
@@ -109,4 +126,5 @@ module.exports = {
   getSubjectbyTrainer,
   updateSubject,
   deleteSubject,
+  getSubjectByCourse,
 };

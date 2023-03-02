@@ -69,9 +69,8 @@ const sendFinalReport = async (req, res) => {
 
 const getFinalAssessmentScore = async (data) => {
   try {
-    console.log("score//////////////////////////////////");
     let finalAssessmentPass = 0;
-    [...data[1], ...data[2]].forEach((el, i) => {
+    [...data[2]].forEach((el, i) => {
       finalAssessmentPass += sum = el.subjects.reduce((acc, el) => {
         return (
           acc +
@@ -89,7 +88,6 @@ const getFinalAssessmentScore = async (data) => {
 
 const getFinalAttendance = async (data) => {
   try {
-    console.log("attend///////////////////////////////////");
     let count = 0;
     let sum = 0;
     const attendance = [...data[1]]

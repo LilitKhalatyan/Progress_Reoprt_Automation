@@ -69,6 +69,7 @@ const getAllCourses = async (req, res) => {
   }
 };
 
+//trainer@ mutq gorcelis ej geta arvelu courser@ iran verabervox
 const getCourseByTrainerId = async (req, res) => {
   try {
     const trainerId = req.params.id;

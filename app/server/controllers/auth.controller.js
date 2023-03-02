@@ -1,6 +1,7 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { check } = require("express-validator");
 const generator = require("generate-password");
 const config = require("../config/auth.config");
 const transporter = require("../config/mail.config");
@@ -121,6 +122,54 @@ const login = async (req, res) => {
     }
 };
 
+const updateProfile = async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {name,surname, email, oldPassword, newPassword } = req.body;
+        const staff = await Staff.findByPk(req.userId);
+        if (!staff) {
+            throw new Error('User not found');
+          }
+
+          staff.name = name;
+          staff.surname = surname;
+          const existingUser = await Staff.findOne({ where: { email } });
+          if (existingUser && existingUser.id !== req.userId) {
+            console.log("exist");
+            throw new Error('Email address already in use');
+          } else {
+            staff.email = email;
+          }
+        const passwordIsValid = await bcrypt.compare(oldPassword, staff.password);
+
+          if(newPassword) {
+            staff.password = await bcrypt.hash(newPassword,10)
+          }
+
+          await staff.save();
+      
+        const updatedStaff = await Staff.findByPk(req.userId);
+        const roles = await updatedStaff.getRoles();
+        let authorities;
+        roles.forEach((element) => {
+            authorities = element.name.toUpperCase();
+        });
+        res.status(200).send({
+            id: updatedStaff.id,
+            name: updatedStaff.name,
+            surname: updatedStaff.surname,
+            email: updatedStaff.email,
+            roles: authorities,
+        });
+
+    } catch (error) {
+        res.status(500).send({message: error.message})
+    }
+}
+
 const createToken = async (user) => {
     let expiredAt = new Date();
 
@@ -158,4 +207,5 @@ module.exports = {
     signup,
     login,
     logout,
+    updateProfile
 };

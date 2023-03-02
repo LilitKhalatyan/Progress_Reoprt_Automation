@@ -19,6 +19,6 @@ module.exports = (app) => {
   app.get("/trainersby/:id", getTrainerById);
   app.put("/trainers/update/:id", updateTrainer);
   app.delete("/trainers/delete/:id", deleteTrainer);
-  app.get("/trainersby/course/:id", getTrainerByCourse);
+  app.get("/trainers/course/:id", getTrainerByCourse);
 
 };
