@@ -1,5 +1,5 @@
-import LayoutWrapper from '../layout/LayoutWrapper';
-import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
+import LayoutWrapper from '../../layout/LayoutWrapper';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const PageNotFound: React.FC = () => {
 	return (
