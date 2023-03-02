@@ -13,14 +13,15 @@ import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
 import TrainersHompage from './pages/TrainersHomepage';
-import PageNotFound from './pages/PageNotFound';
+import PageNotFound from './pages/NotFound/PageNotFound';
+import TrainerCourses from './pages/TrainerCourses/trainerCourses';
+import TrainerSubjects from './pages/TrainerSubjects/trainerSubjects';
+import TrainerStudents from './pages/TrainerStudents/trainerStudents';
 import { AnimatePresence } from 'framer-motion';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	// const notify = () => toast("Wow so easy!");
 	return (
 		<div className="App">
 			<ToastContainer />
@@ -41,7 +42,10 @@ function App() {
 								<Route path="/settings" element={<Settings />} />
 							</Route>
 							<Route element={<TrainerLayout />}>
-								<Route path="/trainershomepage" element={<TrainersHompage />} />
+								<Route path="/trainer/home" element={<TrainersHompage />} />
+								<Route path="/trainer/courses" element={<TrainerCourses />} />
+								<Route path="/trainer/subjects" element={<TrainerSubjects />} />
+								<Route path="/trainer/students" element={<TrainerStudents />} />
 							</Route>
 						</Route>
 						<Route path="*" element={<PageNotFound />} />
