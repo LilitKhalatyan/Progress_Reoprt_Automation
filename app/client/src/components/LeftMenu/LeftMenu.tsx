@@ -9,7 +9,7 @@ const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
 
 const getLeftMenu = () => {
 	if (userRole === "ADMIN") {
-		return ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
+		return ['courses-icon', 'students-icon', 'subjects-icon', 'trainers-icon','reports-icon'];
 	} else {
 		return ['courses-icon', 'students-icon', 'subjects-icon'];
 	}
