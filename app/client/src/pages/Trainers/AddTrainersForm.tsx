@@ -26,9 +26,9 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 	const trainer = useSelector(trainerSelector);
 	const courses = useSelector(coursesSelector);
 
-	const onSubmit = (data: any, e:any) => {
+	const onSubmit = (data: any, e: any) => {
 		const dataSelect = {
-			id:trainer[0]?.id,
+			id: trainer[0]?.id,
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
@@ -82,7 +82,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className='form_title'>
-				<PopUpTitle type={props.btnType} title='trainer'/>
+				<PopUpTitle type={props.btnType} title='trainer' />
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
@@ -173,6 +173,13 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 							onChange={(option: any) => {
 								onChange(option);
 							}}
+							styles={{
+								control: (baseStyles, state) => ({
+									...baseStyles,
+									border: state.isFocused ? 0 : 0,
+									boxShadow: '0 !important',
+								}),
+							}}
 						/>
 					)}
 					name={'multiselect'}
@@ -185,7 +192,7 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<PopUpButton type={props.btnType}/>
+			<PopUpButton type={props.btnType} />
 		</form>
 	);
 };

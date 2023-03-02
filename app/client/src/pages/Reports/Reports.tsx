@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 import { uuid } from 'uuidv4';
 import Button from '../../components/Button/Button';
 import { coursesSelector } from '../../redux/course/courseSelector';
@@ -9,15 +11,31 @@ import { subjectsSelector } from '../../redux/subject/subjectSelector';
 
 import './reports.scss'
 
+
 export default function Reports() {
+	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
+	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
+
 	const courses = useSelector(coursesSelector);
 	const subjects = useSelector(subjectsSelector);
 	const students = useSelector(studentsSelector);
 
 	const navigate = useNavigate();
 
-	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		// setSelect(e.target.value);
+	const subjectsOptions = subjects.map((item) => {
+		return { value: item.name, label: item.name, id: item.id };
+	});
+
+	const coursesOptions = courses.map((item) => {
+		return { value: item.name, label: item.name, id: item.id };
+	});
+
+	const handleSubjectsChange = (subjectsSelectedOption: any) => {
+		setSubjectsSelectedOption(subjectsSelectedOption);
+	};
+
+	const handleCoursesChange = (coursesSelectedOption: any) => {
+		setCoursesSelectedOption(coursesSelectedOption);
 	};
 
 	return (
@@ -42,38 +60,34 @@ export default function Reports() {
 					</motion.h2>
 					<div className="users__header">
 						<div className="head-filter__grp">
-							<motion.select
-								initial={{ x: '-50vw', opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								exit={{ x: '-50vw' }}
-								transition={{ type: 'easeInOut', stiffness: 120, damping: 40, duration: 2, delay: 0.2 }}
-								name=""
-								id=""
-								className="users-sort"
-								value="{select}"
-								onChange={handleSelectChange}
-							>
-								<option value="all">Courses</option>
-								{courses.map((option) => {
-									return <option value={option.id}>{option.name}</option>;
-								})}
-							</motion.select>
-							<motion.select
-								initial={{ x: '-50vw', opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								exit={{ x: '-50vw' }}
-								transition={{ type: 'easeInOut', stiffness: 120, damping: 40, duration: 2, delay: 0.2 }}
-								name=""
-								id=""
-								className="users-sort"
-								value="{select}"
-								onChange={handleSelectChange}
-							>
-								<option value="all">Subjects</option>
-								{subjects.map((option) => {
-									return <option value={option.id}>{option.name}</option>;
-								})}
-							</motion.select>
+							<Select
+								value={coursesSelectedOption}
+								onChange={handleCoursesChange}
+								options={coursesOptions}
+								styles={{
+									control: (baseStyles, state) => ({
+										...baseStyles,
+										border: state.isFocused ? 0 : 0,
+										boxShadow: '0 !important',
+									}),
+								}}
+								className="react-select"
+							/>
+							<Select
+								value={subjectsSelectedOption}
+								onChange={handleSubjectsChange}
+								options={subjectsOptions}
+								isMulti
+								styles={{
+									control: (baseStyles, state) => ({
+										...baseStyles,
+										border: state.isFocused ? 0 : 0,
+										boxShadow: '0 !important',
+									}),
+								}}
+								className="react-select"
+							/>
+
 						</div>
 					</div>
 					<hr />
@@ -119,7 +133,7 @@ export default function Reports() {
 														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 															// onDelete(e.currentTarget.dataset.id);
 															console.log(e.currentTarget)
-															navigate('reports/sent-report')
+															navigate('/sent-report')
 														}}
 													/>
 													{/* <Button
