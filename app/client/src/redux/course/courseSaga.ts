@@ -32,8 +32,7 @@ function* createCourse(data: ICourse) {
 		}
 		const { message }: Message = yield response.json() as Promise<Message>;
 		yield put(createCourseSuccesed(message));
-		notify(message as string);
-		toast.success(message); // option 2, to review later
+		notify(message);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(createCourseFailed(error.message));
@@ -73,9 +72,9 @@ function* updateCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course updated failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const { message }: Message = yield response.json() as Promise<Message>;
 		yield put(updateCourseByIdSuccesed(message));
-		notify(message as string);
+		notify(message);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(updateCourseByIdFailed(error.message));
@@ -88,9 +87,9 @@ function* deleteCourseById(data: ICourse) {
 		if (!response.ok) {
 			throw new Error('Course delete failed');
 		}
-		const { message }: CourseSliceState = yield response.json() as Promise<CourseSliceState>;
+		const { message }: Message = yield response.json() as Promise<Message>;
 		yield put(deleteCourseByIdSuccesed(message));
-		notify(message as string);
+		notify(message);
 		yield put(getAllCoursesAction());
 	} catch (error: any) {
 		yield put(deleteCourseByIdFailed(error.message));

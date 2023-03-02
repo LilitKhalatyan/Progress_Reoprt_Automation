@@ -4,7 +4,18 @@ import { v4 as uuid } from 'uuid';
 import './leftMenu.scss';
 import { motion } from 'framer-motion';
 
-const icons = ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
+
+const userRole = JSON.parse(localStorage.getItem('user')!)?.roles
+
+const getLeftMenue = () => {
+	if (userRole === "ADMIN") {
+		return ['courses-icon', 'trainers-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
+	} else {
+		return ['courses-icon', 'students-icon', 'subjects-icon'];
+	}
+}
+
+const icons = getLeftMenue();
 
 const LeftMenu: React.FC = () => {
 	const navigate = useNavigate();
