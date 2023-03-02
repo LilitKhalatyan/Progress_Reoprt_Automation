@@ -23,8 +23,6 @@ const subjectSlice = createSlice({
 		getAllSubjectAction: (state) => {
 			state.loading = true;
 		},
-		getSubjectByCourseAction: (state, action) => {},
-
 		getAllSubjectSuccesed: (state, action) => {
 			state.subjects = action.payload;
 			state.loading = false;
@@ -34,6 +32,14 @@ const subjectSlice = createSlice({
 			state.message = action.payload;
 			state.error = true;
 		},
+		getSubjectByCourseIdAction: (state, action) => {},
+		getSubjectByCourseIdSuccesed: (state, action) => {
+			state.subject = action.payload;
+		},
+		getSubjectByCourseIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
+
 		getSubjectByIdAction: (state, action) => {},
 		getSubjectByIdSuccesed: (state, action) => {
 			state.subject = action.payload;
@@ -67,16 +73,18 @@ export const {
 	getAllSubjectAction,
 	getAllSubjectSuccesed,
 	getAllSubjectFailed,
+	getSubjectByIdAction,
+	getSubjectByIdFailed,
+	getSubjectByIdSuccesed,
+	getSubjectByCourseIdAction,
+	getSubjectByCourseIdSuccesed,
+	getSubjectByCourseIdFailed,
 	updateSubjectByIdAction,
 	updateSubjectByIdSuccesed,
 	updateSubjectByIdFailed,
 	deleteSubjectByIdAction,
 	deleteSubjectByIdSuccesed,
 	deleteSubjectByIdFailed,
-	getSubjectByIdAction,
-	getSubjectByIdFailed,
-	getSubjectByIdSuccesed,
 	subjectReset,
-	getSubjectByCourseAction,
 } = subjectSlice.actions;
 export default subjectSlice;

@@ -12,7 +12,7 @@ import {
 import {
 	deleteSubjectByIdAction,
 	getAllSubjectAction,
-	getSubjectByCourseAction,
+	getSubjectByCourseIdAction,
 	getSubjectByIdAction,
 	subjectReset,
 } from '../../redux/subject/subjectSlice';
@@ -52,7 +52,7 @@ const Subjects: React.FC = () => {
 		if (id === 'all') {
 			dispatch(getAllSubjectAction());
 		} else {
-			dispatch(getSubjectByCourseAction(id));
+			dispatch(getSubjectByCourseIdAction(id));
 		}
 		setSelectedValue(id);
 	};

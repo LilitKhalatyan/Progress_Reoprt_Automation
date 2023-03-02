@@ -9,6 +9,8 @@ import {
 	getAllCoursesFailed,
 	getCourseByIdSuccesed,
 	getCourseByIdFailed,
+	getCoursesByTrainerIdSuccesed,
+	getCoursesByTrainerIdFailed,
 	updateCourseByIdFailed,
 	updateCourseByIdSuccesed,
 	deleteCourseByIdFailed,
@@ -66,6 +68,22 @@ function* getCourseById(data: ICourseId) {
 	}
 }
 
+// --start --trainer-home
+function* getCoursesByTrainerId(data: ICourseId) {
+	try {
+		const response: Response = yield call(getCourseByIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('Course get failed');
+		}
+		const courses: TCourse[] = yield response.json() as Promise<TCourse[]>;
+
+		yield put(getCoursesByTrainerIdSuccesed(courses));
+	} catch (error: any) {
+		yield put(getCoursesByTrainerIdFailed(error.message));
+	}
+}
+// --end --trainer-home
+
 function* updateCourseById(data: ICourse) {
 	try {
 		const response: Response = yield call(updateCourseByIdService, data.payload);
@@ -96,4 +114,4 @@ function* deleteCourseById(data: ICourse) {
 	}
 }
 
-export { createCourse, getCoursesData, getCourseById, updateCourseById, deleteCourseById };
+export { createCourse, getCoursesData, getCourseById, getCoursesByTrainerId, updateCourseById, deleteCourseById };

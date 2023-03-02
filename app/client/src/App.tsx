@@ -12,7 +12,7 @@ import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
-import TrainersHompage from './pages/TrainersHomepage';
+import TrainersHompage from './pages/TrainerHome/TrainersHomepage';
 import PageNotFound from './pages/NotFound/PageNotFound';
 import TrainerCourses from './pages/TrainerCourses/trainerCourses';
 import TrainerSubjects from './pages/TrainerSubjects/trainerSubjects';
