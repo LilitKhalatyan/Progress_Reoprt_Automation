@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { uuid } from 'uuidv4';
 import Button from '../../components/Button/Button';
+import Spinner from '../../components/Spinner/Spinner';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { coursesSelector } from '../../redux/course/courseSelector';
-import { studentsSelector } from '../../redux/student/studentSelector';
+import { errorSelector, studentsSelector } from '../../redux/student/studentSelector';
 import { subjectsSelector } from '../../redux/subject/subjectSelector';
 
 import './reports.scss'
@@ -15,6 +17,9 @@ import './reports.scss'
 export default function Reports() {
 	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
 	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
+	const [loading, setLoading] = useState(true);
+	const error = useSelector(errorSelector);
+
 
 	const courses = useSelector(coursesSelector);
 	const subjects = useSelector(subjectsSelector);
@@ -93,8 +98,7 @@ export default function Reports() {
 					<hr />
 					<div className="user_list_wrap">
 						<div className="main-users__list">
-							<>
-								{/* {!loading && !error ? ( */}
+							{!loading && !error ? (
 								<>
 									<div className="items-title__wrapper">
 										<div className="items-title">
@@ -136,45 +140,24 @@ export default function Reports() {
 															navigate('/sent-report')
 														}}
 													/>
-													{/* <Button
-															dataId={item.id}
-															className="users-btn"
-															title={'edit' + ' ' + props.title}
-															src={editIcon}
-															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-																getDataById(e.currentTarget.dataset.id);
-																setDisplay(true);
-																setType('edit');
-															}}
-														/>
-														<Button
-															dataId={item.id}
-															className="users-btn"
-															title={'delete' + ' ' + props.title}
-															src={deleteIcon}
-															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-																onDelete(e.currentTarget.dataset.id);
-															}}
-														/> */}
 												</div>
 											</motion.div>
 										);
 									})}
 								</>
-								{/* ) : (
-									null
-								)} */}
-								{/* {loading && !error ? (
-									<Spinner loading={setLoading} />
-								) : (
-									null
-								)}
-								{props.error ? (
-									<ErrorMessage message={message} />
-								) : (
-									null
-								)} */}
-							</>
+							) : (
+								null
+							)}
+							{loading && !error ? (
+								<Spinner loading={setLoading} />
+							) : (
+								null
+							)}
+							{error ? (
+								<ErrorMessage message="Students get failed" />
+							) : (
+								null
+							)}
 						</div>
 					</div>
 					<hr />
