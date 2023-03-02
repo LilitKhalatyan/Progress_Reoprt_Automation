@@ -28,7 +28,6 @@
 	position: absolute;
 	top: 10%;
 	left: 10%;
-
 }
 .users__header {
 	position: relative;
@@ -68,12 +67,12 @@
 	.items-title {
 		width: 50%;
 		display: flex;
-			span {
-				text-transform: capitalize;
-				width: 100%;
-				color: #191c1f;
-				font-size: 15px;
-			}
+		span {
+			text-transform: capitalize;
+			width: 100%;
+			color: #191c1f;
+			font-size: 15px;
+		}
 	}
 }
 
