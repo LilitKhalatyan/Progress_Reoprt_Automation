@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
@@ -8,6 +8,7 @@ import { subjectSelector } from '../../redux/subject/subjectSelector';
 import './subjects.scss';
 import { TCourse } from '../../types/courseTypes';
 import { Trainer } from '../../types/trainerTypes';
+import { getTrainerByCourseAction, trainerReset } from '../../redux/trainer/trainerSlice';
 
 interface IProps {
 	data: TCourse[];
@@ -27,7 +28,6 @@ interface FinalData {
 
 const AddSubjectsForm: React.FC<IProps> = (props) => {
 	const [checkbox, setCheckbox] = useState<boolean>(false);
-	console.log(checkbox);
 
 	const dispatch = useDispatch();
 	const subject = useSelector(subjectSelector);
@@ -39,12 +39,10 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			courseId: data.selectGroup,
 			staffId: data.selectTrainer,
 		};
-		console.log(finalData, 'ddd');
 
 		if (checkbox) {
 			finalData.weightage = data.weightage;
 		}
-		console.log(finalData);
 
 		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
 			dispatch(createSubjectAction(finalData));
@@ -67,6 +65,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 	const {
 		register,
 		reset,
+		watch,
 		formState: { errors },
 		handleSubmit,
 	} = useForm<{
@@ -76,17 +75,31 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 		selectGroup: string;
 		selectTrainer: string;
 	}>();
+
+	const mySelectCourse = watch('selectGroup');
+	const mySelectTrainer = watch('selectTrainer');
+	useEffect(() => {
+		if (mySelectCourse !== 'default') {
+			dispatch(getTrainerByCourseAction(mySelectCourse));
+		}
+	}, [dispatch, mySelectCourse]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(trainerReset());
+		};
+	}, []);
 	useEffect(() => {
 		if (props.btnType === 'edit') {
 			reset({
 				name: subject[0]?.name,
 				selectGroup: `${subject[0]?.courseId}`,
 				selectTrainer: `${subject[0]?.staffId}`,
-				weightage:`${subject[0]?.weightage}`,
-				balls:`${subject[0]?.max_score}`
+				weightage: `${subject[0]?.weightage}`,
+				balls: `${subject[0]?.max_score}`,
 			});
 		} else {
-			reset({ name: '', selectTrainer: 'default', selectGroup: 'default',weightage: "", balls: "" });
+			reset({ name: '', selectTrainer: 'default', selectGroup: 'default', weightage: '', balls: '' });
 		}
 	}, [reset, props.btnType, subject]);
 	const buttonComponent = () => {
@@ -197,8 +210,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					{...register('selectGroup', {
 						required: true,
 					})}
+					value={mySelectCourse}
 				>
-					<option key={uuid()} value="default" disabled selected hidden>
+					<option key={uuid()} value="default" disabled hidden>
 						Select group name
 					</option>
 					{props.data.map((option) => {
@@ -223,8 +237,9 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					{...register('selectTrainer', {
 						required: true,
 					})}
+					value={mySelectTrainer}
 				>
-					<option key={uuid()} value="default" disabled selected hidden>
+					<option key={uuid()} value="default" disabled hidden>
 						Select Trainer
 					</option>
 					{props.dataTrainers.map((option) => {

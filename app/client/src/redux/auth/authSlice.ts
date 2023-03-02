@@ -28,6 +28,13 @@ const authSlice = createSlice({
 			state.user = localUser || {};
 			state.auth = false;
 		},
+		updateProfileAction: (state, action) => {},
+		updateProfileSuccess: (state, action) => {
+			state.message = action.payload;
+		},
+		updateProfileFailed: (state, action) => {
+			state.message = action.payload;
+		},
 	},
 });
 
@@ -39,6 +46,9 @@ export const {
 	logoutSuccesed,
 	refreshAction,
 	userReset,
+	updateProfileAction,
+	updateProfileFailed,
+	updateProfileSuccess,
 } = authSlice.actions;
 
 export default authSlice;

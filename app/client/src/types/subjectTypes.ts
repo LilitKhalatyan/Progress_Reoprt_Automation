@@ -4,7 +4,7 @@ export type TSubject = {
 	courseId: number;
 	staffId: number;
 	max_score: number;
-	weightage?: number | null 
+	weightage?: number | null;
 };
 
 export interface SubjectSliceState {

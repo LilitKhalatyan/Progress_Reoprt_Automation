@@ -1,19 +1,31 @@
 import { motion } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import { userSelector } from '../../redux/auth/authSelector';
+import { updateProfileAction } from '../../redux/auth/authSlice';
 
 const SettingsForm: React.FC = () => {
 	const user = useSelector(userSelector);
+	const dispatch = useDispatch();
 	const onSubmit = (data: any) => {
 		console.log(
 			JSON.stringify({
 				name: data.name,
 				surname: data.surname,
 				email: data.email,
-				multiselect: data.multiselect,
+				oldPassword: data.oldPassword,
+				newPassword: data.newPassword,
+			})
+		);
+		dispatch(
+			updateProfileAction({
+				name: data.name,
+				surname: data.surname,
+				email: data.email,
+				oldPassword: data.oldPassword,
+				newPassword: data.newPassword,
 			})
 		);
 	};
@@ -141,12 +153,12 @@ const SettingsForm: React.FC = () => {
 			>
 				<label htmlFor="newPassword" className="input">
 					<input
-						type="newPassword"
+						type="password"
 						className="input__field"
 						placeholder=" "
 						id="newPassword"
 						{...register('newPassword', {
-							required: true,
+							// required: true,
 							pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
 						})}
 					/>
@@ -158,7 +170,7 @@ const SettingsForm: React.FC = () => {
 							<span className="input-invalid">⚠ This is required field</span>
 						)}
 						{errors.newPassword.type === 'pattern' && (
-							<span className="input-invalid">⚠ Please enter valid name</span>
+							<span className="input-invalid">⚠ Please enter valid password</span>
 						)}
 					</>
 				) : null}
@@ -172,12 +184,12 @@ const SettingsForm: React.FC = () => {
 			>
 				<label htmlFor="oldPassword" className="input">
 					<input
-						type="oldPassword"
+						type="password"
 						className="input__field"
 						placeholder=" "
 						id="oldPassword"
 						{...register('oldPassword', {
-							required: true,
+							// required: true,
 							pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
 						})}
 					/>
@@ -189,7 +201,7 @@ const SettingsForm: React.FC = () => {
 							<span className="input-invalid">⚠ This is required field</span>
 						)}
 						{errors.oldPassword.type === 'pattern' && (
-							<span className="input-invalid">⚠ Please enter valid name</span>
+							<span className="input-invalid">⚠ Please enter valid password</span>
 						)}
 					</>
 				) : null}

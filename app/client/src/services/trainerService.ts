@@ -33,6 +33,17 @@ export const getTrainerByIdService = async (id: string): Promise<Response> => {
 	return response;
 };
 
+export const getTrainerByCourseService = async (id: string): Promise<Response> => {
+	const response = await fetch(`http://localhost:3303/trainers/course/${id}`, {
+		method: 'GET',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return response;
+};
+
 export const getAllTrainersService = async (): Promise<Response> => {
 	const response = await fetch(`http://localhost:3303/trainers/all`, {
 		method: 'GET',
@@ -56,7 +67,7 @@ export const deleteTrainerByIdService = async (id: string): Promise<Response> =>
 };
 
 export const updateTrainerByIdService = async (form: Trainer) => {
-	const response = await fetch(`http://localhost:3303/trainers/update/${form.id}`,{
+	const response = await fetch(`http://localhost:3303/trainers/update/${form.id}`, {
 		method: 'PUT',
 		credentials: 'include',
 		headers: {

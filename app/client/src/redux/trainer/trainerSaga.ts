@@ -8,6 +8,7 @@ import {
 	getAllTrainersService,
 	deleteTrainerByIdService,
 	updateTrainerByIdService,
+	getTrainerByCourseService,
 } from '../../services/trainerService';
 import { AuthData } from '../../types/authTypes';
 import {
@@ -42,6 +43,19 @@ export function* getTrainerById(data: TrainerData) {
 	}
 }
 
+export function* getTrainerByCourse(data: TrainerData) {
+	try {
+		const response: Response = yield call(getTrainerByCourseService, data.payload);
+		if (!response.ok) {
+			throw new Error('Trainers get failed');
+		}
+		const trainer: TrainerByID[] = yield response.json() as Promise<TrainerByID[]>;
+		yield put(getAllTrainersSuccesed(trainer));
+	} catch (error: any) {
+		yield put(getAllTrainersFailed(error.message));
+	}
+}
+
 export function* deleteTrainerById(data: TrainerData) {
 	try {
 		const response: Response = yield call(deleteTrainerByIdService, data.payload);
@@ -58,9 +72,9 @@ export function* deleteTrainerById(data: TrainerData) {
 }
 
 // to do
-export function* updateTrainer(data:ITrainer) {
+export function* updateTrainer(data: ITrainer) {
 	try {
-		const response: Response = yield call(updateTrainerByIdService, data.payload );
+		const response: Response = yield call(updateTrainerByIdService, data.payload);
 		if (!response.ok) {
 			throw new Error('Trainers updated failed');
 		}

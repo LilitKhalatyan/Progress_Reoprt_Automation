@@ -33,34 +33,6 @@ const sendFinalReport = async (req, res) => {
     const { subjectsId, studentId, staffsId } = req.body;
     const finalInfo = await getData(subjectsId, studentId, staffsId);
     const report = await reportGenerator(finalInfo);
-    // const mailOptions = {
-    //   from: process.env.MAIL_USER,
-    //   to: "derred1245@gmail.com",
-    //   subject: "Sourcemind",
-    //   html: `<div style="background-color:#fff;">
-    //             <h2 style="color:#ff6600;">Sourcemind</h2>
-    //             <h3>Dear ${finalInfo[0].name} ${finalInfo[0].surname} jan!</h3>
-    //             <p>Attached is your progress report to view your assessment results.
-    //             Best,Yulia</p>
-    //         </div>`,
-    //   text: ``,
-    //   attachments: [
-    //     {
-    //       filename:`${finalInfo[0].name} ${finalInfo[0].surname} - Progress Report.pdf`,
-    //       // path: "./file.pdf",
-    //       content: report,
-    //       contentType: "application/pdf",
-    //     },
-    //   ],
-    // };
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log("Email sent: " + info.response);
-    //     buffer = null;
-    //   }
-    // });
     res.status(200).send({ message: "report send successfuly" });
   } catch (error) {
     res.status(500).send(error);
@@ -69,9 +41,8 @@ const sendFinalReport = async (req, res) => {
 
 const getFinalAssessmentScore = async (data) => {
   try {
-    console.log("score//////////////////////////////////");
     let finalAssessmentPass = 0;
-    [...data[1], ...data[2]].forEach((el, i) => {
+    [...data[2]].forEach((el, i) => {
       finalAssessmentPass += sum = el.subjects.reduce((acc, el) => {
         return (
           acc +
@@ -89,7 +60,6 @@ const getFinalAssessmentScore = async (data) => {
 
 const getFinalAttendance = async (data) => {
   try {
-    console.log("attend///////////////////////////////////");
     let count = 0;
     let sum = 0;
     const attendance = [...data[1]]
@@ -109,8 +79,6 @@ const getFinalAttendance = async (data) => {
 
 const getFeedback = async (data) => {
   try {
-    console.log("feedback///////////////////////////////////");
-
     return data[2].reduce((acc, el) => {
       el.subjects.forEach((el, i) => {
         if (el.trainer_reports[0].edited_comment !== null) {
@@ -133,7 +101,6 @@ const reportGenerator = async (finalInfo) => {
       month: "long",
       day: "numeric",
     };
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     const data = {
       title: `${finalInfo[0].name} ${finalInfo[0].surname}`,
       finalAssessment: await getFinalAssessmentScore(finalInfo),

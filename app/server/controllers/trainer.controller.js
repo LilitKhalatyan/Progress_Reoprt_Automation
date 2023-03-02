@@ -6,15 +6,20 @@ const { staff: Staff, role: Roles, course: Course } = db;
 const getTrainerByCourse = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id, ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
     const trainers = await Staff.findAll({
+        where: {
+            id: {
+              [Op.ne]: 1, // not equal to 1
+            },
+          },
       attributes: ["id", "name", "surname", "email"],
       include: [
         {
-          model: "course_model",
+          model: Course,
           where: {
-            courseId: id,
+            id: id,
           },
+          required: true,
         },
       ],
     });
@@ -77,14 +82,14 @@ const updateTrainer = async (req, res) => {
       name,
       surname,
       email,
-      courseId,
     };
-
+    const staff = await Staff.findByPk(id)
     const trainer = await Staff.update(updateInfo, {
       where: {
         id: id,
       },
     });
+    await staff.setCourses(courseId);
 
     res.status(200).send({ message: "trainer updated successfully" });
   } catch (error) {

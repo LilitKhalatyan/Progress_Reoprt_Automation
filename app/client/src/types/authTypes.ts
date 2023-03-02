@@ -4,6 +4,8 @@ export interface authState {
 	email: string;
 	password?: string;
 	courseId?: [];
+	oldPassword?: string;
+	newPassword?: string;
 }
 
 export interface AuthData {

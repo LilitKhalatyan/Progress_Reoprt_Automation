@@ -27,9 +27,9 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 	const trainer = useSelector(trainerSelector);
 	const courses = useSelector(coursesSelector);
 
-	const onSubmit = (data: any, e:any) => {
+	const onSubmit = (data: any, e: any) => {
 		const dataSelect = {
-			id:trainer[0]?.id,
+			id: trainer[0]?.id,
 			name: data.name,
 			surname: data.surname,
 			email: data.email,
@@ -82,17 +82,17 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 				return (
 					<div className="btn__grp">
 						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name='save'/>
+							<Button value="Save" className="btn-modal" name="save" />
 						</div>
 						<div className="input__grp">
-							<Button value="Save & Add" className="btn-modal" name='saveAndAdd'/>
+							<Button value="Save & Add" className="btn-modal" name="saveAndAdd" />
 						</div>
 					</div>
 				);
 			case 'edit':
 				return (
 					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name='update'/>
+						<Button value="Update" className="btn-modal" name="update" />
 					</div>
 				);
 		}
@@ -211,4 +211,3 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 };
 
 export default AddTrainersForm;
-

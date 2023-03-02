@@ -31,7 +31,6 @@ function* createStudent(data: IStudents) {
 			throw new Error('Create student failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		console.log(message);
 		yield put(createStudentSuccesed(message));
 		notify(message.message);
 		yield put(getAllStudentsAction());

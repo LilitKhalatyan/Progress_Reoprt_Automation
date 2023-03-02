@@ -58,6 +58,22 @@ const getAllStudentsByCourse = async (req, res) => {
   }
 };
 
+// traineri ej mutq gorcelis geta arvelu iran verabervox bolor courseri studentner@ st courseri
+const getAllStudentsByCourses = async (req, res) => {
+  try {
+      const {coursesId} = req.body;
+      const students = await Student.findAll({
+        where: {
+          courseId: coursesId,
+        },
+      });
+    
+    return res.status(200).send(students);
+  } catch (error) {
+    res.status(500).send({ message: "Failed to get all students by Coursesssssssssss" });
+  }
+};
+
 const updateSudent = async (req, res) => {
   try {
     const id = req.params.id;
@@ -98,6 +114,7 @@ module.exports = {
   getAllStudents,
   getSudentById,
   getAllStudentsByCourse,
+  getAllStudentsByCourses,
   updateSudent,
   deleteStudent,
 };
