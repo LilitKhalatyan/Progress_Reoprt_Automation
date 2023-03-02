@@ -9,67 +9,42 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage'; //new line
 import Spinner from '../Spinner/Spinner';
 import editIcon from '../../asset/images/pages/edit.png';
 import { authSelector, userSelector } from '../../redux/auth/authSelector';
-import { getCoursesByTrainerIdAction } from '../../redux/course/courseSlice';
+import { getAllCoursesAction, getCoursesByTrainerIdAction } from '../../redux/course/courseSlice';
 import { getSubjectByCourseIdAction } from '../../redux/subject/subjectSlice';
 import './studentList.scss';
 
 
-interface IProps {
-	data?: {
-		id?: number;
-		name: string;
-		surname?: string;
-		email?: string;
-		groupId?: number;
-		startDate?: string;
-		endDate?: string;
-		courseId?: number;
-		staffId?: number;
-		attendance?: boolean;
-		score?: number;
-		comment?: string;
-	}[];
-	title?: string;
-	// display: boolean;
-	setDisplay?: React.Dispatch<React.SetStateAction<boolean>>;
-	getDataById?: (id: any) => void;
-	onCourseSelect?: (id: any) => void;
-	onSubjectSelect?: (id: any) => void;
-	loading?: boolean;
-	error?: boolean;
-	message?: any;
-	titles?: TCourse[];
-	selectedValue?: string;
-}
 
-
-const UsersList: React.FC<IProps> = (props) => {
+const UsersList: React.FC = () => {
 
 	const dispatch = useDispatch();
 	const auth = useSelector(authSelector);
 	const user = useSelector(userSelector);
-	const courses = useSelector(coursesSelector)
-	const course = useSelector(courseSelector);
-
+	console.log(auth, user)
+	
 	useEffect(() => {
-		if (auth && localStorage.getItem('user')) {
-			dispatch(getCoursesByTrainerIdAction(user.id));
-			console.log("HI", user.id)
-		}
-		if (course) {
+		// if (auth && localStorage.getItem('user')) {
+			dispatch(getAllCoursesAction)
+			// dispatch(getCoursesByTrainerIdAction(user.id));
+			console.log("HI------------------------", user.id)
+		// }
+		// if (course) {
 			// dispatch(getSubjectByCourseIdAction(course.id));
-		}
+		// }
 	}, []);
-
+	
+	const courses = useSelector(coursesSelector)
+	// const course = useSelector(courseSelector);
 	console.log(courses)
 
 
 
 
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 	const [type, setType] = useState('add');
 	// const courses = useSelector(coursesSelector);
-	const { data, getDataById, onCourseSelect, onSubjectSelect, setDisplay, error, message, selectedValue } = props;
+	// const { data, getDataById, onCourseSelect, onSubjectSelect, setDisplay, error, message, selectedValue } = props;
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -80,15 +55,15 @@ const UsersList: React.FC<IProps> = (props) => {
 		>
 			<div className="users__content">
 				<div className="wrapper-line">
-					<motion.h2
+					{/* <motion.h2
 						initial={{ x: '-50vw', opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						exit={{ x: '-50vw' }}
 						transition={{ type: 'easeInOut', stiffness: 150, damping: 40, duration: 1, delay: 0.5 }}
 						className="main-title"
-					>
-						{props.title}
-					</motion.h2>
+					> */}
+						{"Course => Subjects => Students"}
+					{/* </motion.h2> */}
 					<div className="users__header">
 						<div className="head-filter__grp">
 							<motion.select
@@ -99,8 +74,8 @@ const UsersList: React.FC<IProps> = (props) => {
 								name=""
 								id=""
 								className="users-sort"
-								value={selectedValue}
-								onChange={onCourseSelect}
+								// value={selectedValue}
+								// onChange={onCourseSelect}
 							>
 								<option key={uuid()} value="all">
 									All
@@ -121,8 +96,8 @@ const UsersList: React.FC<IProps> = (props) => {
 								name=""
 								id=""
 								className="users-sort"
-								value={selectedValue}
-								onChange={onSubjectSelect}
+								// value={selectedValue}
+								// onChange={onSubjectSelect}
 							>
 								<option key={uuid()} value="all">
 									All
@@ -152,7 +127,7 @@ const UsersList: React.FC<IProps> = (props) => {
 												<span>{data[0]?.comment ? 'comment' : null}</span>
 											</div> */}
 										</div>
-										{data?.map((item) => {
+										{courses.map((item) => {
 											return (
 												<motion.div
 													initial={{ opacity: 0 }}
@@ -170,7 +145,7 @@ const UsersList: React.FC<IProps> = (props) => {
 												>
 													<div className="info-grp">
 														<span>{item.name}</span>
-														<span>{item.surname}</span>
+														{/* <span>{item.surname}</span> */}
 														{/* <span>{item.email}</span>
 														<span>{item.startDate?.toLocaleString().slice(0, 10)}</span>
 														<span>{item.endDate?.toLocaleString().slice(0, 10)}</span> */}
@@ -179,7 +154,7 @@ const UsersList: React.FC<IProps> = (props) => {
 														<Button
 															dataId={item.id}
 															className="users-btn"
-															title={`edit ${props.title}`}
+															title={`edit report`}
 															src={editIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 																// getDataById(e.currentTarget.dataset.id);
@@ -193,8 +168,8 @@ const UsersList: React.FC<IProps> = (props) => {
 										})}
 									</>
 								) : null}
-								{loading && !error ? <Spinner loading={setLoading} /> : null}
-								{props.error ? <ErrorMessage message={message} /> : null}
+								{/* {loading && !error ? <Spinner loading={setLoading} /> : null}
+								{props.error ? <ErrorMessage message={message} /> : null} */}
 							</>
 						</div>
 					</div>
