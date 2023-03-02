@@ -57,6 +57,7 @@ const trainerSlice = createSlice({
 		trainerReset: () => {
 			return initialState;
 		},
+		getTrainerByCourseAction: (state, action) => {},
 	},
 });
 
@@ -77,6 +78,7 @@ export const {
 	deleteTrainerByIdSuccesed,
 	deleteTrainerByIdFailed,
 	trainerReset,
+	getTrainerByCourseAction,
 } = trainerSlice.actions;
 
 export default trainerSlice;

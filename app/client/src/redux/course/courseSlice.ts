@@ -6,7 +6,7 @@ const initialState: CourseSliceState = {
 	course: [],
 	message: {},
 	loading: true,
-	error: false //new line
+	error: false, //new line
 };
 
 const courseSlice = createSlice({
