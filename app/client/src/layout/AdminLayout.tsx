@@ -8,17 +8,17 @@ import '../style/style.scss';
 const AdminLayout: React.FC = (): JSX.Element => {
 	const user = useSelector(userSelector);
 
-	if (user.roles !== 'ADMIN') {
+	if (user.roles === 'ADMIN') {
 		return (
 			<LayoutWrapper>
-				<h4>Access Denied</h4>
-				<img src={warning} alt="Access Denied" />
+				<Outlet />
 			</LayoutWrapper>
 		);
 	} else {
 		return (
 			<LayoutWrapper>
-				<Outlet />
+				<h4>Access Denied</h4>
+				<img src={warning} alt="Access Denied" />
 			</LayoutWrapper>
 		);
 	}

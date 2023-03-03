@@ -8,6 +8,8 @@ import {
 	getAllStudentsFailed,
 	getStudentByIdSuccesed,
 	getStudentByIdFailed,
+	getStudentsByTrainerIdSuccesed,
+	getStudentsByTrainerIdFailed,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,
 	deleteStudentByIdSuccesed,
@@ -20,6 +22,7 @@ import {
 	getAllStudentsByCourseService,
 	getAllStudentsService,
 	getStudentByIdService,
+	getAllStudentsByTrainerIdService,
 	updateStudentByIdService,
 	deleteStudentByIdService,
 } from '../../services/studentService';
@@ -64,6 +67,20 @@ function* getStudentsDataByCourse(data: ICourseId) {
 		yield put(getAllStudentsFailed(error.message));
 	}
 }
+// --start
+function* getStudentsDataByTrainerId(data: ICourseId) {
+	try {
+		const response: Response = yield call(getAllStudentsByTrainerIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('get all students by course failed');
+		}
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
+		yield put(getStudentsByTrainerIdSuccesed(students));
+	} catch (error: any) {
+		yield put(getStudentsByTrainerIdFailed(error.message));
+	}
+}
+// --end
 
 function* getStudentById(data: IStudentId) {
 	try {
@@ -113,6 +130,7 @@ export {
 	getStudentsData,
 	getStudentById,
 	getStudentsDataByCourse,
+	getStudentsDataByTrainerId,
 	updateStudentById,
 	deleteStudentById,
 };

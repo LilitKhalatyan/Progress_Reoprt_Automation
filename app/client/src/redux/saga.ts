@@ -43,6 +43,7 @@ import {
 	getAllStudentsAction,
 	getStudentByIdAction,
 	getStudentByCourseAction,
+	getStudentsByTrainerIdAction,
 	updateStudentByIdAction,
 	deleteStudentByIdAction,
 } from './student/studentSlice';
@@ -52,6 +53,7 @@ import {
 	getStudentsData,
 	getStudentsDataByCourse,
 	getStudentById,
+	getStudentsDataByTrainerId,
 	updateStudentById,
 	deleteStudentById,
 } from './student/studentSaga';
@@ -102,6 +104,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
 	yield takeEvery(getStudentByCourseAction.type, getStudentsDataByCourse);
+	yield takeEvery(getStudentsByTrainerIdAction.type, getStudentsDataByTrainerId);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
 	// Subject

@@ -41,6 +41,15 @@ const studentSlice = createSlice({
 		getStudentByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		//
+		getStudentsByTrainerIdAction: (state, action) => {},
+		getStudentsByTrainerIdSuccesed: (state, action) => {
+			state.students = action.payload;
+		},
+		getStudentsByTrainerIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
+		//
 		updateStudentByIdAction: (state, action) => {},
 		updateStudentByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -70,6 +79,9 @@ export const {
 	getStudentByIdAction,
 	getStudentByIdSuccesed,
 	getStudentByIdFailed,
+	getStudentsByTrainerIdAction,
+	getStudentsByTrainerIdSuccesed,
+	getStudentsByTrainerIdFailed,
 	updateStudentByIdAction,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,

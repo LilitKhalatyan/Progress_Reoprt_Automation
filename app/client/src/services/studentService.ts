@@ -22,6 +22,18 @@ export const getAllStudentsByCourseService = async (id: string = ''): Promise<Re
 	return studentData;
 };
 
+//    app.post("/student/all/bytrainer/:id", getStudentsByTrainerId);
+export const getAllStudentsByTrainerIdService = async (id: string = ''): Promise<Response> => {
+	const studentData = await fetch(`http://localhost:3303/student/all/bytrainer/${id}`, {
+		method: 'GET',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return studentData;
+};
+
 export const getAllStudentsService = async (): Promise<Response> => {
 	const studentData = await fetch(`http://localhost:3303/student/all`, {
 		method: 'GET',
