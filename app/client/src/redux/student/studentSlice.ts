@@ -23,6 +23,7 @@ const studentSlice = createSlice({
 		getAllStudentsAction: (state) => {
 			state.loading = true;
 		},
+		getStudentByCourseAction: (state, action) => {},
 		getAllStudentsSuccesed: (state, action) => {
 			state.students = action.payload;
 			state.loading = false;
@@ -76,6 +77,7 @@ export const {
 	deleteStudentByIdSuccesed,
 	deleteStudentByIdFailed,
 	studentReset,
+	getStudentByCourseAction,
 } = studentSlice.actions;
 
 export default studentSlice;

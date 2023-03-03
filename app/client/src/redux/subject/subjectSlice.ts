@@ -6,7 +6,7 @@ const initialState: SubjectSliceState = {
 	subject: [],
 	message: {},
 	loading: true,
-	error: false
+	error: false,
 };
 
 const subjectSlice = createSlice({
@@ -23,6 +23,8 @@ const subjectSlice = createSlice({
 		getAllSubjectAction: (state) => {
 			state.loading = true;
 		},
+		getSubjectByCourseAction: (state, action) => {},
+
 		getAllSubjectSuccesed: (state, action) => {
 			state.subjects = action.payload;
 			state.loading = false;
@@ -75,5 +77,6 @@ export const {
 	getSubjectByIdFailed,
 	getSubjectByIdSuccesed,
 	subjectReset,
+	getSubjectByCourseAction,
 } = subjectSlice.actions;
 export default subjectSlice;

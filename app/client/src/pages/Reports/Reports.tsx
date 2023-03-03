@@ -1,31 +1,50 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { motion } from 'framer-motion';
 import { uuid } from 'uuidv4';
 import Button from '../../components/Button/Button';
 import Spinner from '../../components/Spinner/Spinner';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import useQueryParams from '../../hooks/useQueryParams';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import { errorSelector, studentsSelector } from '../../redux/student/studentSelector';
 import { subjectsSelector } from '../../redux/subject/subjectSelector';
+import { authSelector } from '../../redux/auth/authSelector';
+import { getAllSubjectAction, subjectReset } from '../../redux/subject/subjectSlice';
+import { courseReset, getAllCoursesAction } from '../../redux/course/courseSlice';
+import { getAllStudentsAction, studentReset } from '../../redux/student/studentSlice';
 
 import './reports.scss'
-
 
 export default function Reports() {
 	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
 	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
 	const [loading, setLoading] = useState(true);
+
 	const error = useSelector(errorSelector);
-
-
 	const courses = useSelector(coursesSelector);
 	const subjects = useSelector(subjectsSelector);
 	const students = useSelector(studentsSelector);
 
 	const navigate = useNavigate();
+	
+	const dispatch = useDispatch();
+	const auth = useSelector(authSelector);
+	
+	useEffect(() => {
+		if (auth && localStorage.getItem('user')) {
+			dispatch(getAllSubjectAction());
+			dispatch(getAllCoursesAction());
+			dispatch(getAllStudentsAction());
+		}
+		return () => {
+			dispatch(subjectReset());
+			dispatch(courseReset());
+			dispatch(studentReset());
+		};
+	}, []);
 
 	const subjectsOptions = subjects.map((item) => {
 		return { value: item.name, label: item.name, id: item.id };
@@ -42,6 +61,9 @@ export default function Reports() {
 	const handleCoursesChange = (coursesSelectedOption: any) => {
 		setCoursesSelectedOption(coursesSelectedOption);
 	};
+
+	const { searchParams, setSearchParams } = useQueryParams();
+	console.log(searchParams);
 
 	return (
 		<motion.div
@@ -133,10 +155,10 @@ export default function Reports() {
 														className=" create-btn"
 														title="Create report"
 														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-															// onDelete(e.currentTarget.dataset.id);
 															console.log(e.currentTarget)
-															navigate('/sent-report')
+															navigate('/send-report')
 														}}
+														// onClick={() => setSearchParams({ asd: [1, 2, 3], dsa: [1], vvv: 'vvv' })}
 													/>
 												</div>
 											</motion.div>

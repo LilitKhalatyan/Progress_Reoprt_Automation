@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
-import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCourseAction, updateCourseByIdAction } from '../../redux/course/courseSlice';
 import { courseSelector } from '../../redux/course/courseSelector';
@@ -20,7 +19,6 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 	const course = useSelector(courseSelector);
 
 	const onSubmit = (data: any, e: any) => {
-
 		const finalData = {
 			id: course[0]?.id,
 			name: data.name,
@@ -69,7 +67,6 @@ const AddGroupsForm: React.FC<IProps> = (props) => {
 	}, [reset, props.btnType, course]);
 
 	return (
-
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<div className='form_title'>
 				<PopUpTitle type={props.btnType} title='course'/>

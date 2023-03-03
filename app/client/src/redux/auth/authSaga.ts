@@ -1,13 +1,15 @@
 import { NavigateFunction } from 'react-router-dom';
 import { call, put } from 'redux-saga/effects';
-import { IUser, logout, signIn } from '../../services/authService';
+import { IUser, logout, signIn, updateProfileService } from '../../services/authService';
+import { notify } from '../../utils';
 
 import { AuthData } from '../../types/authTypes';
+import { Message } from '../../types/courseTypes';
 import { courseReset, getAllCoursesAction } from '../course/courseSlice';
 import { getAllStudentsAction, studentReset } from '../student/studentSlice';
 import { getAllSubjectAction, subjectReset } from '../subject/subjectSlice';
 import { getAllTrainersAction, trainerReset } from '../trainer/trainerSlice';
-import { loginFailed, loginSuccesed, logoutSuccesed, userReset } from './authSlice';
+import { loginFailed, loginSuccesed, logoutSuccesed, updateProfileFailed, userReset } from './authSlice';
 
 interface Data {
 	type: string;
@@ -30,7 +32,6 @@ export function* resetStore() {
 	yield put(subjectReset());
 }
 
-
 export function* auth(data: AuthData) {
 	try {
 		const response: Response = yield call(signIn, data.payload);
@@ -45,6 +46,23 @@ export function* auth(data: AuthData) {
 	} catch (error: any) {
 		// in typescript error can only be one of two types: "any" or "unknown"
 		yield put(loginFailed(error.message));
+	}
+}
+
+export function* updateProfile(data: AuthData) {
+	try {
+		const response: Response = yield call(updateProfileService, data.payload);
+		if (!response.ok) {
+			const message: Message = yield response.json() as Promise<Message>;
+			throw new Error(message.message);
+		}
+		const user: IUser = yield response.json() as Promise<IUser>;
+		yield localStorage.setItem('user', JSON.stringify(user));
+		yield put(loginSuccesed(user));
+	} catch (error: any) {
+		// in typescript error can only be one of two types: "any" or "unknown"
+		notify(error.message);
+		yield put(updateProfileFailed(error.message));
 	}
 }
 

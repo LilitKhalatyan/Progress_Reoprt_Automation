@@ -10,7 +10,7 @@ export interface StudentSliceState {
 	students: TStudent[];
 	student: TStudent[];
 	message: {};
-    error: boolean;
+	error: boolean;
 	loading: boolean;
 }
 

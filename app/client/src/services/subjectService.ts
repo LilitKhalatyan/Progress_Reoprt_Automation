@@ -22,6 +22,17 @@ export const getAllSubjectService = async (): Promise<Response> => {
 	return subjectData;
 };
 
+export const getSubjectByCourseService = async (id: string): Promise<Response> => {
+	const subjectData = await fetch(`http://localhost:3303/subject/course/${id}`, {
+		method: 'GET',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return subjectData;
+};
+
 export const updateSubjectByIdService = async (data: TSubject): Promise<Response> => {
 	const subjectData = await fetch(`http://localhost:3303/subject/update/${data.id}`, {
 		method: 'PUT',

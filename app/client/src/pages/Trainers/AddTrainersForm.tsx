@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
@@ -198,4 +198,3 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 };
 
 export default AddTrainersForm;
-

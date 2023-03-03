@@ -36,15 +36,14 @@ interface IProps {
 	error?: boolean;
 	message?: any;
 	titles?: TCourse[];
+	selectedValue?: string;
 }
 
 const UsersList: React.FC<IProps> = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [type, setType] = useState('add');
 	const courses = useSelector(coursesSelector);
-
-	const { data, display, setDisplay, onDelete, getDataById, onSelect, titles, error, message } = props;
-
+	const { data, display, setDisplay, onDelete, getDataById, onSelect, error, message, selectedValue } = props;
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -82,7 +81,7 @@ const UsersList: React.FC<IProps> = (props) => {
 								name=""
 								id=""
 								className="users-sort"
-								value="{select}"
+								value={selectedValue}
 								onChange={onSelect}
 							>
 								<option key={uuid()} value="all">
@@ -100,7 +99,7 @@ const UsersList: React.FC<IProps> = (props) => {
 						<div className="head-add">
 							<Button
 								className="add-btn"
-								title={'add' + ' ' + props.title}
+								title={`add ${props.title}`}
 								src={addIcon}
 								onClick={() => {
 									setDisplay(true);
@@ -116,8 +115,8 @@ const UsersList: React.FC<IProps> = (props) => {
 							<>
 								{!loading && !error ? (
 									<>
-										<div className='items-title__wrapper'>
-											<div className='items-title'>
+										<div className="items-title__wrapper">
+											<div className="items-title">
 												<span>{data[0]?.name ? 'name' : null}</span>
 												<span>{data[0]?.surname ? 'surname' : null}</span>
 												<span>{data[0]?.email ? 'email' : null}</span>
@@ -141,7 +140,6 @@ const UsersList: React.FC<IProps> = (props) => {
 													className="list-item"
 													key={uuid()}
 												>
-
 													<div className="info-grp">
 														<span>{item.name}</span>
 														<span>{item.surname}</span>
@@ -153,7 +151,7 @@ const UsersList: React.FC<IProps> = (props) => {
 														<Button
 															dataId={item.id}
 															className="users-btn"
-															title={'edit' + ' ' + props.title}
+															title={`edit ${props.title}`}
 															src={editIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 																getDataById(e.currentTarget.dataset.id);
@@ -164,7 +162,7 @@ const UsersList: React.FC<IProps> = (props) => {
 														<Button
 															dataId={item.id}
 															className="users-btn"
-															title={'delete' + ' ' + props.title}
+															title={`delete ${props.title}`}
 															src={deleteIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
 																onDelete(e.currentTarget.dataset.id);
@@ -174,21 +172,10 @@ const UsersList: React.FC<IProps> = (props) => {
 												</motion.div>
 											);
 										})}
-
 									</>
-								) : (
-									null
-								)}
-								{loading && !error ? (
-									<Spinner loading={setLoading} />
-								) : (
-									null
-								)}
-								{props.error ? (
-									<ErrorMessage message={message} />
-								) : (
-									null
-								)}
+								) : null}
+								{loading && !error ? <Spinner loading={setLoading} /> : null}
+								{props.error ? <ErrorMessage message={message} /> : null}
 							</>
 						</div>
 					</div>
