@@ -4,7 +4,7 @@ import { authSelector } from '../redux/auth/authSelector';
 
 import '../style/style.scss';
 
-const AuthLayout: React.FC = (): JSX.Element => {
+const AuthLayout: React.FC = () => {
 	const auth = useSelector(authSelector);
 	if (auth) {
 		return <Outlet />;

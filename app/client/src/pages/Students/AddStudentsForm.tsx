@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
-import Button from '../../components/Button/Button';
+import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
+import PopUpButton from '../../components/PopUpButton/PopUpButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { studentSelector } from '../../redux/student/studentSelector';
 import { createStudentAction, updateStudentByIdAction } from '../../redux/student/studentSlice';
@@ -68,30 +69,12 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 			reset({ name: '', surname: '', email: '', select: '' });
 		}
 	}, [student, reset, props.btnType]);
-	const buttonComponent = () => {
-		switch (props.btnType) {
-			case 'add':
-				return (
-					<div className="btn__grp">
-						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name={'save'} />
-						</div>
-						<div className="input__grp">
-							<Button value="Save & Add" className="btn-modal" name={'saveAndAdd'} />
-						</div>
-					</div>
-				);
-			case 'edit':
-				return (
-					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name={'update'} />
-					</div>
-				);
-		}
-	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
+			<div className='form_title'>
+				<PopUpTitle type={props.btnType} title='student'/>
+			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
 					<input
@@ -194,7 +177,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<>{buttonComponent()}</>
+			<PopUpButton type={props.btnType}/>
 		</form>
 	);
 };

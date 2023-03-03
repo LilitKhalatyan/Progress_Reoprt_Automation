@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useForm } from 'react-hook-form';
-import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSubjectAction, updateSubjectByIdAction } from '../../redux/subject/subjectSlice';
 import { subjectSelector } from '../../redux/subject/subjectSelector';
-import './subjects.scss';
 import { TCourse } from '../../types/courseTypes';
 import { Trainer } from '../../types/trainerTypes';
+import PopUpTitle from '../../components/PopUpTitle/PopUpTitle';
+import PopUpButton from '../../components/PopUpButton/PopUpButton';
 import { getTrainerByCourseAction, trainerReset } from '../../redux/trainer/trainerSlice';
 
 interface IProps {
@@ -102,30 +102,12 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			reset({ name: '', selectTrainer: 'default', selectGroup: 'default', weightage: '', balls: '' });
 		}
 	}, [reset, props.btnType, subject]);
-	const buttonComponent = () => {
-		switch (props.btnType) {
-			case 'add':
-				return (
-					<div className="btn__grp">
-						<div className="input__grp">
-							<Button value="Save" className="btn-modal" name={'save'} />
-						</div>
-						<div className="input__grp">
-							<Button value="Save & Add" className="btn-modal" name={'saveAndAdd'} />
-						</div>
-					</div>
-				);
-			case 'edit':
-				return (
-					<div className="input__grp">
-						<Button value="Update" className="btn-modal" name={'update'} />
-					</div>
-				);
-		}
-	};
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
+			<div className='form_title'>
+				<PopUpTitle type={props.btnType} title='subject'/>
+			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
 					<input
@@ -270,7 +252,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					<span className="checkbox__lab">Assessment</span>
 				</label>
 			</div>
-			<>{buttonComponent()}</>
+			<PopUpButton type={props.btnType}/>
 		</form>
 	);
 };
