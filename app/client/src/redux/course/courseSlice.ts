@@ -43,13 +43,6 @@ const courseSlice = createSlice({
 		getCoursesByTrainerIdAction: (state, action) => {
 			state.loading = true;
 		},
-		getCoursesByTrainerIdSuccesed: (state, action) => {
-			state.courses = action.payload;
-			state.loading = false;
-		},
-		getCoursesByTrainerIdFailed: (state, action) => {
-			state.message = action.payload;
-		},
 		// --end --trainer-home
 		updateCourseByIdAction: (state, action) => {},
 		updateCourseByIdSuccesed: (state, action) => {
@@ -81,8 +74,6 @@ export const {
 	getCourseByIdSuccesed,
 	getCourseByIdFailed,
 	getCoursesByTrainerIdAction,
-	getCoursesByTrainerIdSuccesed,
-	getCoursesByTrainerIdFailed,
 	updateCourseByIdAction,
 	updateCourseByIdSuccesed,
 	updateCourseByIdFailed,

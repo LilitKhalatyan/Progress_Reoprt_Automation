@@ -47,6 +47,15 @@ const subjectSlice = createSlice({
 		getSubjectByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		//
+		getSubjectByTrainerIdAction: (state, action) => {},
+		getSubjectByTrainerIdSuccesed: (state, action) => {
+			state.subjects = action.payload;
+		},
+		getSubjectByTrainerIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
+		//
 		updateSubjectByIdAction: (state, action) => {},
 		updateSubjectByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -79,6 +88,9 @@ export const {
 	getSubjectByCourseIdAction,
 	getSubjectByCourseIdSuccesed,
 	getSubjectByCourseIdFailed,
+	getSubjectByTrainerIdAction,
+	getSubjectByTrainerIdSuccesed,
+	getSubjectByTrainerIdFailed,
 	updateSubjectByIdAction,
 	updateSubjectByIdSuccesed,
 	updateSubjectByIdFailed,

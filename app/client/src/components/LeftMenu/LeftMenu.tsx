@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import './leftMenu.scss';
 import { motion } from 'framer-motion';
+import { log } from 'console';
 
 const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
 
@@ -10,7 +11,7 @@ const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
 // 	if (userRole === "ADMIN") {
 // 		return ['courses-icon', 'students-icon', 'subjects-icon', 'trainers-icon','reports-icon'];
 // 	} else {
-// 		return ['courses-icon', 'students-icon', 'subjects-icon'];
+// 		return ['courses-icon', 'students-icon', 'subjects-icon', 'reports-icon'];
 // 	}
 // }
 
@@ -53,8 +54,14 @@ const LeftMenu: React.FC = () => {
 				<nav>
 					<motion.ul variants={container} initial="hidden" animate="show">
 						{icons.map((icon) => {
+							let hide = "";
+							if(userRole === "USER" && icon.slice(0, -5) === "trainers") {
+								
+								hide = "hideLi"
+							}
 							return (
 								<motion.li
+									className={hide}
 									variants={item}
 									key={icon}
 									id={`${path}${icon.slice(0, -5)}`}

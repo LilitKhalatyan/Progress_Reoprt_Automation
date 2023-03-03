@@ -66,6 +66,7 @@ import {
 	updateSubjectByIdAction,
 	deleteSubjectByIdAction,
 	getSubjectByCourseIdAction,
+	getSubjectByTrainerIdAction
 } from './subject/subjectSlice';
 
 import {
@@ -75,6 +76,7 @@ import {
 	updateSubjectById,
 	deleteSubjectById,
 	getSubjectByCourse,
+	getSubjectsByTrainerId
 } from './subject/subjectSaga';
 
 
@@ -112,6 +114,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
 	yield takeEvery(getSubjectByIdAction.type, getSubjectById);
 	yield takeEvery(getSubjectByCourseIdAction.type, getSubjectByCourse);
+	yield takeEvery(getSubjectByTrainerIdAction.type, getSubjectsByTrainerId); //
 	yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
 	yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
 	yield takeEvery(updateProfileAction.type, updateProfile);

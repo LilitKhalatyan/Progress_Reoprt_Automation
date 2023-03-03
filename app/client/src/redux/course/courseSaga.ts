@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { notify } from '../../utils';
-import { TCourse, ICourse, CourseSliceState, ICourseId, Message } from '../../types/courseTypes';
+import { TCourse, ICourse, ICourseId, Message } from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -9,8 +9,6 @@ import {
 	getAllCoursesFailed,
 	getCourseByIdSuccesed,
 	getCourseByIdFailed,
-	getCoursesByTrainerIdSuccesed,
-	getCoursesByTrainerIdFailed,
 	updateCourseByIdFailed,
 	updateCourseByIdSuccesed,
 	deleteCourseByIdFailed,
@@ -78,9 +76,9 @@ function* getCoursesByTrainerId(data: ICourseId) {
 		}
 		const courses: TCourse[] = yield response.json() as Promise<TCourse[]>;
 
-		yield put(getCoursesByTrainerIdSuccesed(courses));
+		yield put(getAllCoursesSuccesed(courses));
 	} catch (error: any) {
-		yield put(getCoursesByTrainerIdFailed(error.message));
+		yield put(getAllCoursesFailed(error.message));
 	}
 }
 // --end --trainer-home

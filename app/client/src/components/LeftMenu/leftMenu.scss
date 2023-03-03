@@ -98,7 +98,9 @@ nav {
 		}
 	}
 }
-
+ul > li.hideLi {
+	display: none;
+}
 .courses-icon {
 	@include icon('../../asset/images/menu/groups.png');
 }
