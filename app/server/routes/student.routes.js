@@ -6,6 +6,7 @@ const {
     getAllStudents,
     getAllStudentsByCourses,
     getAllStudentsByCourse,
+    getStudentsByTrainerId,
 } = require("../controllers/student.controller");
 
 module.exports = (app) => {
@@ -23,5 +24,6 @@ module.exports = (app) => {
     app.get("/student/all", getAllStudents);
     app.get("/student/all/:id", getAllStudentsByCourse);
     app.post("/student/all/bycourses", getAllStudentsByCourses);
+    app.post("/student/all/bytrainer/:id", getStudentsByTrainerId);
     app.delete("/student/delete/:id", deleteStudent);
 };

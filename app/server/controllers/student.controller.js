@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require('../models');
 const Student = db.students;
 
 const createStudent = async (req, res) => {
@@ -11,9 +11,9 @@ const createStudent = async (req, res) => {
       courseId,
     };
     const student = await Student.create(studentInfo);
-    res.status(201).send({ message: "Student created successfuly" });
+    res.status(201).send({ message: 'Student created successfuly' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to create student" });
+    res.status(500).send({ message: 'Failed to create student' });
   }
 };
 
@@ -22,7 +22,7 @@ const getAllStudents = async (req, res) => {
     const students = await Student.findAll();
     return res.status(200).send(students);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get all students" });
+    res.status(500).send({ message: 'Failed to get all students' });
   }
 };
 
@@ -36,7 +36,7 @@ const getSudentById = async (req, res) => {
     });
     res.status(200).send([student]);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get student by Id" });
+    res.status(500).send({ message: 'Failed to get student by Id' });
   }
 };
 
@@ -54,25 +54,48 @@ const getAllStudentsByCourse = async (req, res) => {
     const students = await Student.findAll();
     return res.status(200).send(students);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get all students by Course" });
+    res.status(500).send({ message: 'Failed to get all students by Course' });
   }
 };
 
 // traineri ej mutq gorcelis geta arvelu iran verabervox bolor courseri studentner@ st courseri
 const getAllStudentsByCourses = async (req, res) => {
   try {
-      const {coursesId} = req.body;
-      const students = await Student.findAll({
-        where: {
-          courseId: coursesId,
-        },
-      });
-    
+    const { coursesId } = req.body;
+    const students = await Student.findAll({
+      where: {
+        courseId: coursesId,
+      },
+    });
+
     return res.status(200).send(students);
   } catch (error) {
-    res.status(500).send({ message: "Failed to get all students by Coursesssssssssss" });
+    res
+      .status(500)
+      .send({ message: 'Failed to get all students by Coursesssssssssss' });
   }
 };
+// -- start
+const getStudentsByTrainerId = async (req, res) => {
+  try {
+    const staffId = req.params.id;
+    const studentsByTrainer = await Student.findAll({
+      where: {
+        staffId: staffId,
+      },
+      include: [
+        {
+          model: course_model,
+          required: false,
+        },
+      ],
+    });
+    res.status(200).send(studentsByTrainer);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+// -- end
 
 const updateSudent = async (req, res) => {
   try {
@@ -89,9 +112,9 @@ const updateSudent = async (req, res) => {
         id: id,
       },
     });
-    res.status(200).send({ message: "Student info updated successfully" });
+    res.status(200).send({ message: 'Student info updated successfully' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to update student info" });
+    res.status(500).send({ message: 'Failed to update student info' });
   }
 };
 
@@ -103,9 +126,9 @@ const deleteStudent = async (req, res) => {
         id: id,
       },
     });
-    res.status(200).send({ message: "Student deleted successfully" });
+    res.status(200).send({ message: 'Student deleted successfully' });
   } catch (error) {
-    res.status(500).send({ message: "Failed to delete student" });
+    res.status(500).send({ message: 'Failed to delete student' });
   }
 };
 
@@ -115,6 +138,7 @@ module.exports = {
   getSudentById,
   getAllStudentsByCourse,
   getAllStudentsByCourses,
+  getStudentsByTrainerId,
   updateSudent,
   deleteStudent,
 };
