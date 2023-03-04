@@ -13,6 +13,7 @@ import editIcon from '../../asset/images/pages/edit.png';
 import deleteIcon from '../../asset/images/pages/delete.png';
 
 import './usersList.scss';
+import { subjectsSelector } from '../../redux/subject/subjectSelector';
 
 interface IProps {
 	data: {
@@ -26,6 +27,7 @@ interface IProps {
 		courseId?: number;
 		staffId?: number;
 	}[];
+	hideElement?: string;
 	title: string;
 	display: boolean;
 	setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,6 +45,7 @@ const UsersList: React.FC<IProps> = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [type, setType] = useState('add');
 	const courses = useSelector(coursesSelector);
+	const subjects = useSelector(subjectsSelector);
 	const { data, display, setDisplay, onDelete, getDataById, onSelect, error, message, selectedValue } = props;
 	return (
 		<motion.div
@@ -63,7 +66,7 @@ const UsersList: React.FC<IProps> = (props) => {
 					>
 						{props.title}
 					</motion.h2>
-					<div className="users__header">
+					<div className={`users__header ${props.hideElement}`} >
 						<div className="head-filter__grp">
 							<motion.input
 								initial={{ x: '-50vw', opacity: 0 }}
@@ -88,6 +91,28 @@ const UsersList: React.FC<IProps> = (props) => {
 									All
 								</option>
 								{courses.map((option) => {
+									return (
+										<option key={uuid()} value={option.id}>
+											{option.name}
+										</option>
+									);
+								})}
+							</motion.select>
+							<motion.select
+								initial={{ x: '-50vw', opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								exit={{ x: '-50vw' }}
+								transition={{ type: 'easeInOut', stiffness: 120, damping: 40, duration: 2, delay: 0.2 }}
+								name=""
+								id="secondselect"
+								className="users-sort"
+								value={selectedValue}
+								onChange={onSelect}
+							>
+								<option key={uuid()} value="all">
+									All
+								</option>
+								{subjects.map((option) => {
 									return (
 										<option key={uuid()} value={option.id}>
 											{option.name}
@@ -150,7 +175,7 @@ const UsersList: React.FC<IProps> = (props) => {
 													<div className="edit-grp">
 														<Button
 															dataId={item.id}
-															className="users-btn"
+															className={`users-btn ${props.hideElement}`}
 															title={`edit ${props.title}`}
 															src={editIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -161,7 +186,7 @@ const UsersList: React.FC<IProps> = (props) => {
 														/>
 														<Button
 															dataId={item.id}
-															className="users-btn"
+															className={`users-btn ${props.hideElement}`}
 															title={`delete ${props.title}`}
 															src={deleteIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

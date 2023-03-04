@@ -5,11 +5,12 @@ import { notify } from '../../utils';
 
 import { AuthData } from '../../types/authTypes';
 import { Message } from '../../types/courseTypes';
-import { courseReset, getAllCoursesAction } from '../course/courseSlice';
+import { courseReset, getAllCoursesAction, getCoursesByTrainerIdAction } from '../course/courseSlice';
 import { getAllStudentsAction, studentReset } from '../student/studentSlice';
-import { getAllSubjectAction, subjectReset } from '../subject/subjectSlice';
+import { getAllSubjectAction, getSubjectByTrainerIdAction, subjectReset } from '../subject/subjectSlice';
 import { getAllTrainersAction, trainerReset } from '../trainer/trainerSlice';
 import { loginFailed, loginSuccesed, logoutSuccesed, updateProfileFailed, userReset } from './authSlice';
+import { getCoursesByTrainerId } from '../course/courseSaga';
 
 interface Data {
 	type: string;
@@ -66,9 +67,17 @@ export function* updateProfile(data: AuthData) {
 	}
 }
 
+const userId = JSON.parse(localStorage.getItem('user')!)?.id;
+const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
+
 export function* getAllData() {
-	yield put(getAllSubjectAction());
-	yield put(getAllCoursesAction());
-	yield put(getAllTrainersAction());
-	yield put(getAllStudentsAction());
+	if (userRole === "ADMIN") {
+		yield put(getAllSubjectAction());
+		yield put(getAllCoursesAction());
+		yield put(getAllTrainersAction());
+		yield put(getAllStudentsAction());
+	}
+	if (userRole === "USER") {
+
+	}
 }
