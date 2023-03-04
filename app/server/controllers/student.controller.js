@@ -1,3 +1,4 @@
+const { course } = require('../models');
 const db = require('../models');
 const Student = db.students;
 
@@ -80,13 +81,24 @@ const getStudentsByTrainerId = async (req, res) => {
   try {
     const staffId = req.params.id;
     const studentsByTrainer = await Student.findAll({
-      where: {
-        staffId: staffId,
-      },
+
       include: [
         {
           model: course_model,
-          required: false,
+          // required: true,
+            where: {
+              staffId: staffId,
+            },
+            // include: [
+            //   {
+            //     model: course,
+            //     required: true,
+            //     include: [
+            //       {
+            //         model: Student,
+            //       }
+            //     ]
+        // }]
         },
       ],
     });
