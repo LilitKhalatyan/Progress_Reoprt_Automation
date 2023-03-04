@@ -132,14 +132,13 @@ export default function Reports() {
 									dropdownIndicator: (provided, state) => ({
 										...provided,
 										width: '30px',
-										cursor: "pointer",
+										cursor: 'pointer',
 									}),
 									option: (provided, state) => ({
 										...provided,
-										cursor: "pointer",
+										cursor: 'pointer',
 										fontSize: '12px',
-									  }),
-									
+									}),
 								}}
 								className="react-select"
 							/>
@@ -162,37 +161,37 @@ export default function Reports() {
 										backgroundColor: '#e0e0e0',
 										width: '45px',
 										height: '20px',
-										cursor: "pointer",
+										cursor: 'pointer',
 										fontSize: '12px',
 									}),
 									valueContainer: (provided, state) => ({
 										...provided,
 										width: '75%',
-										position: "absolute",
+										position: 'absolute',
 										top: 0,
-										left: 0
+										left: 0,
 									}),
 									dropdownIndicator: (provided, state) => ({
 										...provided,
 										width: '30px',
-										position: "absolute",
-										cursor: "pointer",
-										top: "0",
-										right: "0"
+										position: 'absolute',
+										cursor: 'pointer',
+										top: '0',
+										right: '0',
 									}),
 									clearIndicator: (provided, state) => ({
 										...provided,
 										width: '30px',
-										position: "absolute",
-										cursor: "pointer",
-										top: "0",
-										right: "25px",
-										fontSize: "12px"
-									  }),
+										position: 'absolute',
+										cursor: 'pointer',
+										top: '0',
+										right: '25px',
+										fontSize: '12px',
+									}),
 									option: (provided) => ({
 										...provided,
 										fontSize: '14px',
-										cursor: "pointer",
+										cursor: 'pointer',
 									}),
 								}}
 								className="react-select"

@@ -105,8 +105,8 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
-			<div className='form_title'>
-				<PopUpTitle type={props.btnType} title='subject'/>
+			<div className="form_title">
+				<PopUpTitle type={props.btnType} title="subject" />
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
@@ -252,7 +252,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					<span className="checkbox__lab">Assessment</span>
 				</label>
 			</div>
-			<PopUpButton type={props.btnType}/>
+			<PopUpButton type={props.btnType} />
 		</form>
 	);
 };

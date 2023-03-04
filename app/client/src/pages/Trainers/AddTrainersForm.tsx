@@ -81,8 +81,8 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
-			<div className='form_title'>
-				<PopUpTitle type={props.btnType} title='trainer' />
+			<div className="form_title">
+				<PopUpTitle type={props.btnType} title="trainer" />
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">

@@ -12,7 +12,6 @@ const reportSlice = createSlice({
 	name: 'report',
 	initialState: initialState,
 	reducers: {
-		
 		getReportAction: (state) => {
 			state.loading = true;
 		},
@@ -44,6 +43,6 @@ export const {
 	getReportSuccesed,
 	sendReportAction,
 	sendReportFailed,
-	sendReportSuccesed
+	sendReportSuccesed,
 } = reportSlice.actions;
 export default reportSlice;

@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { notify } from '../../utils';
-import { ICourse,  Message } from '../../types/courseTypes';
+import { ICourse, Message } from '../../types/courseTypes';
 import { getReportFailed, getReportSuccesed, sendReportFailed, sendReportSuccesed } from './reportSlice';
 
 import {
@@ -36,10 +36,10 @@ function* sendReport(data: ICourse) {
 			throw new Error('Courses get failed');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-		notify(message.message)
+		notify(message.message);
 		yield put(sendReportSuccesed(message));
 	} catch (error: any) {
-		notify(error.message)
+		notify(error.message);
 		yield put(sendReportFailed(error.message));
 	}
 }

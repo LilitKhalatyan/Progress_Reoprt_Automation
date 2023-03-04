@@ -1,4 +1,4 @@
-import { TrainerReport } from "./reportTypes";
+import { TrainerReport } from './reportTypes';
 
 export type TSubject = {
 	id?: number;
@@ -7,7 +7,7 @@ export type TSubject = {
 	staffId: number;
 	max_score: number;
 	weightage?: number | null;
-	trainer_reports?: TrainerReport[]
+	trainer_reports?: TrainerReport[];
 };
 
 export interface SubjectSliceState {
