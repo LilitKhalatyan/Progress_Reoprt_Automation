@@ -156,7 +156,6 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					{...register('select', {
 						required: true,
 					})}
-					// value="value"
 				>
 					<option key={uuid()} value="" disabled selected hidden>
 						Select group name
