@@ -12,13 +12,23 @@ import { coursesSelector } from '../../redux/course/courseSelector';
 import { errorSelector, studentsSelector } from '../../redux/student/studentSelector';
 import { subjectsSelector } from '../../redux/subject/subjectSelector';
 import { authSelector } from '../../redux/auth/authSelector';
-import { getAllSubjectAction, subjectReset } from '../../redux/subject/subjectSlice';
+import {
+	getAllSubjectAction,
+	getSubjectByCourseAction,
+	subjectReset,
+} from '../../redux/subject/subjectSlice';
 import { courseReset, getAllCoursesAction } from '../../redux/course/courseSlice';
-import { getAllStudentsAction, studentReset } from '../../redux/student/studentSlice';
+import {
+	getAllStudentsAction,
+	getStudentByCourseAction,
+	studentReset,
+} from '../../redux/student/studentSlice';
 
-import './reports.scss'
+import './reports.scss';
+import { getReportAction } from '../../redux/report/reportSlice';
 
 export default function Reports() {
+	const { searchParams, setSearchParams } = useQueryParams();
 	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
 	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
 	const [loading, setLoading] = useState(true);
@@ -29,16 +39,17 @@ export default function Reports() {
 	const students = useSelector(studentsSelector);
 
 	const navigate = useNavigate();
-	
+
 	const dispatch = useDispatch();
 	const auth = useSelector(authSelector);
-	
+
 	useEffect(() => {
 		if (auth && localStorage.getItem('user')) {
 			dispatch(getAllSubjectAction());
 			dispatch(getAllCoursesAction());
 			dispatch(getAllStudentsAction());
 		}
+		// localStorage.removeItem('reports');
 		return () => {
 			dispatch(subjectReset());
 			dispatch(courseReset());
@@ -47,7 +58,7 @@ export default function Reports() {
 	}, []);
 
 	const subjectsOptions = subjects.map((item) => {
-		return { value: item.name, label: item.name, id: item.id };
+		return { value: item.name, label: item.name, id: item.id, staffId: item.staffId };
 	});
 
 	const coursesOptions = courses.map((item) => {
@@ -56,14 +67,35 @@ export default function Reports() {
 
 	const handleSubjectsChange = (subjectsSelectedOption: any) => {
 		setSubjectsSelectedOption(subjectsSelectedOption);
+		const data = subjectsSelectedOption.reduce(
+			(acc: any, el: any) => {
+				acc[0].push(+el.id);
+				acc[1].push(+el.staffId);
+				acc[1] = [...Array.from(new Set(acc[1]))];
+				return acc;
+			},
+			[[], []]
+		);
+		setSearchParams({ subject: data[0], staff: data[1] });
 	};
 
 	const handleCoursesChange = (coursesSelectedOption: any) => {
 		setCoursesSelectedOption(coursesSelectedOption);
+		console.log(coursesSelectedOption);
+		if (coursesSelectedOption.id === 'All') {
+			dispatch(getAllSubjectAction());
+			dispatch(getAllCoursesAction());
+			dispatch(getAllStudentsAction());
+			return;
+		}
+		dispatch(getSubjectByCourseAction(coursesSelectedOption.id));
+		dispatch(getStudentByCourseAction(coursesSelectedOption.id));
 	};
+	function formatOptionLabel(subjectsOptions: any) {
+		return <div title={subjectsOptions.label}>{subjectsOptions.label}</div>;
+	}
 
-	const { searchParams, setSearchParams } = useQueryParams();
-	console.log(searchParams);
+	// console.log(searchParams);
 
 	return (
 		<motion.div
@@ -90,12 +122,22 @@ export default function Reports() {
 							<Select
 								value={coursesSelectedOption}
 								onChange={handleCoursesChange}
-								options={coursesOptions}
+								options={[{ value: 'All', label: 'All', id: 'All' }, ...coursesOptions]}
 								styles={{
 									control: (baseStyles, state) => ({
 										...baseStyles,
 										border: state.isFocused ? 0 : 0,
 										boxShadow: '0 !important',
+									}),
+									dropdownIndicator: (provided, state) => ({
+										...provided,
+										width: '30px',
+										cursor: 'pointer',
+									}),
+									option: (provided, state) => ({
+										...provided,
+										cursor: 'pointer',
+										fontSize: '12px',
 									}),
 								}}
 								className="react-select"
@@ -104,17 +146,56 @@ export default function Reports() {
 								value={subjectsSelectedOption}
 								onChange={handleSubjectsChange}
 								options={subjectsOptions}
+								formatOptionLabel={formatOptionLabel}
 								isMulti
 								styles={{
 									control: (baseStyles, state) => ({
 										...baseStyles,
 										border: state.isFocused ? 0 : 0,
 										boxShadow: '0 !important',
+										height: 30,
+										overflowY: 'auto',
+									}),
+									multiValue: (provided) => ({
+										...provided,
+										backgroundColor: '#e0e0e0',
+										width: '45px',
+										height: '20px',
+										cursor: 'pointer',
+										fontSize: '12px',
+									}),
+									valueContainer: (provided, state) => ({
+										...provided,
+										width: '75%',
+										position: 'absolute',
+										top: 0,
+										left: 0,
+									}),
+									dropdownIndicator: (provided, state) => ({
+										...provided,
+										width: '30px',
+										position: 'absolute',
+										cursor: 'pointer',
+										top: '0',
+										right: '0',
+									}),
+									clearIndicator: (provided, state) => ({
+										...provided,
+										width: '30px',
+										position: 'absolute',
+										cursor: 'pointer',
+										top: '0',
+										right: '25px',
+										fontSize: '12px',
+									}),
+									option: (provided) => ({
+										...provided,
+										fontSize: '14px',
+										cursor: 'pointer',
 									}),
 								}}
 								className="react-select"
 							/>
-
 						</div>
 					</div>
 					<hr />
@@ -151,12 +232,23 @@ export default function Reports() {
 												</div>
 												<div className="edit-grp">
 													<Button
-														value='Create report'
+														value="Create report"
 														className=" create-btn"
 														title="Create report"
+														dataId={item.id}
 														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-															console.log(e.currentTarget)
-															navigate('/send-report')
+															console.log(e.currentTarget.dataset.id);
+															localStorage.setItem(
+																'reports',
+																JSON.stringify({
+																	subject: searchParams.subject,
+																	staff: searchParams.staff,
+																	student: e.currentTarget.dataset.id,
+																})
+															);
+															navigate('/send-report');
+
+															// dispatch(getReportAction(JSON.parse(localStorage.getItem('reports') || '')));
 														}}
 														// onClick={() => setSearchParams({ asd: [1, 2, 3], dsa: [1], vvv: 'vvv' })}
 													/>
@@ -165,19 +257,9 @@ export default function Reports() {
 										);
 									})}
 								</>
-							) : (
-								null
-							)}
-							{loading && !error ? (
-								<Spinner loading={setLoading} />
-							) : (
-								null
-							)}
-							{error ? (
-								<ErrorMessage message="Students get failed" />
-							) : (
-								null
-							)}
+							) : null}
+							{loading && !error ? <Spinner loading={setLoading} /> : null}
+							{error ? <ErrorMessage message="Students get failed" /> : null}
 						</div>
 					</div>
 					<hr />

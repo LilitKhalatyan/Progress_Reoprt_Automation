@@ -72,8 +72,8 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
-			<div className='form_title'>
-				<PopUpTitle type={props.btnType} title='student'/>
+			<div className="form_title">
+				<PopUpTitle type={props.btnType} title="student" />
 			</div>
 			<div className="input__grp">
 				<label htmlFor="name" className="input">
@@ -177,7 +177,7 @@ const AddStudentsForm: React.FC<IProps> = (props) => {
 					</>
 				) : null}
 			</div>
-			<PopUpButton type={props.btnType}/>
+			<PopUpButton type={props.btnType} />
 		</form>
 	);
 };

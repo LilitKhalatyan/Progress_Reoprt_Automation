@@ -7,6 +7,7 @@ import saga from '../redux/saga';
 import trainerSlice from '../redux/trainer/trainerSlice';
 import studentSlice from '../redux/student/studentSlice';
 import subjectSlice from '../redux/subject/subjectSlice';
+import reportSlice from '../redux/report/reportSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,6 +18,7 @@ const store = configureStore({
 		[trainerSlice.name]: trainerSlice.reducer,
 		[subjectSlice.name]: subjectSlice.reducer,
 		[courseSlice.name]: courseSlice.reducer,
+		[reportSlice.name]: reportSlice.reducer,
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({

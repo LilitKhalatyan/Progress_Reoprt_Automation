@@ -1,3 +1,5 @@
+import { TrainerReport } from './reportTypes';
+
 export type TSubject = {
 	id?: number;
 	name: string;
@@ -5,6 +7,7 @@ export type TSubject = {
 	staffId: number;
 	max_score: number;
 	weightage?: number | null;
+	trainer_reports?: TrainerReport[];
 };
 
 export interface SubjectSliceState {

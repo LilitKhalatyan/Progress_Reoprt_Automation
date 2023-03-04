@@ -70,11 +70,15 @@ import {
 } from './subject/subjectSaga';
 import { loginAction, logoutAction, refreshAction, updateProfileAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser, updateProfile } from './auth/authSaga';
+import { getReportAction, sendReportAction } from './report/reportSlice';
+import { getReport, sendReport } from './report/reportSaga';
 
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
 	yield takeEvery(refreshAction.type, getAllData);
 	yield takeEvery(logoutAction.type, logoutUser);
+	yield takeEvery(getReportAction.type, getReport);
+	yield takeEvery(sendReportAction.type, sendReport);
 	yield takeLatest(createCourseAction.type, createCourse);
 	yield takeLatest(getAllCoursesAction.type, getCoursesData);
 	yield takeEvery(getTrainerByIdAction.type, getTrainerById);

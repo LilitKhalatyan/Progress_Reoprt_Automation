@@ -12,7 +12,7 @@ const TrainerLayout: React.FC = () => {
 	if (user.roles !== 'USER') {
 		return (
 			<LayoutWrapper>
-				<ErrorMessage message="Access Denied"/>
+				<ErrorMessage message="Access Denied" />
 			</LayoutWrapper>
 		);
 	} else {
