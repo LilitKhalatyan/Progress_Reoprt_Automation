@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { motion } from 'framer-motion';
 import Button from '../Button/Button';
-import './studentList.scss';
 import { TCourse } from '../../types/courseTypes';
 import { TSubject } from '../../types/subjectTypes';
 import { TStudent } from '../../types/studentTypes';
+import { useSelector } from 'react-redux';
+import { coursesSelector, errorSelector, messageSelector } from '../../redux/course/courseSelector';
+import { subjectsSelector } from '../../redux/subject/subjectSelector';
+import './studentList.scss';
 
 interface IProps {
-	data: TCourse[] | TSubject[] | TStudent[];
 	title: string;
+	componentId: string
+}
+export interface IData {
+	data: {
+		data: TCourse[] | TSubject[] | TStudent[];
+		message: {}
+		error: boolean
+	}
 }
 
 const StudentListElement: React.FC<IProps> = (props) => {
+	const { componentId, title} = props;
 
-	const { data, title} = props;
+	const setState = (id: string) => {
+		if (id === "courses") {
+			return ({
+				data: useSelector(coursesSelector),
+				message: useSelector(messageSelector),
+				error: useSelector(errorSelector)
+			})
+		}
+	}
+
+	useEffect(() => {const dataBig = setState(componentId)}, [])
+
+	// const courses = useSelector(coursesSelector);
+	// const subjects = useSelector(subjectsSelector);
+
+
 
 	return (
 		<motion.div
@@ -34,15 +60,16 @@ const StudentListElement: React.FC<IProps> = (props) => {
 								{/* {!loading && !error ? ( */}
 								<>
 									<div className="items-title__wrapper">
-										{/* <div className="items-title">
-												<span>{data[0]?.name ? 'name' : null}</span>
-												<span>{data[0]?.surname ? 'surname' : null}</span>
+										<div className="items-title">
+												{/* <span>{data[0]?.data.name ? 'name' : null}</span> */}
+												{/* <span>{data[0]?.startDate ? 'name' : null}</span> */}
+												{/* <span>{data[0]?.surname ? 'surname' : null}</span>
 												<span>{data[0]?.attendance ? 'attendance' : null}</span>
 												<span>{data[0]?.score ? 'score' : null}</span>
-												<span>{data[0]?.comment ? 'comment' : null}</span>
-											</div> */}
+												<span>{data[0]?.comment ? 'comment' : null}</span> */}
+											</div>
 									</div>
-									{data.map((item) => {
+									{dataBig.map((item) => {
 											return (
 												<motion.div
 													initial={{ opacity: 0 }}

@@ -12,7 +12,7 @@ import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
-import TrainersHomepage from './pages/TrainerHome/TrainersHomepage';
+import TrainerReports from './pages/TrainerReports/TrainerReports';
 import PageNotFound from './pages/NotFound/PageNotFound';
 import TrainerCourses from './pages/TrainerCourses/trainerCourses';
 import TrainerSubjects from './pages/TrainerSubjects/trainerSubjects';
@@ -45,7 +45,7 @@ function App() {
 								<Route path="/trainer/courses" element={<TrainerCourses />} />
 								<Route path="/trainer/subjects" element={<TrainerSubjects />} />
 								<Route path="/trainer/students" element={<TrainerStudents />} />
-								<Route path="/trainer/reports" element={<TrainersHomepage />} />
+								<Route path="/trainer/reports" element={<TrainerReports />} />
 							</Route>
 						</Route>
 						<Route path="*" element={<PageNotFound />} />

@@ -68,7 +68,7 @@ function* getStudentsDataByCourse(data: ICourseId) {
 	}
 }
 // --start
-function* getStudentsDataByTrainerId(data: ICourseId) {
+function* getStudentsDataByTrainerId(data: IStudentId) {
 	try {
 		const response: Response = yield call(getAllStudentsByTrainerIdService, data.payload);
 		if (!response.ok) {

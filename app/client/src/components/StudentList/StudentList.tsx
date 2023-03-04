@@ -109,7 +109,7 @@ const StudentList: React.FC<IProps> = (props) => {
 							</motion.select>
 						</div>
 					</div>
-					<StudentListElement data={students} title={'Students'} />
+					<StudentListElement title='Students' componentId='students'/>
 					<hr />
 				</div>
 			</div>

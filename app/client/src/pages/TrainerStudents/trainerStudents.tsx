@@ -6,17 +6,17 @@ import { studentsSelector } from '../../redux/student/studentSelector';
 import { getStudentsByTrainerIdAction } from '../../redux/student/studentSlice';
 
 const TrainerStudents: React.FC = () => {
-	const user = useSelector(userSelector);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getStudentsByTrainerIdAction(user.id));
-	}, []);
-	const students = useSelector(studentsSelector);
-	console.log(user.id)
-	console.log(students)
+	// const user = useSelector(userSelector);
+	// const dispatch = useDispatch();
+	// useEffect(() => {
+	// 	dispatch(getStudentsByTrainerIdAction(user.id));
+	// }, []);
+	// const students = useSelector(studentsSelector);
+	// console.log(user.id)
+	// console.log(students)
 	return (
 		<>
-			<StudentListElement title="All Students" data={students} />
+			{/* <StudentListElement title="All Students" data={students} /> */}
 		</>
 	);
 };
