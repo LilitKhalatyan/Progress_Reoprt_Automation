@@ -31,6 +31,9 @@
         letter-spacing: .1rem;
         background-color: #f3f1f1;
     }
+    .th-result.th-2 {
+        width: 33%;
+    }
     .td-assessment {
         width: 50%;
     }
@@ -38,6 +41,9 @@
         border: 1px solid grey;
         padding: 2px;
     }
+}
+.homework-result.hide-result {
+    display: none;
 }
 .feedback__content {
     width: 100%;
@@ -93,7 +99,18 @@
 	}
 }
 .react-select {
-	width: 100%;
+    width: 100%;
+	// width: auto;
 	border: 1px solid rgba(80, 80, 150, 0.3);
 	border-radius: 4px;
 }
+.remove-all-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+// #react-select-5-listbox {
+//     position: absolute;
+//     top: 0;
+//     z-index: 5555;
+// }

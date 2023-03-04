@@ -16,8 +16,8 @@ const {
 
 const getFinalReport = async (req, res) => {
   try {
-    const { subjectsId, studentId, staffsId } = req.body;
-    const report = await getData(subjectsId, studentId, staffsId);
+    const { subject, student, staff } = req.body;
+    const report = await getData(subject, student, staff);
     if (!report) {
       res.status(404).send({ message: "final reports not found" });
     }
@@ -30,8 +30,9 @@ const getFinalReport = async (req, res) => {
 //TODO this function is responsible for sending the final report to the student
 const sendFinalReport = async (req, res) => {
   try {
-    const { subjectsId, studentId, staffsId } = req.body;
-    const finalInfo = await getData(subjectsId, studentId, staffsId);
+    const { subject, student, staff } = req.body;
+    const finalInfo = await getData(subject, student, staff);
+    console.log(finalInfo);
     const report = await reportGenerator(finalInfo);
     res.status(200).send({ message: "report send successfuly" });
   } catch (error) {
@@ -43,7 +44,7 @@ const getFinalAssessmentScore = async (data) => {
   try {
     let finalAssessmentPass = 0;
     [...data[2]].forEach((el, i) => {
-      finalAssessmentPass += sum = el.subjects.reduce((acc, el) => {
+      finalAssessmentPass += el.subjects.reduce((acc, el) => {
         return (
           acc +
           (el.weightage *
@@ -94,6 +95,7 @@ const getFeedback = async (data) => {
 const reportGenerator = async (finalInfo) => {
   //TODO this function is responsible for generating the final report
   try {
+    console.log(finalInfo);
     const date = new Date();
     const dataOptions = {
       weekday: "long",

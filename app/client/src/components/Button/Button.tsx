@@ -8,10 +8,11 @@ interface IProps extends React.HTMLAttributes<HTMLInputElement> {
 	name?: string;
 	onClick?: ((e: any) => void) | undefined;
 	getID?: React.Dispatch<React.SetStateAction<any>>;
+	sendReport?: () => void;
 }
 
 const Button: React.FC<IProps> = (props) => {
-	const { className, value, title, src, onClick, dataId, name, getID } = props;
+	const { className, value, title, src, onClick, dataId, name, getID, sendReport } = props;
 
 	if (src) {
 		return (
@@ -36,6 +37,7 @@ const Button: React.FC<IProps> = (props) => {
 				onClick={(e) => {
 					if (onClick) onClick(e);
 					if (getID) getID(e.currentTarget.dataset.dataId);
+					if (sendReport) sendReport();
 				}}
 				name={name}
 			>
