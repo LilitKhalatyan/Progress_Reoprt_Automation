@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { motion } from 'framer-motion';
-import { TCourse } from '../../types/courseTypes';
 import AddItem from '../../components/AddItem/AddItem';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import Button from '../Button/Button';
@@ -11,33 +10,19 @@ import Spinner from '../Spinner/Spinner';
 import addIcon from '../../asset/images/pages/add.png';
 import editIcon from '../../asset/images/pages/edit.png';
 import deleteIcon from '../../asset/images/pages/delete.png';
+import { IProps } from '../../types/userListTypes';
 
 import './usersList.scss';
-
-interface IProps {
-	data: {
-		id?: number;
-		name: string;
-		surname?: string;
-		email?: string;
-		groupId?: number;
-		startDate?: string;
-		endDate?: string;
-		courseId?: number;
-		staffId?: number;
-	}[];
-	title: string;
-	display: boolean;
-	setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-	onDelete: (id: any) => void;
-	getDataById: (id: any) => void;
-	onSelect: (id: any) => void;
-	loading: boolean;
-	error?: boolean;
-	message?: any;
-	titles?: TCourse[];
-	selectedValue?: string;
-}
+import { opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
+import {
+	userListAnimate,
+	userListExit,
+	userListInitial,
+	userListTransit,
+	userListTransition,
+	userListTransit_2,
+	userListTransit_2_5,
+} from '../../utils/motion/userList';
 
 const UsersList: React.FC<IProps> = (props) => {
 	const [loading, setLoading] = useState(true);
@@ -46,19 +31,19 @@ const UsersList: React.FC<IProps> = (props) => {
 	const { data, display, setDisplay, onDelete, getDataById, onSelect, error, message, selectedValue } = props;
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 2, delay: 0.5 }}
+			initial={opacity_0}
+			animate={opacity_1}
+			exit={opacity_0}
+			transition={userListTransit}
 			className="users__container"
 		>
 			<div className="users__content">
 				<div className="wrapper-line">
 					<motion.h2
-						initial={{ x: '-50vw', opacity: 0 }}
-						animate={{ x: 0, opacity: 1 }}
-						exit={{ x: '-50vw' }}
-						transition={{ type: 'easeInOut', stiffness: 150, damping: 40, duration: 1, delay: 0.5 }}
+						initial={userListInitial}
+						animate={userListAnimate}
+						exit={userListExit}
+						transition={userListTransition}
 						className="main-title"
 					>
 						{props.title}
@@ -66,18 +51,18 @@ const UsersList: React.FC<IProps> = (props) => {
 					<div className="users__header">
 						<div className="head-filter__grp">
 							<motion.input
-								initial={{ x: '-50vw', opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								exit={{ x: '-50vw' }}
-								transition={{ type: 'easeInOut', stiffness: 150, damping: 40, duration: 2, delay: 0.5 }}
+								initial={userListInitial}
+								animate={userListAnimate}
+								exit={userListExit}
+								transition={userListTransit_2}
 								type="text"
 								className="users-search"
 							/>
 							<motion.select
-								initial={{ x: '-50vw', opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								exit={{ x: '-50vw' }}
-								transition={{ type: 'easeInOut', stiffness: 120, damping: 40, duration: 2, delay: 0.2 }}
+								initial={userListInitial}
+								animate={userListAnimate}
+								exit={userListExit}
+								transition={userListTransit_2}
 								name=""
 								id=""
 								className="users-sort"
@@ -127,16 +112,10 @@ const UsersList: React.FC<IProps> = (props) => {
 										{data.map((item) => {
 											return (
 												<motion.div
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 1 }}
-													exit={{ opacity: 0 }}
-													transition={{
-														type: 'easeOut',
-														stiffness: 120,
-														damping: 20,
-														duration: 2.5,
-														delay: 0.2,
-													}}
+													initial={opacity_0}
+													animate={opacity_1}
+													exit={opacity_0}
+													transition={userListTransit_2_5}
 													className="list-item"
 													key={uuid()}
 												>

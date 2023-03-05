@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import { userSelector } from '../../redux/auth/authSelector';
 import { updateProfileAction } from '../../redux/auth/authSlice';
+import { settingInit, settingInit_, settingTransit } from '../../utils/motion/setttingForm';
+import { userListAnimate } from '../../utils/motion/userList';
 
 const SettingsForm: React.FC = () => {
 	const user = useSelector(userSelector);
@@ -52,10 +54,10 @@ const SettingsForm: React.FC = () => {
 	return (
 		<form className="add-group-form__content" onSubmit={handleSubmit(onSubmit, onFail)}>
 			<motion.div
-				initial={{ x: '-100vw', opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
+				initial={settingInit}
+				animate={userListAnimate}
 				exit={{ x: '-100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
+				transition={settingTransit}
 				className="input__grp"
 			>
 				<label htmlFor="name" className="input">
@@ -83,10 +85,10 @@ const SettingsForm: React.FC = () => {
 				) : null}
 			</motion.div>
 			<motion.div
-				initial={{ x: '100vw', opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
+				initial={settingInit_}
+				animate={userListAnimate}
 				exit={{ x: '100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
+				transition={settingTransit}
 				className="input__grp"
 			>
 				<label htmlFor="surname" className="input">
@@ -114,10 +116,10 @@ const SettingsForm: React.FC = () => {
 				) : null}
 			</motion.div>
 			<motion.div
-				initial={{ x: '-100vw', opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
+				initial={settingInit}
+				animate={userListAnimate}
 				exit={{ x: '-100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
+				transition={settingTransit}
 				className="input__grp"
 			>
 				<label htmlFor="email" className="input">
@@ -145,10 +147,10 @@ const SettingsForm: React.FC = () => {
 				) : null}
 			</motion.div>
 			<motion.div
-				initial={{ x: '100vw', opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
+				initial={settingInit_}
+				animate={userListAnimate}
 				exit={{ x: '100vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
+				transition={settingTransit}
 				className="input__grp"
 			>
 				<label htmlFor="newPassword" className="input">
@@ -176,10 +178,10 @@ const SettingsForm: React.FC = () => {
 				) : null}
 			</motion.div>
 			<motion.div
-				initial={{ x: '-80vw', opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
-				exit={{ x: '-80vw' }}
-				transition={{ type: 'easeInOut', stiffness: 120, damping: 30, duration: 1.5, delay: 0.5 }}
+				initial={settingInit_}
+				animate={userListAnimate}
+				exit={{ x: '-100vw' }}
+				transition={settingTransit}
 				className="input__grp"
 			>
 				<label htmlFor="oldPassword" className="input">

@@ -4,13 +4,15 @@ import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ErrorMessage } from '@hookform/error-message';
 
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../asset/images/logo.svg';
 
 import './loginForm.scss';
 import { authState } from '../../types/authTypes';
 import { loginAction } from '../../redux/auth/authSlice';
 import { motion } from 'framer-motion';
+import { togglePassVisibility } from '../../utils/helpers/togglePassVisibility';
+import { loginTransit, opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
 
 const LoginForm: React.FC = () => {
 	const dispatch = useDispatch();
@@ -18,17 +20,6 @@ const LoginForm: React.FC = () => {
 		icon: faEyeSlash,
 		type: 'password',
 	});
-
-	const togglePassVisibility = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		e.preventDefault();
-		setPassVisibile((prevState) => {
-			if (prevState.icon === faEyeSlash) {
-				return { icon: faEye, type: 'text' };
-			}
-			return { icon: faEyeSlash, type: 'password' };
-		});
-	};
-
 	const {
 		register,
 		formState: { errors },
@@ -48,10 +39,10 @@ const LoginForm: React.FC = () => {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 1.5, delay: 1, type: 'easeInOut' }}
+			initial={opacity_0}
+			animate={opacity_1}
+			exit={opacity_0}
+			transition={loginTransit}
 			className="login-form__container"
 		>
 			<div className="login-form__content">
@@ -89,7 +80,7 @@ const LoginForm: React.FC = () => {
 						)}
 						<ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />
 					</div>
-					<button className="fa-eye-btn" onClick={(e) => togglePassVisibility(e)}>
+					<button className="fa-eye-btn" onClick={(e) => togglePassVisibility(e, setPassVisibile)}>
 						<FontAwesomeIcon icon={isPassVisibile.icon} size="lg" />
 					</button>
 					<button type="submit" className="login-btn">

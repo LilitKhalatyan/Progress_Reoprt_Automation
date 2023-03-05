@@ -56,6 +56,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 			dispatch(updateSubjectByIdAction(finalData));
 			props.setShow(false);
 		}
+		setCheckbox(false);
 		reset({ name: '', selectTrainer: 'default', selectGroup: 'default', balls: '', weightage: '' });
 	};
 	const onFail = (error: any) => {
@@ -245,6 +246,7 @@ const AddSubjectsForm: React.FC<IProps> = (props) => {
 					<input
 						type="checkbox"
 						id="isAssessment"
+						checked={checkbox}
 						defaultChecked={checkbox}
 						className="input__fiel"
 						onChange={() => setCheckbox(!checkbox)}

@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import authSlice from '../redux/auth/authSlice';
-import courseSlice from '../redux/course/courseSlice';
+import authSlice from '../auth/authSlice';
+import courseSlice from '../course/courseSlice';
 
-import saga from '../redux/saga';
-import trainerSlice from '../redux/trainer/trainerSlice';
-import studentSlice from '../redux/student/studentSlice';
-import subjectSlice from '../redux/subject/subjectSlice';
-import reportSlice from '../redux/report/reportSlice';
+import saga from '../saga';
+import trainerSlice from '../trainer/trainerSlice';
+import studentSlice from '../student/studentSlice';
+import subjectSlice from '../subject/subjectSlice';
+import reportSlice from '../report/reportSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 

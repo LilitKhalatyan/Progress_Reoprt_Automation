@@ -4,45 +4,21 @@ import Button from '../../components/Button/Button';
 import useQueryParams from '../../hooks/useQueryParams';
 import { reportSelector } from '../../redux/report/reportSelector';
 import { sendReportAction, getReportAction } from '../../redux/report/reportSlice';
+import { calcFinalAssessmentScore } from '../../utils/helpers/calcFinalAssessmentScore';
+import { calcFinalAttendance } from '../../utils/helpers/calcFinalAttendance';
 
 import './reports.scss';
-
-const getFinalAssessmentScore = (data: any) => {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	let finalAssessmentPass = 0;
-	data?.[2]?.forEach((el: any) => {
-		finalAssessmentPass += el.subjects.reduce((acc: number, el: any) => {
-			return acc + (el.weightage * ((el.trainer_reports[0].graduate * 100) / el.max_score)) / 100;
-		}, 0);
-	});
-	return finalAssessmentPass;
-};
-
-const getFinalAttendance = (data: any) => {
-	let count = 0;
-	let sum = 0;
-	data?.[1]
-		?.map((el: any) => {
-			let sum = el.subjects.reduce((acc: number, el: any) => {
-				return acc + el.trainer_reports[0].attendance;
-			}, 0);
-			return [sum, el.subjects.length];
-		})
-		.forEach((el: any) => {
-			count += el[1];
-			sum += el[0];
-		});
-	return isNaN(sum / count) ? 0 + '%' : sum / count + '%';
-};
 
 const SendReports: React.FC = (props: any) => {
 	const [visible, setVisible] = useState(true);
 	const { searchParams, setSearchParams } = useQueryParams();
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		setSearchParams(JSON.parse(localStorage.getItem('reports') || ''));
 		dispatch(getReportAction(JSON.parse(localStorage.getItem('reports') || '')));
 	}, []);
+
 	const report = useSelector(reportSelector);
 	console.log(report);
 	let hide = visible ? 'hide-result' : '';
@@ -63,11 +39,11 @@ const SendReports: React.FC = (props: any) => {
 							<td colSpan={1} className="td-assessment">
 								Assessment
 							</td>
-							<td colSpan={1}>{`100 / ${getFinalAssessmentScore(report)}`}</td>
+							<td colSpan={1}>{`100 / ${calcFinalAssessmentScore(report)}`}</td>
 						</tr>
 						<tr>
 							<td colSpan={1}>Attendance</td>
-							<td colSpan={1}>{`100% / ${getFinalAttendance(report)}`}</td>
+							<td colSpan={1}>{`100% / ${calcFinalAttendance(report)}`}</td>
 						</tr>
 					</thead>
 				</table>
@@ -78,8 +54,6 @@ const SendReports: React.FC = (props: any) => {
 								colSpan={3}
 								className="th-result"
 								onClick={(e) => {
-									console.log(e);
-
 									setVisible(!visible);
 								}}
 							>

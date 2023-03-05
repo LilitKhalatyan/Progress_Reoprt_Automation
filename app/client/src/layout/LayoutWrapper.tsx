@@ -2,14 +2,15 @@ import { motion } from 'framer-motion';
 import { PropsWithChildren } from 'react';
 import Header from '../components/Header/Header';
 import LeftMenu from '../components/LeftMenu/LeftMenu';
+import { layoutWrapTransit, opacity_0, opacity_1 } from '../utils/motion/commonObjects';
 
 const LayoutWrapper: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 1, delay: 1, type: 'easeInOut' }}
+			initial={opacity_0}
+			animate={opacity_1}
+			exit={opacity_0}
+			transition={layoutWrapTransit}
 			className="main__container"
 		>
 			<Header />

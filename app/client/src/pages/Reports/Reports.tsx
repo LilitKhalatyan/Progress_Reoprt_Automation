@@ -26,6 +26,15 @@ import {
 
 import './reports.scss';
 import { getReportAction } from '../../redux/report/reportSlice';
+import { opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
+import {
+	userListAnimate,
+	userListExit,
+	userListInitial,
+	userListTransit,
+	userListTransition,
+	userListTransit_2_5,
+} from '../../utils/motion/userList';
 
 export default function Reports() {
 	const { searchParams, setSearchParams } = useQueryParams();
@@ -99,19 +108,19 @@ export default function Reports() {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 2, delay: 0.5 }}
+			initial={opacity_0}
+			animate={opacity_1}
+			exit={opacity_0}
+			transition={userListTransit}
 			className="users__container"
 		>
 			<div className="users__content">
 				<div className="wrapper-line">
 					<motion.h2
-						initial={{ x: '-50vw', opacity: 0 }}
-						animate={{ x: 0, opacity: 1 }}
-						exit={{ x: '-50vw' }}
-						transition={{ type: 'easeInOut', stiffness: 150, damping: 40, duration: 1, delay: 0.5 }}
+						initial={userListInitial}
+						animate={userListAnimate}
+						exit={userListExit}
+						transition={userListTransition}
 						className="main-title"
 						style={{ margin: '0 0 12px 0' }}
 					>
@@ -213,16 +222,10 @@ export default function Reports() {
 									{students.map((item) => {
 										return (
 											<motion.div
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 1 }}
-												exit={{ opacity: 0 }}
-												transition={{
-													type: 'easeOut',
-													stiffness: 120,
-													damping: 20,
-													duration: 2.5,
-													delay: 0.2,
-												}}
+												initial={opacity_0}
+												animate={opacity_1}
+												exit={opacity_0}
+												transition={userListTransit_2_5}
 												className="list-item"
 											>
 												<div className="info-grp">
@@ -237,7 +240,6 @@ export default function Reports() {
 														title="Create report"
 														dataId={item.id}
 														onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-															console.log(e.currentTarget.dataset.id);
 															localStorage.setItem(
 																'reports',
 																JSON.stringify({
@@ -247,10 +249,7 @@ export default function Reports() {
 																})
 															);
 															navigate('/send-report');
-
-															// dispatch(getReportAction(JSON.parse(localStorage.getItem('reports') || '')));
 														}}
-														// onClick={() => setSearchParams({ asd: [1, 2, 3], dsa: [1], vvv: 'vvv' })}
 													/>
 												</div>
 											</motion.div>
