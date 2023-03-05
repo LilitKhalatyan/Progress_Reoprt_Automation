@@ -23,4 +23,5 @@ export interface IProps {
 	message?: any;
 	titles?: TCourse[];
 	selectedValue?: string;
+	hideElement?: string;
 }
