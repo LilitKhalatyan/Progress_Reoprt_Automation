@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import useQueryParams from '../../hooks/useQueryParams';
+import { updateReportByAdmin } from '../../redux/report/reportSaga';
 import { reportSelector } from '../../redux/report/reportSelector';
-import { sendReportAction, getReportAction } from '../../redux/report/reportSlice';
+import { sendReportAction, getReportAction, updateReportByAdminAction } from '../../redux/report/reportSlice';
 import { calcFinalAssessmentScore } from '../../utils/helpers/calcFinalAssessmentScore';
 import { calcFinalAttendance } from '../../utils/helpers/calcFinalAttendance';
+// import
 
 import './reports.scss';
 
@@ -93,9 +95,23 @@ const SendReports: React.FC = (props: any) => {
 						{report?.[2]?.map((i: any, iIndex: number) => {
 							return i.subjects.map((item: any, itemIndex: number) => {
 								return (
-									<textarea name="" id="" cols={30} rows={5}>
-										{item.trainer_reports[0].comment}
-									</textarea>
+									<div className="area-grp">
+										<textarea name="" id="" cols={30} rows={5}>
+											{item.trainer_reports[0].comment}
+										</textarea>
+										<Button
+											value="Update Feedback"
+											className="create-btn"
+											updateReport={(e: any) => {
+												dispatch(
+													updateReportByAdminAction({
+														id: item.trainer_reports?.[0].id,
+														edited_comment: e.target.previousElementSibling.value,
+													})
+												);
+											}}
+										/>
+									</div>
 								);
 							});
 						})}

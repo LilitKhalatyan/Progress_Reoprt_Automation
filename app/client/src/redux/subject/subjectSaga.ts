@@ -95,9 +95,6 @@ function* getSubjectsByTrainerId(data: ISubjectId) {
 }
 // -- end
 
-
-
-
 function* updateSubjectById(data: ISubject) {
 	try {
 		const response: Response = yield call(updateSubjectByIdService, data.payload);

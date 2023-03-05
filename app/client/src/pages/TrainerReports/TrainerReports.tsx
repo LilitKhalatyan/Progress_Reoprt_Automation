@@ -1,29 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
-import { userSelector } from '../../redux/auth/authSelector';
+import { authSelector, userSelector } from '../../redux/auth/authSelector';
 import { coursesSelector } from '../../redux/course/courseSelector';
-import { errorSelector, loadingSelector, messageSelector, studentsSelector } from '../../redux/student/studentSelector';
-import { getStudentByCourseAction, getStudentsByTrainerIdAction } from '../../redux/student/studentSlice';
+import { courseReset } from '../../redux/course/courseSlice';
+import {
+	errorSelector,
+	loadingSelector,
+	messageSelector,
+	studentsSelector,
+} from '../../redux/student/studentSelector';
+import {
+	getStudenstByCoursesAction,
+	getStudentByCourseAction,
+	getStudentsByTrainerIdAction,
+	studentReset,
+} from '../../redux/student/studentSlice';
 
 const TrainerReports: React.FC = () => {
 	const dispatch = useDispatch();
-
+	const [selectedValue, setSelectedValue] = useState('all');
+	const [displayAdd, setDisplayAdd] = useState(false);
 	const courses = useSelector(coursesSelector);
-
 	const courseIds: any = [];
-	courses.map(elem => courseIds.push(elem.id))
-
-	useEffect(() => {
-		dispatch(getStudentByCourseAction(courseIds));
-	}, []);
+	courses.map((elem) => courseIds.push(elem.id));
 	const students = useSelector(studentsSelector);
 	const loading = useSelector(loadingSelector);
 	const error = useSelector(errorSelector);
 	const message = useSelector(messageSelector);
-
-
-	const [displayAdd, setDisplayAdd] = useState(false);
+	const auth = useSelector(authSelector);
+	useEffect(() => {
+		if (auth && localStorage.getItem('user')) {
+			dispatch(getStudenstByCoursesAction(courseIds));
+		}
+		return () => {
+			dispatch(studentReset());
+		};
+	}, [courses]);
 
 	const handleDelete = (id: any) => {
 		// dispatch(deleteCourseByIdAction(id));
@@ -32,12 +45,20 @@ const TrainerReports: React.FC = () => {
 		// dispatch(getCourseByIdAction(id));
 	};
 	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		// setSelect(e.target.value);
+		console.log(e.target.value, courseIds);
+		if (e.target.value === 'all') {
+			console.log(e.target.value);
+			dispatch(getStudenstByCoursesAction(courseIds));
+		} else {
+			dispatch(getStudenstByCoursesAction([e.target.value]));
+		}
+		setSelectedValue(e.target.value);
 	};
 	return (
 		<>
 			<UsersList
-				title="Students"
+				title="Report"
+				selectedValue={selectedValue}
 				data={students}
 				loading={loading}
 				error={error}

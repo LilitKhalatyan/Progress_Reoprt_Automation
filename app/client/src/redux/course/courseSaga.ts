@@ -113,4 +113,11 @@ function* deleteCourseById(data: ICourse) {
 	}
 }
 
-export { createCourse, getCoursesData, getCourseById, getCoursesByTrainerId, updateCourseById, deleteCourseById };
+export {
+	createCourse,
+	getCoursesData,
+	getCourseById,
+	getCoursesByTrainerId,
+	updateCourseById,
+	deleteCourseById,
+};

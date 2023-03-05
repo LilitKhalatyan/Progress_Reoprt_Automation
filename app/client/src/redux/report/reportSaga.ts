@@ -2,7 +2,14 @@ import { call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { notify } from '../../utils';
 import { ICourse, Message } from '../../types/courseTypes';
-import { getReportFailed, getReportSuccesed, sendReportFailed, sendReportSuccesed } from './reportSlice';
+import {
+	getReportFailed,
+	getReportSuccesed,
+	sendReportFailed,
+	sendReportSuccesed,
+	updateReportByAdminFailed,
+	updateReportByAdminSuccesed,
+} from './reportSlice';
 
 import {
 	createCourseService,
@@ -11,8 +18,12 @@ import {
 	updateCourseByIdService,
 	deleteCourseByIdService,
 } from '../../services/courseService';
-import { getReportService, sendReportService } from '../../services/reportService';
-import { Data } from '../../types/reportTypes';
+import {
+	getReportService,
+	sendReportService,
+	updateReportByAdminService,
+} from '../../services/reportService';
+import { Data, TypeUpdateReportByAdmin } from '../../types/reportTypes';
 import { TStudent } from '../../types/studentTypes';
 
 function* getReport(data: ICourse) {
@@ -59,4 +70,20 @@ function* sendReport(data: ICourse) {
 // 	}
 // }
 
-export { getReport, sendReport };
+function* updateReportByAdmin(data: TypeUpdateReportByAdmin) {
+	try {
+		console.log(data.payload);
+		const response: Response = yield call(updateReportByAdminService, data.payload);
+		if (!response.ok) {
+			throw new Error('Courses get failed');
+		}
+		const message: Message = yield response.json() as Promise<Message>;
+		notify(message.message);
+		yield put(updateReportByAdminSuccesed(message));
+	} catch (error: any) {
+		notify(error.message);
+		yield put(updateReportByAdminFailed(error.message));
+	}
+}
+
+export { getReport, sendReport, updateReportByAdmin };

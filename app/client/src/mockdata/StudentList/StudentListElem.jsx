@@ -20,16 +20,12 @@
 
 // 	}
 
-
 // const StudentListElement: React.FC<IProps> = (props) => {
 // 	// const { componentId, title} = props;
-
 
 // 	const dataSelector = (componentId === "courses") ? coursesSelector.apply : subjectSelector.apply;
 // 	const data = useSelector(dataSelector)
 // 	console.log(data)
-
-
 
 // 	return (
 // 		<div></div>
