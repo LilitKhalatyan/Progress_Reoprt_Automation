@@ -8,41 +8,27 @@ interface IProps extends React.HTMLAttributes<HTMLInputElement> {
 	name?: string;
 	onClick?: ((e: any) => void) | undefined;
 	getID?: React.Dispatch<React.SetStateAction<any>>;
+	sendReport?: () => void;
 }
 
 const Button: React.FC<IProps> = (props) => {
-	const { className, value, title, src, onClick, dataId, name, getID } = props;
-
-	if (src) {
-		return (
-			<button
-				data-id={dataId}
-				className={className + ' btn-hover'}
-				title={title}
-				onClick={(e) => {
-					if (onClick) onClick(e);
-				}}
-				name={name}
-			>
-				<img src={src} alt="" />
-			</button>
-		);
-	} else {
-		return (
-			<button
-				data-id={dataId}
-				type="submit"
-				className={className + ' btn-hover'}
-				onClick={(e) => {
-					if (onClick) onClick(e);
-					if (getID) getID(e.currentTarget.dataset.dataId);
-				}}
-				name={name}
-			>
-				{value}
-			</button>
-		);
-	}
+	const { className, value, title, src, onClick, dataId, name, getID, sendReport } = props;
+	return (
+		<button
+			title={title ? title : ''}
+			data-id={dataId}
+			type={src ? 'submit' : undefined}
+			className={className + ' btn-hover'}
+			onClick={(e) => {
+				if (onClick) onClick(e);
+				if (getID) getID(e.currentTarget.dataset.dataId);
+				if (sendReport) sendReport();
+			}}
+			name={name}
+		>
+			{src ? <img src={src} alt="buttonImage" /> : value}
+		</button>
+	);
 };
 
 export default Button;

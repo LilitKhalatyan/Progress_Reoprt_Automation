@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import AddStudentsForm from '../../pages/Students/AddStudentsForm';
 import AddTrainersForm from '../../pages/Trainers/AddTrainersForm';
 import AddSubjectsForm from '../../pages/Subjects/AddSubjectsForm';
@@ -10,6 +10,7 @@ import AddCoursesForm from '../../pages/Courses/AddCoursesForm';
 import { useSelector } from 'react-redux';
 import { coursesSelector } from '../../redux/course/courseSelector';
 import { trainersSelector } from '../../redux/trainer/trainerSelector';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 interface IProps {
 	title: string;
@@ -23,23 +24,9 @@ const AddItem: React.FC<IProps> = (props) => {
 	const courses = useSelector(coursesSelector);
 	const trainers = useSelector(trainersSelector);
 
-	const useOutsideClick = (ref: React.RefObject<HTMLDivElement>) => {
-		useEffect(() => {
-			const handleClickOutside = (event: MouseEvent) => {
-				if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
-					setShow(false);
-				}
-			};
-			document.addEventListener('mousedown', handleClickOutside);
-			return () => {
-				document.removeEventListener('mousedown', handleClickOutside);
-			};
-		}, [ref]);
-	};
-
 	const wrapperRef = useRef(null);
 
-	useOutsideClick(wrapperRef);
+	useOutsideClick(wrapperRef, setShow);
 
 	let className = show ? 'add-item show' : 'add-item';
 

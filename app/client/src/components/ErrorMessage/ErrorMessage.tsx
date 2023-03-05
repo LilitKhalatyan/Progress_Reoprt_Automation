@@ -7,15 +7,6 @@ interface IProps {
 }
 
 const ErrorMessage: React.FC<IProps> = (props) => {
-	// useEffect(() => {
-	// 	const setId = setTimeout(() => {
-	// 		props.error(false);
-	// 	}, 3500);
-
-	// 	return (): void => {
-	// 		clearTimeout(setId);
-	// 	};
-	// }, [props.error]);
 	return (
 		<div className="error-wrapper">
 			<img className="error-image" src={img} alt="Error" />

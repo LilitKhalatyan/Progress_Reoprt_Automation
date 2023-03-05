@@ -84,6 +84,8 @@ import {
 
 import { loginAction, logoutAction, refreshAction, updateProfileAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser, updateProfile } from './auth/authSaga';
+import { getReportAction, sendReportAction } from './report/reportSlice';
+import { getReport, sendReport } from './report/reportSaga';
 
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
@@ -108,7 +110,7 @@ export default function* watchDataSaga() {
 	yield takeEvery(getAllStudentsAction.type, getStudentsData);
 	yield takeEvery(getStudentByIdAction.type, getStudentById);
 	yield takeEvery(getStudentByCourseAction.type, getStudentsDataByCourse);
-	yield takeEvery(getStudenstByCoursesAction.type, getStudentsDataByCourses); //
+	yield takeEvery(getStudenstByCoursesAction.type, getStudentsDataByCourses);
 	yield takeEvery(getStudentsByTrainerIdAction.type, getStudentsDataByTrainerId);
 	yield takeEvery(updateStudentByIdAction.type, updateStudentById);
 	yield takeEvery(deleteStudentByIdAction.type, deleteStudentById);
@@ -117,8 +119,11 @@ export default function* watchDataSaga() {
 	yield takeEvery(getAllSubjectAction.type, getSubjectsData);
 	yield takeEvery(getSubjectByIdAction.type, getSubjectById);
 	yield takeEvery(getSubjectByCourseIdAction.type, getSubjectByCourse);
-	yield takeEvery(getSubjectByTrainerIdAction.type, getSubjectsByTrainerId); //
+	yield takeEvery(getSubjectByTrainerIdAction.type, getSubjectsByTrainerId);
 	yield takeEvery(updateSubjectByIdAction.type, updateSubjectById);
 	yield takeEvery(deleteSubjectByIdAction.type, deleteSubjectById);
 	yield takeEvery(updateProfileAction.type, updateProfile);
+	// Reports
+	yield takeEvery(getReportAction.type, getReport);
+	yield takeEvery(sendReportAction.type, sendReport);
 }
