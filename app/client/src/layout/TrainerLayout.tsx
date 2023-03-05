@@ -7,16 +7,16 @@ import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import '../style/style.scss';
 import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCoursesByTrainerIdAction } from '../redux/course/courseSlice';
-import { getSubjectByTrainerIdAction } from '../redux/subject/subjectSlice';
+import { courseReset, getCoursesByTrainerIdAction } from '../redux/course/courseSlice';
+import { getSubjectByTrainerIdAction, subjectReset } from '../redux/subject/subjectSlice';
 
 const TrainerLayout: React.FC = () => {
 	const user = useSelector(userSelector);
-	// <Navigate to="/trainers/courses" replace={false} />;
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getCoursesByTrainerIdAction(user.id));
 		dispatch(getSubjectByTrainerIdAction(user.id));
+	
 	}, []);
 	if (user.roles !== 'USER') {
 		return (

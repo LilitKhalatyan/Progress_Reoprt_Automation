@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import StudentListElement from '../../components/StudentList/StudentListElem';
 import UsersList from '../../components/UsersList/UsersList';
 import { userSelector } from '../../redux/auth/authSelector';
 import { coursesSelector } from '../../redux/course/courseSelector';
@@ -16,7 +15,7 @@ const TrainerReports: React.FC = () => {
 	courses.map(elem => courseIds.push(elem.id))
 
 	useEffect(() => {
-		dispatch(getStudentByCourseAction(courses[0].id));
+		dispatch(getStudentByCourseAction(courseIds));
 	}, []);
 	const students = useSelector(studentsSelector);
 	const loading = useSelector(loadingSelector);

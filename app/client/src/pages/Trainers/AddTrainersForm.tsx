@@ -34,12 +34,15 @@ const AddTrainersForm: React.FC<IProps> = (props) => {
 			email: data.email,
 			courseId: data.multiselect.map((el: SelectElement) => el.id),
 		};
+		console.log(dataSelect)
 		if (e.nativeEvent.submitter.name === 'saveAndAdd') {
-			dispatch(createTrainerAction(dataSelect));
+			console.log("kkkkk")
+			dispatch(createTrainerAction({form: dataSelect}));
 			props.setShow(true);
 		}
 		if (e.nativeEvent.submitter.name === 'save') {
-			dispatch(createTrainerAction(dataSelect));
+			console.log("llll")
+			dispatch(createTrainerAction({form: dataSelect}));
 			props.setShow(false);
 		}
 		if (e.nativeEvent.submitter.name === 'update') {

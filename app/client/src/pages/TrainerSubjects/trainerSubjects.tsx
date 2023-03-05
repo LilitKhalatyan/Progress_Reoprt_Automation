@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import StudentListElement from '../../components/StudentList/StudentListElem';
 import UsersList from '../../components/UsersList/UsersList';
 import { errorSelector, loadingSelector, messageSelector, subjectsSelector } from '../../redux/subject/subjectSelector';
 

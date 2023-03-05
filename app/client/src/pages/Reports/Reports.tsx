@@ -23,8 +23,6 @@ import {
 	getStudentByCourseAction,
 	studentReset,
 } from '../../redux/student/studentSlice';
-
-import './reports.scss';
 import { getReportAction } from '../../redux/report/reportSlice';
 import { opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
 import {
@@ -35,6 +33,8 @@ import {
 	userListTransition,
 	userListTransit_2_5,
 } from '../../utils/motion/userList';
+
+import './reports.scss';
 
 export default function Reports() {
 	const { searchParams, setSearchParams } = useQueryParams();
@@ -58,7 +58,6 @@ export default function Reports() {
 			dispatch(getAllCoursesAction());
 			dispatch(getAllStudentsAction());
 		}
-		// localStorage.removeItem('reports');
 		return () => {
 			dispatch(subjectReset());
 			dispatch(courseReset());

@@ -70,7 +70,7 @@ const UsersList: React.FC<IProps> = (props) => {
 								value={selectedValue}
 								onChange={onSelect}
 							>
-								<option key={uuid()} value="all">
+								<option key={uuid()} value={"all"}>
 									All
 								</option>
 								{courses.map((option) => {

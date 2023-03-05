@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
@@ -15,10 +15,6 @@ const LeftMenu: React.FC = () => {
 	};
 	const user = useSelector(userSelector);
 
-	let path = "";
-	useEffect(() => {
-		path = getPath(user.roles)
-	},[])
 	const icons = ['courses-icon', 'students-icon', 'trainers-icon', 'subjects-icon', 'reports-icon'];
 
 
@@ -37,7 +33,7 @@ const LeftMenu: React.FC = () => {
 									className={hide}
 									variants={item}
 									key={icon}
-									id={`${path}${icon.slice(0, -5)}`}
+									id={`${getPath(user.roles)}${icon.slice(0, -5)}`}
 									onClick={handleListItemClick}
 								>
 									<div className={icon}></div>

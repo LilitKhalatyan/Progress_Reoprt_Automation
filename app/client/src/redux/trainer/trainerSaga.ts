@@ -101,6 +101,8 @@ export function* getTrainers() {
 
 export function* createTrainer(data: AuthData) {
 	try {
+		console.log(data.payload.form);
+		
 		const response: Response = yield call(createTrainerService, data.payload.form);
 		if (!response.ok) {
 			throw new Error('Trainer create failed');
