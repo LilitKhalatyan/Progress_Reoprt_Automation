@@ -34,6 +34,9 @@ const studentSlice = createSlice({
 			state.message = action.payload;
 			state.error = true;
 		},
+		// ---
+		getStudenstByCoursesAction: (state, action) => {},
+		//
 		getStudentByIdAction: (state, action) => {},
 		getStudentByIdSuccesed: (state, action) => {
 			state.student = action.payload;
@@ -82,6 +85,7 @@ export const {
 	getStudentsByTrainerIdAction,
 	getStudentsByTrainerIdSuccesed,
 	getStudentsByTrainerIdFailed,
+	getStudenstByCoursesAction,
 	updateStudentByIdAction,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,

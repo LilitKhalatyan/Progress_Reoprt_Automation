@@ -67,17 +67,10 @@ export function* updateProfile(data: AuthData) {
 	}
 }
 
-const userId = JSON.parse(localStorage.getItem('user')!)?.id;
-const userRole = JSON.parse(localStorage.getItem('user')!)?.roles;
 
 export function* getAllData() {
-	if (userRole === "ADMIN") {
-		yield put(getAllSubjectAction());
-		yield put(getAllCoursesAction());
-		yield put(getAllTrainersAction());
-		yield put(getAllStudentsAction());
-	}
-	if (userRole === "USER") {
-
-	}
+	yield put(getAllSubjectAction());
+	yield put(getAllCoursesAction());
+	yield put(getAllTrainersAction());
+	yield put(getAllStudentsAction());
 }

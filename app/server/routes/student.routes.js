@@ -23,7 +23,7 @@ module.exports = (app) => {
   app.put("/student/update/:id", updateSudent);
   app.get("/student/all", getAllStudents);
   app.get("/student/all/:id", getAllStudentsByCourse);
-  app.get("/student/all/bycourses", getAllStudentsByCourses);
+  app.post("/student/all/bycourses", getAllStudentsByCourses);
   app.get("/student/all/bytrainer/:id", getStudentsByTrainerId);
   app.delete("/student/delete/:id", deleteStudent);
 };

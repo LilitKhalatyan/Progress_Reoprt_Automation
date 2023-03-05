@@ -29,6 +29,11 @@ export interface ICourseId {
 	payload: string;
 }
 
+export interface ICourseIds {
+	type: string;
+	payload: number[];
+}
+
 export interface Message {
 	message: string;
 }
