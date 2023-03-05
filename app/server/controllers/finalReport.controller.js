@@ -83,7 +83,7 @@ const getFeedback = async (data) => {
     return data[2].reduce((acc, el) => {
       el.subjects.forEach((el, i) => {
         if (el.trainer_reports[0].edited_comment !== null) {
-          acc.push(el.edited_comment);
+          acc.push(el.trainer_reports[0].edited_comment);
         } else {
           acc.push(el.trainer_reports[0].comment);
         }
