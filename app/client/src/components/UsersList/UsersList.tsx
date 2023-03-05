@@ -11,8 +11,7 @@ import addIcon from '../../asset/images/pages/add.png';
 import editIcon from '../../asset/images/pages/edit.png';
 import deleteIcon from '../../asset/images/pages/delete.png';
 import { IProps } from '../../types/userListTypes';
-
-import './usersList.scss';
+import { subjectsSelector } from '../../redux/subject/subjectSelector';
 import { opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
 import {
 	userListAnimate,
@@ -23,11 +22,13 @@ import {
 	userListTransit_2,
 	userListTransit_2_5,
 } from '../../utils/motion/userList';
+import './usersList.scss';
 
 const UsersList: React.FC<IProps> = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [type, setType] = useState('add');
 	const courses = useSelector(coursesSelector);
+	const subjects = useSelector(subjectsSelector);
 	const { data, display, setDisplay, onDelete, getDataById, onSelect, error, message, selectedValue } = props;
 	return (
 		<motion.div
@@ -48,7 +49,7 @@ const UsersList: React.FC<IProps> = (props) => {
 					>
 						{props.title}
 					</motion.h2>
-					<div className="users__header">
+					<div className={`users__header ${props.hideElement}`} >
 						<div className="head-filter__grp">
 							<motion.input
 								initial={userListInitial}
@@ -69,10 +70,32 @@ const UsersList: React.FC<IProps> = (props) => {
 								value={selectedValue}
 								onChange={onSelect}
 							>
-								<option key={uuid()} value="all">
+								<option key={uuid()} value={"all"}>
 									All
 								</option>
 								{courses.map((option) => {
+									return (
+										<option key={uuid()} value={option.id}>
+											{option.name}
+										</option>
+									);
+								})}
+							</motion.select>
+							<motion.select
+								initial={{ x: '-50vw', opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								exit={{ x: '-50vw' }}
+								transition={{ type: 'easeInOut', stiffness: 120, damping: 40, duration: 2, delay: 0.2 }}
+								name=""
+								id="secondselect"
+								className="users-sort"
+								value={selectedValue}
+								onChange={onSelect}
+							>
+								<option key={uuid()} value="all">
+									All
+								</option>
+								{subjects.map((option) => {
 									return (
 										<option key={uuid()} value={option.id}>
 											{option.name}
@@ -129,7 +152,7 @@ const UsersList: React.FC<IProps> = (props) => {
 													<div className="edit-grp">
 														<Button
 															dataId={item.id}
-															className="users-btn"
+															className={`users-btn ${props.hideElement}`}
 															title={`edit ${props.title}`}
 															src={editIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -140,7 +163,7 @@ const UsersList: React.FC<IProps> = (props) => {
 														/>
 														<Button
 															dataId={item.id}
-															className="users-btn"
+															className={`users-btn ${props.hideElement}`}
 															title={`delete ${props.title}`}
 															src={deleteIcon}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

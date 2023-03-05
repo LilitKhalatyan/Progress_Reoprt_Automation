@@ -5,11 +5,12 @@ import { notify } from '../../utils';
 
 import { AuthData } from '../../types/authTypes';
 import { Message } from '../../types/courseTypes';
-import { courseReset, getAllCoursesAction } from '../course/courseSlice';
+import { courseReset, getAllCoursesAction, getCoursesByTrainerIdAction } from '../course/courseSlice';
 import { getAllStudentsAction, studentReset } from '../student/studentSlice';
-import { getAllSubjectAction, subjectReset } from '../subject/subjectSlice';
+import { getAllSubjectAction, getSubjectByTrainerIdAction, subjectReset } from '../subject/subjectSlice';
 import { getAllTrainersAction, trainerReset } from '../trainer/trainerSlice';
 import { loginFailed, loginSuccesed, logoutSuccesed, updateProfileFailed, userReset } from './authSlice';
+import { getCoursesByTrainerId } from '../course/courseSaga';
 
 interface Data {
 	type: string;
@@ -34,12 +35,19 @@ export function* resetStore() {
 
 export function* auth(data: AuthData) {
 	try {
-		const response: Response = yield call(signIn, data.payload);
+		const response: Response = yield call(signIn, data.payload.form);
 
 		if (!response.ok) {
 			throw new Error('Login failed');
 		}
 		const user: IUser = yield response.json() as Promise<IUser>;
+		console.log(user.roles);
+		
+		if(user.roles === "USER") {
+			console.log("mtela");
+			
+			data.payload.navigate('trainer/courses')
+		}
 		yield put(getAllCoursesAction());
 		yield localStorage.setItem('user', JSON.stringify(user));
 		yield put(loginSuccesed(user));
@@ -51,7 +59,7 @@ export function* auth(data: AuthData) {
 
 export function* updateProfile(data: AuthData) {
 	try {
-		const response: Response = yield call(updateProfileService, data.payload);
+		const response: Response = yield call(updateProfileService, data.payload.form);
 		if (!response.ok) {
 			const message: Message = yield response.json() as Promise<Message>;
 			throw new Error(message.message);
@@ -65,6 +73,7 @@ export function* updateProfile(data: AuthData) {
 		yield put(updateProfileFailed(error.message));
 	}
 }
+
 
 export function* getAllData() {
 	yield put(getAllSubjectAction());

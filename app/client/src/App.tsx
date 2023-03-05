@@ -12,7 +12,7 @@ import Subjects from './pages/Subjects/Subjects';
 import Settings from './pages/Settings/Settings';
 import AuthLayout from './layout/AuthLayout';
 import TrainerLayout from './layout/TrainerLayout';
-import TrainersHompage from './pages/TrainersHomepage';
+import TrainerReports from './pages/TrainerReports/TrainerReports';
 import NotFound from './components/NotFound/NotFound';
 import SendReports from './pages/Reports/SendReports';
 import TrainerCourses from './pages/TrainerCourses/trainerCourses';
@@ -45,10 +45,10 @@ function App() {
 								<Route path="/settings" element={<Settings />} />
 							</Route>
 							<Route element={<TrainerLayout />}>
-								<Route path="/trainer/home" element={<TrainersHompage />} />
 								<Route path="/trainer/courses" element={<TrainerCourses />} />
 								<Route path="/trainer/subjects" element={<TrainerSubjects />} />
 								<Route path="/trainer/students" element={<TrainerStudents />} />
+								<Route path="/trainer/reports" element={<TrainerReports />} />
 							</Route>
 						</Route>
 						<Route path="*" element={<NotFound />} />

@@ -6,13 +6,15 @@ import { ErrorMessage } from '@hookform/error-message';
 
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../asset/images/logo.svg';
-
-import './loginForm.scss';
 import { authState } from '../../types/authTypes';
 import { loginAction } from '../../redux/auth/authSlice';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { togglePassVisibility } from '../../utils/helpers/togglePassVisibility';
 import { loginTransit, opacity_0, opacity_1 } from '../../utils/motion/commonObjects';
+
+import './loginForm.scss';
+
 
 const LoginForm: React.FC = () => {
 	const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const LoginForm: React.FC = () => {
 		icon: faEyeSlash,
 		type: 'password',
 	});
+	const navigate = useNavigate();
 	const {
 		register,
 		formState: { errors },
@@ -31,7 +34,11 @@ const LoginForm: React.FC = () => {
 			email: data.email,
 			password: data.password,
 		};
-		dispatch(loginAction(form));
+		const trainerLogin = {
+			form: form,
+			navigate: navigate
+		}
+		dispatch(loginAction(trainerLogin));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');

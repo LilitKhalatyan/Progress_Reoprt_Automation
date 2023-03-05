@@ -6,6 +6,7 @@ const {
     getSubjectbyTrainer,
     getSubjectById,
     getSubjectByCourse,
+    getSubjectsByTrainerId,
 } = require("../controllers/subject.controller");
 
 module.exports = (app) => {
@@ -24,4 +25,5 @@ module.exports = (app) => {
     app.put("/subject/update/:id", updateSubject);
     app.delete("/subject/delete/:id", deleteSubject);
     app.get("/subject/trainers/:id", getSubjectbyTrainer);
+    app.get("/subject/trainer/:id", getSubjectsByTrainerId);//
 };

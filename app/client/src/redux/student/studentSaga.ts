@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { notify } from '../../utils';
-import { IStudents, TStudent, IStudentId, Message, ICourseId } from '../../types/studentTypes';
+import { IStudents, TStudent, IStudentId, Message, ICourseId, ICourseIds } from '../../types/studentTypes';
 import {
 	createStudentSuccesed,
 	createStudentFailed,
@@ -8,6 +8,8 @@ import {
 	getAllStudentsFailed,
 	getStudentByIdSuccesed,
 	getStudentByIdFailed,
+	getStudentsByTrainerIdSuccesed,
+	getStudentsByTrainerIdFailed,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,
 	deleteStudentByIdSuccesed,
@@ -20,8 +22,10 @@ import {
 	getAllStudentsByCourseService,
 	getAllStudentsService,
 	getStudentByIdService,
+	getAllStudentsByTrainerIdService,
 	updateStudentByIdService,
 	deleteStudentByIdService,
+	getStudentsByCoursesService,
 } from '../../services/studentService';
 
 function* createStudent(data: IStudents) {
@@ -64,6 +68,34 @@ function* getStudentsDataByCourse(data: ICourseId) {
 		yield put(getAllStudentsFailed(error.message));
 	}
 }
+// --start
+
+function* getStudentsDataByCourses(data: ICourseIds) {
+	try {
+		const response: Response = yield call(getStudentsByCoursesService, data.payload);
+		if (!response.ok) {
+			throw new Error('get all students by course failed');
+		}
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
+		yield put(getAllStudentsSuccesed(students));
+	} catch (error: any) {
+		yield put(getAllStudentsFailed(error.message));
+	}
+}
+
+function* getStudentsDataByTrainerId(data: IStudentId) {
+	try {
+		const response: Response = yield call(getAllStudentsByTrainerIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('get all students by course failed');
+		}
+		const students: TStudent[] = yield response.json() as Promise<TStudent[]>;
+		yield put(getStudentsByTrainerIdSuccesed(students));
+	} catch (error: any) {
+		yield put(getStudentsByTrainerIdFailed(error.message));
+	}
+}
+// --end
 
 function* getStudentById(data: IStudentId) {
 	try {
@@ -113,6 +145,8 @@ export {
 	getStudentsData,
 	getStudentById,
 	getStudentsDataByCourse,
+	getStudentsDataByCourses,
+	getStudentsDataByTrainerId,
 	updateStudentById,
 	deleteStudentById,
 };

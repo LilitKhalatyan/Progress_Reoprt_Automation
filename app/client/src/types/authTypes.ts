@@ -1,3 +1,5 @@
+import { NavigateFunction } from "react-router-dom";
+
 export interface authState {
 	name?: string;
 	surname?: string;
@@ -10,5 +12,8 @@ export interface authState {
 
 export interface AuthData {
 	type: string;
-	payload: authState;
+	payload: {
+		form: authState;
+		navigate: NavigateFunction;
+	}
 }

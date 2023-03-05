@@ -87,10 +87,10 @@ nav {
 				@include li-after('Students');
 			}
 			&:nth-child(3):after {
-				@include li-after('Subjects');
+				@include li-after('Trainers');
 			}
 			&:nth-child(4):after {
-				@include li-after('Trainers');
+				@include li-after('Subjects');
 			}
 			&:nth-child(5):after {
 				@include li-after('Reports');
@@ -98,18 +98,20 @@ nav {
 		}
 	}
 }
-
+ul > li.hideLi {
+	display: none;
+}
 .courses-icon {
 	@include icon('../../asset/images/menu/groups.png');
 }
 .students-icon {
 	@include icon('../../asset/images/menu/students.png');
 }
-.subjects-icon {
-	@include icon('../../asset/images/menu/subjects.png');
-}
 .trainers-icon {
 	@include icon('../../asset/images/menu/instructor.png');
+}
+.subjects-icon {
+	@include icon('../../asset/images/menu/subjects.png');
 }
 .reports-icon {
 	@include icon('../../asset/images/menu/reports.png');

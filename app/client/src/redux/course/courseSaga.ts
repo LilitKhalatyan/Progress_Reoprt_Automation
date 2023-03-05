@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { notify } from '../../utils';
-import { TCourse, ICourse, CourseSliceState, ICourseId, Message } from '../../types/courseTypes';
+import { TCourse, ICourse, ICourseId, Message } from '../../types/courseTypes';
 import {
 	createCourseSuccesed,
 	createCourseFailed,
@@ -22,6 +22,7 @@ import {
 	getCourseByIdService,
 	updateCourseByIdService,
 	deleteCourseByIdService,
+	getCourseByTrainerIdService,
 } from '../../services/courseService';
 
 function* createCourse(data: ICourse) {
@@ -66,6 +67,22 @@ function* getCourseById(data: ICourseId) {
 	}
 }
 
+// --start --trainer-home
+function* getCoursesByTrainerId(data: ICourseId) {
+	try {
+		const response: Response = yield call(getCourseByTrainerIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('Course get failed');
+		}
+		const courses: TCourse[] = yield response.json() as Promise<TCourse[]>;
+
+		yield put(getAllCoursesSuccesed(courses));
+	} catch (error: any) {
+		yield put(getAllCoursesFailed(error.message));
+	}
+}
+// --end --trainer-home
+
 function* updateCourseById(data: ICourse) {
 	try {
 		const response: Response = yield call(updateCourseByIdService, data.payload);
@@ -96,4 +113,4 @@ function* deleteCourseById(data: ICourse) {
 	}
 }
 
-export { createCourse, getCoursesData, getCourseById, updateCourseById, deleteCourseById };
+export { createCourse, getCoursesData, getCourseById, getCoursesByTrainerId, updateCourseById, deleteCourseById };

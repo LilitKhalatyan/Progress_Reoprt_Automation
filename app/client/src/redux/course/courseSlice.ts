@@ -39,6 +39,11 @@ const courseSlice = createSlice({
 		getCourseByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		// --start --trainer-home
+		getCoursesByTrainerIdAction: (state, action) => {
+			state.loading = true;
+		},
+		// --end --trainer-home
 		updateCourseByIdAction: (state, action) => {},
 		updateCourseByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -68,6 +73,7 @@ export const {
 	getCourseByIdAction,
 	getCourseByIdSuccesed,
 	getCourseByIdFailed,
+	getCoursesByTrainerIdAction,
 	updateCourseByIdAction,
 	updateCourseByIdSuccesed,
 	updateCourseByIdFailed,

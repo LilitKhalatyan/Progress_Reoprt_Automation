@@ -10,6 +10,8 @@ import {
 	getAllSubjectSuccesed,
 	getSubjectByIdFailed,
 	getSubjectByIdSuccesed,
+	getSubjectByTrainerIdSuccesed,
+	getSubjectByTrainerIdFailed,
 	updateSubjectByIdFailed,
 	updateSubjectByIdSuccesed,
 } from './subjectSlice';
@@ -19,6 +21,7 @@ import {
 	deleteSubjectByIdService,
 	getAllSubjectService,
 	getSubjectByCourseService,
+	getSubjectsByTrainerIdService,
 	getSubjectByIdService,
 	updateSubjectByIdService,
 } from '../../services/subjectService';
@@ -76,6 +79,25 @@ function* getSubjectByCourse(data: ISubjectId) {
 		yield put(getAllSubjectFailed(error.message));
 	}
 }
+
+// -- start
+function* getSubjectsByTrainerId(data: ISubjectId) {
+	try {
+		const response: Response = yield call(getSubjectsByTrainerIdService, data.payload);
+		if (!response.ok) {
+			throw new Error('Subjects get failed');
+		}
+		const subject: TSubject[] = yield response.json() as Promise<TSubject[]>;
+		yield put(getSubjectByTrainerIdSuccesed(subject));
+	} catch (error: any) {
+		yield put(getSubjectByTrainerIdFailed(error.message));
+	}
+}
+// -- end
+
+
+
+
 function* updateSubjectById(data: ISubject) {
 	try {
 		const response: Response = yield call(updateSubjectByIdService, data.payload);
@@ -113,4 +135,5 @@ export {
 	deleteSubjectById,
 	getSubjectById,
 	getSubjectByCourse,
+	getSubjectsByTrainerId,
 };

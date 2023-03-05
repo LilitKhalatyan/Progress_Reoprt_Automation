@@ -23,8 +23,7 @@ const subjectSlice = createSlice({
 		getAllSubjectAction: (state) => {
 			state.loading = true;
 		},
-		getSubjectByCourseAction: (state, action) => {},
-
+		// getSub
 		getAllSubjectSuccesed: (state, action) => {
 			state.subjects = action.payload;
 			state.loading = false;
@@ -34,6 +33,8 @@ const subjectSlice = createSlice({
 			state.message = action.payload;
 			state.error = true;
 		},
+		getSubjectByCourseAction: (state, action) => {},
+
 		getSubjectByIdAction: (state, action) => {},
 		getSubjectByIdSuccesed: (state, action) => {
 			state.subject = action.payload;
@@ -41,6 +42,15 @@ const subjectSlice = createSlice({
 		getSubjectByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		//
+		getSubjectByTrainerIdAction: (state, action) => {},
+		getSubjectByTrainerIdSuccesed: (state, action) => {
+			state.subjects = action.payload;
+		},
+		getSubjectByTrainerIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
+		//
 		updateSubjectByIdAction: (state, action) => {},
 		updateSubjectByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -67,16 +77,19 @@ export const {
 	getAllSubjectAction,
 	getAllSubjectSuccesed,
 	getAllSubjectFailed,
+	getSubjectByIdAction,
+	getSubjectByIdFailed,
+	getSubjectByIdSuccesed,
+	getSubjectByCourseAction,
+	getSubjectByTrainerIdAction,
+	getSubjectByTrainerIdSuccesed,
+	getSubjectByTrainerIdFailed,
 	updateSubjectByIdAction,
 	updateSubjectByIdSuccesed,
 	updateSubjectByIdFailed,
 	deleteSubjectByIdAction,
 	deleteSubjectByIdSuccesed,
 	deleteSubjectByIdFailed,
-	getSubjectByIdAction,
-	getSubjectByIdFailed,
-	getSubjectByIdSuccesed,
 	subjectReset,
-	getSubjectByCourseAction,
 } = subjectSlice.actions;
 export default subjectSlice;

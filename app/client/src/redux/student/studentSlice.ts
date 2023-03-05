@@ -34,6 +34,9 @@ const studentSlice = createSlice({
 			state.message = action.payload;
 			state.error = true;
 		},
+		// ---
+		getStudenstByCoursesAction: (state, action) => {},
+		//
 		getStudentByIdAction: (state, action) => {},
 		getStudentByIdSuccesed: (state, action) => {
 			state.student = action.payload;
@@ -41,6 +44,15 @@ const studentSlice = createSlice({
 		getStudentByIdFailed: (state, action) => {
 			state.message = action.payload;
 		},
+		//
+		getStudentsByTrainerIdAction: (state, action) => {},
+		getStudentsByTrainerIdSuccesed: (state, action) => {
+			state.students = action.payload;
+		},
+		getStudentsByTrainerIdFailed: (state, action) => {
+			state.message = action.payload;
+		},
+		//
 		updateStudentByIdAction: (state, action) => {},
 		updateStudentByIdSuccesed: (state, action) => {
 			state.message = action.payload;
@@ -70,6 +82,10 @@ export const {
 	getStudentByIdAction,
 	getStudentByIdSuccesed,
 	getStudentByIdFailed,
+	getStudentsByTrainerIdAction,
+	getStudentsByTrainerIdSuccesed,
+	getStudentsByTrainerIdFailed,
+	getStudenstByCoursesAction,
 	updateStudentByIdAction,
 	updateStudentByIdSuccesed,
 	updateStudentByIdFailed,
