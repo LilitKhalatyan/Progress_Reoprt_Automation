@@ -15,11 +15,11 @@ const AdminLayout: React.FC = () => {
 			</LayoutWrapper>
 		);
 	}
-		return (
-			<LayoutWrapper>
-				<Outlet />
-			</LayoutWrapper>
-		);
+	return (
+		<LayoutWrapper>
+			<Outlet />
+		</LayoutWrapper>
+	);
 };
 
 export default AdminLayout;

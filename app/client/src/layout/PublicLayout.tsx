@@ -9,7 +9,7 @@ const PublicLayout = () => {
 	if (!auth) {
 		return <Outlet />;
 	}
-	if (user.roles === "USER") {
+	if (user.roles === 'USER') {
 		return <Navigate to="/trainer/courses" replace />;
 	}
 	return <Navigate to="/" replace />;

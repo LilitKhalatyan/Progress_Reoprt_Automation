@@ -30,3 +30,13 @@ export interface TrainerReport {
 	updatedAt: string;
 	staffId: number;
 }
+
+export interface UpdateReportByAdmin {
+	id: number;
+	edited_comment: null | string;
+}
+
+export interface TypeUpdateReportByAdmin {
+	type: string;
+	payload: UpdateReportByAdmin;
+}

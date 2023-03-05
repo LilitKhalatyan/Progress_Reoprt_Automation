@@ -15,7 +15,7 @@ const createTrainerReport = async (req, res) => {
     };
 
     const report = TrainerReport.create(reportInfo);
-    return res.status(200).send("Report created successfully");
+    return res.status(200).send({ message: "Report created successfully" });
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -37,7 +37,7 @@ const updateTrainerReport = async (req, res) => {
         id: id,
       },
     });
-    return res.status(200).send("Report updated successfully");
+    return res.status(200).send({ message: "Report updated successfully" });
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -56,7 +56,7 @@ const updateTrainerReportByAdmin = async (req, res) => {
         id: id,
       },
     });
-    return res.status(200).send("Report updated successfully");
+    return res.status(200).send({ message: "Report updated successfully" });
   } catch (error) {
     return res.status(500).send(error);
   }
