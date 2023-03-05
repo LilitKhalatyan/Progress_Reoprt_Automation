@@ -1,4 +1,4 @@
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from 'react-router-dom';
 
 export interface authState {
 	name?: string;
@@ -15,5 +15,5 @@ export interface AuthData {
 	payload: {
 		form: authState;
 		navigate: NavigateFunction;
-	}
+	};
 }

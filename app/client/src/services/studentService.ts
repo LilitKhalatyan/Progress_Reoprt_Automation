@@ -29,13 +29,10 @@ export const getStudentsByCoursesService = async (ids: number[]): Promise<Respon
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ids})
+		body: JSON.stringify({ ids }),
 	});
 	return studentData;
 };
-
-
-
 
 //    app.post("/student/all/bytrainer/:id", getStudentsByTrainerId);
 export const getAllStudentsByTrainerIdService = async (id: string): Promise<Response> => {

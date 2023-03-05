@@ -18,11 +18,18 @@ const reportSlice = createSlice({
 		getReportSuccesed: (state, action) => {
 			state.report = action.payload;
 			state.loading = false;
-			state.error = false; //new line
+			state.error = false;
 		},
 		getReportFailed: (state, action) => {
 			state.message = action.payload;
-			state.error = true; //new line
+			state.error = true;
+		},
+		updateReportByAdminAction: (state, action) => {},
+		updateReportByAdminSuccesed: (state, action) => {
+			state.message = action.payload;
+		},
+		updateReportByAdminFailed: (state, action) => {
+			state.message = action.payload;
 		},
 		sendReportAction: (state, action) => {},
 		sendReportSuccesed: (state, action) => {
@@ -41,6 +48,9 @@ export const {
 	getReportAction,
 	getReportFailed,
 	getReportSuccesed,
+	updateReportByAdminAction,
+	updateReportByAdminSuccesed,
+	updateReportByAdminFailed,
 	sendReportAction,
 	sendReportFailed,
 	sendReportSuccesed,

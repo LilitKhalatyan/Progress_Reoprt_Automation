@@ -68,7 +68,7 @@ import {
 	updateSubjectByIdAction,
 	deleteSubjectByIdAction,
 	getSubjectByCourseAction,
-	getSubjectByTrainerIdAction
+	getSubjectByTrainerIdAction,
 } from './subject/subjectSlice';
 
 import {
@@ -78,14 +78,13 @@ import {
 	updateSubjectById,
 	deleteSubjectById,
 	getSubjectByCourse,
-	getSubjectsByTrainerId
+	getSubjectsByTrainerId,
 } from './subject/subjectSaga';
-
 
 import { loginAction, logoutAction, refreshAction, updateProfileAction } from './auth/authSlice';
 import { auth, getAllData, logoutUser, updateProfile } from './auth/authSaga';
-import { getReportAction, sendReportAction } from './report/reportSlice';
-import { getReport, sendReport } from './report/reportSaga';
+import { getReportAction, sendReportAction, updateReportByAdminAction } from './report/reportSlice';
+import { getReport, sendReport, updateReportByAdmin } from './report/reportSaga';
 
 export default function* watchDataSaga() {
 	yield takeEvery(loginAction.type, auth);
@@ -126,4 +125,5 @@ export default function* watchDataSaga() {
 	// Reports
 	yield takeEvery(getReportAction.type, getReport);
 	yield takeEvery(sendReportAction.type, sendReport);
+	yield takeEvery(updateReportByAdminAction.type, updateReportByAdmin);
 }

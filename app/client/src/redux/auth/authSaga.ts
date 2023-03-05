@@ -42,11 +42,11 @@ export function* auth(data: AuthData) {
 		}
 		const user: IUser = yield response.json() as Promise<IUser>;
 		console.log(user.roles);
-		
-		if(user.roles === "USER") {
-			console.log("mtela");
-			
-			data.payload.navigate('trainer/courses')
+
+		if (user.roles === 'USER') {
+			console.log('mtela');
+
+			data.payload.navigate('trainer/courses');
 		}
 		yield put(getAllCoursesAction());
 		yield localStorage.setItem('user', JSON.stringify(user));
@@ -73,7 +73,6 @@ export function* updateProfile(data: AuthData) {
 		yield put(updateProfileFailed(error.message));
 	}
 }
-
 
 export function* getAllData() {
 	yield put(getAllSubjectAction());

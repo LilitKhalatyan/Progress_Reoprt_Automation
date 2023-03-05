@@ -16,7 +16,6 @@ const TrainerLayout: React.FC = () => {
 	useEffect(() => {
 		dispatch(getCoursesByTrainerIdAction(user.id));
 		dispatch(getSubjectByTrainerIdAction(user.id));
-	
 	}, []);
 	if (user.roles !== 'USER') {
 		return (

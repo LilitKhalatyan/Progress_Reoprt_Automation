@@ -2,11 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
 import { authSelector, userSelector } from '../../redux/auth/authSelector';
-import { errorSelector, loadingSelector, messageSelector, subjectsSelector } from '../../redux/subject/subjectSelector';
+import {
+	errorSelector,
+	loadingSelector,
+	messageSelector,
+	subjectsSelector,
+} from '../../redux/subject/subjectSelector';
 import { getSubjectByTrainerIdAction, subjectReset } from '../../redux/subject/subjectSlice';
 
 const TrainerSubjects: React.FC = () => {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const auth = useSelector(authSelector);
 	const user = useSelector(userSelector);
 	useEffect(() => {
@@ -17,6 +22,7 @@ const TrainerSubjects: React.FC = () => {
 			dispatch(subjectReset());
 		};
 	}, []);
+
 	const subjects = useSelector(subjectsSelector);
 	const loading = useSelector(loadingSelector);
 	const error = useSelector(errorSelector);
@@ -24,12 +30,9 @@ const TrainerSubjects: React.FC = () => {
 
 	const [displayAdd, setDisplayAdd] = useState(false);
 
-	const handleDelete = (id: any) => {
-
-	};
+	const handleDelete = (id: any) => {};
 	const handleGetTrainer = (id: any) => {};
-	const handleSelectChange = (e: any) => {
-	};
+	const handleSelectChange = (e: any) => {};
 	return (
 		<>
 			<UsersList

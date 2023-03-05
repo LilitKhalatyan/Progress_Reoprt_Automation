@@ -17,16 +17,15 @@ const LeftMenu: React.FC = () => {
 
 	const icons = ['courses-icon', 'students-icon', 'trainers-icon', 'subjects-icon', 'reports-icon'];
 
-
 	return (
 		<div className="menu">
 			<div className="menu__container">
 				<nav>
 					<motion.ul variants={container} initial="hidden" animate="show">
 						{icons.map((icon) => {
-							let hide = "";
-							if(user.roles === "USER" && icon.slice(0, -5) === "trainers") {
-								hide = "hideLi"
+							let hide = '';
+							if (user.roles === 'USER' && icon.slice(0, -5) === 'trainers') {
+								hide = 'hideLi';
 							}
 							return (
 								<motion.li

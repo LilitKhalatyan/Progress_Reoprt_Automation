@@ -15,7 +15,6 @@ import { loginTransit, opacity_0, opacity_1 } from '../../utils/motion/commonObj
 
 import './loginForm.scss';
 
-
 const LoginForm: React.FC = () => {
 	const dispatch = useDispatch();
 	const [isPassVisibile, setPassVisibile] = useState({
@@ -36,8 +35,8 @@ const LoginForm: React.FC = () => {
 		};
 		const trainerLogin = {
 			form: form,
-			navigate: navigate
-		}
+			navigate: navigate,
+		};
 		dispatch(loginAction(trainerLogin));
 	};
 	const onFail = (error: any) => {

@@ -49,7 +49,7 @@ const UsersList: React.FC<IProps> = (props) => {
 					>
 						{props.title}
 					</motion.h2>
-					<div className={`users__header ${props.hideElement}`} >
+					<div className={`users__header ${props.hideElement}`}>
 						<div className="head-filter__grp">
 							<motion.input
 								initial={userListInitial}
@@ -70,7 +70,7 @@ const UsersList: React.FC<IProps> = (props) => {
 								value={selectedValue}
 								onChange={onSelect}
 							>
-								<option key={uuid()} value={"all"}>
+								<option key={uuid()} value={'all'}>
 									All
 								</option>
 								{courses.map((option) => {

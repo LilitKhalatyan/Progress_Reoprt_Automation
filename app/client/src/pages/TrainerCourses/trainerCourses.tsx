@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UsersList from '../../components/UsersList/UsersList';
 import { authSelector, userSelector } from '../../redux/auth/authSelector';
 import { coursesSelector, errorSelector, loadingSelector, messageSelector } from '../../redux/course/courseSelector';
 import { courseReset, getCoursesByTrainerIdAction } from '../../redux/course/courseSlice';
+
 
 const TrainerCourses: React.FC = () => {
 	const dispatch = useDispatch();
