@@ -21,22 +21,34 @@ import { subjectSelector } from '../../redux/subject/subjectSelector';
 const TrainerStudents: React.FC = () => {
 	const dispatch = useDispatch();
 	const [selectedValue, setSelectedValue] = useState('all');
-	const [displayAdd, setDisplayAdd] = useState(false);
-	const courses = useSelector(coursesSelector);
-	const courseIds: any = [];
-	courses.map((elem) => courseIds.push(elem.id));
+	const auth = useSelector(authSelector);
+	const user = useSelector(userSelector);
 	const students = useSelector(studentsSelector);
 	const loading = useSelector(loadingSelector);
 	const error = useSelector(errorSelector);
 	const message = useSelector(messageSelector);
-	const auth = useSelector(authSelector);
+
+	const [displayAdd, setDisplayAdd] = useState(false);
+	const courses = useSelector(coursesSelector);
+
+	const courseIds: any = [];
+	courses.map((elem) => courseIds.push(elem.id));
+
 	useEffect(() => {
+		console.log(courseIds);
 		if (auth && localStorage.getItem('user')) {
 			dispatch(getStudenstByCoursesAction(courseIds));
+			dispatch(getCoursesByTrainerIdAction(user.id));
 		}
 		return () => {
 			dispatch(studentReset());
+			dispatch(courseReset());
 		};
+	}, []);
+
+	useEffect(() => {
+		console.log(courseIds);
+		dispatch(getStudenstByCoursesAction(courseIds));
 	}, [courses]);
 
 	const handleDelete = (id: any) => {
