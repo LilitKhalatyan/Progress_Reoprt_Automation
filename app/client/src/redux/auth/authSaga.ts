@@ -35,12 +35,19 @@ export function* resetStore() {
 
 export function* auth(data: AuthData) {
 	try {
-		const response: Response = yield call(signIn, data.payload);
+		const response: Response = yield call(signIn, data.payload.form);
 
 		if (!response.ok) {
 			throw new Error('Login failed');
 		}
 		const user: IUser = yield response.json() as Promise<IUser>;
+		console.log(user.roles);
+		
+		if(user.roles === "USER") {
+			console.log("mtela");
+			
+			data.payload.navigate('trainer/courses')
+		}
 		yield put(getAllCoursesAction());
 		yield localStorage.setItem('user', JSON.stringify(user));
 		yield put(loginSuccesed(user));
@@ -52,7 +59,7 @@ export function* auth(data: AuthData) {
 
 export function* updateProfile(data: AuthData) {
 	try {
-		const response: Response = yield call(updateProfileService, data.payload);
+		const response: Response = yield call(updateProfileService, data.payload.form);
 		if (!response.ok) {
 			const message: Message = yield response.json() as Promise<Message>;
 			throw new Error(message.message);

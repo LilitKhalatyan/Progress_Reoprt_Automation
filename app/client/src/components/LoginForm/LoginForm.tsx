@@ -11,6 +11,7 @@ import './loginForm.scss';
 import { authState } from '../../types/authTypes';
 import { loginAction } from '../../redux/auth/authSlice';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const LoginForm: React.FC = () => {
 		icon: faEyeSlash,
 		type: 'password',
 	});
-
+	const navigate = useNavigate();
 	const togglePassVisibility = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault();
 		setPassVisibile((prevState) => {
@@ -40,7 +41,11 @@ const LoginForm: React.FC = () => {
 			email: data.email,
 			password: data.password,
 		};
-		dispatch(loginAction(form));
+		const trainerLogin = {
+			form: form,
+			navigate: navigate
+		}
+		dispatch(loginAction(trainerLogin));
 	};
 	const onFail = (error: any) => {
 		console.log(error, 'Error');
