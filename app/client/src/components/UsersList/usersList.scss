@@ -227,13 +227,42 @@ hr {
 	}
 }
 @media (max-width: 767.98px) {
+	.users__header {
+		width: 100%;
+		justify-content: space-around;
+	}
 	.main-users__list {
-		
-		border: 1px solid red;
+		height: auto;
+	}
+	.items-title__wrapper {
+		.items-title {
+			display: none;
+		}
 	}
 	.list-item {
-		width: 100%;
-		height: 60px;
+		width: 70%;
+		height: 180px;
 		display: flex;
+		flex-direction: column;
+		align-content: center;
+		.edit-grp {
+			gap: 4px;
+			justify-content: center;
+			margin-bottom: 8px;
+			button {
+				padding: 8px 4px;
+			}
+		}
+		.info-grp {
+			width: 100%;
+			height: 100%;
+			flex-direction: column;
+			justify-content: center;
+			span {
+				width: 60%;
+				display: flex;
+				justify-content: center;
+			}
+		}
 	}
 }
