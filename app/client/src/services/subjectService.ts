@@ -23,6 +23,8 @@ export const getAllSubjectService = async (): Promise<Response> => {
 };
 
 export const getSubjectByCourseService = async (id: string): Promise<Response> => {
+	console.log(id);
+	
 	const subjectData = await fetch(`http://localhost:3303/subject/course/${id}`, {
 		method: 'GET',
 		credentials: 'include',

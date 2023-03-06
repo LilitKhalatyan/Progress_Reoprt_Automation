@@ -69,6 +69,8 @@ function* getSubjectById(data: ISubjectId) {
 
 function* getSubjectByCourse(data: ISubjectId) {
 	try {
+		console.log(data.payload);
+		
 		const response: Response = yield call(getSubjectByCourseService, data.payload);
 		if (!response.ok) {
 			throw new Error('Subjects get failed');

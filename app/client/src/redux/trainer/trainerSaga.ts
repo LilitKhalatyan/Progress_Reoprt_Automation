@@ -97,6 +97,7 @@ export function* updateTrainer(data: ITrainer) {
 		const message: Message = yield response.json() as Promise<Message>;
 		yield put(getAllTrainersAction());
 		yield put(updateTrainerByIdSuccesed(message));
+		notify(message.message);
 	} catch (error: any) {
 		yield put(updateTrainerByIdFailed(error.message));
 	}
@@ -140,7 +141,7 @@ export function* createTrainerReport(data: DataTrainerReport) {
 			throw new Error('Failed to create report');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-
+		notify(message.message);
 		yield put(createTrainerReportSuccess(message));
 	} catch (error: any) {
 		yield put(createTrainerReportFailed(error.message));
@@ -154,7 +155,7 @@ export function* updateTrainerReport(data: UpdateTrainerReport) {
 			throw new Error('Failed to update report');
 		}
 		const message: Message = yield response.json() as Promise<Message>;
-
+		notify(message.message);
 		yield put(updateStudentReportForTrainerSuccess(message));
 	} catch (error: any) {
 		yield put(updateStudentReportForTrainerFailed(error.message));
