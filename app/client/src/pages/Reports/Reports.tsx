@@ -232,7 +232,7 @@ export default function Reports() {
 													<span>{item.surname}</span>
 													<span>{item.email}</span>
 												</div>
-												<div className="edit-grp">
+												<div className="edit-grp reports-edit-grp">
 													<Button
 														value="Create report"
 														className=" create-btn"
