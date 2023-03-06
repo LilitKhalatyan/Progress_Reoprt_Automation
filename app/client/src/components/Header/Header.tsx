@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Avatar from 'react-avatar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../asset/images/logo.svg';
+import { userSelector } from '../../redux/auth/authSelector';
 import { logoutAction } from '../../redux/auth/authSlice';
 import './header.scss';
 
 const Header: React.FC = () => {
 	const [user, setUser] = useState('');
+	const userFromSelector = useSelector(userSelector);
 
 	useEffect(() => {
 		setUser(
@@ -21,7 +23,11 @@ const Header: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const handleListItemClick = () => {
-		navigate('settings');
+		if (userFromSelector.roles === "ADMIN") {
+			navigate('settings');
+		} else {
+			navigate('trainer/settings');
+		}
 	};
 
 	const isLogout = (e: React.MouseEvent<HTMLElement>) => {

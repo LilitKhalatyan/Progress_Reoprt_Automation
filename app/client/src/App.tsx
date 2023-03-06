@@ -49,6 +49,7 @@ function App() {
 								<Route path="/trainer/subjects" element={<TrainerSubjects />} />
 								<Route path="/trainer/students" element={<TrainerStudents />} />
 								<Route path="/trainer/reports" element={<TrainerReports />} />
+								<Route path="/trainer/settings" element={<Settings />} />
 							</Route>
 						</Route>
 						<Route path="*" element={<NotFound />} />
