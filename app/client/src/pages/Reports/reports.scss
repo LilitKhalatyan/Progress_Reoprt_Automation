@@ -115,10 +115,29 @@
 	top: 10px;
 	right: 10px;
 }
+@media (max-width: 1024.98px) {
+	.send-btn {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		button {
+			width: 24%;
+		}
+	}
+	.create-btn {
+		width: 100%;
+		margin-bottom: 12px;
+	}
+}
 
 @media (max-width: 991.98px) {
 	.reports-edit-grp {
 		width: 20%;
+	}
+	.send-btn {
+		button {
+			width: 22%;
+		}
 	}
 	.create-btn {
 		width: 100%;
@@ -126,6 +145,15 @@
 	}
 }
 @media (max-width: 767.98px) {
+	.send-btn {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		button {
+			width: 42%;
+			font-size: 14px;
+		}
+	}
 	.create-btn {
 		width: 100%;
 		margin-bottom: 12px;
