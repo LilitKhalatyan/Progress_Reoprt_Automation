@@ -36,6 +36,8 @@ export const getSubjectByCourseService = async (id: string): Promise<Response> =
 // --start
 // app.get("/subject/trainer/:id", getSubjectsByTrainerId);
 export const getSubjectsByTrainerIdService = async (id: string): Promise<Response> => {
+	console.log(id);
+	
 	const subjectData = await fetch(`http://localhost:3303/subject/trainer/${id}`, {
 		method: 'GET',
 		credentials: 'include',
@@ -71,6 +73,7 @@ export const deleteSubjectByIdService = async (id: any): Promise<Response> => {
 	});
 	return subjectData;
 };
+// /subject/trainers/:id
 
 export const createSubjectService = async (data: TSubject): Promise<Response> => {
 	const subjectData = await fetch(`http://localhost:3303/subject/create`, {

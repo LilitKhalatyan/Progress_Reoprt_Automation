@@ -29,11 +29,17 @@ import {
 } from '../../utils/motion/userList';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { courseReset, getCoursesByTrainerIdAction } from '../../redux/course/courseSlice';
+import { getSubjectByCourseAction, getSubjectByTrainerIdAction, subjectReset } from '../../redux/subject/subjectSlice';
+import { subjectSelector, subjectsSelector } from '../../redux/subject/subjectSelector';
+import TrainerPopUp from './AddTrainerReports';
 
 const TrainerReports: React.FC = () => {
 	const dispatch = useDispatch();
+	const [show, setShow] = useState(false);
+	const [name, setName] = useState("")
 	const [loading, setLoading] = useState(true);
 	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
+	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
 	const auth = useSelector(authSelector);
 	const user = useSelector(userSelector);
 	const students = useSelector(studentsSelector);
@@ -41,35 +47,42 @@ const TrainerReports: React.FC = () => {
 	const error = useSelector(errorSelector);
 	const message = useSelector(messageSelector);
 	const courses = useSelector(coursesSelector);
+	const subjects = useSelector(subjectsSelector);
 	const courseIds: any = [];
 	courses.map((elem) => courseIds.push(elem.id));
 	const coursesOptions = courses.map((item) => {
 		return { value: item.name, label: item.name, id: item.id };
 	});
+	const subjectsOptions = subjects.map((item) => {		
+		return { value: item.name, label: item.name, id: item.id, staffId: item.staffId };
+	});
+console.log(subjectsSelectedOption);
 
 	useEffect(() => {
-		console.log(courseIds);
 		if (auth && localStorage.getItem('user')) {
 			dispatch(getStudenstByCoursesAction(courseIds));
 			dispatch(getCoursesByTrainerIdAction(user.id));
+			dispatch(getSubjectByTrainerIdAction(user.id));
 		}
 		return () => {
 			dispatch(studentReset());
 			dispatch(courseReset());
+			dispatch(subjectReset());
 		};
 	}, []);
 
 	useEffect(() => {
-		console.log(courseIds);
 		dispatch(getStudenstByCoursesAction(courseIds));
 	}, [courses]);
 
 	const handleSelectChange = (coursesSelectedOption: any) => {
 		setCoursesSelectedOption(coursesSelectedOption);
-		if (coursesSelectedOption.id === 'All') {
+		if (coursesSelectedOption.id === 'All') {			
 			dispatch(getStudenstByCoursesAction(courseIds));
+			dispatch(getSubjectByTrainerIdAction(user.id));
 			return;
 		}
+				dispatch(getSubjectByCourseAction(coursesSelectedOption.id))
 		dispatch(getStudenstByCoursesAction([coursesSelectedOption.id]));
 	};
 
@@ -82,6 +95,8 @@ const TrainerReports: React.FC = () => {
 				transition={userListTransit}
 				className="users__container"
 			>
+											
+
 				<div className="users__content">
 					<div className="wrapper-line">
 						<motion.h2
@@ -95,11 +110,37 @@ const TrainerReports: React.FC = () => {
 							Reports
 						</motion.h2>
 						<div className="users__header">
+
 							<div className="head-filter__grp">
+							{show && <TrainerPopUp setShow={setShow} show={show} btnType={name}/>}
+
 								<Select
 									value={coursesSelectedOption}
 									onChange={handleSelectChange}
 									options={[{ value: 'All', label: 'All', id: 'All' }, ...coursesOptions]}
+									styles={{
+										control: (baseStyles, state) => ({
+											...baseStyles,
+											border: state.isFocused ? 0 : 0,
+											boxShadow: '0 !important',
+										}),
+										dropdownIndicator: (provided, state) => ({
+											...provided,
+											width: '30px',
+											cursor: 'pointer',
+										}),
+										option: (provided, state) => ({
+											...provided,
+											cursor: 'pointer',
+											fontSize: '12px',
+										}),
+									}}
+									className="react-select"
+								/>
+								<Select
+									value={subjectsSelectedOption}
+									onChange={(e:any)=>{setSubjectsSelectedOption(e)}}
+									options={subjectsOptions}
 									styles={{
 										control: (baseStyles, state) => ({
 											...baseStyles,
@@ -147,22 +188,26 @@ const TrainerReports: React.FC = () => {
 														<span>{item.surname}</span>
 														<span>{item.email}</span>
 													</div>
+													
 													<div className="edit-grp">
 														<Button
-															value="Create report"
+															value="update"
 															className=" create-btn"
-															title="Create report"
+															title="update"
 															dataId={item.id}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-																// localStorage.setItem(
-																// 	'reports',
-																// 	JSON.stringify({
-																// 		subject: searchParams.subject,
-																// 		staff: searchParams.staff,
-																// 		student: e.currentTarget.dataset.id,
-																// 	})
-																// );
-																// navigate('/send-report');
+																setShow(true);
+																setName("update")
+															}}
+														/>
+														<Button
+															value="create"
+															className=" create-btn"
+															title="create"
+															dataId={item.id}
+															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+																setShow(true);
+																setName("create")
 															}}
 														/>
 													</div>

@@ -87,7 +87,10 @@ function* getSubjectsByTrainerId(data: ISubjectId) {
 		if (!response.ok) {
 			throw new Error('Subjects get failed');
 		}
+		
 		const subject: TSubject[] = yield response.json() as Promise<TSubject[]>;
+		console.log(subject);
+
 		yield put(getSubjectByTrainerIdSuccesed(subject));
 	} catch (error: any) {
 		yield put(getSubjectByTrainerIdFailed(error.message));
