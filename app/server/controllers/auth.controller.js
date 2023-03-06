@@ -50,8 +50,8 @@ const signup = async (req, res) => {
                     <h3>Hi ${staff.name} ${staff.surname} jan!</h3>
                     <p>You became a user in sourcemind report.
                     Here is your username and password.</p>
-                    <p> Login: <b>${staff.email}</b>.</p>
-                    <p>Password: <b>${password}</b>.</p>
+                    <p> Login: <b>${staff.email} </b>.</p>
+                    <p> Password: <b>${password} </b></p>
                 </div>`,
       text: ``,
     };
@@ -107,6 +107,7 @@ const login = async (req, res) => {
       maxAge: 15 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
+    
     res.cookie("access_token", token, { httpOnly: true });
     res.status(201).send({
       id: staff.id,
