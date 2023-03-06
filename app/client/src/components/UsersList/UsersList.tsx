@@ -118,7 +118,7 @@ const UsersList: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<hr />
-					<div className="user_list_wrap">
+					<div className={`user_list_wrap ${display && "blured"}`}>
 						<div className="main-users__list">
 							<>
 								{!loading && !error ? (

@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
 import Button from '../../components/Button/Button';
 import Spinner from '../../components/Spinner/Spinner';
 import { authSelector, userSelector } from '../../redux/auth/authSelector';
@@ -29,34 +28,42 @@ import {
 } from '../../utils/motion/userList';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { courseReset, getCoursesByTrainerIdAction } from '../../redux/course/courseSlice';
-import { getSubjectByCourseAction, getSubjectByTrainerIdAction, subjectReset } from '../../redux/subject/subjectSlice';
+import {
+	getSubjectByCourseAction,
+	getSubjectByTrainerIdAction,
+	subjectReset,
+} from '../../redux/subject/subjectSlice';
 import { subjectSelector, subjectsSelector } from '../../redux/subject/subjectSelector';
 import TrainerPopUp from './AddTrainerReports';
-
+import './trainerList.scss';
+import { getReportByStudentIdAction } from '../../redux/trainer/trainerSlice';
+import { trainerReportSelector } from '../../redux/trainer/trainerSelector';
 const TrainerReports: React.FC = () => {
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
-	const [name, setName] = useState("")
+	const [name, setName] = useState('');
 	const [loading, setLoading] = useState(true);
+	const [userId, setUserId] = useState<string | undefined>();
 	const [coursesSelectedOption, setCoursesSelectedOption] = useState();
-	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
+	const [subjectsSelectedOption, setSubjectsSelectedOption] = useState('');
+	// const [subjectsSelectedOption, setSubjectsSelectedOption] = useState();
 	const auth = useSelector(authSelector);
 	const user = useSelector(userSelector);
 	const students = useSelector(studentsSelector);
 	const loadingSel = useSelector(loadingSelector);
+	const report = useSelector(trainerReportSelector);
 	const error = useSelector(errorSelector);
 	const message = useSelector(messageSelector);
 	const courses = useSelector(coursesSelector);
 	const subjects = useSelector(subjectsSelector);
 	const courseIds: any = [];
 	courses.map((elem) => courseIds.push(elem.id));
-	const coursesOptions = courses.map((item) => {
-		return { value: item.name, label: item.name, id: item.id };
-	});
-	const subjectsOptions = subjects.map((item) => {		
-		return { value: item.name, label: item.name, id: item.id, staffId: item.staffId };
-	});
-console.log(subjectsSelectedOption);
+	// const coursesOptions = courses.map((item) => {
+	// 	return { value: item.name, label: item.name, id: item.id };
+	// });
+	// const subjectsOptions = subjects.map((item) => {
+	// 	return { value: item.name, label: item.name, id: item.id, staffId: item.staffId };
+	// });
 
 	useEffect(() => {
 		if (auth && localStorage.getItem('user')) {
@@ -75,15 +82,15 @@ console.log(subjectsSelectedOption);
 		dispatch(getStudenstByCoursesAction(courseIds));
 	}, [courses]);
 
-	const handleSelectChange = (coursesSelectedOption: any) => {
+	const handleSelectChange = (e: any) => {
 		setCoursesSelectedOption(coursesSelectedOption);
-		if (coursesSelectedOption.id === 'All') {			
+		if (e.target.value === 'All') {
 			dispatch(getStudenstByCoursesAction(courseIds));
 			dispatch(getSubjectByTrainerIdAction(user.id));
 			return;
 		}
-				dispatch(getSubjectByCourseAction(coursesSelectedOption.id))
-		dispatch(getStudenstByCoursesAction([coursesSelectedOption.id]));
+		dispatch(getSubjectByCourseAction(e.target.value));
+		dispatch(getStudenstByCoursesAction([e.target.value]));
 	};
 
 	return (
@@ -95,8 +102,6 @@ console.log(subjectsSelectedOption);
 				transition={userListTransit}
 				className="users__container"
 			>
-											
-
 				<div className="users__content">
 					<div className="wrapper-line">
 						<motion.h2
@@ -110,60 +115,52 @@ console.log(subjectsSelectedOption);
 							Reports
 						</motion.h2>
 						<div className="users__header">
-
-							<div className="head-filter__grp">
-							{show && <TrainerPopUp setShow={setShow} show={show} btnType={name}/>}
-
-								<Select
-									value={coursesSelectedOption}
-									onChange={handleSelectChange}
-									options={[{ value: 'All', label: 'All', id: 'All' }, ...coursesOptions]}
-									styles={{
-										control: (baseStyles, state) => ({
-											...baseStyles,
-											border: state.isFocused ? 0 : 0,
-											boxShadow: '0 !important',
-										}),
-										dropdownIndicator: (provided, state) => ({
-											...provided,
-											width: '30px',
-											cursor: 'pointer',
-										}),
-										option: (provided, state) => ({
-											...provided,
-											cursor: 'pointer',
-											fontSize: '12px',
-										}),
+							<div className="head-filter__grp trainerReport" >
+								{show && (
+									<TrainerPopUp
+										userId={userId}
+										setShow={setShow}
+										show={show}
+										btnType={name}
+										subjectsSelectedOption={subjectsSelectedOption}
+									/>
+								)}
+								<select  className="users-sort" onChange={handleSelectChange}>
+									<option key={''} value="Select course" disabled selected hidden>
+										Select course
+									</option>
+									<option key={''} value="All">
+										All
+									</option>
+									{courses.map((option) => {
+										return (
+											<option key={''} value={option.id}>
+												{option.name}
+											</option>
+										);
+									})}
+								</select>
+								<select
+									className="users-sort"
+									onChange={(e) => {
+										setSubjectsSelectedOption(e.target.value);
 									}}
-									className="react-select"
-								/>
-								<Select
-									value={subjectsSelectedOption}
-									onChange={(e:any)=>{setSubjectsSelectedOption(e)}}
-									options={subjectsOptions}
-									styles={{
-										control: (baseStyles, state) => ({
-											...baseStyles,
-											border: state.isFocused ? 0 : 0,
-											boxShadow: '0 !important',
-										}),
-										dropdownIndicator: (provided, state) => ({
-											...provided,
-											width: '30px',
-											cursor: 'pointer',
-										}),
-										option: (provided, state) => ({
-											...provided,
-											cursor: 'pointer',
-											fontSize: '12px',
-										}),
-									}}
-									className="react-select"
-								/>
+								>
+									<option key={''} value="Select subject" disabled selected>
+										Select subject
+									</option>
+									{subjects.map((option) => {
+										return (
+											<option key={''} value={option.id}>
+												{option.name}
+											</option>
+										);
+									})}
+								</select>
 							</div>
 						</div>
 						<hr />
-						<div className="user_list_wrap">
+						<div className={`user_list_wrap ${show && 'blured'}`}>
 							<div className="main-users__list">
 								{!loading && !error ? (
 									<>
@@ -188,26 +185,33 @@ console.log(subjectsSelectedOption);
 														<span>{item.surname}</span>
 														<span>{item.email}</span>
 													</div>
-													
+
 													<div className="edit-grp">
 														<Button
 															value="update"
-															className=" create-btn"
+															className={` create-btn ${!subjectsSelectedOption && 'blured'}`}
 															title="update"
 															dataId={item.id}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+																setUserId(e.currentTarget.dataset.id);
 																setShow(true);
-																setName("update")
+																setName('update');
+																const data = {
+																	studentId: e.currentTarget.dataset.id,
+																	subjectId: subjectsSelectedOption,
+																};
+																dispatch(getReportByStudentIdAction(data));
 															}}
 														/>
 														<Button
 															value="create"
-															className=" create-btn"
+															className={` create-btn ${!subjectsSelectedOption && 'blured'}`}
 															title="create"
 															dataId={item.id}
 															onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+																setUserId(e.currentTarget.dataset.id);
 																setShow(true);
-																setName("create")
+																setName('create');
 															}}
 														/>
 													</div>
